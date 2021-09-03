@@ -1,0 +1,990 @@
+// Inicializando la libreria CKEDITOR
+CKEDITOR.replace('documentoContrato');
+
+/*=============================================
+CARGAR LA TABLA DINÁMICA DE PERSONA CONTRATOS
+=============================================*/
+
+var perfilOculto = $("#perfilOculto").val();
+var idPersona = $("#idPersona").val();
+
+var tablaPersonaContratos = $('#tablaPersonaContratos').DataTable({
+
+	"ajax": "../ajax/datatable-persona_contratos.ajax.php?perfilOculto="+perfilOculto+"&idPersona="+idPersona,
+
+	"deferRender": true,
+
+	"retrieve" : true,
+
+	"processing" : true,
+
+	"language": {
+
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ",",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+		"sFirst":    "Primero",
+		"sLast":     "Último",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		},
+		"buttons": {
+			"copy": "Copiar",
+    		"colvis": "Visibilidad de columnas"
+    	}
+		
+	},
+
+	// "responsive": true,
+
+	"lengthChange": false,
+
+}); 
+
+/*=============================================
+SI EL TIPO DE CONTRATO ES SUPLENCIA APARECE LA OPCION PARA ELEGIR TIPO DE SUPLENCIA
+=============================================*/
+
+$(document).on("change", "#nuevoTipoContrato", function() {
+
+	if ($(this).val() == "1") {
+		
+		$("#contratoSuplencia").removeClass("d-none");
+
+	} else {
+
+		$("#contratoSuplencia").addClass("d-none");
+
+	}
+	
+});
+
+/*=============================================
+VALIDANDO DATOS DE NUEVO PERSONA CONTRATO
+=============================================*/
+$("#frmNuevoPersonaContrato").validate({
+
+	rules: {
+		nuevoEstablecimiento : { required: true},
+ 		nuevoCargoEmpleado : { required: true},
+ 		nuevoFechaInicio : { required: true},
+ 		nuevoDiasContrato : {required: true},
+ 		nuevoFechaFin : { required: true},
+ 		nuevoTipoContrato : { required: true},   		
+ 		nuevoObservacionesEmpleado : { patron_textoEspecial: true},   
+	},
+
+  messages: {
+		nuevoEstablecimiento : "Elija un establecimiento",
+		nuevoBuscarPersona : "Elija una persona",
+		nuevoCargoEmpleado : "Elija un cargo",
+		nuevoTipoContrato : "Elija una tipo de contrato",
+	},
+
+});
+
+/*=============================================
+GUARDANDO DATOS DE NUEVO PERSONA CONTRATO
+=============================================*/
+
+$("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
+
+	var idPersona = $("#nuevoIdPersona").val();
+
+    if ($("#frmNuevoPersonaContrato").valid()) {
+
+    	// console.log("VALIDADO PERSONA CONTRATO");
+
+    	var datos = new FormData($("#frmNuevoPersonaContrato")[0]);
+		datos.append("nuevoPersonaContratos", 'nuevoPersonaContratos');
+
+		$.ajax({
+
+			url:"../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "html",
+			success: function(respuesta) {
+				console.log("respuesta", respuesta);
+			
+				if (respuesta == "ok") {
+
+					swal.fire({
+						
+						icon: "success",
+						title: "¡Los datos se guardaron correctamente!",
+						showConfirmButton: true,
+						allowOutsideClick: false,
+						confirmButtonText: "Cerrar"
+
+					}).then((result) => {
+	  					
+	  					if (result.value) {
+
+	  						window.location = "https://localhost/rrhhcnspt/detalle-persona/"+idPersona;
+
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+							
+						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales1!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
+					
+				}
+
+			},
+			error: function(error) {
+
+	      		console.log("No funciona");
+	        
+	    	}
+
+		});
+
+    } else {
+
+		swal.fire({
+				
+			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales2!",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+		
+	} 
+
+});
+
+/*=============================================
+CARGANDO DATOS DE EMPLEADO AL FORMULARIO EDITAR PERSONA CONTRATO
+=============================================*/
+
+$(document).on("click", ".btnEditarPersonaContrato", function() {
+
+	// console.log("CARGAR EMPLEADO");
+
+	var id_persona_contrato = $(this).attr("idPersonaContrato");
+
+	var datos = new FormData();
+	datos.append("mostrarPersonaContrato", 'mostrarPersonaContrato');
+	datos.append("id_persona_contrato", id_persona_contrato);
+
+	$.ajax({
+
+		url: "../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta) {
+			console.log("respuesta", respuesta);
+
+			// cargando datos de establecimientos
+			$("#editarEstablecimiento").empty().append('<option value="'+respuesta["id_establecimiento"]+'" select>'+respuesta["nombre_establecimiento"]+'</option>')
+			
+			var datos2 = new FormData();
+			datos2.append("buscadorEstablecimientos", 'buscadorEstablecimientos');
+			datos2.append("id_establecimiento", respuesta["id_establecimiento"]);
+
+			$.ajax({
+
+				url: "../ajax/establecimientos.ajax.php",
+				method: "POST",
+				data: datos2,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarEstablecimiento").append('<option value="'+val.id_establecimiento+'">'+val.nombre_establecimiento+'</option>')
+
+					});
+
+				},
+				error: function(error){
+
+		      console.log("No funciona");
+		        
+		    }
+
+			});
+
+			// // cargando datos de personas
+			// $('#editarBuscarPersona').empty().prepend("<option value='"+respuesta["id_persona"]+"' >"+respuesta["nombre_completo"]+"</option>");
+			$('#editarBuscarPersona').val(respuesta["nombre_completo"]);
+			$('#editarIdPersona').val(respuesta["id_persona"]);
+			$('#editarCIEmpleado').val(respuesta["ci_persona"]);
+			$('#editarFechaNacimientoEmpleado').val(respuesta["fecha_nacimiento"]);
+			
+			
+			// cargando datos de cargos
+			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+'</option>')
+
+			var datos3 = new FormData();
+			datos3.append("buscadorCargos", 'buscadorCargos');
+			datos3.append("id_cargo", respuesta["id_cargo"]);
+
+			$.ajax({
+
+				url: "../ajax/cargos.ajax.php",
+				method: "POST",
+				data: datos3,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarCargoEmpleado").append('<option value="'+val.id_cargo+'">'+val.nombre_cargo+'</option>')
+
+					});
+
+				},
+				error: function(error){
+
+		      		console.log("No funciona");
+		        
+		    	}
+
+			});
+
+			$('#editarFechaInicio').val(respuesta["inicio_contrato"]);
+			$('#editarFechaFin').val(respuesta["fin_contrato"]);
+			$('#editarDiasContrato').val(respuesta["dias_contrato"]);
+
+			// cargando datos de contratos 
+			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+'</option>')
+
+			var datos4 = new FormData();
+			datos4.append("buscadorContratos", 'buscadorContratos');
+			datos4.append("id_contrato", respuesta["id_contrato"]);
+
+			$.ajax({
+
+				url: "../ajax/contratos.ajax.php",
+				method: "POST",
+				data: datos4,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+'</option>')
+
+					});
+
+				},
+				error: function(error){
+
+		      		console.log("No funciona");
+		        
+		    	}
+
+			});
+
+			if (respuesta["id_contrato"] == 1) {
+
+				$("#editarContratoSuplencia").removeClass("d-none");
+
+			} else {
+
+				$("#editarContratoSuplencia").addClass("d-none");
+
+			}
+
+			// cargando datos de suplencia 
+			$("#editarTipoSuplencia").empty().append('<option value="'+respuesta["id_suplencia"]+'">'+respuesta["tipo_suplencia"]+'</option>')
+
+			var datos5 = new FormData();
+			datos5.append("buscadorTipoSuplencias", 'buscadorTipoSuplencias');
+			datos5.append("id_suplencia", respuesta["id_suplencia"]);
+
+			$.ajax({
+
+				url: "../ajax/suplencias.ajax.php",
+				method: "POST",
+				data: datos5,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarTipoSuplencia").append('<option value="'+val.id_suplencia+'">'+val.tipo_suplencia+'</option>')
+
+					});
+
+				},
+				error: function(error){
+
+		      console.log("No funciona");
+		        
+		    }
+
+			});
+
+			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
+			$('#editarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
+
+		},
+	    error: function(error){
+
+	      console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+SI EL TIPO DE CONTRATO ES SUPLENCIA APARECE LA OPCION PARA ELEGIR TIPO DE SUPLENCIA EN EDITAR
+=============================================*/
+
+$(document).on("change", "#editarTipoContrato", function() {
+
+	if ($(this).val() == "1") {
+		
+		$("#editarContratoSuplencia").removeClass("d-none");
+
+	} else {
+
+		$("#editarContratoSuplencia").addClass("d-none");
+
+	}
+	
+});
+
+/*=============================================
+VALIDANDO DATOS DE EDITAR EMPLEADO
+=============================================*/
+$("#frmEditarPersonaContrato").validate({
+
+	rules: {
+		editarEstablecimiento : { required: true},
+		editarBuscarPersona : { required: true},
+ 		editarCargoEmpleado : { required: true},
+ 		editarFechaInicio : { required: true},
+ 		editarFechaFin : { required: true},
+ 		editarDiasContrato : { required: true}, 
+ 		editarTipoContrato : { required: true},   		
+ 		editarObservacionesEmpleado : { patron_textoEspecial: true},   
+	},
+
+	messages: {
+		editarEstablecimiento : "Elija un establecimiento",
+		editarCargoEmpleado : "Elija un cargo",
+		editarTipoContrato : "Elija una tipo de contrato",
+	},
+
+});
+
+/*=============================================
+GUARDANDO DATOS DE EDITAR EMPLEADO
+=============================================*/
+
+$("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
+
+    if ($("#frmEditarPersonaContrato").valid()) {
+
+		var datos = new FormData($("#frmEditarPersonaContrato")[0]);
+		datos.append("editarPersonaContrato", 'editarPersonaContrato');
+
+		// console.log("datos", datos);
+
+		$.ajax({
+
+			url:"../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "html",
+			success: function(respuesta) {
+
+				console.log("respuesta", respuesta);
+			
+				if (respuesta == "ok") {
+
+					swal.fire({
+						
+						icon: "success",
+						title: "¡Los datos se actualizaron correctamente!",
+						showConfirmButton: true,
+						allowOutsideClick: false,
+						confirmButtonText: "Cerrar"
+
+					}).then((result) => {
+	  					
+		  				if (result.value) {
+
+		  					$('#modalEditarPersonaContrato').modal('toggle');
+
+		  					// $("#editarEstablecimiento").remove();
+								$("#editarBuscarPersona").val("");		
+								$("#editarCIEmpleado").val("");
+								$("#editarFechaNacimientoEmpleado").val("");
+								// $("#editarCargoEmpleado").remove();
+								$("#editarFechaInicio").val("");
+								$("#editarFechaFin").val("");
+								$("#editarDiasContrato").val("");
+								// $("#editarTipoContrato").remove();
+								$("#editarObservacionesEmpleado").val("");
+								// $("#editarIdEmpleado").val("");
+
+		  						// Funcion que recarga y actuaiiza la tabla	
+
+								tablaPersonaContratos.ajax.reload( null, false );
+
+		  						// window.location = "empleados";
+
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+							
+						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
+					
+				}
+
+			},
+			error: function(error) {
+
+		        console.log("No funciona");
+		        
+		    }
+
+		});
+
+    } else {
+
+		swal.fire({
+				
+			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+		
+	} 
+
+});
+
+/*=============================================
+CARGANDO DATOS DE DOCUMENTO CONTRATO AL FORMULARIO 
+=============================================*/
+
+$(document).on("click", ".btnDocumentoContrato", function() {
+
+	// console.log("CARGAR CONTRATO");
+
+	var id_persona_contrato = $(this).attr("idPersonaContrato");
+
+	var datos = new FormData();
+	datos.append("mostrarDocumentoContrato", 'mostrarDocumentoContrato');
+	datos.append("id_persona_contrato", id_persona_contrato);
+
+	$.ajax({
+
+		url: "../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta) {
+			// console.log("respuesta", respuesta["documento_contrato"]);
+	 
+			var value = CKEDITOR.instances.documentoContrato.setData(respuesta["documento_contrato"]);
+
+			$('#editarIdDocumentoContrato').val(respuesta["id_persona_contrato"]);
+			
+		},
+	    error: function(error){
+
+	      console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+GUARDANDO DATOS DE EDITAR EMPLEADO
+=============================================*/
+
+$("#frmEditarDocumentoContrato").on("click", ".btnGuardar", function() {
+
+	var documento = CKEDITOR.instances.documentoContrato.getData();
+
+	var datos = new FormData($("#frmEditarDocumentoContrato")[0]);
+	datos.append("editarDocumentoContrato", 'editarDocumentoContrato');
+	datos.append("documento", documento);
+
+	console.log("datos", datos);
+
+	$.ajax({
+
+		url:"../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "html",
+		success: function(respuesta) {
+
+			console.log("respuesta", respuesta);
+		
+			if (respuesta == "ok") {
+
+				swal.fire({
+					
+					icon: "success",
+					title: "¡Los datos se actualizaron correctamente!",
+					showConfirmButton: true,
+					allowOutsideClick: false,
+					confirmButtonText: "Cerrar"
+
+				}).then((result) => {
+  					
+  					if (result.value) {
+
+	  					$('#modalEditarDocumentoContrato').modal('toggle');
+
+					}
+
+				});
+
+			} else {
+
+				swal.fire({
+						
+					title: "¡Error al guardar el contrato!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
+				
+			}
+
+		},
+		error: function(error) {
+
+	        console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+BOTÓN GENERERAR PDF PARA IMPRIMIR CONTRATO EN PDF
+=============================================*/
+
+$(document).on("click", "button.btnImprimirContrato", function() {
+	
+	var id_persona_contrato = $(this).attr("idPersonaContrato");
+	console.log("id_persona_contrato", id_persona_contrato);
+
+	var datos = new FormData();
+
+	datos.append("ContratoPDF", "ContratoPDF");
+	datos.append("id_persona_contrato", id_persona_contrato);
+
+	//Para mostrar alerta personalizada de loading
+	swal.fire({
+        text: 'Procesando...',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        onOpen: () => {
+            swal.showLoading()
+        }
+    });
+
+	$.ajax({
+
+		url: "../ajax/persona_contratos.ajax.php",
+		type: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(respuesta) {
+
+			//Para cerrar la alerta personalizada de loading
+			swal.close();
+
+			$('#ver-pdf').modal({
+
+				show:true,
+				backdrop:'static'
+
+			});	
+
+			PDFObject.embed("https://localhost/rrhhcnspt/temp/contrato-"+id_persona_contrato+".pdf", "#view_pdf");
+
+		}
+
+	});
+
+});
+
+/*=============================================
+BOTON QUE PARA CERRAR LA VENTANA MODAL DEL REPORTE PDF Y ELIMINA EL ARCHIVO TEMPORAL
+=============================================*/
+
+$("#ver-pdf").on("click", ".btnCerrar", function() {
+
+	var url = $(this).parent().parent().children(".modal-body").children().children().attr("src");
+	console.log("url", url);
+
+	var datos = new FormData();
+
+	datos.append("eliminarPDF", "eliminarPDF");
+	datos.append("url", url);
+
+	$.ajax({
+
+		url: "../ajax/persona_contratos.ajax.php",
+		type: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(respuesta) {
+		
+		}
+
+	});
+
+});
+
+/*=============================================
+VALIDAR CONTRATO
+=============================================*/
+
+$(document).on("click", ".btnValidarContrato", function() {
+	
+	// var idUsuario = $(this).attr("idUsuario");
+	// var estadoUsuario = $(this).attr("estadoUsuario");
+
+	// var datos = new FormData();
+	// datos.append("activarId", idUsuario);
+	// datos.append("activarUsuario", estadoUsuario);
+
+	swal.fire({
+
+		title: "¿Está seguro de validar el contrato?",
+		text: "¡Si no lo está puede cancelar la acción!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "¡Si, validar!"
+
+	}).then((result)=> {
+
+		var id_persona_contrato = $(this).attr("idPersonaContrato");
+		console.log("id_persona_contrato", id_persona_contrato);
+
+		var datos = new FormData();
+
+		datos.append("ValidarContrato", "ValidarContrato");
+		datos.append("id_persona_contrato", id_persona_contrato);
+
+		$.ajax({
+
+			url: "../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(respuesta) {
+				
+				if (window.matchMedia("(max-width:767px)").matches) {
+
+					swal.fire({
+						
+						title: "El contrato ha sido validado",
+						icon: "success",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					}).then(function(result) {
+
+						if (result.value) {
+
+							window.location = "usuarios";
+						}
+
+					});
+
+				} else {
+
+					// swal.fire({
+						
+					// 	title: "El contrato ha sido validado",
+					// 	icon: "success",
+					// 	allowOutsideClick: false,
+					// 	confirmButtonText: "¡Cerrar!"
+
+					// });
+
+				}
+
+			}
+
+		});
+
+		// if (estadoUsuario == 0) {
+
+		// 	$(this).removeClass('btn-success');
+		// 	$(this).addClass('btn-danger');
+		// 	$(this).html('INACTIVO');
+		// 	$(this).attr('estadoUsuario', 1);
+
+		// } else {
+
+		// 	$(this).addClass('btn-success');
+		// 	$(this).removeClass('btn-danger');
+		// 	$(this).html('ACTIVO');
+		// 	$(this).attr('estadoUsuario', 0);
+
+		// }
+
+	});
+
+});
+
+/*=============================================
+CARGANDO DATOS DE IMAGEN DEL CONTRATO AL FORMULARIO 
+=============================================*/
+
+$(document).on("click", ".btnCargarContrato", function() {
+
+	// console.log("CARGAR CONTRATO");
+
+	var id_persona_contrato = $(this).attr("idPersonaContrato");
+
+	var datos = new FormData();
+	datos.append("cargarArchivoContrato", 'cargarArchivoContrato');
+	datos.append("id_persona_contrato", id_persona_contrato);
+
+	// $.ajax({
+
+	// 	url: "../ajax/persona_contratos.ajax.php",
+	// 	method: "POST",
+	// 	data: datos,
+	// 	cache: false,
+	// 	contentType: false,
+	// 	processData: false,
+	// 	dataType: "json",
+	// 	success: function(respuesta) {
+	// 		// console.log("respuesta", respuesta["documento_contrato"]);
+
+	// 		$('#editarIdDocumentoContrato').val(respuesta["id_persona_contrato"]);
+			
+	// 	},
+	//     error: function(error){
+
+	//       console.log("No funciona");
+	        
+	//     }
+
+	// });
+
+});
+
+/*=============================================
+SUBIENDO EL ARCHIVO DEL FORMULARIO 
+=============================================*/
+$(".archivoContrato").change(function() {
+ 	
+ 	var archivo = this.files[0];
+
+	console.log("archivo", archivo["type"]);
+
+ 	/*=============================================
+	SUBIENDO EL ARCHIVO DEL CONTRATO
+	=============================================*/
+
+	if (archivo["type"] != "application/pdf") {
+
+		$(".archivoContrato").val("");
+
+		swal.fire({
+			
+			title: "Error al subir el archivo",
+			text: "La archivo debe estar en formato PDF",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+
+	} else if(archivo["size"] > 5000000) {
+
+		$(".archivoContrato").val("");
+
+		swal.fire({
+
+			title: "Error al subir el archivo",
+			text: "El archivo no debe pesar mas de 5MB",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+
+	} else {
+
+		var datosArchivo = new FileReader;
+		datosArchivo.readAsDataURL(archivo);
+
+		$(datosArchivo).on("load", function(event){
+
+			var rutaArchivo = event.target.result;
+			$(".previsualizar").attr("src", rutaArchivo);
+
+		});
+
+	}
+
+});
+
+/*=============================================
+GUARDANDO ARCHIVO CONTRATO
+=============================================*/
+
+$("#frmCargarArchivoContrato").on("click", ".btnGuardar", function() {
+
+	console.log("cargarArchivoContrato", 'cargarArchivoContrato');
+
+	var datos = new FormData($("#frmCargarArchivoContrato")[0]);
+	datos.append("cargarArchivoContrato", 'cargarArchivoContrato');
+
+	$.ajax({
+
+		url:"../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "html",
+		success: function(respuesta) {
+
+			console.log("respuesta", respuesta);
+		
+			if (respuesta == "ok") {
+
+				swal.fire({
+					
+					icon: "success",
+					title: "¡El archivo se guardo correctamente!",
+					showConfirmButton: true,
+					allowOutsideClick: false,
+					confirmButtonText: "Cerrar"
+
+				}).then((result) => {
+  					
+  					if (result.value) {
+
+	  					$('#modalCargarArchivoContrato').modal('toggle');
+
+					}
+
+				});
+
+			} else {
+
+				swal.fire({
+						
+					title: "¡Error al guardar el archivo!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
+				
+			}
+
+		},
+		error: function(error) {
+
+	        console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+ELIMINADO ARCHIVO CONTRATO PREVISUALIZADO
+=============================================*/
+
+$("#frmCargarArchivoContrato").on("click", ".btnCerrar", function() {
+
+
+	console.log("btnCerrar", "btnCerrar");
+
+	$(".previsualizar").attr("src", "");
+
+});

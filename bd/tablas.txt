@@ -1,0 +1,44 @@
+
+// tabla empleados
+
+create table empleados(
+	id_empleado serial,
+	id_persona numeric,
+	id_establecimiento numeric,
+	id_cargo numeric,
+	id_contrato numeric,
+ 	fecha_inicio_contrato date,
+	dias_contrato smallint,
+	fecha_fin_contrato date,
+	estado_empleado smallint,
+	observaciones text,
+	primary key (id_empleado)
+);
+
+//tabla establecimiento//
+
+create table establecimientos(
+	id_establecimiento serial,
+	nombre_establecimiento character varying(100),
+	abrev_establecimiento character varying(10),
+	primary key (id_establecimiento)
+);
+
+//tabla contratos//
+
+create table contratos(
+	id_contrato serial,
+	nombre_contrato character varying(200),
+	proposito_contrato character varying(200),
+	primary key (id_contrato)
+);
+
+//tabla cargos//
+
+create table cargos(
+	id_cargo serial,
+	nombre_cargo character varying(100),
+	haber_basico decimal (10,2),
+	hrs_semanales integer,
+	primary key (id_cargo)
+);

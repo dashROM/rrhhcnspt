@@ -1,0 +1,22 @@
+//Insertar Establecimientos//
+
+INSERT INTO establecimientos(nombre_establecimiento, abrev_establecimiento) 
+VALUES ('HOSPITAL OBRERO Nro. 5', 'HO5'),('POLICLINICO 10 DE NOVIEMBRE', 'P10N'),('ADMINISTRACION', 'ADM');
+
+//Insertar cargos//
+INSERT INTO `cargos_tbl` (`id_cargo`, `nombre_cargo`, `haber_basico`) VALUES
+(1, 'MÉDICO CIRUJANO', 8363),
+(2, 'BIOQUÍMICO', 7873),
+(3, 'FARMACEUTICO', 7873),
+(4, 'NUTRICIONISTA', 6205),
+(5, 'TRABAJADOR MANUAL', 4389),
+(6, 'LIC. ENFERMERIA', 6205),
+(7, 'AUX. ENFERMERIA', 5040),
+(8, 'ABOGADO', 7094),
+(9, 'TRABAJADOR SOCIAL', 6205),
+(10, 'CHOFER', 4415);
+
+/insertar contratos//
+INSERT INTO contratos (nombre_contrato, proposito_contrato) VALUES
+('SUPLENCIA','TEMPORAL'),
+('COVID-19','TEMPORAL');
