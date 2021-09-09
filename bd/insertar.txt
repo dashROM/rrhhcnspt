@@ -20,3 +20,11 @@ INSERT INTO `cargos_tbl` (`id_cargo`, `nombre_cargo`, `haber_basico`) VALUES
 INSERT INTO contratos (nombre_contrato, proposito_contrato) VALUES
 ('SUPLENCIA','TEMPORAL'),
 ('COVID-19','TEMPORAL');
+
+//Insertar cargos//
+INSERT INTO lugares (codificacion, nombre_lugar, tipo_lugar) VALUES
+('05','POTOSÍ', 'ADMINISTRACION REGIONAL'),
+('10','TUPIZA', 'AGENCIA DISTRITAL'),
+('11','UNCIA', 'AGENCIA DISTRITAL'),
+('12','UYUNI', 'AGENCIA DISTRITAL'),
+('13','ATOCHA', 'AGENCIA DISTRITAL');

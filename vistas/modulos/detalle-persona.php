@@ -198,6 +198,7 @@
                       
                       <tr>
                         <th>#</th>
+                        <th>LUGAR</th>
                         <th>ESTABLECIMIENTO</th>
                         <th>TIPO CONTRATO</th>
                         <th>CARGO</th>
@@ -280,11 +281,39 @@ MODAL AGREGAR PERSONA CONTRATO
 
             <div class="col-md-6 col-sm-6 col-xs-12">
 
+              <!-- ENTRADA PARA LUGAR -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="nuevoLugar">LUGAR DE TRABAJO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control form-control-sm select2" name="nuevoLugar" id="nuevoLugar" data-dropdown-css-class="select2-info" style="width: 100%;">
+                  
+                  <option value="">ELEGIR...</option>
+                  <?php 
+
+                    $item = null;
+                    $valor = null;
+
+                    $lugares = ControladorLugares::ctrMostrarLugares($item, $valor);
+
+                    foreach ($lugares as $key => $value) {
+                      
+                      echo '<option value="'.$value["id_lugar"].'">'.$value["codificacion"].'-'.$value["nombre_lugar"].'</option>';
+
+                    } 
+
+                  ?>
+
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA ESTABLECIMIENTO -->
             
               <div class="form-group">
               
-                <label class="font-weight-normal" for="nuevoEstablecimiento">LUGAR DE TRABAJO</label>
+                <label class="font-weight-normal" for="nuevoEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
                 <select class="form-control form-control-sm select2" name="nuevoEstablecimiento" id="nuevoEstablecimiento" data-dropdown-css-class="select2-info" style="width: 100%;">
                   
@@ -451,7 +480,7 @@ MODAL AGREGAR PERSONA CONTRATO
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoObservacionesContrato">OBSERVACIONES</label>
-                <textarea type="text" class="form-control mayuscula" rows="2" id="nuevoObservacionesContrato" name="nuevoObservacionesContrato">
+                <textarea type="text" class="form-control mayuscula" rows="4" id="nuevoObservacionesContrato" name="nuevoObservacionesContrato">
 
                 </textarea>
 
@@ -539,11 +568,23 @@ MODAL EDITAR PERSONA CONTRATO
 
             <div class="col-md-6 col-sm-6 col-xs-12">
 
+              <!-- ENTRADA PARA LUGAR -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="editarLugar">LUGAR DE TRABAJO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="custom-select select2" id="editarLugar" name="editarLugar" data-dropdown-css-class="select2-info" style="width: 100%;">
+
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA ESTABLECIMIENTO -->
             
               <div class="form-group">
               
-                <label class="font-weight-normal" for="editarEstablecimiento">LUGAR DE TRABAJO</label>
+                <label class="font-weight-normal" for="editarEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
                 <select class="custom-select select2" id="editarEstablecimiento" name="editarEstablecimiento" data-dropdown-css-class="select2-info" style="width: 100%;">
                 </select>

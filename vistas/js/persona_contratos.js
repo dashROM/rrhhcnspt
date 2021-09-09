@@ -79,6 +79,7 @@ VALIDANDO DATOS DE NUEVO PERSONA CONTRATO
 $("#frmNuevoPersonaContrato").validate({
 
 	rules: {
+		nuevoLugar : { required: true},
 		nuevoEstablecimiento : { required: true},
  		nuevoCargoEmpleado : { required: true},
  		nuevoFechaInicio : { required: true},
@@ -89,6 +90,7 @@ $("#frmNuevoPersonaContrato").validate({
 	},
 
   messages: {
+  		nuevoLugar : "Elija un lugar",
 		nuevoEstablecimiento : "Elija un establecimiento",
 		nuevoBuscarPersona : "Elija una persona",
 		nuevoCargoEmpleado : "Elija un cargo",
@@ -138,7 +140,22 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 	  					
 	  					if (result.value) {
 
-	  						window.location = "https://localhost/rrhhcnspt/detalle-persona/"+idPersona;
+	  						$('#modalAgregarPersonaContrato').modal('toggle');
+
+		  					// $("#nuevoEstablecimiento").remove();
+							// $("#nuevoCargoEmpleado").remove();
+							$("#nuevoFechaInicio").val("");
+							$("#nuevoFechaFin").val("");
+							$("#nuevoDiasContrato").val("");
+							// $("#nuevoTipoContrato").remove();
+							$("#nuevoObservacionesEmpleado").val("");
+
+	  						// Funcion que recarga y actuaiiza la tabla	
+
+							tablaPersonaContratos.ajax.reload( null, false );
+
+
+	  						// window.location = "https://localhost/rrhhcnspt/detalle-persona/"+idPersona;
 
 						}
 
@@ -207,18 +224,51 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 		success: function(respuesta) {
 			console.log("respuesta", respuesta);
 
+			// cargando datos de lugares
+			$("#editarLugar").empty().append('<option value="'+respuesta["id_lugar"]+'" select>'+respuesta["nombre_lugar"]+'</option>')
+			
+			var datosLugar = new FormData();
+			datosLugar.append("buscadorLugares", 'buscadorLugares');
+			datosLugar.append("id_lugar", respuesta["id_lugar"]);
+
+			$.ajax({
+
+				url: "../ajax/lugares.ajax.php",
+				method: "POST",
+				data: datosLugar,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarLugar").append('<option value="'+val.id_lugar+'">'+val.nombre_lugar+'</option>')
+
+					});
+
+				},
+				error: function(error) {
+
+			    	console.log("No funciona");
+			        
+			    }
+
+			});
+
 			// cargando datos de establecimientos
 			$("#editarEstablecimiento").empty().append('<option value="'+respuesta["id_establecimiento"]+'" select>'+respuesta["nombre_establecimiento"]+'</option>')
 			
-			var datos2 = new FormData();
-			datos2.append("buscadorEstablecimientos", 'buscadorEstablecimientos');
-			datos2.append("id_establecimiento", respuesta["id_establecimiento"]);
+			var datosEstablecimiento = new FormData();
+			datosEstablecimiento.append("buscadorEstablecimientos", 'buscadorEstablecimientos');
+			datosEstablecimiento.append("id_establecimiento", respuesta["id_establecimiento"]);
 
 			$.ajax({
 
 				url: "../ajax/establecimientos.ajax.php",
 				method: "POST",
-				data: datos2,
+				data: datosEstablecimiento,
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -232,11 +282,11 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 					});
 
 				},
-				error: function(error){
+				error: function(error) {
 
-		      console.log("No funciona");
-		        
-		    }
+			    	console.log("No funciona");
+			        
+			    }
 
 			});
 
@@ -251,15 +301,15 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			// cargando datos de cargos
 			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+'</option>')
 
-			var datos3 = new FormData();
-			datos3.append("buscadorCargos", 'buscadorCargos');
-			datos3.append("id_cargo", respuesta["id_cargo"]);
+			var datosCargo = new FormData();
+			datosCargo.append("buscadorCargos", 'buscadorCargos');
+			datosCargo.append("id_cargo", respuesta["id_cargo"]);
 
 			$.ajax({
 
 				url: "../ajax/cargos.ajax.php",
 				method: "POST",
-				data: datos3,
+				data: datosCargo,
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -288,15 +338,15 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			// cargando datos de contratos 
 			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+'</option>')
 
-			var datos4 = new FormData();
-			datos4.append("buscadorContratos", 'buscadorContratos');
-			datos4.append("id_contrato", respuesta["id_contrato"]);
+			var datosContrato = new FormData();
+			datosContrato.append("buscadorContratos", 'buscadorContratos');
+			datosContrato.append("id_contrato", respuesta["id_contrato"]);
 
 			$.ajax({
 
 				url: "../ajax/contratos.ajax.php",
 				method: "POST",
-				data: datos4,
+				data: datosContrato,
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -331,15 +381,15 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			// cargando datos de suplencia 
 			$("#editarTipoSuplencia").empty().append('<option value="'+respuesta["id_suplencia"]+'">'+respuesta["tipo_suplencia"]+'</option>')
 
-			var datos5 = new FormData();
-			datos5.append("buscadorTipoSuplencias", 'buscadorTipoSuplencias');
-			datos5.append("id_suplencia", respuesta["id_suplencia"]);
+			var datosSuplencia = new FormData();
+			datosSuplencia.append("buscadorTipoSuplencias", 'buscadorTipoSuplencias');
+			datosSuplencia.append("id_suplencia", respuesta["id_suplencia"]);
 
 			$.ajax({
 
 				url: "../ajax/suplencias.ajax.php",
 				method: "POST",
-				data: datos5,
+				data: datosSuplencia,
 				cache: false,
 				contentType: false,
 				processData: false,
@@ -394,11 +444,12 @@ $(document).on("change", "#editarTipoContrato", function() {
 });
 
 /*=============================================
-VALIDANDO DATOS DE EDITAR EMPLEADO
+VALIDANDO DATOS DE EDITAR PERSONA CONTRATO
 =============================================*/
 $("#frmEditarPersonaContrato").validate({
 
 	rules: {
+		editarLugar : { required: true},
 		editarEstablecimiento : { required: true},
 		editarBuscarPersona : { required: true},
  		editarCargoEmpleado : { required: true},
@@ -410,6 +461,7 @@ $("#frmEditarPersonaContrato").validate({
 	},
 
 	messages: {
+		editarLugar : "Elija un lugar",
 		editarEstablecimiento : "Elija un establecimiento",
 		editarCargoEmpleado : "Elija un cargo",
 		editarTipoContrato : "Elija una tipo de contrato",
@@ -418,7 +470,7 @@ $("#frmEditarPersonaContrato").validate({
 });
 
 /*=============================================
-GUARDANDO DATOS DE EDITAR EMPLEADO
+GUARDANDO DATOS DE EDITAR PERSONA CONTRATO
 =============================================*/
 
 $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
@@ -460,22 +512,22 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 		  					$('#modalEditarPersonaContrato').modal('toggle');
 
 		  					// $("#editarEstablecimiento").remove();
-								$("#editarBuscarPersona").val("");		
-								$("#editarCIEmpleado").val("");
-								$("#editarFechaNacimientoEmpleado").val("");
-								// $("#editarCargoEmpleado").remove();
-								$("#editarFechaInicio").val("");
-								$("#editarFechaFin").val("");
-								$("#editarDiasContrato").val("");
-								// $("#editarTipoContrato").remove();
-								$("#editarObservacionesEmpleado").val("");
-								// $("#editarIdEmpleado").val("");
+							$("#editarBuscarPersona").val("");		
+							$("#editarCIEmpleado").val("");
+							$("#editarFechaNacimientoEmpleado").val("");
+							// $("#editarCargoEmpleado").remove();
+							$("#editarFechaInicio").val("");
+							$("#editarFechaFin").val("");
+							$("#editarDiasContrato").val("");
+							// $("#editarTipoContrato").remove();
+							$("#editarObservacionesEmpleado").val("");
+							// $("#editarIdEmpleado").val("");
 
-		  						// Funcion que recarga y actuaiiza la tabla	
+	  						// Funcion que recarga y actuaiiza la tabla	
 
-								tablaPersonaContratos.ajax.reload( null, false );
+							tablaPersonaContratos.ajax.reload( null, false );
 
-		  						// window.location = "empleados";
+	  						// window.location = "empleados";
 
 						}
 
@@ -560,7 +612,7 @@ $(document).on("click", ".btnDocumentoContrato", function() {
 });
 
 /*=============================================
-GUARDANDO DATOS DE EDITAR EMPLEADO
+GUARDANDO DATOS DE EDITAR DOCUMENTO CONTRATO
 =============================================*/
 
 $("#frmEditarDocumentoContrato").on("click", ".btnGuardar", function() {

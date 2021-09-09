@@ -3,6 +3,7 @@
 require_once "controladores/template.controlador.php";
 require_once "controladores/usuarios.controlador.php";
 require_once "controladores/personas.controlador.php";
+require_once "controladores/lugares.controlador.php";
 require_once "controladores/empleados.controlador.php";
 require_once "controladores/establecimientos.controlador.php";
 require_once "controladores/cargos.controlador.php";
@@ -13,6 +14,7 @@ require_once "controladores/planillas_empleados.controlador.php";
 
 require_once "modelos/usuarios.modelo.php";
 require_once "modelos/personas.modelo.php";
+require_once "modelos/lugares.modelo.php";
 require_once "modelos/empleados.modelo.php";
 require_once "modelos/establecimientos.modelo.php";
 require_once "modelos/cargos.modelo.php";
