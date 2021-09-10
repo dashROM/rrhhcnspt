@@ -881,7 +881,7 @@ VENTANA MODAL PARA MOSTRAR EL CONTRATO EN PDF
 </div>
 
 <!--=====================================
-VENTANA MODAL PARA CARGAR EL CONTRATO EN IMAGEN
+VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 ======================================-->
 
 <div id="modalCargarArchivoContrato" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="cargarArchivoContrato" aria-hidden="true">
@@ -890,7 +890,7 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN IMAGEN
 
     <div class="modal-content">
 
-      <form id="frmCargarArchivoContrato">
+      <form id="frmCargarArchivoContrato" enctype="multipart/form-data" method="post">
 
         <!--=====================================
         CABEZA DEL MODAL

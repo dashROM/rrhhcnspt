@@ -18,19 +18,17 @@
 
         <form method="post">
 
-
-
           <h1>Ingresa al sistema</h1>
 
-          <div>
+          <div class="input-group">
 
-            <input type="text" class="form-control" placeholder="Usuario" name="ingUsuario" required>
+            <input type="text" class="form-control icono-placeholder" placeholder=" Usuario" name="ingUsuario" required>
 
           </div>
 
           <div>
 
-            <input type="password" class="form-control" placeholder="Contraseña" name="ingPassword" required>
+            <input type="password" class="form-control icono-placeholder" placeholder=" Contraseña" name="ingPassword" required>
 
           </div>
 

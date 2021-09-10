@@ -4150,7 +4150,8 @@ a.hiddenanchor {
 
 .login_content form {
   margin: 20px 0;
-  position: relative; }
+  position: relative; 
+}
 
 .login_content form input[type="text"], .login_content form input[type="email"], .login_content form input[type="password"] {
   border-radius: 3px;
@@ -4170,7 +4171,8 @@ a.hiddenanchor {
   box-shadow: 0 0 2px #A97AAD inset;
   background-color: #fff;
   border: 1px solid #A878AF;
-  outline: none; }
+  outline: none; 
+}
 
 #username {
   background-position: 10px 10px !important; }
@@ -5059,5 +5061,12 @@ thead {
 #buscarTablaPersonas tr:hover {
 
   background-color: rgba(23, 162, 184, 0.075) !important;
+
+}
+
+.icono-placeholder::placeholder {
+
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
 
 }

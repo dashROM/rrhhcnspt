@@ -727,7 +727,7 @@ $(document).on("click", "button.btnImprimirContrato", function() {
 
 			});	
 
-			PDFObject.embed("https://localhost/rrhhcnspt/temp/contrato-"+id_persona_contrato+".pdf", "#view_pdf");
+			PDFObject.embed("../temp/contrato-"+id_persona_contrato+".pdf", "#view_pdf");
 
 		}
 

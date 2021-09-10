@@ -256,7 +256,7 @@ class AjaxPersonaContratos {
 	public function ajaxEditarDocumentoContrato() {
 
 		$datos = array("id_persona_contrato"   	=> $this->id_persona_contrato,
-									 "documento_contrato"			=> $this->documento_contrato,
+					   "documento_contrato"		=> $this->documento_contrato,
 		);	
 
 	  // var_dump($datos);
@@ -357,14 +357,30 @@ class AjaxPersonaContratos {
 	public $file;
 
 	/*=============================================
-	ELIMINADO REPORTE PDF GENERADO
+	ELIMINADO REPORTE TEMPORAL PDF GENERADO 
 	=============================================*/
 
 	public function ajaxEliminarReportePDF()	{
 		
 		$file = $this->file;
 
-		unlink('../'.$file);
+		unlink($file);
+
+	}
+
+	public $archivo_contrato;
+	public $archivo_actual;
+
+	/*=============================================
+	GUARDAR EL ARCHIVO CONTRATO EN LA BASE DE DATOS
+	=============================================*/
+
+	public function ajaxCargarArchivoContrato()	{
+
+		foreach ($this->archivo_contrato as $key => $value) {
+			
+			echo $key." ".$value."->";
+		}
 
 	}
 
@@ -496,7 +512,8 @@ if (isset($_POST["cargarArchivoContrato"])) {
 
 	$archivoContrato = new AjaxPersonaContratos();
 	$archivoContrato -> id_persona_contrato = $_POST["editarIdArchivoContrato"];
-	$archivoContrato -> archivo_contrato = $_POST["archivoContrato"];
-	$archivoContrato -> ajaxNuevoUsuario();
+	$archivoContrato -> archivo_contrato = $_FILES["archivoContrato"];
+	$archivoContrato -> archivo_actual = $_POST["archivoActual"];
+	$archivoContrato -> ajaxCargarArchivoContrato();
 
 }

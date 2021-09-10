@@ -34,7 +34,7 @@ class TablaPersonaContratos {
 
 					$btnDocumentoContrato = "<button class='btn btn-secondary btnDocumentoContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='modal' data-target='#modalEditarDocumentoContrato' data-toggle='tooltip' title='Editar Documento'><i class='fas fa-file-invoice'></i></button>";
 
-					$btnImprimirContrato = "<button class='btn btn-primary btnImprimirContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Imprimir Documento'><i class='far fa-file-pdf'></i></button>";
+					$btnImprimirContrato = "<button class='btn btn-danger btnImprimirContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Imprimir Documento'><i class='far fa-file-pdf'></i></button>";
 
 					$btnValidarContrato = "<button class='btn btn-success btnValidarContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Validar Documento'><i class='far fa-check-square'></i></button>";
 
