@@ -42,11 +42,11 @@ class TablaPersonaContratos {
 
 					if ($persona_contratos[$i]["estado_contrato"] != 0) {
 
-            $estado = "<td><button class='btn btn-danger btnActivarPersonaContrato' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."' estadoPersonaContrato='0'></button></td>";
+            $estado = "<td><button class='btn btn-success' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."'></button></td>";
 
           } else {
 
-            $estado = "<td><button class='btn btn-success btnActivarPersonaContrato' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."' estadoPersonaEmpleado='1'></button></td>";
+            $estado = "<td><button class='btn btn-danger' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."'></button></td>";
 
           }
 

@@ -26,7 +26,7 @@
 
           <div class="input-group">
 
-            <span class="breadcrumb-item"><a href="inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
             <span class="breadcrumb-item active">Detalle personas</span>
 
           </div>
@@ -221,6 +221,19 @@
           
               </div>
 
+            </div>
+
+            <div class="my-3 row">
+              <label class="col-sm-2 col-form-label">Contrato Validado</label>
+              <div class="col-sm-10">
+                <button class='btn btn-success mt-2'></button>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label class="col-sm-2 col-form-label">Contrato Sin Validar</label>
+              <div class="col-sm-10">
+                <button class='btn btn-danger mt-2'></button>
+              </div>
             </div>
 
           </div>
@@ -940,7 +953,12 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 
             <p class="help-block">Peso máximo de la imagen 2MB</p> -->
 
-            <embed src="" type="application/pdf" width="100%" height="600px" class="previsualizar"/>
+            <div id="archivo_pdf">
+       
+
+            </div>
+
+            <!-- <embed type="application/pdf" width="100%" height="600px" class="previsualizarContrato"/> -->
 
             <!-- <embed src="https://localhost/rrhhcnspt/vistas/pdf/contratos/contrato-18.pdf" type="application/pdf" width="100%" height="600px" /> -->
 
@@ -971,6 +989,15 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 
             <i class="fas fa-save"></i>
             Guardar Archivo
+
+          </button>
+
+          <!-- <div id="validar"></div> -->
+
+          <button type="button" class="btn btn-round btn-outline-primary btnValidarArchivo d-none" idPersonaContrato="">
+
+            <i class="fas fa-check"></i>
+            Validar Archivo
 
           </button>
 

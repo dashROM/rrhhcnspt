@@ -79,4 +79,19 @@ class ControladorPersonaContratos {
 		
 	}
 
+
+	/*=============================================
+	CARGAR ARCHIVO CONTRATO
+	=============================================*/
+	
+	static public function ctrGuardarArchivoContrato($datos) {
+		
+		$tabla = "persona_contratos";
+
+		$respuesta = ModeloPersonaContratos::mdlGuardarArchivoContrato($tabla, $datos);
+
+		return $respuesta;
+
+	}
+
 }

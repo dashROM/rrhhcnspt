@@ -5,6 +5,50 @@ require_once "conexion.db.php";
 class ModeloPlanillas {
 
 	/*=============================================
+	MOSTRAR RELACION
+	=============================================*/
+	
+	static public function mdlMostrarRelacion($tabla, $item, $valor1, $valor2) {
+
+		if ($item != null) {
+			
+			if ($valor2 != null) {
+
+				$stmt = Conexion::conectarPG()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND id_planilla != :id_planilla");
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+				$stmt->bindParam(":id_planilla", $valor2, PDO::PARAM_INT);
+
+			} else {
+
+				$stmt = Conexion::conectar()->prepare("SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato, p.titulo_relacion FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato AND $item = :$item");
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+ 
+			}			
+
+			$stmt->execute();
+
+			return $stmt->fetch();
+
+		} else {
+
+			$sql = "SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato, p.titulo_relacion FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato";
+
+			$stmt = Conexion::conectarPG()->prepare($sql);
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
 	MOSTRAR PLANILLA
 	=============================================*/
 	
@@ -52,9 +96,9 @@ class ModeloPlanillas {
 	CREAR NUEVO PLANILLA
 	=============================================*/
 	
-	static public function mdlNuevoPlanilla($tabla, $datos){
+	static public function mdlNuevoRelacion($tabla, $datos){
 
-		$pdo = Conexion::conectar();
+		$pdo = Conexion::conectarPG();
 
 		try {
  
@@ -64,11 +108,11 @@ class ModeloPlanillas {
 		 
 		    // Consulta 1: Ingreso de datos por defecto en la tabla fichas.
 
-		    $sql1 = "INSERT INTO $tabla(titulo_planilla, mes_planilla, gestion_planilla, id_contrato) VALUES (:titulo_planilla, :mes_planilla, :gestion_planilla, :id_contrato)";
+		    $sql1 = "INSERT INTO $tabla(mes_planilla, gestion_planilla, id_contrato, titulo_relacion) VALUES (:mes_planilla, :gestion_planilla, :id_contrato, :titulo_relacion)";
 
 			$stmt = $pdo->prepare($sql1);
 
-			$stmt->bindParam(":titulo_planilla", $datos["titulo_planilla"], PDO::PARAM_STR);
+			$stmt->bindParam(":titulo_relacion", $datos["titulo_relacion"], PDO::PARAM_STR);
 			$stmt->bindParam(":mes_planilla", $datos["mes_planilla"], PDO::PARAM_STR);
 			$stmt->bindParam(":gestion_planilla", $datos["gestion_planilla"], PDO::PARAM_STR);
 			$stmt->bindParam(":id_contrato", $datos["id_contrato"], PDO::PARAM_INT);
@@ -80,7 +124,9 @@ class ModeloPlanillas {
 
 				// Consulta 2: Ingreso de Datos por defecto en la tabla pacientes_asegurados.
 
-				$sql2 = "INSERT INTO planillas_empleados_tbl(id_empleado,id_planilla) SELECT id_empleado, :id_planilla FROM empleados_tbl WHERE fecha_fin_contrato > :fecha_calculo AND :mes_planilla >= MONTH(fecha_inicio_contrato) AND :gestion_planilla >= YEAR(fecha_inicio_contrato) AND id_contrato = :id_contrato";
+				// $sql2 = "INSERT INTO planilla_persona_contratos(id_persona_contrato, id_planilla) SELECT id_persona_contrato, :id_planilla FROM persona_contratos WHERE fecha_fin > :fecha_calculo AND :mes_planilla >= MONTH(fecha_inicio) AND :gestion_planilla >= YEAR(fecha_inicio) AND id_contrato = :id_contrato";
+
+				$sql2 = "INSERT INTO planilla_persona_contratos(id_persona_contrato, id_planilla) SELECT id_persona_contrato, :id_planilla FROM persona_contratos WHERE fin_contrato > :fecha_calculo AND :mes_planilla >= EXTRACT(MONTH FROM inicio_contrato) AND :gestion_planilla >= EXTRACT(YEAR FROM inicio_contrato) AND id_contrato = :id_contrato";
 
 				// $sql2 = "INSERT INTO planillas_empleados_tbl(id_empleado,id_planilla) SELECT id_empleado, :id_planilla FROM empleados_tbl WHERE id_contrato = :id_contrato";
 

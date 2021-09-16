@@ -15,7 +15,7 @@
 
           <div class="input-group">
 
-            <span class="breadcrumb-item"><a href="inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
             <span class="breadcrumb-item active">Administrar usuarios</span>
 
           </div>
@@ -77,7 +77,7 @@
 
                   </table>
 
-                  <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
+                  <input type="hidden" value="<?= $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
 
                 </div>
 

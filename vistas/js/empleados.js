@@ -780,41 +780,40 @@ $(document).on("click", ".btnActivarEmpleado", function() {
 ACTIVAR EMPLEADO
 =============================================*/
 
-$(document).on("change", "#nuevoDiasContrato", function() {
+// $(document).on("change", "#nuevoDiasContrato", function() {
 	
-	var fechaInicio = new Date($("#nuevoFechaInicio").val());
+// 	var fechaInicio = new Date($("#nuevoFechaInicio").val());
 	
-	var diasContrato = $(this).val();
+// 	var diasContrato = $(this).val();
 
-	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
+// 	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
 
-	$("#nuevoFechaFin").val(fechaFin);
+// 	$("#nuevoFechaFin").val(fechaFin);
 
-
-});
+// });
 
 /*=============================================
 FUNCION PARA SUMAR DIAS A UNA DETERMINADA FECHA
 =============================================*/
 
-function sumarDiasFecha(miFecha, days){
+// function sumarDiasFecha(miFecha, days){
 
-	// fecha = new Date();
-	day = miFecha.getDate();
-	month = miFecha.getMonth() + 1;
-	year = miFecha.getFullYear();
+// 	// fecha = new Date();
+// 	day = miFecha.getDate();
+// 	month = miFecha.getMonth() + 1;
+// 	year = miFecha.getFullYear();
 
-	tiempo = miFecha.getTime();
-	milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
-	total = miFecha.setTime(tiempo + milisegundos);
-	day = miFecha.getDate();
-	month = miFecha.getMonth() + 1;
-	year = miFecha.getFullYear();
+// 	tiempo = miFecha.getTime();
+// 	milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+// 	total = miFecha.setTime(tiempo + milisegundos);
+// 	day = miFecha.getDate();
+// 	month = miFecha.getMonth() + 1;
+// 	year = miFecha.getFullYear();
 
-	if (day < 10) day = '0'+ day;
+// 	if (day < 10) day = '0'+ day;
 
-	if (month < 10) month = '0'+ month;
+// 	if (month < 10) month = '0'+ month;
 
-	return(year+"-"+month+"-"+day);
+// 	return(year+"-"+month+"-"+day);
 	
-}
+// }

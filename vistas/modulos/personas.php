@@ -17,7 +17,7 @@
 
           <div class="input-group">
 
-            <span class="breadcrumb-item"><a href="inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
             <span class="breadcrumb-item active">Administrar personas</span>
 
           </div>

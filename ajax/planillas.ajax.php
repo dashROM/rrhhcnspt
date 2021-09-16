@@ -23,25 +23,38 @@ class AjaxPlanillas {
 
 	}
 
-	public $titulo_planilla;
-	public $mes_planilla;
-	public $gestion_planilla;
+	public $mes;
+	public $gestion;
 	public $id_contrato;
 
 	/*=============================================
 	NUEVO PLANILLA
 	=============================================*/
 
-	public function ajaxNuevoPlanilla()	{
+	public function ajaxNuevoRelacion()	{
 
-		$datos = array("titulo_planilla" 	=> mb_strtoupper($this->titulo_planilla,'utf-8'),
-						"mes_planilla"		=> $this->mes_planilla, 
-						"gestion_planilla"	=> $this->gestion_planilla,
-						"id_contrato"		=> $this->id_contrato,
-						"fecha_calculo"		=> $this->gestion_planilla.'-'.$this->mes_planilla.'-01',  
+		// TRAEMOS DATOS DE CONTRATO
+		// $item = "id_contrato";
+		// $valor = $this->id_contrato;
+
+		// $contrato = ControladorContratos::ctrMostrarContratos($item, $valor);
+
+		// CONVERTIR NUMERO DE MES A SU VALOR LITERAL
+		setlocale(LC_TIME, 'spanish');
+		$numero = $this->mes;
+		$dateObj   = DateTime::createFromFormat('!m', $numero);
+		$mes = strftime('%B', $dateObj->getTimestamp());
+
+		$titulo_relacion = '<h3 style="text-align:center"><strong>&nbsp;RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL&nbsp;PARA EL PAGO DE HABERES&nbsp;CORRESPONDIENTE AL MES DE '.$mes.' DE&nbsp;'.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL&nbsp;PUNTO&nbsp;TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+
+		$datos = array("titulo_relacion" 	=> mb_strtoupper($titulo_relacion,'utf-8'),
+						       "mes_planilla"		  => $this->mes, 
+						       "gestion_planilla"	=> $this->gestion,
+						       "id_contrato"		  => $this->id_contrato,
+						       "fecha_calculo"		=> $this->gestion.'-'.$this->mes.'-01',  
 						);	
 
-		$respuesta = ControladorPlanillas::ctrNuevoPlanilla($datos);
+		$respuesta = ControladorPlanillas::ctrNuevoRelacion($datos);
 
 		echo $respuesta;
 
@@ -98,15 +111,14 @@ if (isset($_POST["mostrarPlanilla"])) {
 NUEVO PLANILLA
 =============================================*/
 
-if (isset($_POST["nuevoPlanilla"])) {
+if (isset($_POST["nuevoRelacion"])) {
 
 	$nuevoPlanilla = new AjaxPlanillas();
-	$nuevoPlanilla -> titulo_planilla = $_POST["titulo_planilla"];
-	$nuevoPlanilla -> mes_planilla = $_POST["mes_planilla"];
-	$nuevoPlanilla -> gestion_planilla = $_POST["gestion_planilla"];
-	$nuevoPlanilla -> id_contrato = $_POST["id_contrato"];
+	$nuevoPlanilla -> mes = $_POST["nuevoMes"];
+	$nuevoPlanilla -> gestion = $_POST["nuevoGestion"];
+	$nuevoPlanilla -> id_contrato = $_POST["nuevoTipoContrato"];
 
-	$nuevoPlanilla -> ajaxNuevoPlanilla();
+	$nuevoPlanilla -> ajaxNuevoRelacion();
 
 }
 

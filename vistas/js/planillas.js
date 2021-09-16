@@ -1,4 +1,58 @@
 /*=============================================
+CARGAR LA TABLA DINÁMICA DE LISTADO DE RELACION DE NOVEDADES
+=============================================*/
+
+var perfilOculto = $("#perfilOculto").val();
+
+var tablaPlanilla = $('#tablaRelacion').DataTable({
+
+	"ajax": "ajax/datatable-planillas.ajax.php?perfilOculto="+perfilOculto,
+
+	"deferRender": true,
+
+	"retrieve" : true,
+
+	"processing" : true,
+
+	"language": {
+
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ",",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+		"sFirst":    "Primero",
+		"sLast":     "Último",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		},
+		"buttons": {
+			"copy": "Copiar",
+    	"colvis": "Visibilidad de columnas"
+    }
+		
+	},
+
+	"responsive": true,
+
+	"lengthChange": false,
+
+
+}); 
+
+/*=============================================
 CARGAR LA TABLA DINÁMICA DE LISTADO DE PLANILLAS
 =============================================*/
 
@@ -53,96 +107,21 @@ var tablaPlanilla = $('#tablaPlanillas').DataTable({
 }); 
 
 
-$(document).ready(function() { 
-
-	/*=============================================
-	FUNCIONES PARA CAMBIAR LOS MENSAJES POR DEFECTO DEL PLUGIN DE VALIDACIÓN
-	=============================================*/
-
-	$.extend($.validator.messages, {
-		required: "Este campo es obligatorio.",
-		remote: "Por favor, rellena este campo.",
-		email: "Por favor, escribe una dirección de correo válida",
-		url: "Por favor, escribe una URL válida.",
-		date: "Por favor, escribe una fecha válida.",
-		dateISO: "Por favor, escribe una fecha (ISO) válida.",
-		number: "Por favor, escribe un número entero válido.",
-		digits: "Por favor, escribe sólo dígitos.",
-		creditcard: "Por favor, escribe un número de tarjeta válido.",
-		equalTo: "Por favor, escribe el mismo valor de nuevo.",
-		accept: "Por favor, escribe un valor con una extensión aceptada.",
-		maxlength: $.validator.format("Por favor, no escribas más de {0} caracteres."),
-		minlength: $.validator.format("Por favor, no escribas menos de {0} caracteres."),
-		rangelength: $.validator.format("Por favor, escribe un valor entre {0} y {1} caracteres."),
-		range: $.validator.format("Por favor, escribe un valor entre {0} y {1}."),
-		max: $.validator.format("Por favor, escribe un valor menor o igual a {0}."),
-		min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
-	});
-
-	/*=============================================
-	FUNCIONES CON LOS DIFERENTES PATRONES CON EXPRESIONES REGULARES PARA LA VALIDACIÓN
-	=============================================*/
-
-	$.validator.addMethod("patron_letras", function (value, element) {
-
-	    var pattern = /^[a-zA-Z]+$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "El campo debe contener letras (azAZ)");
-
-	$.validator.addMethod("patron_numeros", function (value, element) {
-
-	    var pattern = /^[0-9]+$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "El campo debe tener un valor numérico (0-9)");
-
-	$.validator.addMethod("patron_numerosLetras", function (value, element) {
-
-	    var pattern = /^[a-zA-Z0-9-]+$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "El campo debe tener un valor Alfa Numérico (a-zA-Z0-9)");
-
-	$.validator.addMethod("patron_numerosTexto", function (value, element) {
-
-	    var pattern = /^[A-Za-z0-9ñÑáéíóúÁÉÍÓÚ .-]+$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "Caracteres Especiales No Admitidos");
-
-	$.validator.addMethod("patron_texto", function (value, element) {
-
-	    var pattern = /^[A-Za-zñÑáéíóúÁÉÍÓÚ .]+$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "Caracteres Especiales No Admitidos");
-
-	$.validator.addMethod("patron_textoEspecial", function (value, element) {
-
-	    var pattern = /^[^'&%${}]*$/;
-	    return this.optional(element) || pattern.test(value);
-
-	}, "Caracteres Especiales No Admitidos");
-
-});
-
 /*=============================================
 //VALIDANDO DATOS DE NUEVA PLANILLA
 =============================================*/
 
-$("#frmNuevoPlanilla").validate({
+$("#frmNuevoRelacion").validate({
 
 	rules: {
-		nuevoTituloPlanilla : { required: true, patron_textoEspecial: true},
-		nuevoMesPlanilla: { required: true},
-		nuevoGestionPlanilla: { required: true},
-		nuevoTipoContrato: { required: true},
+		nuevoMes : { required: true},
+		nuevoGestion : { required: true},
+		nuevoTipoContrato : { required: true},
 	},
 
 	messages: {
-		nuevoMesPlanilla : "Elija un mes",
-		nuevoGestionPlanilla : "Elija una gestión",
+		nuevoMes : "Elija un mes",
+		nuevoGestion : "Elija una gestión",
 		nuevoTipoContrato : "Elija una tipo de contrato",
 	},
 
@@ -152,24 +131,14 @@ $("#frmNuevoPlanilla").validate({
 GUARDANDO DATOS DE NUEVO PLANILLA
 =============================================*/
 
-$("#frmNuevoPlanilla").on("click", ".btnGuardar", function() {
+$("#frmNuevoRelacion").on("click", ".btnGuardar", function() {
 
-	if ($("#frmNuevoPlanilla").valid()) {
+	if ($("#frmNuevoRelacion").valid()) {
 
-		console.log("VALIDADO PLANILLA");
+		console.log("VALIDADO RELACION");
 
-		var titulo_planilla = $ ("#nuevoTituloPlanilla").val();
-		var mes_planilla = $("#nuevoMesPlanilla").val();	
-		var gestion_planilla = $("#nuevoGestionPlanilla").val();
-		var id_contrato = $("#nuevoTipoContrato").val();		
-
-		var datos = new FormData();
-		datos.append("nuevoPlanilla", 'nuevoPlanilla');
-
-		datos.append("titulo_planilla", titulo_planilla);
-		datos.append("mes_planilla", mes_planilla);
-		datos.append("gestion_planilla", gestion_planilla);
-		datos.append("id_contrato", id_contrato);
+		var datos = new FormData($("#frmNuevoRelacion")[0]);
+		datos.append("nuevoRelacion", 'nuevoRelacion');
 
 		$.ajax({
 
@@ -197,7 +166,7 @@ $("#frmNuevoPlanilla").on("click", ".btnGuardar", function() {
 	  					
 	  					if (result.value) {
 
-	  						window.location = "planillas";
+	  						window.location = "relacion-novedades";
 
 						}
 

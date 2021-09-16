@@ -375,12 +375,63 @@ class AjaxPersonaContratos {
 	GUARDAR EL ARCHIVO CONTRATO EN LA BASE DE DATOS
 	=============================================*/
 
-	public function ajaxCargarArchivoContrato()	{
+	public function ajaxGuardarArchivoContrato()	{
 
-		foreach ($this->archivo_contrato as $key => $value) {
-			
-			echo $key." ".$value."->";
+		$ruta = $this->archivo_actual;
+
+		if (isset($this->archivo_contrato["tmp_name"]) && $this->archivo_contrato["tmp_name"] != "") {
+
+			/*=============================================
+			PRIMERO PREGUNTAMOS SI EXISTE OTRA ARCHIVO EN LA BD
+			=============================================*/
+
+			if (!empty($this->archivo_actual)) {
+
+				unlink("../".$this->archivo_actual);
+
+			}
+
+			if ($this->archivo_contrato["type"] == "application/pdf") {
+
+				$aleatorio = mt_rand(100000,999999);
+
+				$ruta = "../vistas/pdf/contratos/".$aleatorio.".pdf";
+
+				move_uploaded_file($this->archivo_contrato["tmp_name"], $ruta);
+
+			}
+
+			$datos = array( "archivo_contrato"     	=> $ruta,
+							"id_persona_contrato"   => $this->id_persona_contrato,
+			);
+
+			// var_dump($datos);	
+
+			$respuesta = ControladorPersonaContratos::ctrGuardarArchivoContrato($datos);
+
+			echo $respuesta;
+
 		}
+
+	}
+
+	/*=============================================
+	VALIDAR ARCHIVO CONTRATO
+	=============================================*/
+
+	public $estado_contrato;
+
+	public function ajaxValidarArchivoContrato() {
+		
+		$tabla = "persona_contratos";
+
+		$item1 = "estado_contrato";
+		$valor1 = $this->estado_contrato;
+
+		$item2 = "id_persona_contrato";
+		$valor2 = $this->id_persona_contrato;
+
+		$respuesta = ModeloPersonaContratos::mdlActualizarContratoPersona($tabla, $item1, $valor1, $item2, $valor2);
 
 	}
 
@@ -504,16 +555,31 @@ if (isset($_POST["eliminarPDF"])) {
 
 }
 
+
+
 /*=============================================
-NUEVO USUARIO
+GUARDAR ARCHIVO 
 =============================================*/
 
-if (isset($_POST["cargarArchivoContrato"])) {
+if (isset($_POST["guardarArchivoContrato"])) {
 
 	$archivoContrato = new AjaxPersonaContratos();
 	$archivoContrato -> id_persona_contrato = $_POST["editarIdArchivoContrato"];
 	$archivoContrato -> archivo_contrato = $_FILES["archivoContrato"];
 	$archivoContrato -> archivo_actual = $_POST["archivoActual"];
-	$archivoContrato -> ajaxCargarArchivoContrato();
+	$archivoContrato -> ajaxGuardarArchivoContrato();
+
+}
+
+/*=============================================
+ACTIVAR USUARIO
+=============================================*/
+
+if (isset($_POST["validarArchivoContrato"])) {
+
+	$validarArchivoContrato = new AjaxPersonaContratos();
+	$validarArchivoContrato -> estado_contrato = $_POST["estado_contrato"];
+	$validarArchivoContrato -> id_persona_contrato = $_POST["id_persona_contrato"];
+	$validarArchivoContrato -> ajaxValidarArchivoContrato();
 
 }

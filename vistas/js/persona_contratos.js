@@ -74,6 +74,88 @@ $(document).on("change", "#nuevoTipoContrato", function() {
 });
 
 /*=============================================
+CALCULAR FECHA FIN DE CONTRATO EN AGREGAR CONTRATO
+=============================================*/
+
+$(document).on("change", "#nuevoDiasContrato", function() {
+	
+	var fechaInicio = new Date($("#nuevoFechaInicio").val());
+	
+	var diasContrato = $(this).val();
+
+	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
+
+	$("#nuevoFechaFin").val(fechaFin);
+
+});
+
+$(document).on("change", "#nuevoFechaInicio", function() {
+	
+	var fechaInicio = new Date($(this).val());
+	
+	var diasContrato = $("#nuevoDiasContrato").val()
+
+	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
+
+	$("#nuevoFechaFin").val(fechaFin);
+
+});
+
+/*=============================================
+CALCULAR FECHA FIN DE CONTRATO EN EDITAR CONTRATO
+=============================================*/
+
+$(document).on("change", "#editarDiasContrato", function() {
+	
+	var fechaInicio = new Date($("#editarFechaInicio").val());
+	
+	var diasContrato = $(this).val();
+
+	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
+
+	$("#editarFechaFin").val(fechaFin);
+
+});
+
+$(document).on("change", "#editarFechaInicio", function() {
+	
+	var fechaInicio = new Date($(this).val());
+	
+	var diasContrato = $("#editarDiasContrato").val()
+
+	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
+
+	$("#editarFechaFin").val(fechaFin);
+
+});
+
+/*=============================================
+FUNCION PARA SUMAR DIAS A UNA DETERMINADA FECHA
+=============================================*/
+
+function sumarDiasFecha(miFecha, days){
+
+	// fecha = new Date();
+	day = miFecha.getDate();
+	month = miFecha.getMonth() + 1;
+	year = miFecha.getFullYear();
+
+	tiempo = miFecha.getTime();
+	milisegundos = parseInt(days * 24 * 60 * 60 * 1000);
+	total = miFecha.setTime(tiempo + milisegundos);
+	day = miFecha.getDate();
+	month = miFecha.getMonth() + 1;
+	year = miFecha.getFullYear();
+
+	if (day < 10) day = '0'+ day;
+
+	if (month < 10) month = '0'+ month;
+
+	return(year+"-"+month+"-"+day);
+	
+}
+
+/*=============================================
 VALIDANDO DATOS DE NUEVO PERSONA CONTRATO
 =============================================*/
 $("#frmNuevoPersonaContrato").validate({
@@ -766,105 +848,6 @@ $("#ver-pdf").on("click", ".btnCerrar", function() {
 });
 
 /*=============================================
-VALIDAR CONTRATO
-=============================================*/
-
-$(document).on("click", ".btnValidarContrato", function() {
-	
-	// var idUsuario = $(this).attr("idUsuario");
-	// var estadoUsuario = $(this).attr("estadoUsuario");
-
-	// var datos = new FormData();
-	// datos.append("activarId", idUsuario);
-	// datos.append("activarUsuario", estadoUsuario);
-
-	swal.fire({
-
-		title: "¿Está seguro de validar el contrato?",
-		text: "¡Si no lo está puede cancelar la acción!",
-		icon: "warning",
-		showCancelButton: true,
-		confirmButtonColor: "#3085d6",
-		cancelButtonColor: "#d33",
-		cancelButtonText: "Cancelar",
-		confirmButtonText: "¡Si, validar!"
-
-	}).then((result)=> {
-
-		var id_persona_contrato = $(this).attr("idPersonaContrato");
-		console.log("id_persona_contrato", id_persona_contrato);
-
-		var datos = new FormData();
-
-		datos.append("ValidarContrato", "ValidarContrato");
-		datos.append("id_persona_contrato", id_persona_contrato);
-
-		$.ajax({
-
-			url: "../ajax/persona_contratos.ajax.php",
-			method: "POST",
-			data: datos,
-			cache: false,
-			contentType: false,
-			processData: false,
-			success: function(respuesta) {
-				
-				if (window.matchMedia("(max-width:767px)").matches) {
-
-					swal.fire({
-						
-						title: "El contrato ha sido validado",
-						icon: "success",
-						allowOutsideClick: false,
-						confirmButtonText: "¡Cerrar!"
-
-					}).then(function(result) {
-
-						if (result.value) {
-
-							window.location = "usuarios";
-						}
-
-					});
-
-				} else {
-
-					// swal.fire({
-						
-					// 	title: "El contrato ha sido validado",
-					// 	icon: "success",
-					// 	allowOutsideClick: false,
-					// 	confirmButtonText: "¡Cerrar!"
-
-					// });
-
-				}
-
-			}
-
-		});
-
-		// if (estadoUsuario == 0) {
-
-		// 	$(this).removeClass('btn-success');
-		// 	$(this).addClass('btn-danger');
-		// 	$(this).html('INACTIVO');
-		// 	$(this).attr('estadoUsuario', 1);
-
-		// } else {
-
-		// 	$(this).addClass('btn-success');
-		// 	$(this).removeClass('btn-danger');
-		// 	$(this).html('ACTIVO');
-		// 	$(this).attr('estadoUsuario', 0);
-
-		// }
-
-	});
-
-});
-
-/*=============================================
 CARGANDO DATOS DE IMAGEN DEL CONTRATO AL FORMULARIO 
 =============================================*/
 
@@ -873,33 +856,65 @@ $(document).on("click", ".btnCargarContrato", function() {
 	// console.log("CARGAR CONTRATO");
 
 	var id_persona_contrato = $(this).attr("idPersonaContrato");
+	console.log("id_persona_contrato", id_persona_contrato);
 
 	var datos = new FormData();
-	datos.append("cargarArchivoContrato", 'cargarArchivoContrato');
+	datos.append("mostrarPersonaContrato", 'mostrarPersonaContrato');
 	datos.append("id_persona_contrato", id_persona_contrato);
 
-	// $.ajax({
+	$.ajax({
 
-	// 	url: "../ajax/persona_contratos.ajax.php",
-	// 	method: "POST",
-	// 	data: datos,
-	// 	cache: false,
-	// 	contentType: false,
-	// 	processData: false,
-	// 	dataType: "json",
-	// 	success: function(respuesta) {
-	// 		// console.log("respuesta", respuesta["documento_contrato"]);
+		url: "../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta) {
+			console.log("respuesta", respuesta);
 
-	// 		$('#editarIdDocumentoContrato').val(respuesta["id_persona_contrato"]);
+			$("#editarIdArchivoContrato").val(respuesta["id_persona_contrato"]);
+
+			$(".btnValidarArchivo").attr("idPersonaContrato",respuesta["id_persona_contrato"])
+
+			if (respuesta["archivo_contrato"] != null) {
+
+				PDFObject.embed(respuesta["archivo_contrato"], "#archivo_pdf");
+
+				if (respuesta["estado_contrato"] != 1) {
+
+					$("#frmCargarArchivoContrato .btnGuardar").removeClass("d-none");
+
+					$(".btnValidarArchivo").removeClass("d-none");
+
+				} else {
+
+					$("#frmCargarArchivoContrato .btnGuardar").addClass("d-none");
+
+					$(".btnValidarArchivo").addClass("d-none");
+					
+				}
+
+
+			} else {
+
+				PDFObject.embed("", "#archivo_pdf");
+
+				$("#frmCargarArchivoContrato .btnGuardar").addClass("d-none");
+
+				$(".btnValidarArchivo").addClass("d-none");
+
+			}
 			
-	// 	},
-	//     error: function(error){
+		},
+	    error: function(error){
 
-	//       console.log("No funciona");
+	      console.log("No funciona");
 	        
-	//     }
+	    }
 
-	// });
+	});
 
 });
 
@@ -952,7 +967,10 @@ $(".archivoContrato").change(function() {
 		$(datosArchivo).on("load", function(event){
 
 			var rutaArchivo = event.target.result;
-			$(".previsualizar").attr("src", rutaArchivo);
+			// $(".previsualizarContrato").attr("src", rutaArchivo);
+			PDFObject.embed(rutaArchivo, "#archivo_pdf");
+
+			$("#frmCargarArchivoContrato .btnGuardar").removeClass("d-none");
 
 		});
 
@@ -966,10 +984,10 @@ GUARDANDO ARCHIVO CONTRATO
 
 $("#frmCargarArchivoContrato").on("click", ".btnGuardar", function() {
 
-	console.log("cargarArchivoContrato", 'cargarArchivoContrato');
+	console.log("guardarArchivoContrato", 'guardarArchivoContrato');
 
 	var datos = new FormData($("#frmCargarArchivoContrato")[0]);
-	datos.append("cargarArchivoContrato", 'cargarArchivoContrato');
+	datos.append("guardarArchivoContrato", 'guardarArchivoContrato');
 
 	$.ajax({
 
@@ -1034,9 +1052,117 @@ ELIMINADO ARCHIVO CONTRATO PREVISUALIZADO
 
 $("#frmCargarArchivoContrato").on("click", ".btnCerrar", function() {
 
-
 	console.log("btnCerrar", "btnCerrar");
 
-	$(".previsualizar").attr("src", "");
+	// $(".previsualizarContrato").attr('src','');
+
+	PDFObject.embed("", "#archivo_pdf");
+
+});
+
+/*=============================================
+VALIDAR ARCHIVO CONTRATO
+=============================================*/
+
+$(document).on("click", ".btnValidarArchivo", function() {
+
+	swal.fire({
+
+		title: "¿Está seguro de validar el contrato?",
+		text: "¡Si no lo está puede cancelar la acción!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "¡Si, validar!"
+
+	}).then((result)=> {
+
+		var id_persona_contrato = $(this).attr("idPersonaContrato");
+		console.log("id_persona_contrato", id_persona_contrato);
+
+		var datos = new FormData();
+
+		datos.append("validarArchivoContrato", "validarArchivoContrato");
+		datos.append("id_persona_contrato", id_persona_contrato);
+		datos.append("estado_contrato", 1);
+
+		$.ajax({
+
+			url: "../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(respuesta) {
+				
+				if (window.matchMedia("(max-width:767px)").matches) {
+
+					swal.fire({
+						
+						title: "El contrato ha sido validado",
+						icon: "success",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					}).then(function(result) {
+
+						if (result.value) {
+
+							tablaPersonaContratos.ajax.reload( null, false );
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+						
+						title: "El contrato ha sido validado",
+						icon: "success",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					}).then(function(result) {
+
+						if (result.value) {
+
+							$('#modalCargarArchivoContrato').modal('toggle');
+
+							tablaPersonaContratos.ajax.reload( null, false );
+						}
+
+					});
+
+				}
+
+			},
+			error: function(error) {
+
+	        console.log("No funciona");
+	        
+	    }
+
+		});
+
+		// if (estadoUsuario == 0) {
+
+		// 	$(this).removeClass('btn-success');
+		// 	$(this).addClass('btn-danger');
+		// 	$(this).html('INACTIVO');
+		// 	$(this).attr('estadoUsuario', 1);
+
+		// } else {
+
+		// 	$(this).addClass('btn-success');
+		// 	$(this).removeClass('btn-danger');
+		// 	$(this).html('ACTIVO');
+		// 	$(this).attr('estadoUsuario', 0);
+
+		// }
+
+	});
 
 });

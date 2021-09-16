@@ -3,14 +3,14 @@
 class ControladorPlanillas {
 
 	/*=============================================
-	LISTADO DE PLANILLAS
+	LISTADO DE RELACION DE NOVEDADES
 	=============================================*/
 	
-	static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
+	static public function ctrMostrarRelacion($item, $valor1, $valor2) {
 
-		$tabla = "planillas_tbl";
+		$tabla = "planillas";
 
-		$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
+		$respuesta = ModeloPlanillas::mdlMostrarRelacion($tabla, $item, $valor1, $valor2);
 
 		return $respuesta;
 
@@ -20,11 +20,11 @@ class ControladorPlanillas {
 	CREAR NUEVO PLANILLA
 	=============================================*/
 	
-	static public function ctrNuevoPlanilla($datos) {
+	static public function ctrNuevoRelacion($datos) {
 		
-		$tabla = "planillas_tbl";
+		$tabla = "planillas";
 
-		$respuesta = ModeloPlanillas::mdlNuevoPlanilla($tabla, $datos);
+		$respuesta = ModeloPlanillas::mdlNuevoRelacion($tabla, $datos);
 
 		return $respuesta;
 
@@ -52,6 +52,20 @@ class ControladorPlanillas {
 	static public function ctrEliminarPlanilla()	{
 
 		
+	}
+
+	/*=============================================
+	LISTADO DE PLANILLAS
+	=============================================*/
+	
+	static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
+
+		$tabla = "planillas_tbl";
+
+		$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
+
+		return $respuesta;
+
 	}
 
 	/*=============================================

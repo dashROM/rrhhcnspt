@@ -23,7 +23,7 @@ class ModeloPersonaContratos {
 			} else {
 
 				//muestra varios datos de una persona que tiene un respectivo contrato
-				$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND pc.$item = :$item";
+				$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND pc.$item = :$item";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -37,7 +37,7 @@ class ModeloPersonaContratos {
 		} else {
 
 			//muestra el listado de las persona que tienen uno o mas contratos
-			$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
+			$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -151,7 +151,7 @@ class ModeloPersonaContratos {
 	}
 
 	/*=============================================
-	EDITAR PERSONA CONTRATO
+	EDITAR DOCUMENTO CONTRATO
 	=============================================*/
 	
 	static public function mdlEditarDocumentoContrato($tabla, $datos){
@@ -201,5 +201,57 @@ class ModeloPersonaContratos {
 		$stmt = null;
 
 	}
+
+	/*=============================================
+	EDITAR ARCHIVO CONTRATO
+	=============================================*/
+	
+	static public function mdlGuardarArchivoContrato($tabla, $datos){
+
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET archivo_contrato = :archivo_contrato  WHERE id_persona_contrato = :id_persona_contrato");
+
+		$stmt->bindParam(":id_persona_contrato", $datos["id_persona_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":archivo_contrato", $datos["archivo_contrato"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+		
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	ACTUALIZAR USUARIO
+	=============================================*/
+
+	static public function mdlActualizarContratoPersona($tabla, $item1, $valor1, $item2, $valor2) {
+
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
+
+		$stmt->bindParam(":".$item1, $valor1, PDO::PARAM_STR);
+		$stmt->bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+
+		if ($stmt->execute()) {
+			
+			return "ok";
+
+		} else {
+			
+			return "error";
+
+		}
+		
+		$stmt->close();
+		$stmt = null;
+
+	}	
 	
 }

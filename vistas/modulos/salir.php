@@ -6,6 +6,6 @@ echo '<script>
 
 	localStorage.clear();
 
-	window.location = "ingreso";
+	window.location = "'.SERVERURL.'/ingreso";
 
 </script>';	

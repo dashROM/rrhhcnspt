@@ -6,7 +6,7 @@
 
       <a href="index.html" class="site_title">
 
-        <img onmouseout="this.src='https://localhost/rrhhcnspt/vistas/img/template/icono-blanco.png';" onmouseover="this.src='https://localhost/rrhhcnspt/vistas/img/template/icono-color.png';" src="https://localhost/rrhhcnspt/vistas/img/template/icono-blanco.png" alt="SISVECOM Logo" class="brand-image elevation-3" style="opacity: .8; width: 30px"> 
+        <img onmouseout="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png';" onmouseover="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-color.png';" src="<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png" alt="SISVECOM Logo" class="brand-image elevation-3" style="opacity: .8; width: 30px"> 
         <span class="brand-text font-weight-bold text-success">CNS</span>
         <span class="brand-text font-weight-bold ml-0" style="color: #01ff70;">RRHH</span>
 
@@ -24,11 +24,12 @@
 
         if ($_SESSION["foto_rrhh"] != "") {
           
-          echo '<img src="'.$_SESSION["foto_rrhh"].'" class="img-circle profile_img">';
+          echo "<img src='".$_SESSION["foto_rrhh"]."' class='img-circle profile_img'>";
 
         } else {
 
-          echo '<img src="https://localhost/rrhhcnspt/vistas/img/usuarios/default/anonymous.png" class="img-circle profile_img">';
+          echo "<img src='".SERVERURL."/vistas/img/usuarios/default/anonymous.png' class='img-circle profile_img'>";
+
         }
 
         ?>
@@ -56,7 +57,7 @@
 
           <li>
 
-            <a href="https://localhost/rrhhcnspt/inicio" class="nav-link menu active" id="inicio">
+            <a href="<?= SERVERURL; ?>/inicio" class="nav-link menu active" id="inicio">
               <i class="fas fa-home"></i> Inicio 
             </a>
 
@@ -70,7 +71,7 @@
 
             <ul class="nav child_menu">
 
-              <li><a href="https://localhost/rrhhcnspt/usuarios" class="nav-link menu" id="usuarios">Usuarios</a></li>
+              <li><a href="<?= SERVERURL; ?>/usuarios" class="nav-link menu" id="usuarios">Usuarios</a></li>
             
             </ul>
           </li>
@@ -85,9 +86,9 @@
 
             <ul class="nav child_menu">
 
-              <li><a href="https://localhost/rrhhcnspt/personas" id="personas">Personas</a></li>
+              <li><a href="<?= SERVERURL; ?>/personas" id="personas">Personas</a></li>
 
-              <li><a href="https://localhost/rrhhcnspt/empleados" id="empleados">Empleados</a></li>
+              <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relacion de Novedades</a></li>
 
             </ul>
 
