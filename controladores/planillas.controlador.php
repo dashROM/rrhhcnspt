@@ -17,7 +17,7 @@ class ControladorPlanillas {
 	}
 
 	/*=============================================
-	CREAR NUEVO PLANILLA
+	CREAR NUEVO ELACION DE NOVEDADES
 	=============================================*/
 	
 	static public function ctrNuevoRelacion($datos) {
@@ -32,14 +32,14 @@ class ControladorPlanillas {
 
 
 	/*=============================================
-	EDITAR PLANILLA
+	EDITAR ELACION DE NOVEDADES
 	=============================================*/
 	
-	static public function ctrEditarPlanilla($datos) {
+	static public function ctrEditarRelacion($datos) {
 		
-		$tabla = "planillas_tbl";
+		$tabla = "planillas";
 
-		$respuesta = ModeloPlanillas::mdlEditarPlanilla($tabla, $datos);
+		$respuesta = ModeloPlanillas::mdlEditarRelacion($tabla, $datos);
 
 		return $respuesta;
 

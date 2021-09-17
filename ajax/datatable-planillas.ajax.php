@@ -116,11 +116,11 @@ class TablaPlanillas {
 
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
 						
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPlanilla' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarPlanilla' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button></div>";
+						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarRelacion' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button></div>";
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPlanilla' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarPlanilla' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button><button class='btn btn-info btnGenerarPlanilla' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='tooltip' title='Generar Planilla'><i class='fab fa-wpforms'></i></button></div>";
+						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarRelacion' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button><button class='btn btn-info btnGenerarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='tooltip' title='Generar Planilla'><i class='fab fa-wpforms'></i></button></div>";
 
 					}
 

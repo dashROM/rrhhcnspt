@@ -1,10 +1,13 @@
+// Inicializando la libreria CKEDITOR
+CKEDITOR.replace('tituloRelacion');
+
 /*=============================================
 CARGAR LA TABLA DINÁMICA DE LISTADO DE RELACION DE NOVEDADES
 =============================================*/
 
 var perfilOculto = $("#perfilOculto").val();
 
-var tablaPlanilla = $('#tablaRelacion').DataTable({
+var tablaRelacion = $('#tablaRelacion').DataTable({
 
 	"ajax": "ajax/datatable-planillas.ajax.php?perfilOculto="+perfilOculto,
 
@@ -128,7 +131,7 @@ $("#frmNuevoRelacion").validate({
 });
 
 /*=============================================
-GUARDANDO DATOS DE NUEVO PLANILLA
+GUARDANDO DATOS DE NUEVO RELACION DE NOVEDADES
 =============================================*/
 
 $("#frmNuevoRelacion").on("click", ".btnGuardar", function() {
@@ -210,19 +213,19 @@ $("#frmNuevoRelacion").on("click", ".btnGuardar", function() {
 });
 
 /*=============================================
-CARGANDO DATOS DE PLANILLA AL FORMULARIO EDITAR PLANILLA
+CARGANDO DATOS DE PLANILLA AL FORMULARIO EDITAR RELACION DE NOVEDADES
 =============================================*/
 
-$(document).on("click", ".btnEditarPlanilla", function() {
+$(document).on("click", ".btnEditarRelacion", function() {
 
-	console.log("CARGAR PLANILLA");
+	console.log("CARGAR RELACION");
 
 	var id_planilla = $(this).attr("idPlanilla");
 	console.log("id_planilla", id_planilla);
 
 
 	var datos = new FormData();
-	datos.append("mostrarPlanilla", 'mostrarPlanilla');
+	datos.append("mostrarRelacion", 'mostrarRelacion');
 	datos.append("id_planilla", id_planilla);
 
 	$.ajax({
@@ -237,10 +240,12 @@ $(document).on("click", ".btnEditarPlanilla", function() {
 		success: function(respuesta) {
 			console.log("respuesta", respuesta);
 
-			$('#editarTituloPlanilla').val(respuesta["titulo_planilla"]);
-			$('#editarMesPlanilla').val(respuesta["mes_planilla"]);
-			$('#editarGestionPlanilla').val(respuesta["gestion_planilla"]);
-			$('#editarTipoContrato').val(respuesta["tipo_contrato"]);
+			var value = CKEDITOR.instances.tituloRelacion.setData(respuesta["titulo_relacion"]);
+
+			// $('#editarTituloRelacion').val(respuesta["titulo_relacion"]);
+			$('#editarMes').val(respuesta["mes_planilla"]);
+			$('#editarGestion').val(respuesta["gestion_planilla"]);
+			$('#editarTipoContrato').val(respuesta["nombre_contrato"]);
 			$('#editarIdPlanilla').val(respuesta["id_planilla"]);
 
 		},
@@ -258,10 +263,10 @@ $(document).on("click", ".btnEditarPlanilla", function() {
 //VALIDANDO DATOS DE EDITAR PLANILLA
 =============================================*/
 
-$("#frmEditarPlanilla").validate({
+$("#frmEditarRelacion").validate({
 
 	rules: {
-		editarTituloPlanilla : { required: true, patron_textoEspecial: true},
+		editarTituloRelacion : { required: true, patron_textoEspecial: true},
 		editarMesPlanilla: { required: true},
 		editarGestionPlanilla: { required: true},
 		editarTipoContrato: { required: true},
@@ -276,20 +281,22 @@ $("#frmEditarPlanilla").validate({
 });
 
 /*=============================================
-GUARDANDO DATOS DE EDITAR PLANILLA
+GUARDANDO DATOS DE EDITAR RELACION
 =============================================*/
 
-$("#frmEditarPlanilla").on("click", ".btnGuardar", function() {
+$("#frmEditarRelacion").on("click", ".btnGuardar", function() {
 
-    if ($("#frmEditarPlanilla").valid()) {
+    if ($("#frmEditarRelacion").valid()) {
 
-		var titulo_planilla = $("#editarTituloPlanilla").val();
+		var titulo_relacion = CKEDITOR.instances.tituloRelacion.getData();
+		console.log("titulo_relacion", titulo_relacion);
 		var id_planilla = $("#editarIdPlanilla").val();
+		console.log("id_planilla", id_planilla);
 
 		var datos = new FormData();
-		datos.append("editarPlanilla", 'editarPlanilla');
+		datos.append("editarRelacion", 'editarRelacion');
 
-		datos.append("titulo_planilla", titulo_planilla);
+		datos.append("titulo_relacion", titulo_relacion);
 		datos.append("id_planilla", id_planilla);
 
 		$.ajax({
@@ -318,14 +325,14 @@ $("#frmEditarPlanilla").on("click", ".btnGuardar", function() {
 	  					
 	  					if (result.value) {
 
-	  						$('#modalEditarPlanilla').modal('toggle');
+	  						$('#modalEditarRelacion').modal('toggle');
 
-							$("#editarTituloPlanilla").val("");
+							// $("#editarTituloPlanilla").val("");
 							$("#editarIdPlanilla").val("");
 
 	  						// Funcion que recarga y actuaiiza la tabla	
 
-							tablaPlanilla.ajax.reload( null, false );
+							tablaRelacion.ajax.reload( null, false );
 
 	  						// window.location = "empleados";
 

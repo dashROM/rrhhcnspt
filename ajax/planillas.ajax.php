@@ -8,16 +8,16 @@ class AjaxPlanillas {
 	public $id_planilla;
 
 	/*=============================================
-	MOSTRAR DATOS PLANILLA
+	MOSTRAR DATOS RELACION DE NOVEDADES
 	=============================================*/
 
-	public function ajaxMostrarPlanilla()	{
+	public function ajaxMostrarRelacion()	{
 
 		$item = "id_planilla";
 		$valor1 = $this->id_planilla;
 		$valor2 = null;
 
-		$respuesta = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
+		$respuesta = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
 
 		echo json_encode($respuesta);
 
@@ -28,7 +28,7 @@ class AjaxPlanillas {
 	public $id_contrato;
 
 	/*=============================================
-	NUEVO PLANILLA
+	NUEVO RELACION DE NOVEDADES
 	=============================================*/
 
 	public function ajaxNuevoRelacion()	{
@@ -45,9 +45,9 @@ class AjaxPlanillas {
 		$dateObj   = DateTime::createFromFormat('!m', $numero);
 		$mes = strftime('%B', $dateObj->getTimestamp());
 
-		$titulo_relacion = '<h3 style="text-align:center"><strong>&nbsp;RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL&nbsp;PARA EL PAGO DE HABERES&nbsp;CORRESPONDIENTE AL MES DE '.$mes.' DE&nbsp;'.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL&nbsp;PUNTO&nbsp;TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+		$titulo = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.$mes.' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
-		$datos = array("titulo_relacion" 	=> mb_strtoupper($titulo_relacion,'utf-8'),
+		$datos = array("titulo_relacion" 	=> $titulo,
 						       "mes_planilla"		  => $this->mes, 
 						       "gestion_planilla"	=> $this->gestion,
 						       "id_contrato"		  => $this->id_contrato,
@@ -60,20 +60,23 @@ class AjaxPlanillas {
 
 	}
 
+	public $titulo_relacion;
 
 	/*=============================================
-	EDITAR PLANILLA
+	EDITAR RELACION DE NOVEDADES
 	=============================================*/
 
-	public function ajaxEditarPlanilla() {
+	public function ajaxEditarRelacion() {
 
-		$datos = array("titulo_planilla"   		=> mb_strtoupper($this->titulo_planilla,'utf-8'),
-						"id_planilla"   		=> $this->id_planilla,
-						);	
+		$titulo = trim($this->titulo_relacion);
+
+		$datos = array("titulo_relacion"  => $titulo,
+						       "id_planilla"   		=> $this->id_planilla,
+		);	
 
 		// var_dump($datos);
 
-		$respuesta = ControladorPlanillas::ctrEditarPlanilla($datos);
+		$respuesta = ControladorPlanillas::ctrEditarRelacion($datos);
 
 		echo $respuesta;
 
@@ -99,11 +102,11 @@ class AjaxPlanillas {
 MOSTRAR PLANILLA
 =============================================*/
 
-if (isset($_POST["mostrarPlanilla"])) {
+if (isset($_POST["mostrarRelacion"])) {
 	
 	$planillas = new AjaxPlanillas();
 	$planillas -> id_planilla = $_POST["id_planilla"];
-	$planillas-> ajaxMostrarPlanilla();
+	$planillas -> ajaxMostrarRelacion();
 
 }
 
@@ -126,13 +129,13 @@ if (isset($_POST["nuevoRelacion"])) {
 EDITAR PLANILLA
 =============================================*/
 
-if (isset($_POST["editarPlanilla"])) {
+if (isset($_POST["editarRelacion"])) {
 
 	$nuevoPlanilla = new AjaxPlanillas();
-	$nuevoPlanilla -> titulo_planilla = $_POST["titulo_planilla"];
+	$nuevoPlanilla -> titulo_relacion = $_POST["titulo_relacion"];
 	$nuevoPlanilla -> id_planilla = $_POST["id_planilla"];
 
-	$nuevoPlanilla -> ajaxEditarPlanilla();
+	$nuevoPlanilla -> ajaxEditarRelacion();
 
 }
 

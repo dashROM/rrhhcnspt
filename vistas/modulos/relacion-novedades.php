@@ -235,7 +235,147 @@ MODAL AGREGAR NUEVA RELACION DE NOVEDADES
           <button type="button" class="btn btn-round btn-outline-success btnGuardar">
 
             <i class="fas fa-save"></i>
-            Guardar Relacon de Novedades
+            Guardar
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!--=====================================
+MODAL EDITAR RELACION DE NOVEDADES
+======================================-->
+
+<div id="modalEditarRelacion" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="editarRelacion" aria-hidden="true">
+  
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <form id="frmEditarRelacion">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header bg-modal">
+
+          <h5 class="modal-title" id="editarRelacion">Agregar Relación de Novedades</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="btn btn-outline-danger m-0 py-0 px-2">&times;</span>
+          </button>
+
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              Campos Obligatorios<i class="fas fa-asterisk asterisk mt-2"></i>
+              
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+              <!-- ENTRADA PARA EL TITULO -->
+
+              <div class="form-group">
+
+                <label for="tituloRelacion">TÍTULO</label>
+                <textarea type="text" class="form-control mayuscula" id="tituloRelacion" name="tituloRelacion"></textarea>
+
+              </div>
+
+            </div>
+
+          </div>     
+
+          <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+
+              <!-- ENTRADA PARA EL MES -->
+
+              <div class="form-group">
+
+                <label for="editarMes">MES<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="editarMes" name="editarMes" value="" readonly="">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-6">
+
+              <!-- ENTRADA PARA LA GESTION -->
+
+              <div class="form-group">
+
+                <label for="editarGestion">GESTIÓN<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="editarGestion" name="editarGestion" value="" readonly>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+              <!-- ENTRADA PARA EL NOMBRE -->
+
+              <div class="form-group">
+
+                <label for="editarTipoContrato">TIPO DE CONTRATO<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="editarTipoContrato" name="editarTipoContrato" value="" readonly="">
+
+              </div>
+
+            </div>
+
+          </div>     
+
+        </div>
+
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <input type="hidden" id="editarIdPlanilla" value="">
+
+          <button type="button" class="btn btn-round btn-outline-danger float-left" data-dismiss="modal">
+
+            <i class="fas fa-times"></i>
+            Cerrar
+
+          </button>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+
+            <i class="fas fa-save"></i>
+            Guardar Cambios
 
           </button>
 

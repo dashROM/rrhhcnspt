@@ -705,8 +705,6 @@ $("#frmEditarDocumentoContrato").on("click", ".btnGuardar", function() {
 	datos.append("editarDocumentoContrato", 'editarDocumentoContrato');
 	datos.append("documento", documento);
 
-	console.log("datos", datos);
-
 	$.ajax({
 
 		url:"../ajax/persona_contratos.ajax.php",
