@@ -45,7 +45,7 @@ class AjaxPlanillas {
 		$dateObj   = DateTime::createFromFormat('!m', $numero);
 		$mes = strftime('%B', $dateObj->getTimestamp());
 
-		$titulo = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.$mes.' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+		$titulo = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
 		$datos = array("titulo_relacion" 	=> $titulo,
 						       "mes_planilla"		  => $this->mes, 

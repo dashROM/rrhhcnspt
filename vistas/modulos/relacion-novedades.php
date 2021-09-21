@@ -299,8 +299,8 @@ MODAL EDITAR RELACION DE NOVEDADES
 
               <div class="form-group">
 
-                <label for="tituloRelacion">TÍTULO</label>
-                <textarea type="text" class="form-control mayuscula" id="tituloRelacion" name="tituloRelacion"></textarea>
+                <label  for="tituloRelacion">TÍTULO</label>
+                <textarea type="text" class="form-control mayuscula" id="tituloRelacion" name="tituloRelacion" placeholder="Ingresar Título de Relación de Novedades" value=""></textarea>
 
               </div>
 

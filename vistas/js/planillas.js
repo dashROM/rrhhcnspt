@@ -378,16 +378,83 @@ $("#frmEditarRelacion").on("click", ".btnGuardar", function() {
 });
 
 /*=============================================
-BOTÓN GENERAR PLANILLA
+BOTÓN GENERAR RELACION DE NOVEDADES
 =============================================*/
 
-$(document).on("click", "button.btnGenerarPlanilla", function() {
+$(document).on("click", "button.btnGenerarRelacion", function() {
 	
-	var idPlanilla = $(this).attr("idPlanilla");
+	var id_planilla = $(this).attr("idPlanilla");
+	console.log("id_planilla", id_planilla);
 
-	window.location = "index.php?ruta=planillas-empleados&idPlanilla="+idPlanilla;
+	window.location = "relacion-persona/"+id_planilla;	
+
+	// window.location = "index.php?ruta=planillas-empleados&idPlanilla="+idPlanilla;
 
 });
+
+
+/*=============================================
+CARGAR LA TABLA DINÁMICA DE LISTADO DE RELACION DE NOVEDADES
+=============================================*/
+
+var perfilOculto = $("#perfilOculto").val();
+
+var action = $("#actionPlanilla").val();
+
+var idPlanilla = $("#idPlanilla").val();
+
+var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
+
+	"ajax": {
+		url: "../ajax/datatable-planillas_personas.ajax.php",
+		data: { 'perfilOculto' : perfilOculto, 'action' : action, 'id_planilla' : idPlanilla },
+		type: "post"
+	},
+
+	"deferRender": true,
+
+	"retrieve" : true,
+
+	"processing" : true,
+
+	"language": {
+
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ",",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+		"sFirst":    "Primero",
+		"sLast":     "Último",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		},
+		"buttons": {
+			"copy": "Copiar",
+    	"colvis": "Visibilidad de columnas"
+    }
+		
+	},
+
+	"responsive": true,
+
+	"lengthChange": false,
+
+
+}); 
+
 
 /*=============================================
 CARGAR LA TABLA DINÁMICA DE PLANILLA EMPLEADOS GENERADA

@@ -13,7 +13,6 @@
   $dateObj   = DateTime::createFromFormat('!m', $numero);
   $mes = strftime('%B', $dateObj->getTimestamp());
 
-
 ?>
 <div class="content-wrapper">
 

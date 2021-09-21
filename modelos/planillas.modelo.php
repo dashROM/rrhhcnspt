@@ -21,6 +21,7 @@ class ModeloPlanillas {
 
 			} else {
 
+
 				$stmt = Conexion::conectarPG()->prepare("SELECT p.id_planilla, p.titulo_relacion, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato AND $item = :$item");
 
 				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
@@ -206,7 +207,7 @@ class ModeloPlanillas {
 	MOSTRAR PLANILLA GENERADA
 	=============================================*/
 	
-	static public function mdlMostrarGenerarPlanilla($item, $valor1, $valor2) {
+	static public function mdlMostrarGenerarRelacion($item, $valor1, $valor2) {
 
 		if ($item != null) {
 			
@@ -219,9 +220,9 @@ class ModeloPlanillas {
 
 			} else {
 
-				$sql = "SELECT pe.id_planilla_empleado, emp.id_empleado, est.abrev_establecimiento, emp.paterno_empleado, emp.materno_empleado, emp.nombre_empleado, concat_ws(' ', emp.ci_empleado, emp.ext_ci_empleado) AS ci_empleado, c.nombre_cargo, c.haber_basico, pe.dias_trabajados, pe.total_ganado, pe.desc_afp, pe.desc_solidario, pe.total_desc, pe.liquido_pagable FROM empleados_tbl emp, establecimientos_tbl est, cargos_tbl c, planillas_empleados_tbl pe WHERE emp.id_establecimiento = est.id_establecimiento AND emp.id_cargo = c.id_cargo AND emp.id_empleado = pe.id_empleado AND pe.$item = :$item";
+				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item";
 
-				$stmt = Conexion::conectar()->prepare($sql);
+				$stmt = Conexion::conectarPG()->prepare($sql);
 
 				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
 
@@ -235,7 +236,7 @@ class ModeloPlanillas {
 
 			$sql = "SELECT emp.id_empleado, est.abrev_establecimiento, emp.paterno_empleado, emp.materno_empleado, emp.nombre_empleado, concat_ws(' ', emp.ci_empleado, emp.ext_ci_empleado) AS ci_empleado, c.nombre_cargo, c.haber_basico FROM empleados_tbl emp, establecimientos_tbl est, cargos_tbl c, planillas_tbl p WHERE emp.id_establecimiento=est.id_establecimiento AND emp.id_cargo=c.id_cargo";
 
-			$stmt = Conexion::conectar()->prepare($sql);
+			$stmt = Conexion::conectarPG()->prepare($sql);
 
 			$stmt->execute();
 

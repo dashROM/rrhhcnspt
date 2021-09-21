@@ -58,23 +58,25 @@ class ControladorPlanillas {
 	LISTADO DE PLANILLAS
 	=============================================*/
 	
-	static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
+	// static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
 
-		$tabla = "planillas_tbl";
+	// 	$tabla = "planillas_tbl";
 
-		$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
+	// 	$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
 
-		return $respuesta;
+	// 	return $respuesta;
 
-	}
+	// }
 
 	/*=============================================
-	LISTADO DE DATOS DE PLANILLA GENERADA 
+	LISTADO DE DATOS DE GENERAR RELACION DE NOVEDADES
 	=============================================*/
 	
-	static public function ctrMostrarGenerarPlanilla($item, $valor1, $valor2) {
+	static public function ctrMostrarGenerarRelacion($item, $valor1, $valor2) {
 
-		$respuesta = ModeloPlanillas::mdlMostrarGenerarPlanilla($item, $valor1, $valor2);
+		$tabla = "planillas";
+
+		$respuesta = ModeloPlanillas::mdlMostrarGenerarRelacion($item, $valor1, $valor2);
 
 		return $respuesta;
 
