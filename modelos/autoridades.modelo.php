@@ -5,10 +5,10 @@ require_once "conexion.db.php";
 class ModeloAutoridades {
 
 	/*=============================================
-	MOSTRAR AUTORIDADES
+	MOSTRAR ADMINISTRADOR REGIONAL
 	=============================================*/
 	
-	static public function mdlMostrarAdministradorRegional($tabla, $item, $valor) {
+	static public function mdlMostrarAutoridades($tabla, $item, $valor) {
 		
 		// devuelve los campos que coincidan con el valor del item
 

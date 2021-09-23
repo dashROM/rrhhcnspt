@@ -1,10 +1,13 @@
 <?php
 
 require_once "../controladores/planillas.controlador.php";
-require_once "../controladores/planillas_empleados.controlador.php";
+require_once "../controladores/planillas_personas.controlador.php";
+require_once "../controladores/autoridades.controlador.php";
 
 require_once "../modelos/planillas.modelo.php";
-require_once "../modelos/planillas_empleados.modelo.php";
+require_once "../modelos/planillas_personas.modelo.php";
+require_once "../modelos/autoridades.modelo.php";
+
 
 require_once('../extensiones/tcpdf/tcpdf.php');
 
@@ -13,15 +16,29 @@ class MYPDF extends TCPDF {
     //Page header
     public function Header() {
         // Logo
-        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
-        $this->Image($image_file, 5, 5, 15, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+        $image_file = K_PATH_IMAGES.'cns-logo.png';
+        $this->Image($image_file, 5, 5, 10, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
         // Set font
-        $this->SetFont('helvetica', 'B', 10);
+        $this->SetFont('helvetica', 'B', 12);
         // Titulo
-        $this->Cell(0, 0, '   CAJA NACIONAL DE SALUD', 0, 1, 'L', 0, '', 1);
+        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
         // Subtitulo
-        $this->Cell(0, 0, '                      SECC. PLANILLAS REG.', 0, 1, 'L', 0, '', 1);
-        $this->Cell(0, 0, '                          Potosí -0- Bolivia', 0, 1, 'L', 0, '', 1);
+        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
+        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
+
+		// set border width
+		$this->SetLineWidth(0.1);
+
+		// set color for cell border
+		$this->SetDrawColor(0,0,0);
+
+		// set filling color
+		$this->SetFillColor(0,0,0);
+
+		// set cell height ratio
+		$this->setCellHeightRatio(0.05);
+
+        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
 
 	}
 
@@ -36,36 +53,36 @@ class MYPDF extends TCPDF {
     }
 }
 
-class AjaxPlanillasEmpleados {
+class AjaxPlanillasPersonas {
 	 
 	public $id_planilla; 
-	public $id_planilla_empleado; 
+	public $id_planilla_persona_contrato; 
 
 	/*=============================================
-	MOSTRAR DATOS DE PLANILLAS EMPLEADOS
+	MOSTRAR DATOS DE RELACION DE NOVEDADES DE PERSONAL
 	=============================================*/
 
-	public function ajaxMostrarPlanillaEmpleado()	{
+	public function mostrarRelacionNovedadesPersona()	{
 
-		$item = "id_planilla_empleado";
-		$valor = $this->id_planilla_empleado;
+		$item = "id_planilla_persona_contrato";
+		$valor = $this->id_planilla_persona_contrato;
 
-		$respuesta = ControladorPlanillasEmpleados::ctrMostrarPlanillaEmpleado($item, $valor);
+		$respuesta = ControladorPlanillasPersonas::ctrMostrarRelacionNovedadesPersona($item, $valor);
 
 		echo json_encode($respuesta);
 
 	}
 
 	/*=============================================
-	MOSTRAR DATOS DE PLANILLAS EMPLEADOS COMPLETO
+	MOSTRAR DATOS DE RELACION DE NOVEDADES DE PERSONAL COMPLETO
 	=============================================*/
 
-	public function ajaxMostrarPlanillaEmpleadoCompleto()	{
+	public function ajaxMostrarRelacionNovedadesPersonaCompleto()	{
 
-		$item = "id_planilla_empleado";
-		$valor = $this->id_planilla_empleado;
+		$item = "id_planilla_persona_contrato";
+		$valor = $this->id_planilla_persona_contrato;
 
-		$respuesta = ControladorPlanillasEmpleados::ctrMostrarPlanillaEmpleadoCompleto($item, $valor);
+		$respuesta = ControladorPlanillasEmpleados::ctrMostrarRelacionPersonaCompleto($item, $valor);
 
 		echo json_encode($respuesta);
 
@@ -80,7 +97,7 @@ class AjaxPlanillasEmpleados {
 		$item = "id_planilla";
 		$valor = $this->id_planilla;
 
-		$respuesta = ControladorPlanillasEmpleados::ctrMostrarTotalesPlanillaEmpleado($item, $valor);
+		$respuesta = ControladorPlanillasPersonas::ctrMostrarTotalesPlanillaEmpleado($item, $valor);
 
 		echo json_encode($respuesta);
 
@@ -92,34 +109,304 @@ class AjaxPlanillasEmpleados {
 	=============================================*/
 	
 	public $dias_trabajados; 
-	public $total_ganado;
-	public $desc_afp; 
-	public $desc_solidario; 
-	public $total_desc; 
-	public $liquido_pagable; 
+	public $haber_basico; 
 
-	public function ajaxAgregarImportes()	{
+	public function ajaxAgregarDiasTrabajados()	{
+
+		/*=============================================
+		CALCULOS PARA PLANILLAS
+		=============================================*/
+
+		$total_ganado = ($this->haber_basico * $this->dias_trabajados)/30;
+
+		$desc_afp = $total_ganado * 0.1271;
+
+		// var_dump($desc_afp);
+
+		$total_desc = $desc_afp;
+
+		$liquido_pagable = $total_ganado - $total_desc;
+
 
 		/*=============================================
 		ALMACENANDO LOS DATOS EN LA BD
 		=============================================*/
 
-		$datos = array( "dias_trabajados"	   => $this->dias_trabajados, 
-						"total_ganado"         => $this->total_ganado,
-						"desc_afp"             => $this->desc_afp,
-						"desc_solidario"       => $this->desc_solidario,
-						"total_desc"           => $this->total_desc,
-						"liquido_pagable"      => $this->liquido_pagable,
-						"id_planilla_empleado" => $this->id_planilla_empleado,
+		$datos = array( "dias_trabajados"	   			=> $this->dias_trabajados,
+		                "total_ganado"	   			    => number_format($total_ganado, 2, ',', '.'),
+		                "desc_afp"	   			        => number_format($desc_afp, 2, ',', '.'),
+		                "total_desc"	   			    => number_format($total_desc, 2, ',', '.'),
+		                "liquido_pagable"	   			=> number_format($liquido_pagable, 2, ',', '.'), 
+						"id_planilla_persona_contrato"  => $this->id_planilla_persona_contrato,
 						);	
 
-		// var_dump($datos);
-
-		$respuesta = ControladorPlanillasEmpleados::ctrAgregarImportes($datos);
+		$respuesta = ControladorPlanillasPersonas::ctrAgregarDiasTrabajados($datos);
 
 		echo $respuesta;
 
 	}
+
+	/*=============================================
+	GENERAR RELACION DE NOVEDADES EN PDF 
+	=============================================*/
+
+	public function ajaxMostrarRelacionPDF() {			
+
+		/*=============================================
+	   	TRAEMOS LOS DATOS DE PLANILLA
+	    =============================================*/
+
+		$item = "id_planilla";
+		$valor1 = $this->id_planilla;
+		$valor2 = null;
+
+		$planilla = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+
+		// Convertir numero de Mes a su valor literal
+		setlocale(LC_TIME, 'spanish');
+		$numero = $planilla["mes_planilla"];
+		$dateObj   = DateTime::createFromFormat('!m', $numero);
+		$mes = strftime('%B', $dateObj->getTimestamp());
+
+		/*=============================================
+	   	TRAEMOS LOS DATOS DE PLANILLA
+	    =============================================*/
+
+		$datos_planilla = ControladorPlanillas::ctrMostrarGenerarRelacion($item, $valor1, $valor2);
+
+		/*=============================================
+	   	TRAEMOS LOS DATOS DE AUTORIDADES
+	    =============================================*/
+
+		// TRAEMOS DATOS DE AUTORIDADES-ADMINISTRADOR REGIONAL
+		$item = "puesto";
+		$valor = "ADMINISTRADOR(A) REGIONAL C.N.S.";
+
+		$admin_regional = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+				// TRAEMOS DATOS DE AUTORIDADES-SUPERVISOR ADMINISTRATIVO
+		$item = "puesto";
+		$valor = "SUPERVISOR ADM. | RR.HH.";
+
+		$supervisor_admin = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-JEFE SERVICIOS GENERALES
+		$item = "puesto";
+		$valor = "JEFE SERVICIOS GENERALES";
+
+		$jefe_servicios = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-JEFE DE CONTABILIDAD REGIONAL
+		$item = "puesto";
+		$valor = "JEFE CONTABILIDAD REG.";
+
+		$jefe_contabilidad = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-SECRETARIA DE PERSONAL REGIONAL
+		$item = "puesto";
+		$valor = "STRIA. DE PERS. REG";
+
+		$secre_personal = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+
+
+
+		// Extend the TCPDF class to create custom Header and Footer
+
+		$pdf = new MYPDF('L', 'mm', 'Letter', true, 'UTF-8', false);
+
+		// set document information
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor('CNS Potosí');
+		$pdf->SetTitle('Relacion Novedades-'.$valor1);
+		$pdf->SetSubject('Planilla de pago CNS');
+		$pdf->SetKeywords('TCPDF, PDF, CNS, Reporte, Relacion Novedades, Planilla');
+	
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+		// set margins
+		$pdf->SetMargins(5, 15, 5, 0);
+		$pdf->SetAutoPageBreak(true, 5); 
+		$pdf->SetHeaderMargin(5);
+		$pdf->SetFooterMargin(5);
+
+		// set image scale factor
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// ---------------------------------------------------------
+
+		// set font
+		$pdf->SetFont('Helvetica', '', 8);
+
+		$pdf->SetPrintFooter(false);
+
+		// add a page
+		$pdf->AddPage();
+
+		$content = '';
+
+		  	$content .= '
+
+		  	<html lang="es">
+			<head>
+
+				<style>
+					
+					body {
+
+						font-size: 28px;
+						margin: 4px;
+						padding: 4px;
+
+					}
+
+					.font-weight-bold {
+
+						font-weight: bold;
+
+					}
+
+
+					.titulo {
+
+						text-align: center;
+						line-height: 5px;
+						margin: 4px;
+
+					}
+
+					.datos-personales {
+
+						border-top: 1px solid #000; 
+						border-bottom: 1px solid #000;
+					}
+
+					.firma {
+
+						width: 200px; 
+						border-top: 1px dashed #000; 
+						margin-left: auto; 
+						margin-right: auto;
+
+					}
+
+					.linea_simple {
+
+						border-top: 1px solid #000; 
+						border-bottom: 1px solid #000;
+
+					}
+
+					.linea_punteada {
+
+						border-bottom: 1px dashed #d0d0d0;
+						
+					}
+
+				</style>
+
+			</head>
+
+			<body>
+
+				<div class="content">
+
+					<div class="header_planilla">
+					
+						<h3 class="titulo">'.$planilla["titulo_relacion"].'</h3>
+
+					</div>
+
+					<div class="body_planilla">
+
+						<table>
+			                    
+		                    <tr>
+								<td width="15px" align="center" class="linea_simple">#</td>
+								<td width="55px" align="center" class="linea_simple">LUGAR</td>
+								<td width="80px" class="linea_simple">PATERNO</td>
+								<td width="80px" class="linea_simple">MATERNO</td>
+								<td width="120px" class="linea_simple">NOMBRE(S)</td>
+								<td width="80px" align="center" class="linea_simple">CARNET</td>
+								<td width="130px" align="center" class="linea_simple">CARGO</td>
+								<td width="100px" align="center" class="linea_simple">INICIO CONTRATO</td>
+								<td width="100px" align="center" class="linea_simple">FIN CONTRATO</td>
+								<td width="65px" align="center" class="linea_simple">HABER BÁSICO</td>
+								<td width="50px" align="center" class="linea_simple">DIAS TRAB.</td>
+			                </tr>';
+			                
+						for ($i = 0; $i < count($datos_planilla); $i++) {
+
+		                	$content .= '
+		                	<tr>
+		                		<td width="15px" align="center" class="linea_punteada">'.($i+1).'</td>
+		                		<td width="55px" align="center" class="linea_punteada">'.$datos_planilla[$i]["abrev_establecimiento"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["paterno_persona"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["materno_persona"].'</td>
+		                		<td width="120px" class="linea_punteada">'.$datos_planilla[$i]["nombre_persona"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
+		                		<td width="130px" class="linea_punteada">'.$datos_planilla[$i]["nombre_cargo"].'</td>
+		                		<td width="100px" align="center" class="linea_punteada">'.$datos_planilla[$i]["inicio_contrato"].'</td>
+		                		<td width="100px" align="center" class="linea_punteada">'.$datos_planilla[$i]["fin_contrato"].'</td>
+		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
+		                		<td width="50px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
+		                	</tr>';
+
+		                }			                
+
+				    	$content .= '
+				    	</table>
+
+				    </div>
+				    <br><br><br><br><br><br>
+				    <div class="footer_planilla">
+				    	
+				    	<table>
+				    		<tr>
+				    			<td align="center">'.$secre_personal['nombre_autoridad'].'<br><label class="font-weight-bold">'.$secre_personal['puesto'].'</label></td>
+				    			<td align="center">'.$supervisor_admin['nombre_autoridad'].'<br><label class="font-weight-bold">'.$supervisor_admin['puesto'].'</label></td>
+				    			<td align="center">'.$jefe_contabilidad['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_contabilidad['puesto'].'</label></td>
+				    			<td align="center">'.$jefe_servicios['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_servicios['puesto'].'</label></td>
+				    			<td align="center">'.$admin_regional['nombre_autoridad'].'<br><label class="font-weight-bold">'.$admin_regional['puesto'].'</label></td>
+				    		</tr>
+				    	</table>
+
+				    </div>
+
+				</div>
+
+			</body>
+
+			</html>';
+			
+		// Reconociendo la estructura HTML
+		$pdf->writeHTML($content, true, 0, true, true);
+
+
+		// Estilos necesarios para el Codigo QR
+		$style = array(
+		    'border' => 0,
+		    'vpadding' => 'auto',
+		    'hpadding' => 'auto',
+		    'fgcolor' => array(0,0,0),
+		    'bgcolor' => false, //array(255,255,255)
+		    'module_width' => 1, // width of a single module in points
+		    'module_height' => 1 // height of a single module in points
+		);
+
+		//	Datos a mostrar en el código QR
+		$codeContents = 'COD. RELACION DE NOVEDADES: '.$this->id_planilla."\n";
+
+		// insertando el código QR
+		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 250, 3, 18, 18, $style, 'N');	
+
+		$pdf->lastPage();
+
+		$pdf->output('../temp/relacion-'.$valor1.'.pdf', 'F');
+
+	}
+
 
 	/*=============================================
 	GENERAR BOLETA EMPLEADO EN PDF 
@@ -677,14 +964,14 @@ class AjaxPlanillasEmpleados {
 }
 
 /*=============================================
-MOSTRAR DATOS DE PLANILLAS EMPLEADOS
+MOSTRAR DATOS DE RELACION DE NOVEDADES DE PERSONA
 =============================================*/
 
-if (isset($_POST["mostrarPlanillaEmpleado"])) {
+if (isset($_POST["mostrarRelacionNovedadesPersona"])) {
 
-	$mostrarPlanillasEmpleados = new AjaxPlanillasEmpleados();
-	$mostrarPlanillasEmpleados -> id_planilla_empleado = $_POST["id_planilla_empleado"];
-	$mostrarPlanillasEmpleados -> ajaxMostrarPlanillaEmpleado();
+	$mostrarRelacionPersona = new AjaxPlanillasPersonas();
+	$mostrarRelacionPersona -> id_planilla_persona_contrato = $_POST["id_planilla_persona_contrato"];
+	$mostrarRelacionPersona -> mostrarRelacionNovedadesPersona();
 
 }
 
@@ -692,59 +979,71 @@ if (isset($_POST["mostrarPlanillaEmpleado"])) {
 MOSTRAR DATOS DE PLANILLAS EMPLEADOS
 =============================================*/
 
-if (isset($_POST["mostrarPlanillaEmpleadoCompleto"])) {
+// if (isset($_POST["mostrarPlanillaEmpleadoCompleto"])) {
 
-	$mostrarPlanillasEmpleados = new AjaxPlanillasEmpleados();
-	$mostrarPlanillasEmpleados -> id_planilla_empleado = $_POST["id_planilla_empleado"];
-	$mostrarPlanillasEmpleados -> ajaxMostrarPlanillaEmpleadoCompleto();
+// 	$mostrarPlanillasEmpleados = new AjaxPlanillasPersonas();
+// 	$mostrarPlanillasEmpleados -> id_planilla_empleado = $_POST["id_planilla_empleado"];
+// 	$mostrarPlanillasEmpleados -> ajaxMostrarPlanillaEmpleadoCompleto();
 
-}
+// }
 
 /*=============================================
 MOSTRAR DATOS DE PLANILLAS EMPLEADOS
 =============================================*/
 
-if (isset($_POST["mostrarTotalesPlanillaEmpleado"])) {
+// if (isset($_POST["mostrarTotalesPlanillaEmpleado"])) {
 
-	$mostrarTotalesPlanillasEmpleados = new AjaxPlanillasEmpleados();
-	$mostrarTotalesPlanillasEmpleados -> id_planilla = $_POST["id_planilla"];
-	$mostrarTotalesPlanillasEmpleados -> ajaxMostrarTotalesPlanillaEmpleado();
+// 	$mostrarTotalesPlanillasEmpleados = new AjaxPlanillasPersonas();
+// 	$mostrarTotalesPlanillasEmpleados -> id_planilla = $_POST["id_planilla"];
+// 	$mostrarTotalesPlanillasEmpleados -> ajaxMostrarTotalesPlanillaEmpleado();
 
-}
+// }
 
 /*=============================================
-CREAR DATOS DE PERSONA CONTACTO EN LA FICHA EPIDEMIOLOGICA
+AGREGAR DIAS TRABAJADOS EN LA TABLA
 =============================================*/
 
-if (isset($_POST["agregarImportes"])) {
+if (isset($_POST["agregarDiasTrabajados"])) {
 
-	$agregarImportes = new AjaxPlanillasEmpleados();
-	$agregarImportes -> dias_trabajados = $_POST["dias_trabajados"];
-	$agregarImportes -> total_ganado = $_POST["total_ganado"];
-	$agregarImportes -> desc_afp = $_POST["desc_afp"];
-	// $agregarImportes -> desc_solidario = $_POST["desc_solidario"];
-	$agregarImportes -> total_desc = $_POST["total_desc"];
-	$agregarImportes -> liquido_pagable = $_POST["liquido_pagable"];
-	$agregarImportes -> id_planilla_empleado = $_POST["id_planilla_empleado"];
-	$agregarImportes -> ajaxAgregarImportes();
+	$agregarDias = new AjaxPlanillasPersonas();
+	$agregarDias -> dias_trabajados = $_POST["nuevoDiasTrab"];
+	$agregarDias -> haber_basico = $_POST["nuevoHaberBasico"];
+	$agregarDias -> id_planilla_persona_contrato = $_POST["idPlanillaPersona"];
+	$agregarDias -> ajaxAgregarDiasTrabajados();
 
 }
 
 /*=============================================
-GENERAR BOLETA EMPLEADO EN PDF 
+GENERAR BOLETA RELACION DE NOVEDADES EN PDF 
+=============================================*/
+
+if (isset($_POST["generarRelacionPDF"])) {
+
+	$generarPlanillaPDF = new AjaxPlanillasPersonas();
+	$generarPlanillaPDF -> id_planilla = $_POST["id_planilla"];
+	$generarPlanillaPDF -> ajaxMostrarRelacionPDF();
+
+}
+
+/*=============================================
+GENERAR BOLETA EN PDF 
 =============================================*/
 
 if (isset($_POST["boletaEmpleadoPDF"])) {
 
-	$boletaEmpleadoPDF = new AjaxPlanillasEmpleados();
+	$boletaEmpleadoPDF = new AjaxPlanillasPersonas();
 	$boletaEmpleadoPDF -> id_planilla_empleado = $_POST["id_planilla_empleado"];
 	$boletaEmpleadoPDF -> ajaxMostrarBoletaEmpleadoPDF();
 
 }
 
+/*=============================================
+GENERAR PLANILLA EN PDF 
+=============================================*/
+
 if (isset($_POST["generarPlanillaPDF"])) {
 
-	$generarPlanillaPDF = new AjaxPlanillasEmpleados();
+	$generarPlanillaPDF = new AjaxPlanillasPersonas();
 	$generarPlanillaPDF -> id_planilla = $_POST["id_planilla"];
 	$generarPlanillaPDF -> ajaxMostrarPlanillaPDF();
 

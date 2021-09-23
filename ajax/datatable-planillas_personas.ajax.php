@@ -42,7 +42,7 @@ class TablaGenerarPlanilla {
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-primary btnAgregarDiasTrabajados' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button>";
+						$botones = "<div class='btn-group'><button class='btn btn-primary btnAgregarDiasTrabajados' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalAgregarDiasTrabajados' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button>";
 
 					}
 					

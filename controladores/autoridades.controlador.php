@@ -3,14 +3,14 @@
 class ControladorAutoridades {
 
 	/*=============================================
-	MOSTRAR ADMINISTRADOR REGIONAL
+	MOSTRAR AUTORIDADES
 	=============================================*/
 	
-	static public function ctrMostrarAdministradorRegional($item, $valor) {
+	static public function ctrMostrarAutoridades($item, $valor) {
 
 		$tabla = "autoridades";
 
-		$respuesta = ModeloAutoridades::mdlMostrarAdministradorRegional($tabla, $item, $valor);
+		$respuesta = ModeloAutoridades::mdlMostrarAutoridades($tabla, $item, $valor);
 
 		return $respuesta;
 

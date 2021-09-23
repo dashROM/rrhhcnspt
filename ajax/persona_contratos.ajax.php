@@ -138,7 +138,7 @@ class AjaxPersonaContratos {
 		$item = "puesto";
 		$valor = "ADMINISTRADOR(A) REGIONAL C.N.S.";
 
-		$admin_regional = ControladorAutoridades::ctrMostrarAdministradorRegional($item, $valor);
+		$admin_regional = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
 
 		// SI TIPO DE CONTRATO ES SUPLENCIA SE GUARDA EL TIPO DE SUPLENCIA 
 		if ($this->id_contrato != 1) {

@@ -448,8 +448,6 @@ var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
 		
 	},
 
-	"responsive": true,
-
 	"lengthChange": false,
 
 
@@ -460,108 +458,106 @@ var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
 CARGAR LA TABLA DINÁMICA DE PLANILLA EMPLEADOS GENERADA
 =============================================*/
 
-var perfilOculto = $("#perfilOculto").val();
+// var perfilOculto = $("#perfilOculto").val();
 
-var idPlanilla = $("#idPlanilla").val();
+// var idPlanilla = $("#idPlanilla").val();
 
-var tablaPlanillaEmpleado = $('#tablaGenerarPlanilla').DataTable({
+// var tablaPlanillaEmpleado = $('#tablaGenerarPlanilla').DataTable({
 
-	"ajax": "ajax/datatable-planillas_empleados.ajax.php?perfilOculto="+perfilOculto+"&idPlanilla="+idPlanilla,
+// 	"ajax": "ajax/datatable-planillas_empleados.ajax.php?perfilOculto="+perfilOculto+"&idPlanilla="+idPlanilla,
 
-	"deferRender": true,
+// 	"deferRender": true,
 
-	"retrieve" : true,
+// 	"retrieve" : true,
 
-	"processing" : true,
+// 	"processing" : true,
 
-	"columnDefs": [
-	{
-		"targets": 7,
-		"className": "text-right",
-	},
-	{
-		"targets": 8,
-		"className": "text-center",
-	},
-	{
-		"targets": 9,
-		"className": "text-right",
-	},
-	{
-		"targets": 10,
-		"className": "text-right",
-	},
-	{
-		"targets": 11,
-		"className": "text-right",
-	},
-	{
-		"targets": 12,
-		"className": "text-right",
-	},
-	{
-		"targets": 13,
-		"className": "text-right",
-	}],
+// 	"columnDefs": [
+// 	{
+// 		"targets": 7,
+// 		"className": "text-right",
+// 	},
+// 	{
+// 		"targets": 8,
+// 		"className": "text-center",
+// 	},
+// 	{
+// 		"targets": 9,
+// 		"className": "text-right",
+// 	},
+// 	{
+// 		"targets": 10,
+// 		"className": "text-right",
+// 	},
+// 	{
+// 		"targets": 11,
+// 		"className": "text-right",
+// 	},
+// 	{
+// 		"targets": 12,
+// 		"className": "text-right",
+// 	},
+// 	{
+// 		"targets": 13,
+// 		"className": "text-right",
+// 	}],
 
-	"language": {
+// 	"language": {
 
-		"sProcessing":     "Procesando...",
-		"sLengthMenu":     "Mostrar _MENU_ registros",
-		"sZeroRecords":    "No se encontraron resultados",
-		"sEmptyTable":     "Ningún dato disponible en esta tabla",
-		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
-		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-		"sInfoPostFix":    "",
-		"sSearch":         "Buscar:",
-		"sUrl":            "",
-		"sInfoThousands":  ",",
-		"sLoadingRecords": "Cargando...",
-		"oPaginate": {
-		"sFirst":    "Primero",
-		"sLast":     "Último",
-		"sNext":     "Siguiente",
-		"sPrevious": "Anterior"
-		},
-		"oAria": {
-			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-		},
-		"buttons": {
-			"copy": "Copiar",
-    	"colvis": "Visibilidad de columnas"
-    }
+// 		"sProcessing":     "Procesando...",
+// 		"sLengthMenu":     "Mostrar _MENU_ registros",
+// 		"sZeroRecords":    "No se encontraron resultados",
+// 		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+// 		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+// 		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+// 		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+// 		"sInfoPostFix":    "",
+// 		"sSearch":         "Buscar:",
+// 		"sUrl":            "",
+// 		"sInfoThousands":  ",",
+// 		"sLoadingRecords": "Cargando...",
+// 		"oPaginate": {
+// 		"sFirst":    "Primero",
+// 		"sLast":     "Último",
+// 		"sNext":     "Siguiente",
+// 		"sPrevious": "Anterior"
+// 		},
+// 		"oAria": {
+// 			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+// 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+// 		},
+// 		"buttons": {
+// 			"copy": "Copiar",
+//     	"colvis": "Visibilidad de columnas"
+//     }
 		
-	},
+// 	},
 
-	// "responsive": true,
+// 	// "responsive": true,
 
-	"lengthChange": false,
+// 	"lengthChange": false,
 
-});
+// });
 
 /*=============================================
-//GUARDANDO DATOS DE MODAL PARA GENERAR IMPORTES
+//GUARDANDO DATOS DE MODAL PARA AGREGAR DIAS TRABAJADOS
 =============================================*/
 
-$(document).on("click", ".btnGenerarImportes", function() {
+$(document).on("click", ".btnAgregarDiasTrabajados", function() {
 
-	console.log("GENERAR IMPORTES");
-
-	var id_planilla_empleado = $(this).attr("idPlanillaEmpleado");
-	console.log("id_planilla_empleado", id_planilla_empleado);
+	var id_planilla_persona_contrato = $(this).attr("idPlanillaPersona");
+	console.log("id_planilla_persona_contrato", id_planilla_persona_contrato);
 
 	// var fila = $(this).parent().parent().parent().attr("id", "fila"+id_planilla_empleado);
 	// console.log("fila", fila);
 
 	var datos = new FormData();
-	datos.append("mostrarPlanillaEmpleado", 'mostrarPlanillaEmpleado');
-	datos.append("id_planilla_empleado", id_planilla_empleado);
+	datos.append("mostrarRelacionNovedadesPersona", 'mostrarRelacionNovedadesPersona');
+	datos.append("id_planilla_persona_contrato", id_planilla_persona_contrato);
 
 	$.ajax({
 
-		url: "ajax/planillas_empleados.ajax.php",
+		url: "../ajax/planillas_personas.ajax.php",
 		method: "POST",
 		data: datos,
 		cache: false,
@@ -571,14 +567,13 @@ $(document).on("click", ".btnGenerarImportes", function() {
 		success: function(respuesta) {
 			console.log("respuesta", respuesta);
 
+			$('#nombre').text(respuesta["nombre_persona"]);
+			$('#ci').text(respuesta["ci_persona"]);
+			$('#cargo').text(respuesta["nombre_cargo"]);
 			$('#nuevoHaberBasico').val(parseFloat(respuesta["haber_basico"]).toFixed(2));
 			$('#nuevoDiasTrab').val(respuesta["dias_trabajados"]);
-			$('#nuevoTotalGanado').val(respuesta["total_ganado"]);
-			$('#nuevoDescAFP').val(respuesta["desc_afp"]);
-			// $('#nuevoDescSolidario').val(respuesta["desc_solidario"]);
-			$('#nuevoTotalDesc').val(respuesta["total_desc"]);
-			$('#nuevoLiquidoPagable').val(respuesta["liquido_pagable"]);
-			$('#idPlanillaEmpleado').val(respuesta["id_planilla_empleado"]);
+
+			$('#idPlanillaPersona').val(respuesta["id_planilla_persona_contrato"]);
 
 		},
 	    error: function(error){
@@ -599,47 +594,47 @@ const formatter = new Intl.NumberFormat('de-DE', {
 SI SE CAMBIAN LOS DIAS TRABAJADOS, SE MODIFICAN LOS IMPORTES EN LA PLANILLA
 =============================================*/
 
-$(document).on("change", "#nuevoDiasTrab", function() {
+// $(document).on("change", "#nuevoDiasTrab", function() {
 
-	var dias_trabajados = $(this).val();
-	var haber_basico = $("#nuevoHaberBasico").val();
+// 	var dias_trabajados = $(this).val();
+// 	var haber_basico = $("#nuevoHaberBasico").val();
 
-	// Calculando el Total Ganado
-	var total_ganado = (haber_basico / 30) * dias_trabajados;
-	total_ganado = parseFloat((total_ganado * 100) / 100).toFixed(2);
+// 	// Calculando el Total Ganado
+// 	var total_ganado = (haber_basico / 30) * dias_trabajados;
+// 	total_ganado = parseFloat((total_ganado * 100) / 100).toFixed(2);
 
-	$("#nuevoTotalGanado").val(total_ganado);
+// 	$("#nuevoTotalGanado").val(total_ganado);
 
-	// Calculando el Descuento AFP
-	var desc_afp = total_ganado * 0.1271;
-	desc_afp = parseFloat((desc_afp * 100) / 100).toFixed(2);
+// 	// Calculando el Descuento AFP
+// 	var desc_afp = total_ganado * 0.1271;
+// 	desc_afp = parseFloat((desc_afp * 100) / 100).toFixed(2);
 
-	$("#nuevoDescAFP").val(desc_afp);	
+// 	$("#nuevoDescAFP").val(desc_afp);	
 
-	// Calculando el Descuento Solidario
-	// var desc_solidario = total_ganado * 0.0050;
-	// desc_solidario = parseFloat(Math.round(desc_solidario * 100) / 100).toFixed(2);
+// 	// Calculando el Descuento Solidario
+// 	// var desc_solidario = total_ganado * 0.0050;
+// 	// desc_solidario = parseFloat(Math.round(desc_solidario * 100) / 100).toFixed(2);
 
-	// $("#nuevoDescSolidario").val(desc_solidario);
+// 	// $("#nuevoDescSolidario").val(desc_solidario);
 
-	// Calculando el Total Descuento
-	var total_desc = parseFloat(desc_afp).toFixed(2);	
+// 	// Calculando el Total Descuento
+// 	var total_desc = parseFloat(desc_afp).toFixed(2);	
 
-	$("#nuevoTotalDesc").val(total_desc);
+// 	$("#nuevoTotalDesc").val(total_desc);
 
-	// Calculando el Líquido Pagable
-	var liquido_pagable = total_ganado - total_desc;
-	liquido_pagable = parseFloat((liquido_pagable * 100) / 100).toFixed(2);	
+// 	// Calculando el Líquido Pagable
+// 	var liquido_pagable = total_ganado - total_desc;
+// 	liquido_pagable = parseFloat((liquido_pagable * 100) / 100).toFixed(2);	
 
-	$("#nuevoLiquidoPagable").val(liquido_pagable);
+// 	$("#nuevoLiquidoPagable").val(liquido_pagable);
 
-});
+// });
 
 /*=============================================
-//VALIDANDO DATOS DE EDITAR PLANILLA
+//VALIDANDO DATOS DE EDITAR DIAS TRABAJADOS
 =============================================*/
 
-$("#frmAgregarImportes").validate({
+$("#frmAgregarDiasTrabajados").validate({
 
 	rules: {
 		nuevoDiasTrab : { required: true, min: 0, max: 30},
@@ -652,37 +647,21 @@ $("#frmAgregarImportes").validate({
 });
 
 /*=============================================
-AGREGANDO LOS NUEVOS IMPORTES PARA EL RESPECTIVO EMPLEADO EN LA PLANILLA
+AGREGANDO LOS DIAS TRABAJADOS PARA REFLEJARLOS EN RELACION DE NOVEDADES
 =============================================*/
 
-$("#frmAgregarImportes").on("click", ".btnGuardar", function() {
+$("#frmAgregarDiasTrabajados").on("click", ".btnGuardar", function() {
 
-	$('#modalGenerarImportes').modal('toggle');
+	$('#modalAgregarDiasTrabajados').modal('toggle');
 
-	if ($("#frmAgregarImportes").valid()) {
+	if ($("#frmAgregarDiasTrabajados").valid()) {
 
-		var id_planilla = $('#idPlanilla').val();
-		var id_planilla_empleado = $('#idPlanillaEmpleado').val();
-		var dias_trabajados = $('#nuevoDiasTrab').val();
-		var total_ganado = $('#nuevoTotalGanado').val();
-		var desc_afp = $('#nuevoDescAFP').val();
-		// var desc_solidario = $('#nuevoDescSolidario').val();
-		var total_desc = $('#nuevoTotalDesc').val();
-		var liquido_pagable = $('#nuevoLiquidoPagable').val();;
-
-		var datos = new FormData();
-		datos.append("agregarImportes", 'agregarImportes');
-		datos.append("id_planilla_empleado", id_planilla_empleado);
-		datos.append("dias_trabajados", dias_trabajados);
-		datos.append("total_ganado", total_ganado);
-		datos.append("desc_afp", desc_afp);
-		// datos.append("desc_solidario", desc_solidario);
-		datos.append("total_desc", total_desc);
-		datos.append("liquido_pagable", liquido_pagable);
+		var datos = new FormData($("#frmAgregarDiasTrabajados")[0]);
+		datos.append("agregarDiasTrabajados", 'agregarDiasTrabajados');
 
 		$.ajax({
 
-			url:"ajax/planillas_empleados.ajax.php",
+			url:"../ajax/planillas_personas.ajax.php",
 			method: "POST",
 			data: datos,
 			cache: false,
@@ -696,7 +675,7 @@ $("#frmAgregarImportes").on("click", ".btnGuardar", function() {
 					swal.fire({
 						
 						icon: "success",
-						title: "¡Los importes se generaron correctamente!",
+						title: "¡Los dias trabajados se generaron correctamente!",
 						showConfirmButton: true,
 						allowOutsideClick: false,
 						confirmButtonText: "Cerrar"
@@ -705,49 +684,7 @@ $("#frmAgregarImportes").on("click", ".btnGuardar", function() {
 	  					
 	  					if (result.value) {
 
-	  						// Eliminamos el contenido de la fila
-	  						// $("#fila"+id_planilla_empleado).empty();
-
-	  						var datos2 = new FormData();
-							datos2.append("mostrarTotalesPlanillaEmpleado", 'mostrarTotalesPlanillaEmpleado');
-							datos2.append("id_planilla", id_planilla);
-
-	  						$.ajax({
-
-								url:"ajax/planillas_empleados.ajax.php",
-								method: "POST",
-								data: datos2,
-								cache: false,
-								contentType: false,
-								processData: false,
-								dataType: "json",
-								success: function(respuesta) {
-									console.log("respuesta", respuesta);
-									
-									$('#nuevoDiasTrab').val("");
-									$('#nuevoTotalGanado').val("");
-									$('#nuevoDescAFP').val("");
-									$('#nuevoDescSolidario').val("");
-									$('#nuevoTotalDesc').val("");
-									$('#nuevoLiquidoPagable').val("");
-									$('.totalGanadoT').html(formatter.format(respuesta["total_ganado"]));
-									$('.descAFPT').html(formatter.format(respuesta["desc_afp"]));
-									// $('.descSolidarioT').html(formatter.format(respuesta["desc_solidario"]));
-									$('.totalDescT').html(formatter.format(respuesta["total_desc"]));
-									$('.liquidoPagableT').html(formatter.format(respuesta["liquido_pagable"]));
-
-									// Funcion que recarga y actuaiiza la tabla	
-
-									tablaPlanillaEmpleado.ajax.reload( null, false );
-
-								},
-								error: function(error) {
-
-							        console.log("No funciona2");
-							        
-							    }
-
-							});
+	  						tablaRelacionPersona.ajax.reload( null, false );
 	  						
 						}
 
@@ -776,6 +713,61 @@ $("#frmAgregarImportes").on("click", ".btnGuardar", function() {
 		});
 
 	}
+
+});
+
+/*=============================================
+BOTÓN GENERERAR RELACION DE NOVEDADES PDF
+=============================================*/
+
+$(document).on("click", ".btnPDFRelacion", function() {
+	
+	var id_planilla = $(this).attr("idPlanilla");
+	console.log("id_planilla", id_planilla);
+
+	var datos = new FormData();
+
+	datos.append("generarRelacionPDF", "generarRelacionPDF");
+	datos.append("id_planilla", id_planilla);
+	// datos.append("nombre_usuario", nombre_usuario);
+
+	//Para mostrar alerta personalizada de loading
+	swal.fire({
+        text: 'Procesando...',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        onOpen: () => {
+            swal.showLoading()
+        }
+    });
+
+	$.ajax({
+
+		url: "../ajax/planillas_personas.ajax.php",
+		type: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(respuesta) {
+			console.log("respuesta", respuesta);
+
+			//Para cerrar la alerta personalizada de loading
+			swal.close();
+			
+			$('#ver-pdf').modal({
+			
+				show:true,
+				backdrop:'static'
+			
+			});	
+			
+			PDFObject.embed("../temp/relacion-"+id_planilla+".pdf", "#view_pdf");
+
+		}
+
+	});
 
 });
 
