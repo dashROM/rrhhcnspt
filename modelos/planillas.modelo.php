@@ -48,50 +48,6 @@ class ModeloPlanillas {
 		$stmt = null;
 
 	}
-
-	/*=============================================
-	MOSTRAR PLANILLA
-	=============================================*/
-	
-	static public function mdlMostrarPlanillas($tabla, $item, $valor1, $valor2) {
-
-		if ($item != null) {
-			
-			if ($valor2 != null) {
-
-				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND id_planilla != :id_planilla");
-
-				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
-				$stmt->bindParam(":id_planilla", $valor2, PDO::PARAM_INT);
-
-			} else {
-
-				$stmt = Conexion::conectar()->prepare("SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.tipo_contrato FROM planillas_tbl p, contratos_tbl c WHERE p.id_contrato = c.id_contrato AND $item = :$item");
-
-				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
- 
-			}			
-
-			$stmt->execute();
-
-			return $stmt->fetch();
-
-		} else {
-
-			$sql = "SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.tipo_contrato FROM planillas_tbl p, contratos_tbl c WHERE p.id_contrato = c.id_contrato";
-
-			$stmt = Conexion::conectar()->prepare($sql);
-
-			$stmt->execute();
-
-			return $stmt->fetchAll();
-
-		}
-
-		$stmt->close();
-		$stmt = null;
-
-	}
 	
 	/*=============================================
 	CREAR NUEVO RELACION DE NOVEDADES
@@ -107,13 +63,14 @@ class ModeloPlanillas {
 
 		    $pdo->beginTransaction();
 		 
-		    // Consulta 1: Ingreso de datos por defecto en la tabla fichas.
+		    // Consulta 1: Ingreso de datos por defecto en la tabla planilla.
 
-		    $sql1 = "INSERT INTO $tabla(mes_planilla, gestion_planilla, id_contrato, titulo_relacion) VALUES (:mes_planilla, :gestion_planilla, :id_contrato, :titulo_relacion)";
+		    $sql1 = "INSERT INTO $tabla(titulo_relacion, titulo_planilla, mes_planilla, gestion_planilla, id_contrato) VALUES (:titulo_relacion, :titulo_planilla, :mes_planilla, :gestion_planilla, :id_contrato)";
 
 			$stmt = $pdo->prepare($sql1);
 
 			$stmt->bindParam(":titulo_relacion", $datos["titulo_relacion"], PDO::PARAM_STR);
+			$stmt->bindParam(":titulo_planilla", $datos["titulo_planilla"], PDO::PARAM_STR);
 			$stmt->bindParam(":mes_planilla", $datos["mes_planilla"], PDO::PARAM_STR);
 			$stmt->bindParam(":gestion_planilla", $datos["gestion_planilla"], PDO::PARAM_STR);
 			$stmt->bindParam(":id_contrato", $datos["id_contrato"], PDO::PARAM_INT);
@@ -123,7 +80,7 @@ class ModeloPlanillas {
 				// return $pdo->lastInsertId();
 				$id_planilla = $pdo->lastInsertId();
 
-				// Consulta 2: Ingreso de Datos por defecto en la tabla pacientes_asegurados.
+				// Consulta 2: Ingreso de Datos por defecto en la tabla planilla_persona.
 
 				$sql2 = "INSERT INTO planilla_persona_contratos(id_persona_contrato, id_planilla) SELECT id_persona_contrato, :id_planilla FROM persona_contratos WHERE fin_contrato > :fecha_calculo AND :mes_planilla >= EXTRACT(MONTH FROM inicio_contrato) AND :gestion_planilla >= EXTRACT(YEAR FROM inicio_contrato) AND id_contrato = :id_contrato";
 
@@ -204,7 +161,7 @@ class ModeloPlanillas {
 	}
 
 	/*=============================================
-	MOSTRAR PLANILLA GENERADA
+	MOSTRAR RELACION DE NOVEDADES GENERADA
 	=============================================*/
 	
 	static public function mdlMostrarGenerarRelacion($item, $valor1, $valor2) {
@@ -235,6 +192,100 @@ class ModeloPlanillas {
 		} else {
 
 			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato";
+
+			$stmt = Conexion::conectarPG()->prepare($sql);
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	MOSTRAR PLANILLA
+	=============================================*/
+	
+	static public function mdlMostrarPlanillas($tabla, $item, $valor1, $valor2) {
+
+		if ($item != null) {
+			
+			if ($valor2 != null) {
+
+				$sql = "SELECT * FROM $tabla WHERE $item = :$item AND id_planilla != :id_planilla";
+
+				$stmt = Conexion::conectarPG()->prepare($sql);
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+				$stmt->bindParam(":id_planilla", $valor2, PDO::PARAM_INT);
+
+			} else {
+
+				$sql = "SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato AND $item = :$item";
+
+				$stmt = Conexion::conectarPG()->prepare($sql);
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+ 
+			}			
+
+			$stmt->execute();
+
+			return $stmt->fetch();
+
+		} else {
+
+			$sql = "SELECT p.id_planilla, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato";
+
+			$stmt = Conexion::conectarPG()->prepare($sql);
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+	/*=============================================
+	MOSTRAR PLANILLA GENERADA
+	=============================================*/
+	
+	static public function mdlMostrarGenerarPlanilla($item, $valor1, $valor2) {
+
+		if ($item != null) {
+			
+			if ($valor2 != null) {
+
+				$stmt = Conexion::conectarPG()->prepare("SELECT * FROM $tabla WHERE $item = :$item AND id_planilla != :id_planilla");
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+				$stmt->bindParam(":id_planilla", $valor2, PDO::PARAM_INT);
+
+			} else {
+
+				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item";
+
+				$stmt = Conexion::conectarPG()->prepare($sql);
+
+				$stmt->bindParam(":".$item, $valor1, PDO::PARAM_STR);
+
+			}			
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+
+		} else {
+
+			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 

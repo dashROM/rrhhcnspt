@@ -197,8 +197,8 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
           $parametros[0] == "empleados" ||
           $parametros[0] == "relacion-novedades" ||
           $parametros[0] == "relacion-persona" ||
-          // $parametros[0] == "planillas" ||
-          // $parametros[0] == "planillas-empleados" ||
+          $parametros[0] == "planillas" ||
+          $parametros[0] == "planilla-personas" ||
           $parametros[0] == "salir") {
 
         include "modulos/".$parametros[0].".php";

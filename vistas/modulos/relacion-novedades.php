@@ -6,7 +6,9 @@
     <div class="page-title">
 
       <div class="title_left">
+
         <h3>Relación de Novedades</h3>
+        
       </div>
 
       <div class="title_right">
@@ -73,6 +75,8 @@
 		              </table>
 
 		              <input type="hidden" value="<?= $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
+
+                  <input type="hidden" value="relacion" id="actionPlanilla">
 
              		</div>
 

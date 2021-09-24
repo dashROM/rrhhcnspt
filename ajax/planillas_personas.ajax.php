@@ -133,10 +133,10 @@ class AjaxPlanillasPersonas {
 		=============================================*/
 
 		$datos = array( "dias_trabajados"	   			=> $this->dias_trabajados,
-		                "total_ganado"	   			    => number_format($total_ganado, 2, ',', '.'),
-		                "desc_afp"	   			        => number_format($desc_afp, 2, ',', '.'),
-		                "total_desc"	   			    => number_format($total_desc, 2, ',', '.'),
-		                "liquido_pagable"	   			=> number_format($liquido_pagable, 2, ',', '.'), 
+		                "total_ganado"	   			    => $total_ganado,
+		                "desc_afp"	   			        => $desc_afp,
+		                "total_desc"	   			    => $total_desc,
+		                "liquido_pagable"	   			=> $liquido_pagable, 
 						"id_planilla_persona_contrato"  => $this->id_planilla_persona_contrato,
 						);	
 

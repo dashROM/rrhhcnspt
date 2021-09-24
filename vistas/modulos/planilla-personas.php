@@ -17,7 +17,9 @@
     <div class="page-title">
 
       <div class="title_left">
+
         <h3>Generar Planilla de Sueldos y Salarios</h3>
+
       </div>
 
       <div class="title_right">
@@ -47,7 +49,7 @@
                   
           <div class="x_title">
           
-            <button class="btn btn-round btn-outline-danger btnPDFRelacion" data-toggle="modal" data-target="#modalPDFRelacion" idPlanilla="<?= $parametros[1]; ?>">
+            <button class="btn btn-round btn-outline-danger btnPDFPlanilla" data-toggle="modal" data-target="#modalPDFPlanilla" idPlanilla="<?= $parametros[1]; ?>">
 
               <i class="fas fa-file-pdf"></i>
               Exportar Planilla en PDF
@@ -72,24 +74,27 @@
                             
                 <div class="card-box table-responsive">
               
-		              <table class="table table-bordered table-striped table-hover" id="tablaRelacionPersona" width="100%">
+		              <table class="table table-bordered table-striped table-hover" id="tablaPlanillaPersona" width="100%">
 		                
 		                <thead>
 		                  
-		                  <tr>
-		                    <th>#</th>
+		                   <tr>
+                        <th>#</th>
                         <th>LUGAR</th>
                         <th>PATERNO</th>
                         <th>MATERNO</th>
                         <th>NOMBRE(S)</th>
                         <th>CARNET</th>
                         <th>CARGO</th>
-                        <th>INICIO CONTRATO</th>
-                        <th>FIN CONTRATO</th>
                         <th>HABER BÁSICO</th>
                         <th>DIAS TRAB.</th>
-		                    <th>ACCIONES</th>
-		                  </tr>
+                        <th>TOTAL GANADO</th>
+                        <th>PREVISION AFP</th>
+                        <!-- <th>SOLIDARIO 0,50%</th> -->
+                        <th>TOTAL DESC.</th>
+                        <th>LIQUIDO PAGABLE</th>
+                        <th>ACCIONES</th>
+                      </tr>
 
 		                </thead>
 

@@ -7,9 +7,15 @@ CARGAR LA TABLA DINÁMICA DE LISTADO DE RELACION DE NOVEDADES
 
 var perfilOculto = $("#perfilOculto").val();
 
+var action = $("#actionPlanilla").val();
+
 var tablaRelacion = $('#tablaRelacion').DataTable({
 
-	"ajax": "ajax/datatable-planillas.ajax.php?perfilOculto="+perfilOculto,
+	"ajax": {
+		url: "ajax/datatable-planillas.ajax.php",
+		data: { 'perfilOculto' : perfilOculto, 'action' : action },
+		type: "post"
+	},
 
 	"deferRender": true,
 
@@ -61,9 +67,15 @@ CARGAR LA TABLA DINÁMICA DE LISTADO DE PLANILLAS
 
 var perfilOculto = $("#perfilOculto").val();
 
+var action = $("#actionPlanilla").val();
+
 var tablaPlanilla = $('#tablaPlanillas').DataTable({
 
-	"ajax": "ajax/datatable-planillas.ajax.php?perfilOculto="+perfilOculto,
+	"ajax": {
+		url: "ajax/datatable-planillas.ajax.php",
+		data: { 'perfilOculto' : perfilOculto, 'action' : action },
+		type: "post"
+	},
 
 	"deferRender": true,
 
@@ -443,8 +455,8 @@ var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
 		},
 		"buttons": {
 			"copy": "Copiar",
-    	"colvis": "Visibilidad de columnas"
-    }
+    		"colvis": "Visibilidad de columnas"
+   		}
 		
 	},
 
@@ -453,94 +465,107 @@ var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
 
 }); 
 
+$(document).on("click", "button.btnDetallePlanilla", function() {
+	
+	var id_planilla = $(this).attr("idPlanilla");
+	console.log("id_planilla", id_planilla);
+
+	window.location = "planilla-personas/"+id_planilla;	
+
+});
+
 
 /*=============================================
 CARGAR LA TABLA DINÁMICA DE PLANILLA EMPLEADOS GENERADA
 =============================================*/
 
-// var perfilOculto = $("#perfilOculto").val();
+var perfilOculto = $("#perfilOculto").val();
 
-// var idPlanilla = $("#idPlanilla").val();
+var action = $("#actionPlanilla").val();
 
-// var tablaPlanillaEmpleado = $('#tablaGenerarPlanilla').DataTable({
+var idPlanilla = $("#idPlanilla").val();
 
-// 	"ajax": "ajax/datatable-planillas_empleados.ajax.php?perfilOculto="+perfilOculto+"&idPlanilla="+idPlanilla,
+var tablaPlanillaPersona = $('#tablaPlanillaPersona').DataTable({
 
-// 	"deferRender": true,
+	"ajax": {
+		url: "../ajax/datatable-planillas_personas.ajax.php",
+		data: { 'perfilOculto' : perfilOculto, 'action' : action, 'id_planilla' : idPlanilla },
+		type: "post"
+	},
 
-// 	"retrieve" : true,
+	"deferRender": true,
 
-// 	"processing" : true,
+	"retrieve" : true,
 
-// 	"columnDefs": [
-// 	{
-// 		"targets": 7,
-// 		"className": "text-right",
-// 	},
-// 	{
-// 		"targets": 8,
-// 		"className": "text-center",
-// 	},
-// 	{
-// 		"targets": 9,
-// 		"className": "text-right",
-// 	},
-// 	{
-// 		"targets": 10,
-// 		"className": "text-right",
-// 	},
-// 	{
-// 		"targets": 11,
-// 		"className": "text-right",
-// 	},
-// 	{
-// 		"targets": 12,
-// 		"className": "text-right",
-// 	},
-// 	{
-// 		"targets": 13,
-// 		"className": "text-right",
-// 	}],
+	"processing" : true,
 
-// 	"language": {
+	"columnDefs": [
+	{
+		"targets": 7,
+		"className": "text-right",
+	},
+	{
+		"targets": 8,
+		"className": "text-center",
+	},
+	{
+		"targets": 9,
+		"className": "text-right",
+	},
+	{
+		"targets": 10,
+		"className": "text-right",
+	},
+	{
+		"targets": 11,
+		"className": "text-right",
+	},
+	{
+		"targets": 12,
+		"className": "text-right",
+	},
+	{
+		"targets": 13,
+		"className": "text-right",
+	}],
 
-// 		"sProcessing":     "Procesando...",
-// 		"sLengthMenu":     "Mostrar _MENU_ registros",
-// 		"sZeroRecords":    "No se encontraron resultados",
-// 		"sEmptyTable":     "Ningún dato disponible en esta tabla",
-// 		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-// 		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
-// 		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-// 		"sInfoPostFix":    "",
-// 		"sSearch":         "Buscar:",
-// 		"sUrl":            "",
-// 		"sInfoThousands":  ",",
-// 		"sLoadingRecords": "Cargando...",
-// 		"oPaginate": {
-// 		"sFirst":    "Primero",
-// 		"sLast":     "Último",
-// 		"sNext":     "Siguiente",
-// 		"sPrevious": "Anterior"
-// 		},
-// 		"oAria": {
-// 			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-// 			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-// 		},
-// 		"buttons": {
-// 			"copy": "Copiar",
-//     	"colvis": "Visibilidad de columnas"
-//     }
+	"language": {
+
+		"sProcessing":     "Procesando...",
+		"sLengthMenu":     "Mostrar _MENU_ registros",
+		"sZeroRecords":    "No se encontraron resultados",
+		"sEmptyTable":     "Ningún dato disponible en esta tabla",
+		"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+		"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
+		"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		"sInfoPostFix":    "",
+		"sSearch":         "Buscar:",
+		"sUrl":            "",
+		"sInfoThousands":  ",",
+		"sLoadingRecords": "Cargando...",
+		"oPaginate": {
+		"sFirst":    "Primero",
+		"sLast":     "Último",
+		"sNext":     "Siguiente",
+		"sPrevious": "Anterior"
+		},
+		"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		},
+		"buttons": {
+			"copy": "Copiar",
+	    	"colvis": "Visibilidad de columnas"
+	    }
 		
-// 	},
+	},
 
-// 	// "responsive": true,
+	"lengthChange": false,
 
-// 	"lengthChange": false,
-
-// });
+});
 
 /*=============================================
-//GUARDANDO DATOS DE MODAL PARA AGREGAR DIAS TRABAJADOS
+GUARDANDO DATOS DE MODAL PARA AGREGAR DIAS TRABAJADOS
 =============================================*/
 
 $(document).on("click", ".btnAgregarDiasTrabajados", function() {
@@ -570,7 +595,7 @@ $(document).on("click", ".btnAgregarDiasTrabajados", function() {
 			$('#nombre').text(respuesta["nombre_persona"]);
 			$('#ci').text(respuesta["ci_persona"]);
 			$('#cargo').text(respuesta["nombre_cargo"]);
-			$('#nuevoHaberBasico').val(parseFloat(respuesta["haber_basico"]).toFixed(2));
+			$('#nuevoHaberBasico').val(respuesta["haber_basico"]);
 			$('#nuevoDiasTrab').val(respuesta["dias_trabajados"]);
 
 			$('#idPlanillaPersona').val(respuesta["id_planilla_persona_contrato"]);

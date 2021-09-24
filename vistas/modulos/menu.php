@@ -90,7 +90,7 @@
 
               <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relacion de Novedades</a></li>
 
-              <li><a href="<?= SERVERURL; ?>/planillas" id="relacion">Planillas</a></li>
+              <li><a href="<?= SERVERURL; ?>/planillas" id="planillas">Planillas</a></li>
 
             </ul>
 

@@ -89,10 +89,10 @@ class ModeloPlanillasPersonas {
 
 		$stmt->bindParam(":id_planilla_persona_contrato", $datos["id_planilla_persona_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":dias_trabajados", $datos["dias_trabajados"], PDO::PARAM_INT);
-		$stmt->bindParam(":total_ganado", $datos["total_ganado"], PDO::PARAM_STR);
-		$stmt->bindParam(":desc_afp", $datos["desc_afp"], PDO::PARAM_STR);
-		$stmt->bindParam(":total_desc", $datos["total_desc"], PDO::PARAM_STR);
-		$stmt->bindParam(":liquido_pagable", $datos["liquido_pagable"], PDO::PARAM_STR);
+		$stmt->bindParam(":total_ganado", $datos["total_ganado"], PDO::PARAM_INT);
+		$stmt->bindParam(":desc_afp", $datos["desc_afp"], PDO::PARAM_INT);
+		$stmt->bindParam(":total_desc", $datos["total_desc"], PDO::PARAM_INT);
+		$stmt->bindParam(":liquido_pagable", $datos["liquido_pagable"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 

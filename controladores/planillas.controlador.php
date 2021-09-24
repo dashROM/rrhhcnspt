@@ -32,7 +32,7 @@ class ControladorPlanillas {
 
 
 	/*=============================================
-	EDITAR ELACION DE NOVEDADES
+	EDITAR RELACION DE NOVEDADES
 	=============================================*/
 	
 	static public function ctrEditarRelacion($datos) {
@@ -46,27 +46,13 @@ class ControladorPlanillas {
 	}
 
 	/*=============================================
-	ELIMINAR PLANILLA
+	ELIMINAR RELACION
 	=============================================*/
 
-	static public function ctrEliminarPlanilla()	{
+	static public function ctrEliminarRelacion()	{
 
 		
 	}
-
-	/*=============================================
-	LISTADO DE PLANILLAS
-	=============================================*/
-	
-	// static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
-
-	// 	$tabla = "planillas_tbl";
-
-	// 	$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
-
-	// 	return $respuesta;
-
-	// }
 
 	/*=============================================
 	LISTADO DE DATOS DE GENERAR RELACION DE NOVEDADES
@@ -77,6 +63,34 @@ class ControladorPlanillas {
 		$tabla = "planillas";
 
 		$respuesta = ModeloPlanillas::mdlMostrarGenerarRelacion($item, $valor1, $valor2);
+
+		return $respuesta;
+
+	}
+
+	/*=============================================
+	LISTADO DE PLANILLAS
+	=============================================*/
+	
+	static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
+
+		$tabla = "planillas";
+
+		$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
+
+		return $respuesta;
+
+	}
+
+	/*=============================================
+	LISTADO DE DATOS DE GENERAR PLANILLA DE SUELDOS Y SALARIOS
+	=============================================*/
+	
+	static public function ctrMostrarGenerarPlanilla($item, $valor1, $valor2) {
+
+		$tabla = "planillas";
+
+		$respuesta = ModeloPlanillas::mdlMostrarGenerarPlanilla($item, $valor1, $valor2);
 
 		return $respuesta;
 
