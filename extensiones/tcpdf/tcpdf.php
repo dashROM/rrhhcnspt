@@ -7312,23 +7312,44 @@ class TCPDF {
 	 * @since 2.3.000 (2008-03-05)
 	 */
 	public function unichr($c) {
-		if (!$this->isunicode) {
-			return chr($c);
-		} elseif ($c <= 0x7F) {
-			// one byte
-			return chr($c);
-		} elseif ($c <= 0x7FF) {
-			// two bytes
-			return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
-		} elseif ($c <= 0xFFFF) {
-			// three bytes
-			return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
-		} elseif ($c <= 0x10FFFF) {
-			// four bytes
-			return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
-		} else {
-			return '';
-		}
+
+		if(is_numeric($c)){
+      if (!$this->isunicode) {
+          return chr($c);
+      } elseif ($c <= 0x7F) {
+          // one byte
+          return chr($c);
+      } elseif ($c <= 0x7FF) {
+          // two bytes
+          return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
+      } elseif ($c <= 0xFFFF) {
+          // three bytes
+          return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+      } elseif ($c <= 0x10FFFF) {
+          // four bytes
+          return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+      } else {
+          return '';
+      }
+    }
+
+		// if (!$this->isunicode) {
+		// 	return chr($c);
+		// } elseif ($c <= 0x7F) {
+		// 	// one byte
+		// 	return chr($c);
+		// } elseif ($c <= 0x7FF) {
+		// 	// two bytes
+		// 	return chr(0xC0 | $c >> 6).chr(0x80 | $c & 0x3F);
+		// } elseif ($c <= 0xFFFF) {
+		// 	// three bytes
+		// 	return chr(0xE0 | $c >> 12).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+		// } elseif ($c <= 0x10FFFF) {
+		// 	// four bytes
+		// 	return chr(0xF0 | $c >> 18).chr(0x80 | $c >> 12 & 0x3F).chr(0x80 | $c >> 6 & 0x3F).chr(0x80 | $c & 0x3F);
+		// } else {
+		// 	return '';
+		// }
 	}
 
 	/**

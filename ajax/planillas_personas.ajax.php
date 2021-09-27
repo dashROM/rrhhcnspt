@@ -14,33 +14,81 @@ require_once('../extensiones/tcpdf/tcpdf.php');
 class MYPDF extends TCPDF {
 
     //Page header
+ //    public function Header() {
+ //        // Logo
+ //        $image_file = K_PATH_IMAGES.'cns-logo.png';
+ //        $this->Image($image_file, 5, 5, 10, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+ //        // Set font
+ //        $this->SetFont('helvetica', 'B', 12);
+ //        // Titulo
+ //        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
+ //        // Subtitulo
+ //        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
+ //        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
+
+	// 	// set border width
+	// 	$this->SetLineWidth(0.1);
+
+	// 	// set color for cell border
+	// 	$this->SetDrawColor(0,0,0);
+
+	// 	// set filling color
+	// 	$this->SetFillColor(0,0,0);
+
+	// 	// set cell height ratio
+	// 	$this->setCellHeightRatio(0.05);
+
+ //        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
+
+	// }
+
+	public $headerPlanilla = false;
+
     public function Header() {
-        // Logo
-        $image_file = K_PATH_IMAGES.'cns-logo.png';
-        $this->Image($image_file, 5, 5, 10, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
-        // Set font
-        $this->SetFont('helvetica', 'B', 12);
-        // Titulo
-        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
-        // Subtitulo
-        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
-        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
 
-		// set border width
-		$this->SetLineWidth(0.1);
+        if ($this->headerPlanilla===true) {
+            
+	            // Logo
+	        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
+	        $this->Image($image_file, 5, 5, 15, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+	        // Set font
+	        $this->SetFont('helvetica', 'B', 10);
+	        // Titulo
+	        $this->Cell(0, 0, '   CAJA NACIONAL DE SALUD', 0, 1, 'L', 0, '', 1);
+	        // Subtitulo
+	        $this->Cell(0, 0, '                      SECC. PLANILLAS REG.', 0, 1, 'L', 0, '', 1);
+	        $this->Cell(0, 0, '                          Potosí -0- Bolivia', 0, 1, 'L', 0, '', 1);
 
-		// set color for cell border
-		$this->SetDrawColor(0,0,0);
 
-		// set filling color
-		$this->SetFillColor(0,0,0);
+        } else {
+            
+            // Logo
+	        $image_file = K_PATH_IMAGES.'cns-logo.png';
+	        $this->Image($image_file, 5, 5, 12, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+	        // Set font
+	        $this->SetFont('helvetica', 'B', 12);
+	        // Titulo
+	        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
+	        // Subtitulo
+	        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
+	        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
 
-		// set cell height ratio
-		$this->setCellHeightRatio(0.05);
+			// set border width
+			$this->SetLineWidth(0.1);
 
-        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
+			// set color for cell border
+			$this->SetDrawColor(0,0,0);
 
-	}
+			// set filling color
+			$this->SetFillColor(0,0,0);
+
+			// set cell height ratio
+			$this->setCellHeightRatio(0.05);
+
+	        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
+
+        } 
+    }
 
     // Page footer
     public function Footer() {
@@ -207,9 +255,6 @@ class AjaxPlanillasPersonas {
 		$valor = "STRIA. DE PERS. REG";
 
 		$secre_personal = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
-
-
-
 
 		// Extend the TCPDF class to create custom Header and Footer
 
@@ -412,23 +457,23 @@ class AjaxPlanillasPersonas {
 	GENERAR BOLETA EMPLEADO EN PDF 
 	=============================================*/
 
-	public function ajaxMostrarBoletaEmpleadoPDF()	{
+	public function ajaxMostrarBoletaPersonaPDF()	{
 
 		/*=============================================
 	   	TRAEMOS LOS DATOS DE PLANILLA EMPLEADO
 	    =============================================*/
 			
-		$item = "id_planilla_empleado";
-		$valor = $this->id_planilla_empleado;
+		$item = "id_planilla_persona_contrato";
+		$valor = $this->id_planilla_persona_contrato;
 
-		$planilla_empleado = ControladorPlanillasEmpleados::ctrMostrarPlanillaEmpleadoCompleto($item, $valor);
+		$planilla_persona_contrato = ControladorPlanillasPersonas::ctrMostrarPlanillaPersonasCompleto($item, $valor);
 
 		/*=============================================
 	   	TRAEMOS LOS DATOS DE PLANILLA
 	    =============================================*/
 			
 		$item = "id_planilla";
-		$valor1 = $planilla_empleado["id_planilla"];
+		$valor1 = $planilla_persona_contrato["id_planilla"];
 		$valor2 = null;
 
 		$planilla = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
@@ -448,7 +493,7 @@ class AjaxPlanillasPersonas {
 		$pdf->SetAuthor('CNS Potosí');
 		$pdf->SetTitle('Boleta-'.$valor);
 		$pdf->SetSubject('Boleta de pago CNS');
-		$pdf->SetKeywords('TCPDF, PDF, CNS, Reporte,Boleta, Planilla');
+		$pdf->SetKeywords('TCPDF, PDF, CNS, Reporte, Boleta, Planilla');
 
 		$pdf->setPrintHeader(false); 
 		$pdf->setPrintFooter(false);
@@ -457,10 +502,12 @@ class AjaxPlanillasPersonas {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(5, 5, 5, 0);
-		$pdf->SetAutoPageBreak(true, 5); 
-		$pdf->SetHeaderMargin(5);
-		$pdf->SetFooterMargin(5);
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -536,7 +583,7 @@ class AjaxPlanillasPersonas {
 					
 						<h3 class="titulo" style="line-height: 4px;">BOLETAS DE PAGO</h3>
 
-						<h4 class="titulo">'.$planilla["tipo_contrato"].'</h4>
+						<h4 class="titulo">'.$planilla["nombre_contrato"].'</h4>
 
 					</div>
 
@@ -549,16 +596,16 @@ class AjaxPlanillasPersonas {
 				    		</tr>
 				    		<tr>
 				    			<td>Dias Trabajados:</td>
-				    			<td>'.$planilla_empleado["dias_trabajados"].'</td>
+				    			<td>'.$planilla_persona_contrato["dias_trabajados"].'</td>
 				    			<td colspan="2"></td>
 				    		</tr>
 				    		<tr>
 				    			<td colspan="4"></td>
 				    		</tr>
 				    		<tr>
-				    			<td>'.$planilla_empleado["paterno_empleado"].'</td>
-				    			<td>'.$planilla_empleado["materno_empleado"].'</td>
-				    			<td>'.$planilla_empleado["nombre_empleado"].'</td>
+				    			<td>'.$planilla_persona_contrato["paterno_persona"].'</td>
+				    			<td>'.$planilla_persona_contrato["materno_persona"].'</td>
+				    			<td>'.$planilla_persona_contrato["nombre_persona"].'</td>
 				    			<td></td>
 				    		</tr>
 
@@ -577,7 +624,7 @@ class AjaxPlanillasPersonas {
 				    		</tr>
 				    		<tr>
 				    			<td colspan="3">Sueldo</td>
-				    			<td align="right">'.number_format($planilla_empleado["total_ganado"], 2, ",", ".").'</td>
+				    			<td align="right">'.number_format($planilla_persona_contrato["total_ganado"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
 				    			<td colspan="3">Bono de Antigüedad</td>
@@ -609,7 +656,7 @@ class AjaxPlanillasPersonas {
 				    		<tr>
 				    			<td colspan="2" align="right">Total Ganado Bs.</td>
 				    			<td></td>
-				    			<td align="right" style="border-top: 1px solid #000">'.number_format($planilla_empleado["total_ganado"], 2, ",", ".").'</td>
+				    			<td align="right" style="border-top: 1px solid #000">'.number_format($planilla_persona_contrato["total_ganado"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
 				    			<td colspan="4"></td>
@@ -623,7 +670,7 @@ class AjaxPlanillasPersonas {
 				    		</tr>
 				    		<tr>
 				    			<td colspan="3">A.F.P.S. 12,71%</td>
-				    			<td align="right">'.number_format($planilla_empleado["desc_afp"], 2, ",", ".").'</td>
+				    			<td align="right">'.number_format($planilla_persona_contrato["desc_afp"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
 				    			<td colspan="3">Seguro Salud F.</td>
@@ -639,12 +686,12 @@ class AjaxPlanillasPersonas {
 				    		<tr>
 				    			<td colspan="2" align="right">Total Descuentos Bs.</td>
 				    			<td></td>
-				    			<td align="right" style="border-bottom: 1px solid #000">'.number_format($planilla_empleado["total_desc"], 2, ",", ".").'</td>
+				    			<td align="right" style="border-bottom: 1px solid #000">'.number_format($planilla_persona_contrato["total_desc"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
 				    			<td colspan="2" align="right">LIQUIDO PAGABLE Bs.</td>
 				    			<td></td>
-				    			<td align="right" style="border-bottom: 3px double #000">'.number_format($planilla_empleado["liquido_pagable"], 2, ",", ".").'</td>
+				    			<td align="right" style="border-bottom: 3px double #000">'.number_format($planilla_persona_contrato["liquido_pagable"], 2, ",", ".").'</td>
 				    		</tr>
 
 				    	</table>
@@ -684,7 +731,7 @@ class AjaxPlanillasPersonas {
 		);
 
 		//	Datos a mostrar en el código QR
-		$codeContents = 'COD. BOLETA: '.$this->id_planilla_empleado."\n";
+		$codeContents = 'COD. BOLETA: '.$this->id_planilla_persona_contrato."\n";
 
 		// insertando el código QR
 		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 120, 8, 15, 15, $style, 'N');	
@@ -706,7 +753,9 @@ class AjaxPlanillasPersonas {
 	    =============================================*/
 
 		$item = "id_planilla";
+
 		$valor1 = $this->id_planilla;
+		
 		$valor2 = null;
 
 		$planilla = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
@@ -723,6 +772,40 @@ class AjaxPlanillasPersonas {
 
 		$datos_planilla = ControladorPlanillas::ctrMostrarGenerarPlanilla($item, $valor1, $valor2);
 
+		/*=============================================
+	   	TRAEMOS LOS DATOS DE AUTORIDADES
+	    =============================================*/
+
+		// TRAEMOS DATOS DE AUTORIDADES-ADMINISTRADOR REGIONAL
+		$item = "puesto";
+		$valor = "ADMINISTRADOR(A) REGIONAL C.N.S.";
+
+		$admin_regional = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+				// TRAEMOS DATOS DE AUTORIDADES-SUPERVISOR ADMINISTRATIVO
+		$item = "puesto";
+		$valor = "SUPERVISOR ADM. | RR.HH.";
+
+		$supervisor_admin = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-JEFE SERVICIOS GENERALES
+		$item = "puesto";
+		$valor = "JEFE SERVICIOS GENERALES";
+
+		$jefe_servicios = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-JEFE DE CONTABILIDAD REGIONAL
+		$item = "puesto";
+		$valor = "JEFE CONTABILIDAD REG.";
+
+		$jefe_contabilidad = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
+		// TRAEMOS DATOS DE AUTORIDADES-SECRETARIA DE PERSONAL REGIONAL
+		$item = "puesto";
+		$valor = "ENC. PLANILLAS";
+
+		$enc_planillas = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
+
 		// Extend the TCPDF class to create custom Header and Footer
 
 		$pdf = new MYPDF('L', 'mm', 'Letter', true, 'UTF-8', false);
@@ -733,25 +816,31 @@ class AjaxPlanillasPersonas {
 		$pdf->SetTitle('Planilla-'.$valor1);
 		$pdf->SetSubject('Planilla de pago CNS');
 		$pdf->SetKeywords('TCPDF, PDF, CNS, Reporte, Pago, Planilla');
+
+		// set font
+		$pdf->SetFont('Helvetica', '', 8);
 	
 		// set default monospaced font
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
 		$pdf->SetMargins(5, 15, 5, 0);
-		$pdf->SetAutoPageBreak(true, 5); 
-		$pdf->SetHeaderMargin(5);
-		$pdf->SetFooterMargin(5);
+		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+		// set auto page breaks
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
+		// ocultando pie de pagina
+		$pdf->setPrintHeader(true);
+		$pdf->setPrintFooter(false);
+
+		$pdf->headerPlanilla = true;
+
 		// ---------------------------------------------------------
-
-		// set font
-		$pdf->SetFont('Helvetica', '', 8);
-
-		$pdf->SetPrintFooter(false);
 
 		// add a page
 		$pdf->AddPage();
@@ -773,6 +862,13 @@ class AjaxPlanillasPersonas {
 
 					}
 
+					.header_planilla {
+
+						margin: 0;
+						padding 0;
+
+					}
+
 					.font-weight-bold {
 
 						font-weight: bold;
@@ -782,7 +878,7 @@ class AjaxPlanillasPersonas {
 					.titulo {
 
 						text-align: center;
-						line-height: 3px;
+						line-height: 5px;
 
 					}
 
@@ -805,6 +901,7 @@ class AjaxPlanillasPersonas {
 
 						border-top: 1px solid #000; 
 						border-bottom: 1px solid #000;
+						font-weight: bold;
 
 					}
 
@@ -824,8 +921,7 @@ class AjaxPlanillasPersonas {
 
 					<div class="header_planilla">
 					
-						<h3 class="titulo" style="line-height: 5px">'.$planilla["titulo_planilla"].' CORRESPONDIENTE AL MES DE '.strtoupper($mes).' '.$planilla["gestion_planilla"].'</h3>
-
+						<h3 class="titulo">'.$planilla["titulo_planilla"].'</h3>
 
 					</div>
 					<div class="body_planilla">
@@ -837,15 +933,15 @@ class AjaxPlanillasPersonas {
 								<td width="55px" align="center" class="linea_simple">LUGAR</td>
 								<td width="80px" class="linea_simple">PATERNO</td>
 								<td width="80px" class="linea_simple">MATERNO</td>
-								<td width="80px" class="linea_simple">NOMBRE(S)</td>
+								<td width="110px" class="linea_simple">NOMBRE(S)</td>
 								<td width="80px" align="center" class="linea_simple">CARNET</td>
 								<td width="120px" align="center" class="linea_simple">CARGO</td>
-								<td width="65px" align="center" class="linea_simple">HABER BÁSICO</td>
+								<td width="70px" align="center" class="linea_simple">HABER BÁSICO</td>
 								<td width="50px" align="center" class="linea_simple">DIAS TRAB.</td>
-								<td width="65px" align="center" class="linea_simple">TOTAL GANADO</td>
-								<td width="60px" align="center" class="linea_simple">PREVISION AFP</td>
-								<td width="65px" align="center" class="linea_simple">TOTAL DESC.</td>
-								<td width="65px" align="center" class="linea_simple">LIQUIDO PAGABLE</td>
+								<td width="70px" align="center" class="linea_simple">TOTAL GANADO</td>
+								<td width="65px" align="center" class="linea_simple">PREVISION AFP</td>
+								<td width="70px" align="center" class="linea_simple">TOTAL DESC.</td>
+								<td width="70px" align="center" class="linea_simple">LIQUIDO PAGABLE</td>
 			                </tr>';
 			                
 						for ($i = 0; $i < count($datos_planilla); $i++) {
@@ -854,17 +950,17 @@ class AjaxPlanillasPersonas {
 		                	<tr>
 		                		<td width="15px" align="center" class="linea_punteada">'.($i+1).'</td>
 		                		<td width="55px" align="center" class="linea_punteada">'.$datos_planilla[$i]["abrev_establecimiento"].'</td>
-		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["paterno_empleado"].'</td>
-		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["materno_empleado"].'</td>
-		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["nombre_empleado"].'</td>
-		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_empleado"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["paterno_persona"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["materno_persona"].'</td>
+		                		<td width="110px" class="linea_punteada">'.$datos_planilla[$i]["nombre_persona"].'</td>
+		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
 		                		<td width="120px" class="linea_punteada">'.$datos_planilla[$i]["nombre_cargo"].'</td>
-		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
+		                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
 		                		<td width="50px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
-		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_ganado"], 2, ",", ".").'</td>
-		                		<td width="60px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["desc_afp"], 2, ",", ".").'</td>
-		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_desc"], 2, ",", ".").'</td>
-		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["liquido_pagable"], 2, ",", ".").'</td>
+		                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_ganado"], 2, ",", ".").'</td>
+		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["desc_afp"], 2, ",", ".").'</td>
+		                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_desc"], 2, ",", ".").'</td>
+		                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["liquido_pagable"], 2, ",", ".").'</td>
 		                	</tr>';
 
 		                }
@@ -872,9 +968,9 @@ class AjaxPlanillasPersonas {
 	                    $item = "id_planilla";
 	                    $valor = $planilla['id_planilla'];
 
-	                    $totales_planilla = ControladorPlanillasEmpleados::ctrMostrarTotalesPlanillaEmpleado($item, $valor);
+	                    $totales_planilla = ControladorPlanillasPersonas::ctrMostrarTotalesPlanillaPersonas($item, $valor);
 
-		                $content .= '
+						$content .= '
 			              
 			                <tr>
 			                    <td align="center" class="linea_simple font-weight-bold" colspan="9">TOTAL GENERAL</td>
@@ -885,11 +981,11 @@ class AjaxPlanillasPersonas {
 			                </tr>
 					    	<br><br>
 					    	<tr>
-			                    <td class="font-weight-bold" colspan="14"><u>RESUMEN GENERAL</u></td>
+			                    <td class="font-weight-bold" colspan="13"><u>RESUMEN GENERAL</u></td>
 			                </tr>
 			                <tr>
 			                    <td class="font-weight-bold" colspan="12">MES GANADO</td>
-			                    <td align="right" colspan="2">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
+			                    <td align="right" colspan="1">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 			                </tr>
 			                <tr>
 			                    <td class="font-weight-bold" colspan="8">PREVISION A.F.P.</td>
@@ -906,8 +1002,10 @@ class AjaxPlanillasPersonas {
 			                <tr>
 			                    <td class="font-weight-bold" colspan="9"></td>
 			                    <td align="right" style="border-top: 1px solid #000; border-bottom: 3px double #000">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
-			                    <td align="right" style="border-top: 1px solid #000; border-bottom: 3px double #000" colspan="4">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
-			                </tr>
+			                    <td align="right" style="border-top: 1px solid #000; border-bottom: 3px double #000" colspan="3">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
+			                </tr>';
+
+			            $content .= '
 
 				    	</table>
 
@@ -917,11 +1015,11 @@ class AjaxPlanillasPersonas {
 				    	
 				    	<table>
 				    		<tr>
-				    			<td align="center">SR. SALUSTIO MORALES C.<br><label class="font-weight-bold">ENC. DE PLANILLAS</label></td>
-				    			<td align="center">SR. J. MANUEL MEDINA LIMACHI<br><label class="font-weight-bold">SUPERVISOR ADMINISTRATIVO I</label></td>
-				    			<td align="center">LIC JUAN C. CALLAPINO J.<br><label class="font-weight-bold">ENC. DE CONTABILIDAD</label></td>
-				    			<td align="center">LIC. RICARDO MIRANDA MICHEL<br><label class="font-weight-bold">JEFE SERV. GENERALES</label></td>
-				    			<td align="center">DR. ARMANDO SARDINAS CRUZ<br><label class="font-weight-bold">ADMINISTRADOR REGIONAL</label></td>
+				    			<td align="center">'.$enc_planillas['nombre_autoridad'].'<br><label class="font-weight-bold">'.$enc_planillas['puesto'].'</label></td>
+				    			<td align="center">'.$supervisor_admin['nombre_autoridad'].'<br><label class="font-weight-bold">'.$supervisor_admin['puesto'].'</label></td>
+				    			<td align="center">'.$jefe_contabilidad['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_contabilidad['puesto'].'</label></td>
+				    			<td align="center">'.$jefe_servicios['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_servicios['puesto'].'</label></td>
+				    			<td align="center">'.$admin_regional['nombre_autoridad'].'<br><label class="font-weight-bold">'.$admin_regional['puesto'].'</label></td>
 				    		</tr>
 				    	</table>
 
@@ -934,8 +1032,7 @@ class AjaxPlanillasPersonas {
 			</html>';
 			
 		// Reconociendo la estructura HTML
-		$pdf->writeHTML($content, true, 0, true, true);
-
+		$pdf->writeHTML($content, true, false, true, false, '');
 
 		// Estilos necesarios para el Codigo QR
 		$style = array(
@@ -952,7 +1049,7 @@ class AjaxPlanillasPersonas {
 		$codeContents = 'COD. PLANILLA: '.$this->id_planilla."\n";
 
 		// insertando el código QR
-		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 250, 8, 15, 15, $style, 'N');	
+		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 250, 3, 18, 18, $style, 'N');
 
 		$pdf->lastPage();
 
@@ -1029,11 +1126,11 @@ if (isset($_POST["generarRelacionPDF"])) {
 GENERAR BOLETA EN PDF 
 =============================================*/
 
-if (isset($_POST["boletaEmpleadoPDF"])) {
+if (isset($_POST["boletaPersonaPDF"])) {
 
 	$boletaEmpleadoPDF = new AjaxPlanillasPersonas();
-	$boletaEmpleadoPDF -> id_planilla_empleado = $_POST["id_planilla_empleado"];
-	$boletaEmpleadoPDF -> ajaxMostrarBoletaEmpleadoPDF();
+	$boletaEmpleadoPDF -> id_planilla_persona_contrato = $_POST["id_planilla_persona_contrato"];
+	$boletaEmpleadoPDF -> ajaxMostrarBoletaPersonaPDF();
 
 }
 

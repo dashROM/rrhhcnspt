@@ -5,7 +5,7 @@
   $valor1 = $parametros[1];
   $valor2 = null;
 
-  // $planilla = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+  $planilla = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
 
 ?>
 
@@ -68,7 +68,7 @@
 
                 <div class="card-header text-center mb-2">
                   
-                  <!-- <h4 class="m-3 font-weight-bold"><?= strip_tags($planilla["titulo_planilla"]) ; ?></h4>  -->
+                  <h4 class="m-3 font-weight-bold"><?= strip_tags($planilla["titulo_planilla"]) ; ?></h4>
 
                 </div>
                             
@@ -98,6 +98,25 @@
 
 		                </thead>
 
+                     <?php 
+
+                      $item = "id_planilla";
+                      $valor = $planilla['id_planilla'];
+
+                      $totalesPlanilla = ControladorPlanillasPersonas::ctrMostrarTotalesPlanillaPersonas($item, $valor);
+
+                    ?>
+
+                    <tfoot>
+                      <th colspan="9">TOTAL GENERAL</th>
+                      <th class="totalGanadoT"><?= number_format($totalesPlanilla["total_ganado"], 2, ",", ".") ?></th>
+                      <th class="descAFPT"><?= number_format($totalesPlanilla["desc_afp"], 2, ",", ".") ?></th>
+                      <!-- <th class="descSolidarioT"><?= number_format($totalesPlanilla["desc_solidario"], 2, ",", ".") ?></th> -->
+                      <th class="totalDescT"><?= number_format($totalesPlanilla["total_desc"], 2, ",", ".") ?></th>
+                      <th class="liquidoPagableT"><?= number_format($totalesPlanilla["liquido_pagable"], 2, ",", ".") ?></th>
+                      <th></th>
+                    </tfoot>
+
 		              </table>
 
 		              <input type="hidden" value="<?= $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
@@ -107,6 +126,120 @@
                   <input type="hidden" value="<?= $parametros[1]; ?>" id="idPlanilla">
 
              		</div>
+
+                <div>
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-12">
+                      
+                      <label><u>RESUMEN GENERAL</u></label>
+                     
+                    </div>
+
+                  </div>  
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-10">
+                      
+                      <label class="mb-0">MES GANADO</label>
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right totalGanadoT">
+                      
+                      <?= number_format($totalesPlanilla["total_ganado"], 2, ",", ".") ?>
+                     
+                    </div>
+
+                  </div> 
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-6">
+                      
+                      <label class="mb-0">PREVISION AFP</label>
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right descAFPT">
+                      
+                      <?= number_format($totalesPlanilla["desc_afp"], 2, ",", ".") ?>
+                     
+                    </div>
+
+                  </div> 
+
+                  <!-- <div class="form-row">       
+                      
+                    <div class="col-md-6">
+                      
+                      <label class="mb-0">SOLIDARIO 0,50%</label>
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right descSolidarioT" style="border-bottom: 1px solid #000">
+                      
+                      <?= number_format($totalesPlanilla["desc_solidario"], 2, ",", ".") ?>
+                     
+                    </div>
+
+                  </div>  -->
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-7">
+                      
+                      <label class="mb-0">TOTAL DESCUENTO</label>
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right totalDescT">
+                      
+                      <?= number_format($totalesPlanilla["total_desc"], 2, ",", ".") ?>
+                     
+                    </div>
+
+                  </div>       
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-7">
+                      
+                      <label class="mb-0">LIQUIDO PAGABLE</label>
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right liquidoPagableT">
+                      
+                      <?= number_format($totalesPlanilla["liquido_pagable"], 2, ",", ".") ?>
+                     
+                    </div>
+
+                  </div>     
+
+                  <div class="form-row">       
+                      
+                    <div class="col-md-7">
+                     
+                    </div>
+
+                    <div class="col-md-1 text-right" style="border-top: 1px solid #000; border-bottom: 3px double #000">
+                      
+                      <label class="mb-0 totalGanadoT"><?= number_format($totalesPlanilla["total_ganado"], 2, ",", ".") ?></label>
+                     
+                    </div>
+
+                     <div class="col-md-3 text-right" style="border-top: 1px solid #000; border-bottom: 3px double #000;">
+                      
+                      <label class="mb-0 totalGanadoT"><?= number_format($totalesPlanilla["total_ganado"], 2, ",", ".") ?></label>
+                     
+                    </div>
+
+                  </div>                                
+
+                </div>
 
               </div>
              

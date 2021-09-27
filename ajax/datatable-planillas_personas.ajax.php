@@ -105,11 +105,11 @@ class TablaPlanillaPersonas {
 
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
 						
-						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaEmpleado='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button></div>";
+						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button></div>";
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaEmpleado='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button><button class='btn btn-info btnGenerarBoletaEmpleado' idPlanillaEmpleado='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='tooltip' title='Generar Boleta'><i class='fab fa-wpforms'></i></button></div>";
+						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button><button class='btn btn-info btnPDFBoletaPersona' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='tooltip' title='Generar Boleta'><i class='fab fa-wpforms'></i></button></div>";
 
 					}
 					

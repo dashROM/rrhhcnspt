@@ -18,14 +18,14 @@ class ControladorPlanillasPersonas {
 
 
 	/*=============================================
-	MOSTRAR DATOS DE RELACION DE NOVEDADES DE UNA PERSONA COMPLETO
+	MOSTRAR DATOS DE PLANILLAS DE UNA PERSONA COMPLETO
 	=============================================*/
 	
-	static public function ctrMostrarRelacionPersonaCompleto($item, $valor) {
+	static public function ctrMostrarPlanillaPersonasCompleto($item, $valor) {
 
 		$tabla = "planilla_persona_contratos";
 
-		$respuesta = ModeloPlanillasPersonas::mdlMostrarRelacionPersonaCompleto($tabla, $item, $valor);
+		$respuesta = ModeloPlanillasPersonas::mdlMostrarPlanillaPersonasCompleto($tabla, $item, $valor);
 
 		return $respuesta;
 
@@ -35,11 +35,11 @@ class ControladorPlanillasPersonas {
 	MOSTRAR DATOS DE PLANILLA DE UN EMPLEADO COMPLETO
 	=============================================*/
 	
-	static public function ctrMostrarTotalesPlanillaEmpleado($item, $valor) {
+	static public function ctrMostrarTotalesPlanillaPersonas($item, $valor) {
 
 		$tabla = "planilla_persona_contratos";
 
-		$respuesta = ModeloPlanillasPersonas::mdlMostrarTotalesPlanillaEmpleado($tabla, $item, $valor);
+		$respuesta = ModeloPlanillasPersonas::mdlMostrarTotalesPlanillaPersonas($tabla, $item, $valor);
 
 		return $respuesta;
 

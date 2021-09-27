@@ -800,16 +800,15 @@ $(document).on("click", ".btnPDFRelacion", function() {
 BOTÓN GENERERAR BOLETA PDF
 =============================================*/
 
-$(document).on("click", "button.btnGenerarBoletaEmpleado", function() {
+$(document).on("click", ".btnPDFBoletaPersona", function() {
 	
-	var id_planilla_empleado = $(this).attr("idPlanillaEmpleado");
-	console.log("id_planilla_empleado", id_planilla_empleado);
+	var id_planilla_persona_contrato = $(this).attr("idPlanillaPersona");
+	console.log("id_planilla_persona_contrato", id_planilla_persona_contrato);
 
 	var datos = new FormData();
 
-	datos.append("boletaEmpleadoPDF", "boletaEmpleadoPDF");
-	datos.append("id_planilla_empleado", id_planilla_empleado);
-	// datos.append("nombre_usuario", nombre_usuario);
+	datos.append("boletaPersonaPDF", "boletaPersonaPDF");
+	datos.append("id_planilla_persona_contrato", id_planilla_persona_contrato);
 
 	//Para mostrar alerta personalizada de loading
 	swal.fire({
@@ -824,7 +823,7 @@ $(document).on("click", "button.btnGenerarBoletaEmpleado", function() {
 
 	$.ajax({
 
-		url: "ajax/planillas_empleados.ajax.php",
+		url: "../ajax/planillas_personas.ajax.php",
 		type: "POST",
 		data: datos,
 		cache: false,
@@ -843,7 +842,7 @@ $(document).on("click", "button.btnGenerarBoletaEmpleado", function() {
 			
 			});	
 			
-			PDFObject.embed("temp/boleta-"+id_planilla_empleado+".pdf", "#view_pdf");
+			PDFObject.embed("../temp/boleta-"+id_planilla_persona_contrato+".pdf", "#view_pdf");
 
 		}
 
@@ -852,10 +851,10 @@ $(document).on("click", "button.btnGenerarBoletaEmpleado", function() {
 });
 
 /*=============================================
-BOTÓN GENERERAR PLANILLA PDF
+BOTÓN GENERAR PLANILLA PDF
 =============================================*/
 
-$(document).on("click", "a.btnGenerarPlanilla", function() {
+$(document).on("click", ".btnPDFPlanilla", function() {
 	
 	var id_planilla = $(this).attr("idPlanilla");
 	console.log("id_planilla", id_planilla);
@@ -879,7 +878,7 @@ $(document).on("click", "a.btnGenerarPlanilla", function() {
 
 	$.ajax({
 
-		url: "ajax/planillas_empleados.ajax.php",
+		url: "../ajax/planillas_personas.ajax.php",
 		type: "POST",
 		data: datos,
 		cache: false,
@@ -898,7 +897,7 @@ $(document).on("click", "a.btnGenerarPlanilla", function() {
 			
 			});	
 			
-			PDFObject.embed("temp/planilla-"+id_planilla+".pdf", "#view_pdf");
+			PDFObject.embed("../temp/planilla-"+id_planilla+".pdf", "#view_pdf");
 
 		}
 

@@ -30,14 +30,14 @@ class ModeloPlanillasPersonas {
 	}
 
 	/*=============================================
-	MOSTRAR DATOS DE PLANILLA DE UN EMPLEADO COMPLETO
+	MOSTRAR DATOS DE PLANILLA DE UNA PERSONA COMPLETO
 	=============================================*/
 	
-	static public function mdlMostrarPlanillaEmpleadoCompleto($tabla, $item, $valor) {
+	static public function mdlMostrarPlanillaPersonasCompleto($tabla, $item, $valor) {
 
 		if ($item != null) {
 			
-			$stmt = Conexion::conectarPG()->prepare("SELECT pe.id_planilla_empleado, est.abrev_establecimiento, e.paterno_empleado, e.materno_empleado, e.nombre_empleado, concat_ws(' ', e.ci_empleado, e.ext_ci_empleado) AS ci_empleado, c.nombre_cargo, c.haber_basico, pe.dias_trabajados, pe.total_ganado, pe.desc_afp, pe.desc_solidario, pe.total_desc, pe.liquido_pagable, pe.id_planilla FROM planillas_empleados_tbl pe, empleados_tbl e, cargos_tbl c, establecimientos_tbl est WHERE pe.id_empleado = e.id_empleado AND e.id_establecimiento = est.id_establecimiento AND e.id_cargo = c.id_cargo AND pe.$item = :$item");
+			$stmt = Conexion::conectarPG()->prepare("SELECT ppc.id_planilla_persona_contrato, est.abrev_establecimiento, p.paterno_persona, p.materno_persona, p.nombre_persona, concat_ws(' ', p.ci_persona, p.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable, ppc.id_planilla FROM planilla_persona_contratos ppc, persona_contratos pc, personas p, cargos c, establecimientos est WHERE ppc.id_persona_contrato = pc.id_persona_contrato AND pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND ppc.$item = :$item");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
 
@@ -56,24 +56,24 @@ class ModeloPlanillasPersonas {
 	MOSTRAR SUMATORIAS TOTALES DE PLANILLA DE UN EMPLEADO
 	=============================================*/
 	
-	// static public function mdlMostrarTotalesPlanillaEmpleado($tabla, $item, $valor) {
+	static public function mdlMostrarTotalesPlanillaPersonas($tabla, $item, $valor) {
 
-	// 	if ($item != null) {
+		if ($item != null) {
 			
-	// 		$stmt = Conexion::conectarPG()->prepare("SELECT SUM(total_ganado) AS total_ganado, SUM(desc_afp) AS desc_afp, SUM(desc_solidario) AS desc_solidario, SUM(total_desc) AS total_desc, SUM(liquido_pagable) AS liquido_pagable FROM planillas_empleados_tbl WHERE $item = :$item");
+			$stmt = Conexion::conectarPG()->prepare("SELECT SUM(total_ganado) AS total_ganado, SUM(desc_afp) AS desc_afp, SUM(desc_solidario) AS desc_solidario, SUM(total_desc) AS total_desc, SUM(liquido_pagable) AS liquido_pagable FROM planilla_persona_contratos WHERE $item = :$item");
 
-	// 		$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
 
-	// 		$stmt->execute();
+			$stmt->execute();
 
-	// 		return $stmt->fetch();
+			return $stmt->fetch();
 
-	// 	}
+		}
 
-	// 	$stmt->close();
-	// 	$stmt = null;
+		$stmt->close();
+		$stmt = null;
 
-	// }
+	}
 
 	/*=============================================
 	ACTUALIZAR DE DATOS DE DIAS TRABAJADOS EN RELACION DE NOVEDADES
