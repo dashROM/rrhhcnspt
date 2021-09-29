@@ -37,7 +37,7 @@ class ModeloPlanillasPersonas {
 
 		if ($item != null) {
 			
-			$stmt = Conexion::conectarPG()->prepare("SELECT ppc.id_planilla_persona_contrato, est.abrev_establecimiento, p.paterno_persona, p.materno_persona, p.nombre_persona, concat_ws(' ', p.ci_persona, p.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable, ppc.id_planilla FROM planilla_persona_contratos ppc, persona_contratos pc, personas p, cargos c, establecimientos est WHERE ppc.id_persona_contrato = pc.id_persona_contrato AND pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND ppc.$item = :$item");
+			$stmt = Conexion::conectarPG()->prepare("SELECT ppc.id_planilla_persona_contrato, est.abrev_establecimiento, p.paterno_persona, p.materno_persona, p.nombre_persona, concat_ws(' ', p.ci_persona, p.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable, ppc.id_planilla FROM planilla_persona_contratos ppc, persona_contratos pc, personas p, cargos c, establecimientos est WHERE ppc.id_persona_contrato = pc.id_persona_contrato AND pc.id_persona = p.id_persona AND pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND ppc.$item = :$item");
 
 			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
 

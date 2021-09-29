@@ -1,3 +1,3 @@
 <?php 
 
-const SERVERURL="https://localhost/rrhhcnspt";
+const SERVERURL="http://localhost/rrhhcnspt";

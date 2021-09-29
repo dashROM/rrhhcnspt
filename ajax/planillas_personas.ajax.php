@@ -486,7 +486,7 @@ class AjaxPlanillasPersonas {
 
 		// Extend the TCPDF class to create custom Header and Footer
 
-		$pdf = new MYPDF('P', 'mm', 'A5', true, 'UTF-8', false);
+		$pdf = new MYPDF('P', 'mm', 'Letter', true, 'UTF-8', false);
 
 		// set document information
 		$pdf->SetCreator(PDF_CREATOR);
@@ -502,12 +502,13 @@ class AjaxPlanillasPersonas {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+		$pdf->SetMargins(15, 5, 15, 0);
+
+		$pdf->SetHeaderMargin(5);
+		$pdf->SetFooterMargin(5);
 
 		// set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+		$pdf->SetAutoPageBreak(TRUE, 5);
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -539,9 +540,9 @@ class AjaxPlanillasPersonas {
 
 					.content div{
 
-							line-height: 6px;
+						line-height: 6px;
 
-						}
+					}
 
 					.font-weight-bold {
 
@@ -575,120 +576,96 @@ class AjaxPlanillasPersonas {
 
 			</head>
 
-			<body>
+			<body>';
+
+			// for ($i=0; $i < 4; $i++) { 
+
+			$content .= '
 
 				<div class="content" border="1">
 
 					<div style="line-height: 0px;">
-					
-						<h3 class="titulo" style="line-height: 4px;">BOLETAS DE PAGO</h3>
 
-						<h4 class="titulo">'.$planilla["nombre_contrato"].'</h4>
+						<table cellpadding="8px" cellspacing="0px">
+				    		<tr>
+
+				    			<td>
+
+				    				<h3 class="titulo" style="line-height: 2px;">BOLETAS DE PAGO</h3>
+
+									<h4 class="titulo" style="line-height: 2px;">'.$planilla["nombre_contrato"].'</h4>
+
+								</td>
+
+							</tr>
+
+						</table>
 
 					</div>
 
 					<div class="header_boleta">
 				    	<table>
 				    		<tr>
-				    			<td colspan="2">Detalle de pago por el Mes de:</td>
-				    			<td><b>'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</b></td>
+				    			<td width="75px"></td>
+				    			<td colspan="2">Detalle de pago por el Mes de: <b>'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</b></td>
 				    			<td></td>
+				    			<td>Dias Trabajados:'.$planilla_persona_contrato["dias_trabajados"].'</td>
 				    		</tr>
 				    		<tr>
-				    			<td>Dias Trabajados:</td>
-				    			<td>'.$planilla_persona_contrato["dias_trabajados"].'</td>
-				    			<td colspan="2"></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="4"></td>
-				    		</tr>
-				    		<tr>
-				    			<td>'.$planilla_persona_contrato["paterno_persona"].'</td>
-				    			<td>'.$planilla_persona_contrato["materno_persona"].'</td>
-				    			<td>'.$planilla_persona_contrato["nombre_persona"].'</td>
 				    			<td></td>
+				    			<td width="115px">'.$planilla_persona_contrato["paterno_persona"].'</td>
+				    			<td width="115px">'.$planilla_persona_contrato["materno_persona"].'</td>
+				    			<td width="120px">'.$planilla_persona_contrato["nombre_persona"].'</td>
+				    			<td width="115px"></td>
 				    		</tr>
 
 				    		<tr>
+				    			<th></th>
 				    			<th width="115px" class="datos-personales">AP. PATERNO</th>
 				    			<th width="115px" class="datos-personales">AP. MATERNO</th>
 				    			<th width="120px" class="datos-personales">NOMBRE(S)</th>
 				    			<th width="115px" class="datos-personales"></th>
 				    		</tr>
 				    		<tr>
+				    			<td></td>
 				    			<td colspan="3"><u>Haberes</u>:</td>
 				    			<td>Detalle General</td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="4"></td>
-				    		</tr>
-				    		<tr>
+				    			<td></td>
 				    			<td colspan="3">Sueldo</td>
 				    			<td align="right">'.number_format($planilla_persona_contrato["total_ganado"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="3">Bono de Antigüedad</td>
-				    			<td></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="3">Domingos y Feriado</td>
-				    			<td></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="3">P.TG.B. RIESG.</td>
-				    			<td></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="3">Trabajo Nocturno</td>
-				    			<td></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="3">Escalafón</td>
-				    			<td></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="3">Categ. Profesional</td>
-				    			<td></td>
+				    			<td colspan="5"></td>
 				    		</tr>
 				    		<tr>
 				    			<td></td>
-				    		</tr>
-				    		<tr>
 				    			<td colspan="2" align="right">Total Ganado Bs.</td>
 				    			<td></td>
 				    			<td align="right" style="border-top: 1px solid #000">'.number_format($planilla_persona_contrato["total_ganado"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="4"></td>
-				    		</tr>
-				    		<tr>
+				    			<td></td>
 				    			<td colspan="3"><u>Descuentos</u>:</td>
 				    			<td></td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="4"></td>
-				    		</tr>
-				    		<tr>
+				    			<td></td>
 				    			<td colspan="3">A.F.P.S. 12,71%</td>
 				    			<td align="right">'.number_format($planilla_persona_contrato["desc_afp"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="3">Seguro Salud F.</td>
-				    			<td align="right"></td>
+				    			<td colspan="5"></td>
 				    		</tr>
 				    		<tr>
-				    			<td colspan="3">Comcipo</td>
-				    			<td align="right"></td>
-				    		</tr>
-				    		<tr>
-				    			<td colspan="4"></td>
-				    		</tr>
-				    		<tr>
+				    			<td></td>
 				    			<td colspan="2" align="right">Total Descuentos Bs.</td>
 				    			<td></td>
 				    			<td align="right" style="border-bottom: 1px solid #000">'.number_format($planilla_persona_contrato["total_desc"], 2, ",", ".").'</td>
 				    		</tr>
 				    		<tr>
+				    			<td></td>
 				    			<td colspan="2" align="right">LIQUIDO PAGABLE Bs.</td>
 				    			<td></td>
 				    			<td align="right" style="border-bottom: 3px double #000">'.number_format($planilla_persona_contrato["liquido_pagable"], 2, ",", ".").'</td>
@@ -699,25 +676,30 @@ class AjaxPlanillasPersonas {
 
 				    </div>
 
-				    <div style="text-align: center; margin-top: 150px;">
+				    <div style="text-align: center;" height="10px">
 					
 						<h4 class="firma">RECIBIDO CONFORME</h4>
 
 					</div>
 
 				</div>
+				<br><br>';
+
+			// }
+
+			$content .= '
 
 			</body>
 
 			</html>';
-			
+
 		// Reconociendo la estructura HTML
-		$pdf->writeHTML($content, true, 0, true, true);
+		$pdf->writeHTML($content, true, false, true, false, '');
 
 		// Insertando el Logo
 		$image_file = K_PATH_IMAGES.'cns-logo-simple.png';
 
-		$pdf->Image($image_file, 13, 9, 13, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+		$pdf->Image($image_file, 18, 10, 15, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
 
 		// Estilos necesarios para el Codigo QR
 		$style = array(
@@ -734,7 +716,7 @@ class AjaxPlanillasPersonas {
 		$codeContents = 'COD. BOLETA: '.$this->id_planilla_persona_contrato."\n";
 
 		// insertando el código QR
-		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 120, 8, 15, 15, $style, 'N');	
+		$pdf->write2DBarcode($codeContents, 'QRCODE,L', 175, 8, 20, 20, $style, 'N');	
 
 		$pdf->lastPage();
 
