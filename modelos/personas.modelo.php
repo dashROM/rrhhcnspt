@@ -22,7 +22,7 @@ class ModeloPersonas {
 
 		} else {
 
-			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro FROM $tabla");
+			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro, matricula_persona FROM $tabla ORDER BY id_persona DESC");
 
 			$stmt->execute();
 
@@ -53,7 +53,7 @@ class ModeloPersonas {
 
 		} else {
 
-			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro FROM $tabla");
+			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro, matricula_persona FROM $tabla");
 
 			$stmt->execute();
 
@@ -74,7 +74,7 @@ class ModeloPersonas {
 
 	static public function mdlNuevoPersona($tabla, $datos) {
 
-		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(paterno_persona, materno_persona, nombre_persona, foto_persona, ci_persona, ext_ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro) VALUES (:paterno_persona, :materno_persona, :nombre_persona, :foto_persona, :ci_persona, :ext_ci_persona, :fecha_nacimiento, :sexo_persona, :direccion_persona, :telefono_persona, :email_persona, current_timestamp)");
+		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(paterno_persona, materno_persona, nombre_persona, foto_persona, ci_persona, ext_ci_persona, fecha_nacimiento, sexo_persona, direccion_persona, telefono_persona, email_persona, fecha_registro, matricula_persona) VALUES (:paterno_persona, :materno_persona, :nombre_persona, :foto_persona, :ci_persona, :ext_ci_persona, :fecha_nacimiento, :sexo_persona, :direccion_persona, :telefono_persona, :email_persona, current_timestamp, :matricula_persona)");
 
 		$stmt->bindParam(":paterno_persona", $datos["paterno_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":materno_persona", $datos["materno_persona"], PDO::PARAM_STR);
@@ -87,6 +87,7 @@ class ModeloPersonas {
 		$stmt->bindParam(":direccion_persona", $datos["direccion_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":telefono_persona", $datos["telefono_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":email_persona", $datos["email_persona"], PDO::PARAM_STR);
+		$stmt->bindParam(":matricula_persona", $datos["matricula_persona"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 			
@@ -109,7 +110,7 @@ class ModeloPersonas {
 
 	static public function mdlEditarPersona($tabla, $datos) {
 
-		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET paterno_persona = :paterno_persona, materno_persona = :materno_persona, nombre_persona = :nombre_persona, foto_persona = :foto_persona, ci_persona = :ci_persona, ext_ci_persona = :ext_ci_persona, fecha_nacimiento = :fecha_nacimiento, sexo_persona = :sexo_persona, direccion_persona = :direccion_persona, telefono_persona = :telefono_persona, email_persona = :email_persona WHERE id_persona = :id_persona");
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET paterno_persona = :paterno_persona, materno_persona = :materno_persona, nombre_persona = :nombre_persona, foto_persona = :foto_persona, ci_persona = :ci_persona, ext_ci_persona = :ext_ci_persona, fecha_nacimiento = :fecha_nacimiento, sexo_persona = :sexo_persona, direccion_persona = :direccion_persona, telefono_persona = :telefono_persona, email_persona = :email_persona, matricula_persona = :matricula_persona WHERE id_persona = :id_persona");
 
 		$stmt->bindParam(":paterno_persona", $datos["paterno_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":materno_persona", $datos["materno_persona"], PDO::PARAM_STR);
@@ -122,6 +123,7 @@ class ModeloPersonas {
 		$stmt->bindParam(":direccion_persona", $datos["direccion_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":telefono_persona", $datos["telefono_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":email_persona", $datos["email_persona"], PDO::PARAM_STR);
+		$stmt->bindParam(":matricula_persona", $datos["matricula_persona"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_persona", $datos["id_persona"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {

@@ -190,3 +190,12 @@ $(document).on("click", ".select2", function() {
 	$('.select2-search__field').addClass('mayuscula');
 
 })
+
+/*======================================
+CAMBIAR EL FORMATO DE FECHA
+========================================*/
+function formatoFecha(texto) {
+
+  return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
+  
+}

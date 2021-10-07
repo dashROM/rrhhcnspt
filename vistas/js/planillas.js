@@ -595,6 +595,8 @@ $(document).on("click", ".btnAgregarDiasTrabajados", function() {
 			$('#nombre').text(respuesta["nombre_persona"]);
 			$('#ci').text(respuesta["ci_persona"]);
 			$('#cargo').text(respuesta["nombre_cargo"]);
+			$('#inicio_contrato').text(formatoFecha(respuesta["inicio_contrato"]));
+			$('#fin_contrato').text(formatoFecha(respuesta["fin_contrato"]));
 			$('#nuevoHaberBasico').val(respuesta["haber_basico"]);
 			$('#nuevoDiasTrab').val(respuesta["dias_trabajados"]);
 

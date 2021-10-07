@@ -4984,6 +4984,7 @@ ul.notifications {
 /*Mostrar los valores introducidos por input en mayuscula*/
 .mayuscula{
   text-transform:uppercase;
+  align-content: center;
 }
 
 /*Estilos para la ventana modal CSS*/

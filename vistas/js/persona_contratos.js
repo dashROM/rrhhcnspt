@@ -269,7 +269,7 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 		swal.fire({
 				
-			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales2!",
+			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"

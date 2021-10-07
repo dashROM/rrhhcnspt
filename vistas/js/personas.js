@@ -121,8 +121,8 @@ $("#frmNuevoPersona").validate({
    		nuevoExtCIPersona : { required: true},
    		nuevoFechaNacimientoPersona: { required: true},
    		nuevoSexoPersona: { required: true},
-   		nuevoDireccionPersona : { patron_textoEspecial: true},
-   		nuevoTelefonoPersona : { patron_numeros: true},
+   		nuevoDireccionPersona : { required: true, patron_textoEspecial: true},
+   		nuevoTelefonoPersona : { required: true, patron_numeros: true},
    		nuevoEmailPersona : { patron_textoEspecial: true},   		  
   	},
 
@@ -286,8 +286,8 @@ $("#frmEditarUsuario").validate({
    		editarExtCIPersona : { required: true},
    		editarFechaNacimientoPersona: { required: true},
    		editarSexoPersona : { required: true},
-   		editarDireccionPersona : { patron_textoEspecial: true},
-   		editarTelefonoPersona : { patron_numeros: true},
+   		editarDireccionPersona : { required: true, patron_textoEspecial: true},
+   		editarTelefonoPersona : { required: true, patron_numeros: true},
    		editarEmailPersona : { patron_textoEspecial: true},   		  
   	},
 

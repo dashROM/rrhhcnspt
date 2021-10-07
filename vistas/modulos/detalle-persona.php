@@ -61,11 +61,11 @@
 
                       if ($persona['foto_persona'] == "") {
 
-                        echo '<img src="https://localhost/rrhhcnspt/vistas/img/personas/default/anonymous.png" class="img-thumbnail previsualizar" width="200px">';
+                        echo '<img src="'.SERVERURL.'/vistas/img/personas/default/anonymous.png" class="img-thumbnail previsualizar" width="200px">';
 
                       } else {
 
-                        echo '<img src="https://localhost/rrhhcnspt/'.$persona['foto_persona'].'" class="img-thumbnail previsualizar" width="200px">';
+                        echo '<img src="'.SERVERURL.'/'.$persona['foto_persona'].'" class="img-thumbnail previsualizar" width="200px">';
 
                       }
                     ?>
@@ -148,6 +148,14 @@
                 <div class="form-group">
                   
                   <label class="font-weight-bold mr-1">EMAIL:</label><label class="font-weight-normal"><?= $persona['email_persona'] ?></label>
+
+                </div>
+
+                 <!-- ENTRADA PARA LA MATRICULA -->
+              
+                <div class="form-group">
+                  
+                  <label class="font-weight-bold mr-1">MATRICULA:</label><label class="font-weight-normal"><?= $persona['matricula_persona'] ?></label>
 
                 </div>
 

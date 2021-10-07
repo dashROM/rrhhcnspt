@@ -87,6 +87,7 @@
                         <th>INICIO CONTRATO</th>
                         <th>FIN CONTRATO</th>
                         <th>HABER BÁSICO</th>
+                        <th>MATRICULA</th>
                         <th>DIAS TRAB.</th>
 		                    <th>ACCIONES</th>
 		                  </tr>
@@ -154,13 +155,21 @@ MODAL AGREGAR DIAS TRABAJADOS
 
           <div class="row mb-3">
 
-            <div class="col-md-12 col-sm-12">
+            <div class="col-6 col-md-6 col-sm-12">
 
               <div class="mb-1"><span class="font-weight-bold">Nombre: </span><span id="nombre"></span></div>
 
               <div class="mb-1"><span class="font-weight-bold">CI: </span><span id="ci"></span></div>
 
               <div class="mb-1"><span class="font-weight-bold">Cargo: </span><span id="cargo"></span></div>
+
+            </div>
+
+            <div class="col-6 col-md-6 col-sm-12">
+
+              <div class="mb-1"><span class="font-weight-bold">Inicio de Contrato: </span><span id="inicio_contrato"></span></div>
+
+              <div class="mb-1"><span class="font-weight-bold">Fin de Contrato: </span><span id="fin_contrato"></span></div>
 
             </div>
 

@@ -13,59 +13,30 @@ require_once('../extensiones/tcpdf/tcpdf.php');
 
 class MYPDF extends TCPDF {
 
-    //Page header
- //    public function Header() {
- //        // Logo
- //        $image_file = K_PATH_IMAGES.'cns-logo.png';
- //        $this->Image($image_file, 5, 5, 10, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
- //        // Set font
- //        $this->SetFont('helvetica', 'B', 12);
- //        // Titulo
- //        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
- //        // Subtitulo
- //        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
- //        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
-
-	// 	// set border width
-	// 	$this->SetLineWidth(0.1);
-
-	// 	// set color for cell border
-	// 	$this->SetDrawColor(0,0,0);
-
-	// 	// set filling color
-	// 	$this->SetFillColor(0,0,0);
-
-	// 	// set cell height ratio
-	// 	$this->setCellHeightRatio(0.05);
-
- //        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
-
-	// }
-
 	public $headerPlanilla = false;
+
+	//Page header
 
     public function Header() {
 
-        if ($this->headerPlanilla===true) {
+        if ($this->headerPlanilla === true) {
+
+        	// Set font
+	        $this->SetFont('helvetica', 'B', 10);
+        	// Titul
+	        $this->Cell(0, 0, '                    CAJA NACIONAL DE SALUD', 0, 1, 'L', 0, '', 1);
+	        // Subtitulo
+	        $this->Cell(0, 0, '                       SECC. PLANILLAS REG.', 0, 1, 'L', 0, '', 1);
+	        $this->Cell(0, 0, '                            Potosí -0- Bolivia', 0, 1, 'L', 0, '', 1);
             
-	            // Logo
+	        // Logo
 	        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
 	        $this->Image($image_file, 5, 5, 15, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
-	        // Set font
-	        $this->SetFont('helvetica', 'B', 10);
-	        // Titulo
-	        $this->Cell(0, 0, '   CAJA NACIONAL DE SALUD', 0, 1, 'L', 0, '', 1);
-	        // Subtitulo
-	        $this->Cell(0, 0, '                      SECC. PLANILLAS REG.', 0, 1, 'L', 0, '', 1);
-	        $this->Cell(0, 0, '                          Potosí -0- Bolivia', 0, 1, 'L', 0, '', 1);
 
 
         } else {
-            
-            // Logo
-	        $image_file = K_PATH_IMAGES.'cns-logo.png';
-	        $this->Image($image_file, 5, 5, 12, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
-	        // Set font
+
+        	// Set font
 	        $this->SetFont('helvetica', 'B', 12);
 	        // Titulo
 	        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
@@ -73,7 +44,7 @@ class MYPDF extends TCPDF {
 	        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS', 0, 1, 'C', 0, '', 1);
 	        $this->Cell(0, 0, 'Potosí *-* Bolivia', 0, 1, 'C', 0, '', 1);
 
-			// set border width
+	        // set border width
 			$this->SetLineWidth(0.1);
 
 			// set color for cell border
@@ -83,9 +54,13 @@ class MYPDF extends TCPDF {
 			$this->SetFillColor(0,0,0);
 
 			// set cell height ratio
-			$this->setCellHeightRatio(0.05);
+			$this->setCellHeightRatio(0.025);
 
 	        $this->Cell(265, 0, '', 'B', 1, 'C', 1, '', 0, false, 'T', 'C');
+            
+            // Logo
+	        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
+	        $this->Image($image_file, 5, 5, 12, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
 
         } 
     }
@@ -266,6 +241,9 @@ class AjaxPlanillasPersonas {
 		$pdf->SetTitle('Relacion Novedades-'.$valor1);
 		$pdf->SetSubject('Planilla de pago CNS');
 		$pdf->SetKeywords('TCPDF, PDF, CNS, Reporte, Relacion Novedades, Planilla');
+
+		// set font
+		$pdf->SetFont('Helvetica', '', 8);
 	
 		// set default monospaced font
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -279,12 +257,15 @@ class AjaxPlanillasPersonas {
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
+		// mostrando encabezado
+		$pdf->setPrintHeader(true);
+		// ocultando pie de pagina
+		$pdf->setPrintFooter(false);
+
+		// seleccion que encabezado se elije
+		$pdf->headerPlanilla = false;
+
 		// ---------------------------------------------------------
-
-		// set font
-		$pdf->SetFont('Helvetica', '', 8);
-
-		$pdf->SetPrintFooter(false);
 
 		// add a page
 		$pdf->AddPage();
@@ -375,9 +356,10 @@ class AjaxPlanillasPersonas {
 								<td width="120px" class="linea_simple">NOMBRE(S)</td>
 								<td width="80px" align="center" class="linea_simple">CARNET</td>
 								<td width="130px" align="center" class="linea_simple">CARGO</td>
-								<td width="100px" align="center" class="linea_simple">INICIO CONTRATO</td>
-								<td width="100px" align="center" class="linea_simple">FIN CONTRATO</td>
+								<td width="80px" align="center" class="linea_simple">INICIO CONTRATO</td>
+								<td width="75px" align="center" class="linea_simple">FIN CONTRATO</td>
 								<td width="65px" align="center" class="linea_simple">HABER BÁSICO</td>
+								<td width="100px" align="center" class="linea_simple">MATRICULA</td>
 								<td width="50px" align="center" class="linea_simple">DIAS TRAB.</td>
 			                </tr>';
 			                
@@ -392,9 +374,10 @@ class AjaxPlanillasPersonas {
 		                		<td width="120px" class="linea_punteada">'.$datos_planilla[$i]["nombre_persona"].'</td>
 		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
 		                		<td width="130px" class="linea_punteada">'.$datos_planilla[$i]["nombre_cargo"].'</td>
-		                		<td width="100px" align="center" class="linea_punteada">'.$datos_planilla[$i]["inicio_contrato"].'</td>
-		                		<td width="100px" align="center" class="linea_punteada">'.$datos_planilla[$i]["fin_contrato"].'</td>
+		                		<td width="80px" align="center" class="linea_punteada">'.$datos_planilla[$i]["inicio_contrato"].'</td>
+		                		<td width="75px" align="center" class="linea_punteada">'.$datos_planilla[$i]["fin_contrato"].'</td>
 		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
+		                		<td width="100px" align="right" class="linea_punteada">'.$datos_planilla[$i]["matricula_persona"].'</td>
 		                		<td width="50px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
 		                	</tr>';
 
@@ -816,10 +799,12 @@ class AjaxPlanillasPersonas {
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-		// ocultando pie de pagina
+		// mostrando encabezado
 		$pdf->setPrintHeader(true);
+		// ocultando pie de pagina
 		$pdf->setPrintFooter(false);
 
+		// seleccion que encabezado se elije
 		$pdf->headerPlanilla = true;
 
 		// ---------------------------------------------------------

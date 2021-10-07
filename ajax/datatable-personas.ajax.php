@@ -85,6 +85,7 @@ class TablaPersonas {
 						"'.$personas[$i]["telefono_persona"].'",
 						"'.$personas[$i]["email_persona"].'",
 						"'.date("d/m/Y (H:i:s)", strtotime($personas[$i]["fecha_registro"])).'",
+						"'.$personas[$i]["matricula_persona"].'",
 						"'.$botones.'"
 					],';
 				}
@@ -176,6 +177,7 @@ class TablaPersonas {
 						"'.$personas[$i]["direccion_persona"].'",
 						"'.$personas[$i]["telefono_persona"].'",
 						"'.$personas[$i]["email_persona"].'"
+						"'.$personas[$i]["matricula_persona"].'"
 					],';
 				}
 

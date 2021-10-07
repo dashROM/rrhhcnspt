@@ -20,11 +20,11 @@
 
             if ($_SESSION["foto_rrhh"] != "") {
               
-              echo '<img src="https://localhost/rrhhcnspt/'.$_SESSION["foto_rrhh"].'">'.$_SESSION["nombre_rrhh"];
+              echo '<img src="'.SERVERURL.'/'.$_SESSION["foto_rrhh"].'">'.$_SESSION["nombre_rrhh"];
 
             } else {
 
-              echo '<img src="https://localhost/rrhhcnspt/vistas/img/usuarios/default/anonymous.png">'.$_SESSION["nombre_rrhh"];
+              echo '<img src="'.SERVERURL.'/vistas/img/usuarios/default/anonymous.png">'.$_SESSION["nombre_rrhh"];
             }
 
             ?>
@@ -33,7 +33,7 @@
 
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
           
-            <a href="https://localhost/rrhhcnspt/salir" class="dropdown-item"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
+            <a href="<?= SERVERURL; ?>/salir" class="dropdown-item"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
 
           </div>
 

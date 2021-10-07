@@ -71,7 +71,7 @@ class ControladorUsuarios {
 
 					} else {
 
-						echo '<div class="alert alert-danger mt-3">El usuario aún no está activado</div>';
+						echo '<div class="alert alert-danger mt-3">El usuario aún no está activado<br>Contactese con el Administrador del Sistema</div>';
 
 					}					
 

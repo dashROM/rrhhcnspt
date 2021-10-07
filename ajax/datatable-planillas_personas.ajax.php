@@ -54,9 +54,10 @@ class TablaPlanillaPersonas {
 						"'.$datos_planilla[$i]["nombre_persona"].'",
 						"'.$datos_planilla[$i]["ci_persona"].'",
 						"'.$datos_planilla[$i]["nombre_cargo"].'",
-						"'.$datos_planilla[$i]["inicio_contrato"].'",
-						"'.$datos_planilla[$i]["fin_contrato"].'",
+						"'.date("d/m/Y", strtotime($datos_planilla[$i]["inicio_contrato"])).'",
+						"'.date("d/m/Y", strtotime($datos_planilla[$i]["fin_contrato"])).'",
 						"'.$datos_planilla[$i]["haber_basico"].'",
+						"'.$datos_planilla[$i]["matricula_persona"].'",
 						"'.$datos_planilla[$i]["dias_trabajados"].'",
 						"'.$botones.'"
 					],';
@@ -103,13 +104,15 @@ class TablaPlanillaPersonas {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
+					$btnPDFBoletaPersona = "<button class='btn btn-info btnPDFBoletaPersona' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='tooltip' title='Generar Boleta'><i class='fab fa-wpforms'></i></button>";
+
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
 						
-						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button></div>";
+						$botones = "<div class='btn-group'></div>";
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-primary btnGenerarImportes' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='modal' data-target='#modalGenerarImportes' data-toggle='tooltip' title='Generar Importes'><i class='far fa-money-bill-alt'></i></button><button class='btn btn-info btnPDFBoletaPersona' idPlanillaPersona='".$datos_planilla[$i]["id_planilla_persona_contrato"]."' data-toggle='tooltip' title='Generar Boleta'><i class='fab fa-wpforms'></i></button></div>";
+						$botones = "<div class='btn-group'>".$btnPDFBoletaPersona."</div>";
 
 					}
 					

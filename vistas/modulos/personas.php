@@ -72,6 +72,7 @@
                         <th>TELEFONO</th>
                         <th>EMAIL</th>
                         <th>FECHA REGISTRO</th>
+                        <th>MATRICULA</th>
                         <th>ACCIONES</th>
                       </tr>
 
@@ -230,6 +231,7 @@ MODAL AGREGAR PERSONA
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoDireccionPersona">DIRECCIÓN</label>
+                <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control mayuscula" id="nuevoDireccionPersona" name="nuevoDireccionPersona">
 
               </div>
@@ -239,6 +241,7 @@ MODAL AGREGAR PERSONA
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoTelefonoPersona">TELF / CELULAR</label>
+                <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control" id="nuevoTelefonoPersona" name="nuevoTelefonoPersona" data-inputmask="'mask': '9{7,8}'">
 
               </div>

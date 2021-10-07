@@ -135,17 +135,42 @@ class AjaxPersonas {
 
 		}
 
-		$datos = array( "paterno_persona"     => mb_strtoupper($this->paterno_persona,'utf-8'), 
-						"materno_persona"	  => mb_strtoupper($this->materno_persona,'utf-8'),
-						"nombre_persona"      => mb_strtoupper($this->nombre_persona,'utf-8'),  
-						"foto_persona"     	  => $ruta,
-						"ci_persona"  	      => $this->ci_persona,
-						"ext_ci_persona"   	  => $this->ext_ci_persona,
-						"fecha_nacimiento"    => $this->fecha_nacimiento,
-						"sexo_persona"   	  => $this->sexo_persona,
-						"direccion_persona"   =>  mb_strtoupper($this->direccion_persona,'utf-8'),
-						"telefono_persona"    => $this->telefono_persona,
-						"email_persona"   	  => $this->email_persona,
+		/*=============================================
+		GENERAR LA MATRICULA
+		=============================================*/
+
+		$anio = date("y", strtotime($this->fecha_nacimiento));
+
+		if ($this->sexo_persona == "FEMENINO") {
+
+			$mes = date("m", strtotime($this->fecha_nacimiento))+50;
+
+		} else {
+
+			$mes = date("m", strtotime($this->fecha_nacimiento));
+
+		}
+		
+		$dia = date("d", strtotime($this->fecha_nacimiento));
+
+		$paterno = $this->paterno_persona;
+		$materno = $this->materno_persona;
+		$nombre = $this->nombre_persona;
+
+		$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+
+		$datos = array("paterno_persona"     => mb_strtoupper($this->paterno_persona,'utf-8'), 
+						       "materno_persona"	   => mb_strtoupper($this->materno_persona,'utf-8'),
+						       "nombre_persona"      => mb_strtoupper($this->nombre_persona,'utf-8'),  
+						       "foto_persona"     	 => $ruta,
+						       "ci_persona"  	       => $this->ci_persona,
+						       "ext_ci_persona"   	 => $this->ext_ci_persona,
+						       "fecha_nacimiento"    => $this->fecha_nacimiento,
+						       "sexo_persona"   	   => $this->sexo_persona,
+						       "direccion_persona"   => mb_strtoupper($this->direccion_persona,'utf-8'),
+						       "telefono_persona"    => $this->telefono_persona,
+						       "email_persona"   	   => $this->email_persona,
+						       "matricula_persona"   => mb_strtoupper($matricula,'utf-8'),
 						);	
 
 		$respuesta = ControladorPersonas::ctrNuevoPersona($datos);
@@ -255,18 +280,43 @@ class AjaxPersonas {
 
 		}
 
-		$datos = array( "paterno_persona"     => mb_strtoupper($this->paterno_persona,'utf-8'), 
-						"materno_persona"	  => mb_strtoupper($this->materno_persona,'utf-8'),
-						"nombre_persona"      => mb_strtoupper($this->nombre_persona,'utf-8'),  
-						"foto_persona"     	  => $ruta,
-						"ci_persona"  	      => $this->ci_persona,
-						"ext_ci_persona"   	  => $this->ext_ci_persona,
-						"fecha_nacimiento"    => $this->fecha_nacimiento,
-						"sexo_persona"   	  => $this->sexo_persona,
-						"direccion_persona"   => $this->direccion_persona,
-						"telefono_persona"    => $this->telefono_persona,
-						"email_persona"   	  => $this->email_persona,
-						"id_persona"   		  => $this->id_persona,
+		/*=============================================
+		GENERAR LA MATRICULA
+		=============================================*/
+
+		$anio = date("y", strtotime($this->fecha_nacimiento));
+
+		if ($this->sexo_persona == "FEMENINO") {
+
+			$mes = date("m", strtotime($this->fecha_nacimiento))+50;
+
+		} else {
+
+			$mes = date("m", strtotime($this->fecha_nacimiento));
+
+		}
+		
+		$dia = date("d", strtotime($this->fecha_nacimiento));
+
+		$paterno = $this->paterno_persona;
+		$materno = $this->materno_persona;
+		$nombre = $this->nombre_persona;
+
+		$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+
+		$datos = array("paterno_persona"    => mb_strtoupper($this->paterno_persona,'utf-8'), 
+						       "materno_persona"	  => mb_strtoupper($this->materno_persona,'utf-8'),
+						       "nombre_persona"     => mb_strtoupper($this->nombre_persona,'utf-8'),  
+						       "foto_persona"     	=> $ruta,
+						       "ci_persona"  	      => $this->ci_persona,
+						       "ext_ci_persona"   	=> $this->ext_ci_persona,
+						       "fecha_nacimiento"   => $this->fecha_nacimiento,
+						       "sexo_persona"   	  => $this->sexo_persona,
+						       "direccion_persona"  => mb_strtoupper($this->direccion_persona,'utf-8'),
+						       "telefono_persona"   => $this->telefono_persona,
+						       "email_persona"   	  => $this->email_persona,
+						       "matricula_persona"  => mb_strtoupper($matricula,'utf-8'),
+						       "id_persona"   		  => $this->id_persona,
 						);	
 
 		$respuesta = ControladorPersonas::ctrEditarPersona($datos);
