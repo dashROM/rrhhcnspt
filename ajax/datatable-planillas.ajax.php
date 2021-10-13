@@ -15,7 +15,7 @@ class TablaPlanillas {
 		$valor1 = null;
 		$valor2 = null;
 
-		$relacion = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+		$relacion = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 
 		if ($relacion == null) {
@@ -42,13 +42,17 @@ class TablaPlanillas {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
+					$btnEditarRelacion = "<button class='btn btn-warning btnEditarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarRelacion' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button>";
+
+					$btnGenerarRelacion = "<button class='btn btn-info btnGenerarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='tooltip' title='Generar Relacion Novedades'><i class='fab fa-wpforms'></i></button>";
+
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
 						
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarRelacion' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button></div>";
+						$botones = "<div class='btn-group'></div>";
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarRelacion' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button><button class='btn btn-info btnGenerarRelacion' idPlanilla='".$relacion[$i]["id_planilla"]."' data-toggle='tooltip' title='Generar Relacion Novedades'><i class='fab fa-wpforms'></i></button></div>";
+						$botones = "<div class='btn-group'>".$btnEditarRelacion.$btnGenerarRelacion."</div>";
 
 					}
 
@@ -86,7 +90,7 @@ class TablaPlanillas {
 		$valor1 = null;
 		$valor2 = null;
 
-		$planillas = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
+		$planillas = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 
 		if ($planillas == null) {
@@ -113,13 +117,17 @@ class TablaPlanillas {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
+					$btnEditarPlanilla = "<button class='btn btn-warning btnEditarPlanilla' idPlanilla='".$planillas[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarPlanilla' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button>";
+
+					$btnDetallePlanilla = "<button class='btn btn-info btnDetallePlanilla' idPlanilla='".$planillas[$i]["id_planilla"]."' data-toggle='tooltip' title='Detalle Planilla'><i class='fas fa-plus'></i></button>";
+
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
 						
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPlanilla' idPlanilla='".$planillas[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarPlanilla' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button></div>";
+						$botones = "<div class='btn-group'></div>";
 
 					} else {
 
-						$botones = "<div class='btn-group'><button class='btn btn-warning btnEditarPlanilla' idPlanilla='".$planillas[$i]["id_planilla"]."' data-toggle='modal' data-target='#modalEditarPlanilla' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button><button class='btn btn-info btnDetallePlanilla' idPlanilla='".$planillas[$i]["id_planilla"]."' data-toggle='tooltip' title='Detalle Planilla'><i class='fas fa-plus'></i></button></div>";
+						$botones = "<div class='btn-group'>".$btnEditarPlanilla.$btnDetallePlanilla."</div>";
 
 					}
 

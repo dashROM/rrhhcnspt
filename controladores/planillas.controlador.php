@@ -3,21 +3,21 @@
 class ControladorPlanillas {
 
 	/*=============================================
-	LISTADO DE RELACION DE NOVEDADES
+	LISTADO DE RELACION DE NOVEDADES/PLANILLAS
 	=============================================*/
-	
-	static public function ctrMostrarRelacion($item, $valor1, $valor2) {
+
+	static public function ctrMostrarPlanilla($item, $valor1, $valor2) {
 
 		$tabla = "planillas";
 
-		$respuesta = ModeloPlanillas::mdlMostrarRelacion($tabla, $item, $valor1, $valor2);
+		$respuesta = ModeloPlanillas::mdlMostrarPlanilla($tabla, $item, $valor1, $valor2);
 
 		return $respuesta;
 
 	}
 
 	/*=============================================
-	CREAR NUEVO ELACION DE NOVEDADES
+	CREAR NUEVO RELACION DE NOVEDADES
 	=============================================*/
 	
 	static public function ctrNuevoRelacion($datos) {
@@ -35,11 +35,11 @@ class ControladorPlanillas {
 	EDITAR RELACION DE NOVEDADES
 	=============================================*/
 	
-	static public function ctrEditarRelacion($datos) {
+	static public function ctrEditarTitulo($datos) {
 		
 		$tabla = "planillas";
 
-		$respuesta = ModeloPlanillas::mdlEditarRelacion($tabla, $datos);
+		$respuesta = ModeloPlanillas::mdlEditarTitulo($tabla, $datos);
 
 		return $respuesta;
 
@@ -63,20 +63,6 @@ class ControladorPlanillas {
 		$tabla = "planillas";
 
 		$respuesta = ModeloPlanillas::mdlMostrarGenerarRelacion($item, $valor1, $valor2);
-
-		return $respuesta;
-
-	}
-
-	/*=============================================
-	LISTADO DE PLANILLAS
-	=============================================*/
-	
-	static public function ctrMostrarPlanillas($item, $valor1, $valor2) {
-
-		$tabla = "planillas";
-
-		$respuesta = ModeloPlanillas::mdlMostrarPlanillas($tabla, $item, $valor1, $valor2);
 
 		return $respuesta;
 

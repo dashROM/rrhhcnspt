@@ -27,6 +27,7 @@
           <div class="input-group">
 
             <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/personas" class="menu" id="personas">Personas</a></span>
             <span class="breadcrumb-item active">Detalle personas</span>
 
           </div>

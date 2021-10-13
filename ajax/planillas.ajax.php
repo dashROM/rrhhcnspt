@@ -8,20 +8,21 @@ class AjaxPlanillas {
 	public $id_planilla;
 
 	/*=============================================
-	MOSTRAR DATOS RELACION DE NOVEDADES
+	MOSTRAR DATOS RELACION DE NOVEDADES/PLANILLA
 	=============================================*/
 
-	public function ajaxMostrarRelacion()	{
+	public function ajaxMostrarPlanilla()	{
 
 		$item = "id_planilla";
 		$valor1 = $this->id_planilla;
 		$valor2 = null;
 
-		$respuesta = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+		$respuesta = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 		echo json_encode($respuesta);
 
 	}
+
 
 	public $mes;
 	public $gestion;
@@ -45,9 +46,31 @@ class AjaxPlanillas {
 		$dateObj   = DateTime::createFromFormat('!m', $numero);
 		$mes = strftime('%B', $dateObj->getTimestamp());
 
-		$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+		// SI TIPO DE CONTRATO ES SUPLENCIA O NO
+		if ($this->id_contrato != 1) {
 
-		$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR COVID-19 PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+			// SI TIPO DE CONTRATO ES PLAZO FIJO O COVID-19
+			if ($this->id_contrato == 2) {
+
+				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+
+			} else {
+
+				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (COVID-19) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR COVID-19 PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+
+			}
+
+		} else {
+
+			$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (SUPLENCIA) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+
+			$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR SUPLENCIAS POR EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+
+		}
 
 		$datos = array("titulo_relacion" 	=> $titulo_relacion,
 									 "titulo_planilla" 	=> $titulo_planilla,
@@ -66,24 +89,38 @@ class AjaxPlanillas {
 	public $titulo_relacion;
 
 	/*=============================================
-	EDITAR RELACION DE NOVEDADES
+	EDITAR TITULO (RELACION DE NOVEDADES)
 	=============================================*/
 
-	public function ajaxEditarRelacion() {
+	public function ajaxEditarTituloRelacion() {
 
-		$titulo = trim($this->titulo_relacion);
-
-		$datos = array("titulo_relacion"  => $titulo,
-						       "id_planilla"   		=> $this->id_planilla,
+		$datos = array("titulo_relacion" 		=> trim($this->titulo_relacion),
+						       "id_planilla" 				=> $this->id_planilla,
 		);	
 
-		// var_dump($datos);
-
-		$respuesta = ControladorPlanillas::ctrEditarRelacion($datos);
+		$respuesta = ControladorPlanillas::ctrEditarTitulo($datos);
 
 		echo $respuesta;
 
-	}
+	}	
+
+	public $titulo_planilla;
+
+	/*=============================================
+	EDITAR TITULO (PLANILLA)
+	=============================================*/
+
+	public function ajaxEditarTituloPlanilla() {
+
+		$datos = array("titulo_planilla" 		=> trim($this->titulo_planilla),
+						       "id_planilla" 				=> $this->id_planilla,
+		);	
+
+		$respuesta = ControladorPlanillas::ctrEditarTitulo($datos);
+
+		echo $respuesta;
+
+	}	
 	
 	public $file;
 
@@ -105,11 +142,11 @@ class AjaxPlanillas {
 MOSTRAR PLANILLA
 =============================================*/
 
-if (isset($_POST["mostrarRelacion"])) {
+if (isset($_POST["mostrarPlanilla"])) {
 	
 	$planillas = new AjaxPlanillas();
 	$planillas -> id_planilla = $_POST["id_planilla"];
-	$planillas -> ajaxMostrarRelacion();
+	$planillas -> ajaxMostrarPlanilla();
 
 }
 
@@ -132,13 +169,23 @@ if (isset($_POST["nuevoRelacion"])) {
 EDITAR PLANILLA
 =============================================*/
 
-if (isset($_POST["editarRelacion"])) {
+if (isset($_POST["editarTitulo"])) {
 
 	$nuevoPlanilla = new AjaxPlanillas();
-	$nuevoPlanilla -> titulo_relacion = $_POST["titulo_relacion"];
-	$nuevoPlanilla -> id_planilla = $_POST["id_planilla"];
 
-	$nuevoPlanilla -> ajaxEditarRelacion();
+	if (isset($_POST["titulo_relacion"])) {
+
+		$nuevoPlanilla -> titulo_relacion = $_POST["titulo_relacion"];
+		$nuevoPlanilla -> id_planilla = $_POST["id_planilla"];
+		$nuevoPlanilla -> ajaxEditarTituloRelacion();
+	
+	} else {
+
+		$nuevoPlanilla -> titulo_planilla = $_POST["titulo_planilla"];
+		$nuevoPlanilla -> id_planilla = $_POST["id_planilla"];
+		$nuevoPlanilla -> ajaxEditarTituloPlanilla();
+
+	}
 
 }
 

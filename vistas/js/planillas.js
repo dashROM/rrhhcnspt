@@ -1,5 +1,6 @@
 // Inicializando la libreria CKEDITOR
 CKEDITOR.replace('tituloRelacion');
+CKEDITOR.replace('tituloPlanilla');
 
 /*=============================================
 CARGAR LA TABLA DINÁMICA DE LISTADO DE RELACION DE NOVEDADES
@@ -230,14 +231,13 @@ CARGANDO DATOS DE PLANILLA AL FORMULARIO EDITAR RELACION DE NOVEDADES
 
 $(document).on("click", ".btnEditarRelacion", function() {
 
-	console.log("CARGAR RELACION");
+	const monthNames = ["ENERO", "FEBREO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 
 	var id_planilla = $(this).attr("idPlanilla");
 	console.log("id_planilla", id_planilla);
 
-
 	var datos = new FormData();
-	datos.append("mostrarRelacion", 'mostrarRelacion');
+	datos.append("mostrarPlanilla", 'mostrarPlanilla');
 	datos.append("id_planilla", id_planilla);
 
 	$.ajax({
@@ -254,8 +254,7 @@ $(document).on("click", ".btnEditarRelacion", function() {
 
 			var value = CKEDITOR.instances.tituloRelacion.setData(respuesta["titulo_relacion"]);
 
-			// $('#editarTituloRelacion').val(respuesta["titulo_relacion"]);
-			$('#editarMes').val(respuesta["mes_planilla"]);
+			$('#editarMes').val(monthNames[respuesta["mes_planilla"]-1]);
 			$('#editarGestion').val(respuesta["gestion_planilla"]);
 			$('#editarTipoContrato').val(respuesta["nombre_contrato"]);
 			$('#editarIdPlanilla').val(respuesta["id_planilla"]);
@@ -306,7 +305,7 @@ $("#frmEditarRelacion").on("click", ".btnGuardar", function() {
 		console.log("id_planilla", id_planilla);
 
 		var datos = new FormData();
-		datos.append("editarRelacion", 'editarRelacion');
+		datos.append("editarTitulo", 'editarTitulo');
 
 		datos.append("titulo_relacion", titulo_relacion);
 		datos.append("id_planilla", id_planilla);
@@ -937,15 +936,164 @@ $("#ver-pdf").on("click", ".btnCerrarReporte", function() {
 });
 
 /*=============================================
-BOTÓN GENERAR PLANILLA
+CARGANDO DATOS DE PLANILLA AL FORMULARIO EDITAR PLANILLA
 =============================================*/
 
-$(document).on("click", "button.btnPlanillaImpositiva", function() {
-	
-	var idPlanilla = $(this).attr("idPlanilla");
-	// console.log("idPlanilla", idPlanilla);
+$(document).on("click", ".btnEditarPlanilla", function() {
 
+	const monthNames = ["ENERO", "FEBREO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"];
 
-	window.location = "index.php?ruta=planillas-rciva-empleados&idPlanilla="+idPlanilla;
+	var id_planilla = $(this).attr("idPlanilla");
+	console.log("id_planilla", id_planilla);
+
+	var datos = new FormData();
+	datos.append("mostrarPlanilla", 'mostrarPlanilla');
+	datos.append("id_planilla", id_planilla);
+
+	$.ajax({
+
+		url: "ajax/planillas.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta) {
+			console.log("respuesta", respuesta);
+
+			var value = CKEDITOR.instances.tituloPlanilla.setData(respuesta["titulo_planilla"]);
+
+			$('#editarMes').val(monthNames[respuesta["mes_planilla"]-1]);
+			$('#editarGestion').val(respuesta["gestion_planilla"]);
+			$('#editarTipoContrato').val(respuesta["nombre_contrato"]);
+			$('#editarIdPlanilla').val(respuesta["id_planilla"]);
+
+		},
+	    error: function(error){
+
+	      console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+//VALIDANDO DATOS DE EDITAR PLANILLA
+=============================================*/
+
+$("#frmEditarPlanilla").validate({
+
+	rules: {
+		editarTituloPlanilla : { required: true, patron_textoEspecial: true},
+		editarMesPlanilla: { required: true},
+		editarGestionPlanilla: { required: true},
+		editarTipoContrato: { required: true},
+	},
+
+	messages: {
+		editarMesPlanilla : "Elija un mes",
+		editarGestionPlanilla : "Elija una gestión",
+		editarTipoContrato : "Elija una tipo de contrato",
+	},
+
+});
+
+/*=============================================
+GUARDANDO DATOS DE EDITAR PLANILLA
+=============================================*/
+
+$("#frmEditarPlanilla").on("click", ".btnGuardar", function() {
+
+    if ($("#frmEditarPlanilla").valid()) {
+
+		var titulo_planilla = CKEDITOR.instances.tituloPlanilla.getData();
+		console.log("titulo_planilla", titulo_planilla);
+		var id_planilla = $("#editarIdPlanilla").val();
+		console.log("id_planilla", id_planilla);
+
+		var datos = new FormData();
+		datos.append("editarTitulo", 'editarTitulo');
+
+		datos.append("titulo_planilla", titulo_planilla);
+		datos.append("id_planilla", id_planilla);
+
+		$.ajax({
+
+			url:"ajax/planillas.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "html",
+			success: function(respuesta) {
+				console.log("respuesta", respuesta);
+			
+				if (respuesta == "ok") {
+
+					swal.fire({
+						
+						icon: "success",
+						title: "¡Los datos se guardaron correctamente!",
+						showConfirmButton: true,
+						allowOutsideClick: false,
+						confirmButtonText: "Cerrar"
+
+					}).then((result) => {
+	  					
+	  					if (result.value) {
+
+	  						$('#modalEditarPlanilla').modal('toggle');
+
+							// $("#editarTituloPlanilla").val("");
+							$("#editarIdPlanilla").val("");
+
+	  						// Funcion que recarga y actuaiiza la tabla	
+
+							tablaPlanilla.ajax.reload( null, false );
+
+	  						// window.location = "empleados";
+
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+							
+						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
+					
+				}
+
+			},
+			error: function(error) {
+
+		        console.log("No funciona");
+		        
+		    }
+
+		});
+
+    } else {
+
+		swal.fire({
+				
+			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+		
+	} 
 
 });

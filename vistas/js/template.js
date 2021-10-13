@@ -199,3 +199,23 @@ function formatoFecha(texto) {
   return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
   
 }
+
+/*=============================================
+
+=============================================*/
+
+$(document).on("click", ".btnMostrarPassword", function() {
+
+	var cambio = $(".txtPassword");
+	
+	if(cambio.attr("type") == "password") {
+		
+		cambio.attr("type", "text");
+		$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+	} else {
+
+		cambio.attr("type", "password");
+		$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+
+	}
+})

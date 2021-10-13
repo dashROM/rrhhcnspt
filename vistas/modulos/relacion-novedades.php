@@ -271,7 +271,7 @@ MODAL EDITAR RELACION DE NOVEDADES
 
         <div class="modal-header bg-modal">
 
-          <h5 class="modal-title" id="editarRelacion">Agregar Relación de Novedades</h5>
+          <h5 class="modal-title" id="editarRelacion">Editar Título Relación de Novedades</h5>
         
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true" class="btn btn-outline-danger m-0 py-0 px-2">&times;</span>

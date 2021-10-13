@@ -166,7 +166,8 @@ MODAL AGREGAR USUARIO
 
               <div class="form-group">
 
-                <label class="font-weight-normal" for="nuevoNombreUsuario">NOMBRE(S)<i class="fas fa-asterisk asterisk"></i></label>
+                <label class="font-weight-normal" for="nuevoNombreUsuario">NOMBRE(S)</label>
+                <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control mayuscula" id="nuevoNombreUsuario" name="nuevoNombreUsuario">
 
               </div>
@@ -175,7 +176,8 @@ MODAL AGREGAR USUARIO
 
               <div class="form-group">
 
-                <label class="font-weight-normal" for="nuevoNickUsuario">NICK USUARIO<i class="fas fa-asterisk asterisk"></i></label>
+                <label class="font-weight-normal" for="nuevoNickUsuario">NICK USUARIO</label>
+                <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control" id="nuevoNickUsuario" name="nuevoNickUsuario">
 
               </div>
@@ -184,8 +186,15 @@ MODAL AGREGAR USUARIO
 
               <div class="form-group">
 
-                <label class="font-weight-normal" for="nuevoPassword">CONTRASEÑA<i class="fas fa-asterisk asterisk"></i></label>
-                <input type="password" class="form-control" id="nuevoPassword" name="nuevoPassword">
+                <label class="font-weight-normal" for="nuevoPassword">CONTRASEÑA</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                  
+                <div class="input-group">
+                  <input type="password" class="form-control txtPassword" id="nuevoPassword" name="nuevoPassword">
+                  <div class="input-group-append">
+                    <button id="show_password" class="btn btn-primary btnMostrarPassword" type="button"> <span class="fa fa-eye-slash icon"></span> </button>
+                  </div>
+                </div>
 
               </div>             
 
@@ -193,7 +202,8 @@ MODAL AGREGAR USUARIO
 
               <div class="form-group">
 
-                <label class="font-weight-normal"  for="nuevoCIUsuario">NRO. CI<i class="fas fa-asterisk asterisk"></i></label>
+                <label class="font-weight-normal"  for="nuevoCIUsuario">NRO. CI</label>
+                <i class="fas fa-asterisk asterisk"></i>
 
                 <div class="input-group mb-3">
 
@@ -411,7 +421,16 @@ MODAL EDITAR USUARIO
 
                 <label class="font-weight-normal" for="editarPassword">CONTRASEÑA</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <input type="password" class="form-control" id="editarPassword" name="editarPassword" placeholder="INGRESE NUEVA CONTRASEÑA">
+                
+                <div class="input-group">
+                
+                  <input type="password" class="form-control txtPassword" id="editarPassword" name="editarPassword" placeholder="INGRESE NUEVA CONTRASEÑA">
+                  <div class="input-group-append">
+                    <button id="show_password" class="btn btn-primary btnMostrarPassword" type="button"> <span class="fa fa-eye-slash icon"></span> </button>
+                  </div>
+
+                </div>
+
                 <input type="hidden" id="passwordActual" name="passwordActual">
 
               </div>

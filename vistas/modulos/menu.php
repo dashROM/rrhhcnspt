@@ -88,7 +88,7 @@
 
               <li><a href="<?= SERVERURL; ?>/personas" id="personas">Personas</a></li>
 
-              <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relacion de Novedades</a></li>
+              <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relación de Novedades</a></li>
 
               <li><a href="<?= SERVERURL; ?>/planillas" id="planillas">Planillas</a></li>
 
@@ -102,7 +102,7 @@
 
       <div class="menu_section">
         <h3>Reportes</h3>
-        <ul class="nav side-menu">
+        <!-- <ul class="nav side-menu">
           <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="e_commerce.html">E-commerce</a></li>
@@ -122,7 +122,7 @@
               <li><a href="pricing_tables.html">Pricing Tables</a></li>
             </ul>
           </li>            
-        </ul>
+        </ul> -->
       </div>
 
     </div>

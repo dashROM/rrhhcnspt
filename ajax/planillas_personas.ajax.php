@@ -183,7 +183,7 @@ class AjaxPlanillasPersonas {
 		$valor1 = $this->id_planilla;
 		$valor2 = null;
 
-		$planilla = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+		$planilla = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 		// Convertir numero de Mes a su valor literal
 		setlocale(LC_TIME, 'spanish');
@@ -207,7 +207,7 @@ class AjaxPlanillasPersonas {
 
 		$admin_regional = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
 
-				// TRAEMOS DATOS DE AUTORIDADES-SUPERVISOR ADMINISTRATIVO
+		// TRAEMOS DATOS DE AUTORIDADES-SUPERVISOR ADMINISTRATIVO
 		$item = "puesto";
 		$valor = "SUPERVISOR ADM. | RR.HH.";
 
@@ -374,8 +374,8 @@ class AjaxPlanillasPersonas {
 		                		<td width="120px" class="linea_punteada">'.$datos_planilla[$i]["nombre_persona"].'</td>
 		                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
 		                		<td width="130px" class="linea_punteada">'.$datos_planilla[$i]["nombre_cargo"].'</td>
-		                		<td width="80px" align="center" class="linea_punteada">'.$datos_planilla[$i]["inicio_contrato"].'</td>
-		                		<td width="75px" align="center" class="linea_punteada">'.$datos_planilla[$i]["fin_contrato"].'</td>
+		                		<td width="80px" align="center" class="linea_punteada">'.date("d/m/Y", strtotime($datos_planilla[$i]["inicio_contrato"])).'</td>
+		                		<td width="75px" align="center" class="linea_punteada">'.date("d/m/Y", strtotime($datos_planilla[$i]["fin_contrato"])).'</td>
 		                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
 		                		<td width="100px" align="right" class="linea_punteada">'.$datos_planilla[$i]["matricula_persona"].'</td>
 		                		<td width="50px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
@@ -459,7 +459,7 @@ class AjaxPlanillasPersonas {
 		$valor1 = $planilla_persona_contrato["id_planilla"];
 		$valor2 = null;
 
-		$planilla = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
+		$planilla = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 		// Convertir numero de Mes a su valor literal
 		setlocale(LC_TIME, 'spanish');
@@ -723,7 +723,7 @@ class AjaxPlanillasPersonas {
 		
 		$valor2 = null;
 
-		$planilla = ControladorPlanillas::ctrMostrarPlanillas($item, $valor1, $valor2);
+		$planilla = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 		// Convertir numero de Mes a su valor literal
 		setlocale(LC_TIME, 'spanish');

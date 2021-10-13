@@ -5,7 +5,7 @@
   $valor1 = $parametros[1];
   $valor2 = null;
 
-  $planilla = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+  $planilla = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 ?>
 
@@ -29,7 +29,8 @@
           <div class="input-group">
 
             <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
-            <span class="breadcrumb-item active">Generar Planilla de Sueldos y Salarios</span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/planillas" class="menu" id="planillas"></i> Administrar Planillas</a></span>
+            <span class="breadcrumb-item active">Generar Planilla</span>
 
           </div>
 

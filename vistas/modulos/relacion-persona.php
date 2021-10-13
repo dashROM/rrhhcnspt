@@ -5,7 +5,7 @@
   $valor1 = $parametros[1];
   $valor2 = null;
 
-  $relacion = ControladorPlanillas::ctrMostrarRelacion($item, $valor1, $valor2);
+  $relacion = ControladorPlanillas::ctrMostrarPlanilla($item, $valor1, $valor2);
 
 ?>
 
@@ -27,6 +27,7 @@
           <div class="input-group">
 
             <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/inicio" class="menu" id="inicio"><i class="fas fa-home"></i> Inicio</a></span>
+            <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/relacion-novedades" class="menu" id="relacion">Relación de Novedades</a></span>
             <span class="breadcrumb-item active">Generar Relación de Novedades</span>
 
           </div>
