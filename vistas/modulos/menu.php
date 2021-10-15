@@ -63,6 +63,12 @@
 
           </li>
 
+          <?php 
+
+          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM") {
+
+          ?>
+
           <li>
 
             <a id="acceso">
@@ -74,7 +80,16 @@
               <li><a href="<?= SERVERURL; ?>/usuarios" class="nav-link menu" id="usuarios">Usuarios</a></li>
             
             </ul>
+
           </li>
+
+          <?php
+          
+          }
+
+          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO" || $_SESSION["perfil_rrhh"] == "SECRETARIO" || $_SESSION["perfil_rrhh"] == "PLANILLERO") {
+
+          ?>
 
           <li>
 
@@ -86,11 +101,33 @@
 
             <ul class="nav child_menu">
 
+              <?php
+          
+              }
+
+              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+
+              ?>
+
               <li><a href="<?= SERVERURL; ?>/personas" id="personas">Personas</a></li>
 
               <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relación de Novedades</a></li>
 
+              <?php
+          
+              }
+
+              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "PLANILLERO") {
+
+              ?>
+
               <li><a href="<?= SERVERURL; ?>/planillas" id="planillas">Planillas</a></li>
+
+              <?php
+          
+              }
+
+              ?>
 
             </ul>
 

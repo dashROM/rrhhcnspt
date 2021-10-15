@@ -36,7 +36,7 @@ class TablaPersonaContratos {
 
 					$btnImprimirContrato = "<button class='btn btn-danger btnImprimirContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Imprimir Documento'><i class='far fa-file-pdf'></i></button>";
 
-					$btnValidarContrato = "<button class='btn btn-success btnValidarContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Validar Documento'><i class='far fa-check-square'></i></button>";
+					// $btnValidarContrato = "<button class='btn btn-success btnValidarContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='tooltip' title='Validar Documento'><i class='far fa-check-square'></i></button>";
 
 					$btnCargarArchivoContrato = "<button class='btn btn-success btnCargarContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='modal' data-target='#modalCargarArchivoContrato' data-toggle='tooltip' title='Cargar Contrato'><i class='far fa-file-image'></i></button>";
 
@@ -54,14 +54,13 @@ class TablaPersonaContratos {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
-					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "ABOGADO") {
+					if (isset($_GET["perfilOculto"]) && ($_GET["perfilOculto"] == "ADMIN_SYSTEM" || $_GET["perfilOculto"] == "ABOGADO" || $_GET["perfilOculto"] == "SECRETARIO")) {
 						
-						
-						$botones = "<div class='btn-group'>".$btnImprimirContrato.$btnValidarContrato."</div>";
-
-					} else {
-
 						$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnDocumentoContrato.$btnImprimirContrato.$btnCargarArchivoContrato."</div>";
+
+					} elseif ($_GET["perfilOculto"] == "PLANILLERO") {
+
+						$botones = "<div class='btn-group'></div>";
 
 					}
 					

@@ -179,6 +179,12 @@
       <div class="col-md-12 col-sm-12">
        
         <div class="x_panel">
+
+          <?php
+
+          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+
+          ?>
                   
           <div class="x_title">
         
@@ -192,6 +198,12 @@
             <div class="clearfix"></div>
 
           </div>
+
+          <?php
+          
+          }
+
+          ?>
         
           <div class="x_content">
 
