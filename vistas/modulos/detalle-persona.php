@@ -30,7 +30,7 @@
             <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/personas" class="menu" id="personas">Personas</a></span>
             <span class="breadcrumb-item active">Detalle personas</span>
 
-          </div>
+          </div>1
 
         </div>
 
@@ -219,6 +219,7 @@
                       
                       <tr>
                         <th>#</th>
+                        <th>COD CONTRATO</th>
                         <th>LUGAR</th>
                         <th>ESTABLECIMIENTO</th>
                         <th>TIPO CONTRATO</th>

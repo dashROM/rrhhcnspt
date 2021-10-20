@@ -23,7 +23,7 @@ class ModeloPersonaContratos {
 			} else {
 
 				//muestra varios datos de una persona que tiene un respectivo contrato
-				$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND pc.$item = :$item";
+				$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND pc.$item = :$item";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -37,7 +37,7 @@ class ModeloPersonaContratos {
 		} else {
 
 			//muestra el listado de las persona que tienen uno o mas contratos
-			$sql = "SELECT pc.id_persona_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
+			$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -84,7 +84,7 @@ class ModeloPersonaContratos {
 	
 	static public function mdlNuevoPersonaContrato($tabla, $datos){
 
-		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(id_lugar, id_establecimiento, id_persona, id_cargo, inicio_contrato, dias_contrato, fin_contrato, id_contrato, id_suplencia, estado_contrato, observaciones_contrato, documento_contrato) VALUES (:id_lugar, :id_establecimiento, :id_persona, :id_cargo, :inicio_contrato, :dias_contrato, :fin_contrato, :id_contrato, :id_suplencia, :estado_contrato, :observaciones_contrato, :documento_contrato)");
+		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(id_lugar, id_establecimiento, id_persona, id_cargo, inicio_contrato, dias_contrato, fin_contrato, id_contrato, id_suplencia, estado_contrato, observaciones_contrato, documento_contrato, nro_cod_contrato, cod_contrato) VALUES (:id_lugar, :id_establecimiento, :id_persona, :id_cargo, :inicio_contrato, :dias_contrato, :fin_contrato, :id_contrato, :id_suplencia, :estado_contrato, :observaciones_contrato, :documento_contrato, :nro_cod_contrato, :cod_contrato)");
 
 		$stmt->bindParam(":id_lugar", $datos["id_lugar"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_establecimiento", $datos["id_establecimiento"], PDO::PARAM_INT);
@@ -98,6 +98,8 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":estado_contrato", $datos["estado_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":observaciones_contrato", $datos["observaciones_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":documento_contrato", $datos["documento_contrato"], PDO::PARAM_STR);
+		$stmt->bindParam(":nro_cod_contrato", $datos["nro_cod_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":cod_contrato", $datos["cod_contrato"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
@@ -253,5 +255,27 @@ class ModeloPersonaContratos {
 		$stmt = null;
 
 	}	
+
+	/*=============================================
+	ULTIMO CODIGO CONTRATO
+	=============================================*/
+
+	static public function mdlUltimoCodigoContrato($tabla, $item1, $valor1, $item2, $valor2) {
+
+		$sql = "SELECT pc.nro_cod_contrato FROM persona_contratos pc, cargos c, contratos co WHERE pc.id_cargo = c.id_cargo AND pc.id_contrato = co.id_contrato AND co.codigo = :$item1 AND c.grupo_cargo = :$item2 ORDER BY pc.id_persona_contrato DESC LIMIT 1";
+
+		$stmt = Conexion::conectarPG()->prepare($sql);
+
+		$stmt->bindParam(":".$item1, $valor1, PDO::PARAM_STR);
+		$stmt->bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+
+		$stmt->execute();
+		return $stmt->fetch();
+
+		$stmt->close();
+		$stmt = null;
+
+	}	
+
 	
 }

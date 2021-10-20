@@ -245,6 +245,32 @@ class AjaxPersonaContratos {
 
 		$jefe_contabilidad = ControladorAutoridades::ctrMostrarAutoridades($item, $valor);
 
+		// OPETENEMOS EL ULTIMO CODIGO DE CONTRATO DE ACUERDO AL TIPO DE CONTRATO Y CARGO
+
+		$item1 = "codigo";
+		$cog_contrato = $contrato['codigo'];
+
+		$item2 = "grupo_cargo";
+		$grupo_cargo = $cargo['grupo_cargo'];
+
+		$ultimo_cod_contrato = ControladorPersonaContratos::ctrUltimoCodigoContrato($item1, $cog_contrato, $item2, $grupo_cargo);
+
+		if ($ultimo_cod_contrato == null) {
+
+			$codigo = 1;
+			
+			$cod_contrato = "JRH-".$contrato['codigo']."-".$cargo['grupo_cargo']."-1";
+
+		} else {
+
+			$codigo = $ultimo_cod_contrato['nro_cod_contrato'] + 1;
+
+			$cod_contrato = "JRH-".$contrato['codigo']."-".$cargo['grupo_cargo']."-".$codigo;
+
+		}
+
+		// echo $cod_contrato;
+
 		// SI TIPO DE CONTRATO ES SUPLENCIA SE GUARDA EL TIPO DE SUPLENCIA 
 		if ($this->id_contrato != 1) {
 
@@ -275,8 +301,7 @@ class AjaxPersonaContratos {
 
 			$documento_contrato = '<h1 style="text-align:center"><strong>MEMORANDUM NO. JRH-MED-016-21</strong></h1><p><strong>DE:&nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;JEFATURA DE PERSONAL REGIONAL</p><p><strong>A:</strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DR. '.$persona["nombre_persona"].' '.$persona["paterno_persona"].' '.$persona["materno_persona"].'</p><p><strong>REF.:&nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SUPLENCIA ('.$datos_suplencia["tipo_suplencia"].')</p><p><strong>FECHA:&nbsp; &nbsp;</strong> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; POTOSI, 6 de marzo de 2021</p><hr /><p>&nbsp;</p><p>Doctor(a):</p><p>En cumplimiento a Instrucciones de Administraci&oacute;n Regional y de acuerdo a solicitud de la DIRECCION DE HOSPITAL OBRERO N&deg; 5 con CITE DHO-CT-66-21 ('.$datos_suplencia["tipo_suplencia"].') usted deber&aacute; cumplir SUPLENCIA ('.$datos_suplencia["tipo_suplencia"].') de DR. JOSE LUIS MARTINEZ MARQUEZ a partir del '.date("d-m-Y", strtotime($this->inicio_contrato)).' al '.date("d-m-Y", strtotime($this->fin_contrato)).' en el horario de 09:00 a 12:00 y 14:00 a 17:00 con un sueldo de '.number_format($cargo['haber_basico'], 2, ",", ".").' Bs. Con todas las obligaciones y responsabilidades inherentes al cargo</p><p>Con este motivo, saludamos a usted atentamente.</p><p style="text-align:right">&nbsp;</p><p style="text-align:right">&nbsp;</p><p style="text-align:right">&nbsp;</p><div><table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px"><tbody><tr><td style="text-align:center">'.$supervisor_admin["nombre_autoridad"].'<br /><strong>'.$supervisor_admin["puesto"].'</strong></td><td style="text-align:center">'.$jefe_medico["nombre_autoridad"].'<br /><strong>'.$jefe_medico["puesto"].'</strong></td></tr><tr><td colspan="2" style="text-align:center"><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>'.$admin_regional["nombre_autoridad"].'<br /><strong>'.$admin_regional["puesto"].'</strong></td></tr></tbody></table></div>';
 
-		}		
-
+		}	
 
 		$datos = array(	"id_lugar" 	 			 => $this->id_lugar,
 						"id_establecimiento" 	 => $this->id_establecimiento,							
@@ -290,10 +315,10 @@ class AjaxPersonaContratos {
 				        "estado_contrato"		 => 0,
 				        "observaciones_contrato" => rtrim(mb_strtoupper($this->observaciones_contrato,'utf-8')),
 				        "documento_contrato" 	 => $documento_contrato,
+				        "nro_cod_contrato"   	 => $codigo,
+				        "cod_contrato"   	     => $cod_contrato
 		);	
 
-
-		// var_dump($suplencia);
 
 		$respuesta = ControladorPersonaContratos::ctrNuevoPersonaContrato($datos);
 

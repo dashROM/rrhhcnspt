@@ -94,4 +94,18 @@ class ControladorPersonaContratos {
 
 	}
 
+	/*=============================================
+	ULTIMO CODIGO CONTRATO
+	=============================================*/
+
+	static public function ctrUltimoCodigoContrato($item1, $valor1, $item2, $valor2) {
+
+		$tabla = "persona_contratos";
+		$respuesta = ModeloPersonaContratos::mdlUltimoCodigoContrato($tabla, $item1, $valor1, $item2, $valor2);
+
+		return $respuesta;
+
+	}
+
+
 }
