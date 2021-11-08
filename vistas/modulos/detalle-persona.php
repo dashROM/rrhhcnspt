@@ -30,7 +30,7 @@
             <span class="breadcrumb-item"><a href="<?= SERVERURL; ?>/personas" class="menu" id="personas">Personas</a></span>
             <span class="breadcrumb-item active">Detalle personas</span>
 
-          </div>1
+          </div>
 
         </div>
 
@@ -245,17 +245,40 @@
 
             </div>
 
-            <div class="my-3 row">
-              <label class="col-sm-2 col-form-label">Contrato Validado</label>
-              <div class="col-sm-10">
-                <button class='btn btn-success mt-2'></button>
+            <div class="row">
+
+              <div class="my-3 col-md-4 col-sm-6">
+                <label class="col-sm-6 col-form-label">Contrato Validado</label>
+                <div class="col-sm-6">
+                  <button class='btn btn-success mt-2'></button>
+                </div>
               </div>
+
+              <div class="my-3 col-md-4 col-sm-6">
+                <label class="col-sm-6 col-form-label">Contrato Ampliado</label>
+                <div class="col-sm-6">
+                  <button class='btn btn-primary mt-2'></button>
+                </div>
+              </div>
+
             </div>
-            <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label">Contrato Sin Validar</label>
-              <div class="col-sm-10">
-                <button class='btn btn-danger mt-2'></button>
+
+            <div class="row">
+
+              <div class="mb-3 col-md-4 col-sm-6">
+                <label class="col-sm-6 col-form-label">Contrato Sin Validar</label>
+                <div class="col-sm-6">
+                  <button class='btn btn-danger mt-2'></button>
+                </div>
               </div>
+
+              <div class="mb-3 col-md-4 col-sm-6">
+                <label class="col-sm-6 col-form-label">Contrato Sin Ampliar</label>
+                <div class="col-sm-6">
+                  <button class='btn btn-secondary mt-2'></button>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -456,7 +479,7 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoFechaFin">FECHA FINALIZACIÓN</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <input type="date" class="form-control" id="nuevoFechaFin" name="nuevoFechaFin" readonly>
+                <input type="date" class="form-control" id="nuevoFechaFin" name="nuevoFechaFin">
 
               </div>
       
@@ -698,7 +721,7 @@ MODAL EDITAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="editarFechaFin">FECHA FINALIZACIÓN</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <input type="date" class="form-control" id="editarFechaFin" name="editarFechaFin" readonly>
+                <input type="date" class="form-control" id="editarFechaFin" name="editarFechaFin">
 
               </div>
       
@@ -970,19 +993,11 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
           </div>      
           
           <div class="card-footer">
-            
-            <!--  <img src="https://localhost/rrhhcnspt/vistas/img/contratos/default/anonymous.png" class="img-thumbnail previsualizar" width="400px">   
-
-            <p class="help-block">Peso máximo de la imagen 2MB</p> -->
 
             <div id="archivo_pdf">
        
 
             </div>
-
-            <!-- <embed type="application/pdf" width="100%" height="600px" class="previsualizarContrato"/> -->
-
-            <!-- <embed src="https://localhost/rrhhcnspt/vistas/pdf/contratos/contrato-18.pdf" type="application/pdf" width="100%" height="600px" /> -->
 
             <p class="help-block">Peso máximo del archvio 5MB</p>
 
@@ -1020,6 +1035,250 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 
             <i class="fas fa-check"></i>
             Validar Archivo
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!--=====================================
+MODAL AMPLIAR PERSONA CONTRATO
+======================================-->
+
+<div id="modalAmpliarPersonaContrato" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ampliarPersonaContrato" aria-hidden="true">
+  
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <form id="frmAmpliarPersonaContrato">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header bg-modal">
+
+          <h5 class="modal-title" id="ampliarPersonaContacto">Ampliar Contrato</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="btn btn-outline-danger m-0 py-0 px-2">&times;</span>
+          </button>
+
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+     
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              Campos Obligatorios<i class="fas fa-asterisk asterisk mt-2"></i>
+
+            </div>
+            
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+              <!-- ENTRADA PARA LUGAR -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="ampliarLugar">LUGAR DE TRABAJO</label>
+                <input type="text" class="form-control" id="ampliarLugar" name="ampliarLugar" readonly>
+                <input type="hidden" id="ampliarIdLugar" name="ampliarIdLugar">
+
+                </select>
+
+              </div>
+
+              <!-- ENTRADA PARA ESTABLECIMIENTO -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="ampliarEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
+                <input type="text" class="form-control" id="ampliarEstablecimiento" name="ampliarEstablecimiento" readonly>
+                <input type="hidden" id="ampliarIdEstablecimiento" name="ampliarIdEstablecimiento">
+
+              </div>
+
+              <!-- ENTRADA PARA BUSCAR PERSONA -->
+              
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarBuscarPersona">NOMBRE PERSONA</label>
+                <input type="text" class="form-control" id="ampliarBuscarPersona" name="ampliarBuscarPersona" readonly>
+                <input type="hidden" id="ampliarIdPersona" name="ampliarIdPersona">
+
+
+              </div>
+
+              <!-- ENTRADA PARA EL NRO CI -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="ampliarCIEmpleado">NRO. CI</label>
+                <input type="text" class="form-control" id="ampliarCIEmpleado" name="ampliarCIEmpleado" readonly>
+
+              </div>
+
+              <!-- ENTRADA PARA LA FECHA DE NACIMIENTO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarFechaNacimientoEmpleado">FECHA NACIMIENTO</label>
+                <input type="date" class="form-control" id="ampliarFechaNacimientoEmpleado" name="ampliarFechaNacimientoEmpleado" readonly>
+
+              </div>
+
+               <!-- ENTRADA PARA SELECCIONAR CARGO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarCargo">CARGO</label>
+                <input type="text" class="form-control" id="ampliarCargo" name="ampliarCargo" readonly>
+                <input type="hidden" id="ampliarIdCargo" name="ampliarIdCargo">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+              <!-- ENTRADA PARA LA FECHA DE INICIO DE CONTRATO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarFechaInicio">FECHA INICIO</label>
+                <input type="date" class="form-control" id="ampliarFechaInicio" name="ampliarFechaInicio" readonly>
+
+              </div>
+
+              <!-- ENTRADA PARA LOS DIAS DE CONTRATO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarDiasContrato">DIAS DE CONTRATO</label>
+                <input type="number" min="0" class="form-control" id="ampliarDiasContrato" name="ampliarDiasContrato" readonly>
+
+              </div>
+
+              <!-- ENTRADA PARA LA FECHA DE FIN DE CONTRATO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarFechaFin">FECHA FINALIZACIÓN</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="date" class="form-control" id="ampliarFechaFin" name="ampliarFechaFin">
+                <input type="hidden" id="antFechaFin" name="antFechaFin">
+
+              </div>
+      
+              <!-- ENTRADA PARA TIPO CONTRATO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarTipoContrato">TIPO DE CONTRATO</label>
+                <input type="text" class="form-control" id="ampliarTipoContrato" name="ampliarTipoContrato" readonly>
+                <input type="hidden" id="ampliarIdContrato" name="ampliarIdContrato">
+
+              </div>
+
+              <!-- ENTRADA PARA TIPO CONTRATO SUPLENCIA -->
+            
+              <div class="form-group d-none" id="ampliarContratoSuplencia">
+                
+                <label class="font-weight-normal" for="ampliarTipoSuplencia">TIPO DE SUPLENCIA</label>
+                <input type="text" class="form-control" id="ampliarTipoSuplencia" name="ampliarTipoSuplencia" readonly>
+                <input type="hidden" id="ampliarIdSuplencia" name="ampliarIdSuplencia">
+
+              </div>
+
+              <!-- ENTRADA PARA LAS OBSERVACIONES -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="ampliarObservacionesContrato">OBSERVACIONES</label>
+                <textarea type="text" class="form-control mayuscula" rows="4" id="ampliarObservacionesContrato" name="ampliarObservacionesContrato" readonly>
+
+                </textarea>
+
+              </div>
+      
+            </div>  
+
+          </div>
+
+          <div class="row">
+            
+            <div class="input-group mb-3">
+
+              <div class="input-group-prepend">
+                
+                <label class="input-group-text" for="documentoAmpliacion" id="inputDocumentoAmpliacion"><i class="fas fa-portrait"></i></label>
+
+              </div>
+              
+              <div class="custom-file">
+                
+                <input type="file" class="custom-file-input documentoAmpliacion" name="documentoAmpliacion" id="documentoAmpliacion" aria-describedby="inputDocumentoAmpliacion">
+
+                <label class="custom-file-label" for="documentoAmpliacion" data-browse="Elegir">SUBIR ARCHIVO</label>
+
+              </div>          
+
+            </div>  
+
+          </div>    
+            
+          <div class="row">
+
+            <div id="archivo_pdf">
+       
+
+            </div>
+
+            <p class="help-block">Peso máximo del archvio 5MB</p>
+
+            <input type="hidden" name="documentoActual" id="documentoActual" value="">     
+
+          </div>
+
+        </div>
+
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <input type="hidden" id="ampliarIdPersonaContrato" name="ampliarIdPersonaContrato" value="">
+
+          <button type="button" class="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
+
+            <i class="fas fa-times"></i>
+            Cerrar
+
+          </button>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+
+            <i class="fas fa-save"></i>
+            Guardar Cambios
 
           </button>
 

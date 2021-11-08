@@ -37,7 +37,7 @@ class ModeloPersonaContratos {
 		} else {
 
 			//muestra el listado de las persona que tienen uno o mas contratos
-			$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
+			$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato, pc.ampliacion FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -122,7 +122,7 @@ class ModeloPersonaContratos {
 	
 	static public function mdlEditarPersonaContrato($tabla, $datos){
 
-		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, id_suplencia = :id_suplencia, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato  WHERE id_persona_contrato = :id_persona_contrato");
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, id_suplencia = :id_suplencia, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato, nro_cod_contrato = :nro_cod_contrato, cod_contrato = :cod_contrato WHERE id_persona_contrato = :id_persona_contrato");
 
 		$stmt->bindParam(":id_persona_contrato", $datos["id_persona_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_lugar", $datos["id_lugar"], PDO::PARAM_INT);
@@ -136,6 +136,8 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":id_suplencia", $datos["id_suplencia"], PDO::PARAM_INT);
 		$stmt->bindParam(":observaciones_contrato", $datos["observaciones_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":documento_contrato", $datos["documento_contrato"], PDO::PARAM_STR);
+		$stmt->bindParam(":nro_cod_contrato", $datos["nro_cod_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":cod_contrato", $datos["cod_contrato"], PDO::PARAM_STR);
 
 		if($stmt->execute()){
 
@@ -277,5 +279,56 @@ class ModeloPersonaContratos {
 
 	}	
 
+	/*=============================================
+	CANTIDAD PERSONA CONTRATOS
+	=============================================*/
+	
+	static public function mdlCantidadPersonaContratos($tabla, $item, $valor) {
+
+		//muestra varios datos de una persona que tiene un respectivo contrato
+		$sql = "SELECT count(*) as numero_filas FROM $tabla WHERE $item = :$item";
+
+		$stmt = Conexion::conectarPG()->prepare($sql);
+
+		$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);		
+
+		$stmt->execute();
+		return $stmt->fetch();
+
+		$stmt->close();
+		$stmt = null;
+
+	}
+
+
+	/*=============================================
+	AMPLIAR PERSONA CONTRATO
+	=============================================*/
+	
+	static public function mdlAmpliarPersonaContrato($tabla, $datos){
+
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, documento_contrato = :documento_contrato, ampliacion = :ampliacion, ant_fin_contrato = :ant_fin_contrato WHERE id_persona_contrato = :id_persona_contrato");
+
+		$stmt->bindParam(":id_persona_contrato", $datos["id_persona_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":dias_contrato", $datos["dias_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":fin_contrato", $datos["fin_contrato"], PDO::PARAM_STR);
+		$stmt->bindParam(":ampliacion", $datos["ampliacion"], PDO::PARAM_INT);
+		$stmt->bindParam(":documento_contrato", $datos["documento_contrato"], PDO::PARAM_STR);
+		$stmt->bindParam(":ant_fin_contrato", $datos["ant_fin_contrato"], PDO::PARAM_STR);
+
+		if($stmt->execute()){
+
+			return "ok";
+
+		}else{
+
+			return "error";
+		
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
 	
 }

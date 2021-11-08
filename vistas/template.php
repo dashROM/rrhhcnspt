@@ -153,6 +153,9 @@ session_start();
   <!-- PDF Objetct --> 
   <script src="<?= SERVERURL; ?>/vistas/plugins/pdf_object/pdfobject.js"></script>
 
+  <!-- Moment.js --> 
+  <script src="<?= SERVERURL; ?>/vistas/plugins/moment/moment.js"></script>
+
 </head>
 
 <!--=====================================

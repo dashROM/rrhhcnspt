@@ -107,5 +107,31 @@ class ControladorPersonaContratos {
 
 	}
 
+	/*=============================================
+	CANTIDAD DE PERSONA CONTRATOS
+	=============================================*/
+
+	static public function ctrCantidadPersonaContratos($item, $valor) {
+
+		$tabla = "persona_contratos";
+		$respuesta = ModeloPersonaContratos::mdlCantidadPersonaContratos($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+
+	/*=============================================
+	AMPLIAR PERSONA CONTRATO
+	=============================================*/
+	
+	static public function ctrAmpliarPersonaContrato($datos) {
+		
+		$tabla = "persona_contratos";
+
+		$respuesta = ModeloPersonaContratos::mdlAmpliarPersonaContrato($tabla, $datos);
+
+		return $respuesta;
+
+	}
 
 }

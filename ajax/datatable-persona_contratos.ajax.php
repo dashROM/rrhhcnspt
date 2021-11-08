@@ -40,6 +40,8 @@ class TablaPersonaContratos {
 
 					$btnCargarArchivoContrato = "<button class='btn btn-success btnCargarContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='modal' data-target='#modalCargarArchivoContrato' data-toggle='tooltip' title='Cargar Contrato'><i class='far fa-file-image'></i></button>";
 
+					$btnAmpliarContrato = "<button class='btn btn-primary btnAmpliarPersonaContrato' idPersonaContrato='".$persona_contratos[$i]["id_persona_contrato"]."' data-toggle='modal' data-target='#modalAmpliarPersonaContrato' data-toggle='tooltip' title='Ampliar Contrato'><i class='fas fa-file-export'></i></button>";
+
 					if ($persona_contratos[$i]["estado_contrato"] != 0) {
 
             $estado = "<td><button class='btn btn-success' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."'></button></td>";
@@ -50,13 +52,43 @@ class TablaPersonaContratos {
 
           }
 
+          if ($persona_contratos[$i]["ampliacion"] != 0) {
+
+            $ampliacion = "<td><button class='btn btn-primary' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."'></button></td>";
+
+          } else {
+
+            $ampliacion = "<td><button class='btn btn-secondary' idPersonaContrato='".$persona_contratos[$i]['id_persona_contrato']."'></button></td>";
+
+          }
+
 					/*=============================================
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
-					if (isset($_GET["perfilOculto"]) && ($_GET["perfilOculto"] == "ADMIN_SYSTEM" || $_GET["perfilOculto"] == "ABOGADO" || $_GET["perfilOculto"] == "SECRETARIO")) {
+					if (isset($_GET["perfilOculto"]) && ($_GET["perfilOculto"] == "ADMIN_SYSTEM")) {
 						
-						$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnDocumentoContrato.$btnImprimirContrato.$btnCargarArchivoContrato."</div>";
+						$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnDocumentoContrato.$btnImprimirContrato.$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
+
+					} elseif ($_GET["perfilOculto"] == "ABOGADO" || $_GET["perfilOculto"] == "SECRETARIO") {
+
+						if ($persona_contratos[$i]["estado_contrato"] == 1) {
+
+								if ($persona_contratos[$i]["ampliacion"] == 1) {
+
+									$botones = "<div class='btn-group'>".$btnCargarArchivoContrato."</div>";
+
+								} else {
+
+									$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
+
+								}
+
+						} else {
+
+							$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnDocumentoContrato.$btnImprimirContrato.$btnCargarArchivoContrato."</div>";
+
+						}
 
 					} elseif ($_GET["perfilOculto"] == "PLANILLERO") {
 
@@ -74,7 +106,7 @@ class TablaPersonaContratos {
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["inicio_contrato"])).'",
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["fin_contrato"])).'",
 						"'.$persona_contratos[$i]["dias_contrato"].'",
-						"'.$estado.'",
+						"'.$estado.$ampliacion.'",
 						"'.$persona_contratos[$i]["observaciones_contrato"].'",
 						"'.$botones.'"
 					],';

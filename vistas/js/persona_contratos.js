@@ -101,6 +101,20 @@ $(document).on("change", "#nuevoFechaInicio", function() {
 
 });
 
+$(document).on("change", "#nuevoFechaFin", function() {
+	
+	var fechaFin = new Date($(this).val());
+
+	var fechaInicio = new Date($("#nuevoFechaInicio").val());
+
+	var difference= Math.abs(fechaFin-fechaInicio);
+
+	days = difference/(1000 * 3600 * 24)
+
+	$("#nuevoDiasContrato").val(days+1);
+
+});
+
 /*=============================================
 CALCULAR FECHA FIN DE CONTRATO EN EDITAR CONTRATO
 =============================================*/
@@ -126,6 +140,21 @@ $(document).on("change", "#editarFechaInicio", function() {
 	var fechaFin = sumarDiasFecha(fechaInicio, diasContrato);
 
 	$("#editarFechaFin").val(fechaFin);
+
+});
+
+
+$(document).on("change", "#editarFechaFin", function() {
+	
+	var fechaFin = new Date($(this).val());
+
+	var fechaInicio = new Date($("#editarFechaInicio").val());
+
+	var difference= Math.abs(fechaFin-fechaInicio);
+
+	days = difference/(1000 * 3600 * 24)
+
+	$("#editarDiasContrato").val(days+1);
 
 });
 
@@ -243,7 +272,7 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 					});
 
-				} else {
+				} else if(respuesta == "error") {
 
 					swal.fire({
 							
@@ -254,6 +283,16 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 					});
 					
+				} else if (respuesta >= 2) {
+					
+					swal.fire({
+							
+						title: "¡La persona tiene dos o mas contratos!<br>Pedir autorización para otro contrato",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 				}
 
 			},
@@ -602,7 +641,7 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#editarFechaFin").val("");
 							$("#editarDiasContrato").val("");
 							// $("#editarTipoContrato").remove();
-							$("#editarObservacionesEmpleado").val("");
+							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");
 
 	  						// Funcion que recarga y actuaiiza la tabla	
@@ -1162,5 +1201,202 @@ $(document).on("click", ".btnValidarArchivo", function() {
 		// }
 
 	});
+
+});
+
+/*=============================================
+CARGANDO DATOS DE EMPLEADO AL FORMULARIO AMPLIAR PERSONA CONTRATO
+=============================================*/
+
+$(document).on("click", ".btnAmpliarPersonaContrato", function() {
+
+	console.log("AMPLIAR CONTRATO");
+
+	var id_persona_contrato = $(this).attr("idPersonaContrato");
+
+	var datos = new FormData();
+	datos.append("mostrarPersonaContrato", 'mostrarPersonaContrato');
+	datos.append("id_persona_contrato", id_persona_contrato);
+
+	$.ajax({
+
+		url: "../ajax/persona_contratos.ajax.php",
+		method: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		dataType: "json",
+		success: function(respuesta) {
+			console.log("respuesta", respuesta);
+
+			$('#ampliarLugar').val(respuesta["nombre_lugar"]);
+			$("#ampliarIdLugar").val(respuesta["id_lugar"]);
+
+			$('#ampliarEstablecimiento').val(respuesta["nombre_establecimiento"]);
+			$("#ampliarIdEstablecimiento").val(respuesta["id_establecimiento"]);
+
+			$('#ampliarBuscarPersona').val(respuesta["nombre_completo"]);
+			$('#ampliarIdPersona').val(respuesta["id_persona"]);
+			$('#ampliarCIEmpleado').val(respuesta["ci_persona"]);
+			$('#ampliarFechaNacimientoEmpleado').val(respuesta["fecha_nacimiento"]);
+
+			$('#ampliarCargo').val(respuesta["nombre_cargo"]);
+			$("#ampliarIdCargo").val(respuesta["id_cargo"]);			
+
+			$('#ampliarFechaInicio').val(respuesta["inicio_contrato"]);
+			$('#ampliarFechaFin').val(respuesta["fin_contrato"]);
+			$('#antFechaFin').val(respuesta["fin_contrato"]);
+			$('#ampliarDiasContrato').val(respuesta["dias_contrato"]);
+
+			$('#ampliarTipoContrato').val(respuesta["nombre_contrato"]);
+			$("#ampliarIdContrato").val(respuesta["id_contrato"]);
+			
+			$('#ampliarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
+
+		},
+	    error: function(error) {
+
+	      console.log("No funciona");
+	        
+	    }
+
+	});
+
+});
+
+/*=============================================
+CALCULAR DIAS DE CONTRATO EN AMPLIAR CONTRATO
+=============================================*/
+
+$(document).on("change", "#ampliarFechaFin", function() {
+	
+	var fechaFin = new Date($(this).val());
+
+	var fechaInicio = new Date($("#ampliarFechaInicio").val());
+
+	var difference= Math.abs(fechaFin-fechaInicio);
+
+	days = difference/(1000 * 3600 * 24)
+
+	$("#ampliarDiasContrato").val(days+1);
+
+});
+
+/*=============================================
+VALIDANDO DATOS DE AMPLIAR PERSONA CONTRATO
+=============================================*/
+$("#frmAmpliarPersonaContrato").validate({
+
+	rules: {
+ 		editarFechaFin : { required: true},
+	},
+
+});
+
+/*=============================================
+GUARDANDO DATOS DE AMPLIAR PERSONA CONTRATO
+=============================================*/
+
+$("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
+
+    if ($("#frmAmpliarPersonaContrato").valid()) {
+
+		var datos = new FormData($("#frmAmpliarPersonaContrato")[0]);
+		datos.append("ampliarPersonaContrato", 'ampliarPersonaContrato');
+
+		$.ajax({
+
+			url:"../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: "html",
+			success: function(respuesta) {
+
+				console.log("respuesta", respuesta);
+			
+				if (respuesta == "ok") {
+
+					swal.fire({
+						
+						icon: "success",
+						title: "¡Los datos se actualizaron correctamente!",
+						showConfirmButton: true,
+						allowOutsideClick: false,
+						confirmButtonText: "Cerrar"
+
+					}).then((result) => {
+	  					
+		  				if (result.value) {
+
+		  					$('#modalAmpliarPersonaContrato').modal('toggle');
+
+		  					$("#ampliarLugar").val("");
+		  					$("#ampliarIdLugar").val("");
+		  					$("#ampliarEstablecimiento").val("");
+		  					$("#ampliarIdEstablecimiento").val("");
+							$("#ampliarBuscarPersona").val("");		
+							$("#ampliarCIEmpleado").val("");
+							$("#ampliarFechaNacimientoEmpleado").val("");
+							$("#ampliarCargo").val("");
+							$("#ampliarIdCargo").val("");
+							$("#ampliarFechaInicio").val("");
+							$("#ampliarFechaFin").val("");
+							$("#antFechaFin").val("");
+							$("#ampliarDiasContrato").val("");
+							$("#ampliarTipoContrato").val("");
+							$("#ampliarIdContrato").val("");
+							$("#ampliarTipoSuplencia").val("");
+							$("#ampliarIdSuplencia").val("");
+							$("#ampliarObservacionesContrato").val("");
+							$("#ampliarIdPersonaContrato").val("");
+
+	  						// Funcion que recarga y actuaiiza la tabla	
+
+							tablaPersonaContratos.ajax.reload( null, false );
+
+	  						// window.location = "empleados";
+
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+							
+						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
+					
+				}
+
+			},
+			error: function(error) {
+
+		        console.log("No funciona");
+		        
+		    }
+
+		});
+
+    } else {
+
+		swal.fire({
+				
+			title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+		
+	} 
 
 });
