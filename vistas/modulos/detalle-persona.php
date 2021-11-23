@@ -970,7 +970,7 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 
         <div class="modal-body">
           
-          <div class="card-body">
+          <div class="card-body" id="cargarArchivoContrato">
 
             <div class="input-group mb-3">
 
@@ -1247,7 +1247,7 @@ MODAL AMPLIAR PERSONA CONTRATO
             
           <div class="row">
 
-            <div id="archivo_pdf">
+            <div class="col-md-12 col-sm-12" id="doc_ampliacion_pdf">
        
 
             </div>

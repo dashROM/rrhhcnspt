@@ -885,7 +885,7 @@ $("#ver-pdf").on("click", ".btnCerrar", function() {
 });
 
 /*=============================================
-CARGANDO DATOS DE IMAGEN DEL CONTRATO AL FORMULARIO 
+CARGANDO DATOS DE ARCHIVO DEL CONTRATO AL FORMULARIO 
 =============================================*/
 
 $(document).on("click", ".btnCargarContrato", function() {
@@ -919,6 +919,8 @@ $(document).on("click", ".btnCargarContrato", function() {
 
 				PDFObject.embed(respuesta["archivo_contrato"], "#archivo_pdf");
 
+				$('#archivoActual').val(respuesta["archivo_contrato"]);
+
 				if (respuesta["estado_contrato"] != 1) {
 
 					$("#frmCargarArchivoContrato .btnGuardar").removeClass("d-none");
@@ -937,6 +939,8 @@ $(document).on("click", ".btnCargarContrato", function() {
 			} else {
 
 				PDFObject.embed("", "#archivo_pdf");
+
+				$('#archivoActual').val();
 
 				$("#frmCargarArchivoContrato .btnGuardar").addClass("d-none");
 
@@ -1167,7 +1171,7 @@ $(document).on("click", ".btnValidarArchivo", function() {
 						if (result.value) {
 
 							$('#modalCargarArchivoContrato').modal('toggle');
-
+							
 							tablaPersonaContratos.ajax.reload( null, false );
 						}
 
@@ -1253,6 +1257,33 @@ $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 			$("#ampliarIdContrato").val(respuesta["id_contrato"]);
 			
 			$('#ampliarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
+
+			if (respuesta["documento_ampliacion"] != null) {
+
+				PDFObject.embed(respuesta["documento_ampliacion"], "#doc_ampliacion_pdf");
+
+				$('#documentoActual').val(respuesta["documento_ampliacion"]);
+
+				if (respuesta["ampliacion"] != 1) {
+
+					$("#frmAmpliarPersonaContrato .btnGuardar").removeClass("d-none");
+
+				} else {
+
+					$("#frmAmpliarPersonaContrato .btnGuardar").addClass("d-none");
+					
+				}
+
+
+			} else {
+
+				PDFObject.embed("", "#doc_ampliacion_pdf");
+
+				$('#documentoActual').val();
+
+				$("#frmAmpliarPersonaContrato .btnGuardar").addClass("d-none");
+
+			}
 
 		},
 	    error: function(error) {
@@ -1354,6 +1385,8 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#ampliarObservacionesContrato").val("");
 							$("#ampliarIdPersonaContrato").val("");
 
+							PDFObject.embed("", "#doc_ampliacion_pdf");
+
 	  						// Funcion que recarga y actuaiiza la tabla	
 
 							tablaPersonaContratos.ajax.reload( null, false );
@@ -1398,5 +1431,65 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 		});
 		
 	} 
+
+});
+
+/*=============================================
+SUBIENDO EL DOCUEMNTO DE AMPLIACION AL FORMULARIO 
+=============================================*/
+$(".documentoAmpliacion").change(function() {
+ 	
+ 	var archivo = this.files[0];
+
+	console.log("archivo", archivo["type"]);
+
+ 	/*=============================================
+	SUBIENDO EL ARCHIVO DEL CONTRATO
+	=============================================*/
+
+	if (archivo["type"] != "application/pdf") {
+
+		$(".documentoAmpliacion").val("");
+
+		swal.fire({
+			
+			title: "Error al subir el archivo",
+			text: "La archivo debe estar en formato PDF",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+
+	} else if(archivo["size"] > 5000000) {
+
+		$(".documentoAmpliacion").val("");
+
+		swal.fire({
+
+			title: "Error al subir el archivo",
+			text: "El archivo no debe pesar mas de 5MB",
+			icon: "error",
+			allowOutsideClick: false,
+			confirmButtonText: "¡Cerrar!"
+
+		});
+
+	} else {
+
+		var datosArchivo = new FileReader;
+		datosArchivo.readAsDataURL(archivo);
+
+		$(datosArchivo).on("load", function(event){
+
+			var rutaArchivo = event.target.result;
+			// $(".previsualizarContrato").attr("src", rutaArchivo);
+			PDFObject.embed(rutaArchivo, "#doc_ampliacion_pdf");
+
+			$("#frmAmpliarPersonaContrato .btnGuardar").removeClass("d-none");
+
+		});
+
+	}
 
 });
