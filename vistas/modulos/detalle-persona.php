@@ -180,103 +180,129 @@
        
         <div class="x_panel">
 
-          <?php
+          <nav>
 
-          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
 
-          ?>
-                  
-          <div class="x_title">
-        
-            <button class="btn btn-round btn-outline-success btnAgregarPersonaContrato" data-toggle="modal" data-target="#modalAgregarPersonaContrato">
+              <a class="nav-item nav-link active font-weight-bold" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Contratos</a>
+              <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>-->
 
-              <i class="fas fa-plus"></i>
-              Agregar Contrato
+            </div>
 
-            </button>
+          </nav>
 
-            <div class="clearfix"></div>
-
-          </div>
-
-          <?php
-          
-          }
-
-          ?>
-        
-          <div class="x_content">
-
-            <div class="row">
-                
-              <div class="col-sm-12">
-                            
-                <div class="card-box table-responsive">
+          <div class="tab-content mt-4" id="nav-tabContent">
             
-                  <table class="table table-bordered table-striped table-hover" id="tablaPersonaContratos" width="100%">
-                    
-                    <thead>
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+              <?php
+
+              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+
+              ?>
                       
-                      <tr>
-                        <th>#</th>
-                        <th>COD CONTRATO</th>
-                        <th>LUGAR</th>
-                        <th>ESTABLECIMIENTO</th>
-                        <th>TIPO CONTRATO</th>
-                        <th>CARGO</th>
-                        <th>INICIO CONTRATO</th>
-                        <th>FIN CONTRATO</th>
-                        <th>DIAS CONTRATO</th>
-                        <th>ESTADO</th>
-                        <th>OBSERVACIONES</th>
-                        <th>ACCIONES</th>
-                      </tr>
+              <div class="x_title">
+            
+                <button class="btn btn-round btn-outline-success btnAgregarPersonaContrato" data-toggle="modal" data-target="#modalAgregarPersonaContrato">
 
-                    </thead>
+                  <i class="fas fa-plus"></i>
+                  Agregar Contrato
 
-                  </table>
+                </button>
 
-                  <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
-                  <input type="hidden" value="<?php echo $parametros[1]; ?>" id="idPersona">
+                <div class="clearfix"></div>
 
-                </div>
-          
               </div>
 
-            </div>
+              <?php
+              
+              }
 
-            <div class="row">
+              ?>
+            
+              <div class="x_content">
 
-              <div class="my-3 col-md-4 col-sm-6">
-                <label class="col-sm-6 col-form-label">Contrato Validado</label>
-                <div class="col-sm-6">
-                  <button class='btn btn-success mt-2'></button>
+                <div class="row">
+                    
+                  <div class="col-sm-12">
+
+                    <div class="tituloTabla">
+
+                      <h3>Listado de Contratos</h3>
+
+                    </div>
+                                
+                    <div class="card-box table-responsive">
+                
+                      <table class="table table-bordered table-striped table-hover" id="tablaPersonaContratos" width="100%">
+                        
+                        <thead>
+                          
+                          <tr>
+                            <th>#</th>
+                            <th>COD CONTRATO</th>
+                            <th>LUGAR</th>
+                            <th>ESTABLECIMIENTO</th>
+                            <th>TIPO CONTRATO</th>
+                            <th>CARGO</th>
+                            <th>INICIO CONTRATO</th>
+                            <th>FIN CONTRATO</th>
+                            <th>DIAS CONTRATO</th>
+                            <th>ESTADO</th>
+                            <th>OBSERVACIONES</th>
+                            <th>ACCIONES</th>
+                          </tr>
+
+                        </thead>
+
+                      </table>
+
+                      <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
+                      <input type="hidden" value="<?php echo $parametros[1]; ?>" id="idPersona">
+
+                    </div>
+              
+                  </div>
+
                 </div>
-              </div>
 
-              <div class="my-3 col-md-4 col-sm-6">
-                <label class="col-sm-6 col-form-label">Contrato Ampliado</label>
-                <div class="col-sm-6">
-                  <button class='btn btn-primary mt-2'></button>
+                <div class="row">
+
+                  <div class="my-3 col-md-4 col-sm-6">
+                    <label class="col-sm-6 col-form-label">Contrato Validado</label>
+                    <div class="col-sm-6">
+                      <button class='btn btn-success mt-2'></button>
+                    </div>
+                  </div>
+
+                  <div class="my-3 col-md-4 col-sm-6">
+                    <label class="col-sm-6 col-form-label">Contrato Ampliado</label>
+                    <div class="col-sm-6">
+                      <button class='btn btn-primary mt-2'></button>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
 
-            </div>
+                <div class="row">
 
-            <div class="row">
+                  <div class="mb-3 col-md-4 col-sm-6">
+                    <label class="col-sm-6 col-form-label">Contrato Sin Validar</label>
+                    <div class="col-sm-6">
+                      <button class='btn btn-danger mt-2'></button>
+                    </div>
+                  </div>
 
-              <div class="mb-3 col-md-4 col-sm-6">
-                <label class="col-sm-6 col-form-label">Contrato Sin Validar</label>
-                <div class="col-sm-6">
-                  <button class='btn btn-danger mt-2'></button>
+                  <div class="mb-3 col-md-4 col-sm-6">
+                    <label class="col-sm-6 col-form-label">Contrato Sin Ampliar</label>
+                    <div class="col-sm-6">
+                      <button class='btn btn-secondary mt-2'></button>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
 
-              <div class="mb-3 col-md-4 col-sm-6">
-                <label class="col-sm-6 col-form-label">Contrato Sin Ampliar</label>
-                <div class="col-sm-6">
-                  <button class='btn btn-secondary mt-2'></button>
-                </div>
               </div>
 
             </div>
@@ -1279,6 +1305,13 @@ MODAL AMPLIAR PERSONA CONTRATO
 
             <i class="fas fa-save"></i>
             Guardar Cambios
+
+          </button>
+
+          <button type="button" class="btn btn-round btn-outline-primary btnValidarDocumentoAmpliacion d-none" idPersonaContrato="">
+
+            <i class="fas fa-check"></i>
+            Validar Documento
 
           </button>
 

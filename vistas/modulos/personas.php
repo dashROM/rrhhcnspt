@@ -66,6 +66,12 @@
             <div class="row">
                 
               <div class="col-sm-12">
+
+                <div class="tituloTabla">
+
+                  <h3>Listado de Personas</h3>
+
+                </div>
                             
                 <div class="card-box table-responsive">
             

@@ -794,7 +794,7 @@ class AjaxPersonaContratos {
 
 			$datos = array( "dias_contrato"   	    => $this->dias_contrato,
 							"fin_contrato"   	    => $this->fin_contrato,
-							"ampliacion"			=> 1,
+							// "ampliacion"			=> 1,
 					        "ant_fin_contrato"   	=> $this->ant_fin_contrato,
 					        "documento_contrato" 	=> $documento_contrato,
 					       	"documento_ampliacion" 	=> $ruta,
@@ -808,6 +808,26 @@ class AjaxPersonaContratos {
 			echo $respuesta;
 
 		}
+
+	}
+
+	/*=============================================
+	VALIDAR DOCUMENTO AMPLIACION
+	=============================================*/
+
+	public $ampliacion;
+
+	public function ajaxValidarDocumentoAmpliacion() {
+		
+		$tabla = "persona_contratos";
+
+		$item1 = "ampliacion";
+		$valor1 = $this->ampliacion;
+
+		$item2 = "id_persona_contrato";
+		$valor2 = $this->id_persona_contrato;
+
+		$respuesta = ModeloPersonaContratos::mdlActualizarContratoPersona($tabla, $item1, $valor1, $item2, $valor2);
 
 	}
 
@@ -932,7 +952,6 @@ if (isset($_POST["eliminarPDF"])) {
 }
 
 
-
 /*=============================================
 GUARDAR ARCHIVO 
 =============================================*/
@@ -950,7 +969,7 @@ if (isset($_POST["guardarArchivoContrato"])) {
 }
 
 /*=============================================
-ACTIVAR USUARIO
+VALIDAR ARCHIVO CONTRATO
 =============================================*/
 
 if (isset($_POST["validarArchivoContrato"])) {
@@ -988,5 +1007,20 @@ if (isset($_POST["ampliarPersonaContrato"])) {
 	$ampliarPersonaContrato -> documento_actual = $_POST["documentoActual"];
 
 	$ampliarPersonaContrato -> ajaxAmpliarPersonaContrato();
+
+}
+
+/*=============================================
+VALIDAR DOCUMENTO AMPLIACION
+=============================================*/
+
+if (isset($_POST["validarDocumentoAmpliacion"])) {
+
+	$validarDocumentoAmpliacion = new AjaxPersonaContratos();
+
+	$validarDocumentoAmpliacion -> ampliacion = $_POST["ampliacion"];
+	$validarDocumentoAmpliacion -> id_persona_contrato = $_POST["id_persona_contrato"];
+
+	$validarDocumentoAmpliacion -> ajaxValidarDocumentoAmpliacion();
 
 }

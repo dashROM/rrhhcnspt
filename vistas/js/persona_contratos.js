@@ -1025,7 +1025,7 @@ GUARDANDO ARCHIVO CONTRATO
 
 $("#frmCargarArchivoContrato").on("click", ".btnGuardar", function() {
 
-	console.log("guardarArchivoContrato", 'guardarArchivoContrato');
+	// console.log("guardarArchivoContrato", 'guardarArchivoContrato');
 
 	var datos = new FormData($("#frmCargarArchivoContrato")[0]);
 	datos.append("guardarArchivoContrato", 'guardarArchivoContrato');
@@ -1188,22 +1188,6 @@ $(document).on("click", ".btnValidarArchivo", function() {
 
 		});
 
-		// if (estadoUsuario == 0) {
-
-		// 	$(this).removeClass('btn-success');
-		// 	$(this).addClass('btn-danger');
-		// 	$(this).html('INACTIVO');
-		// 	$(this).attr('estadoUsuario', 1);
-
-		// } else {
-
-		// 	$(this).addClass('btn-success');
-		// 	$(this).removeClass('btn-danger');
-		// 	$(this).html('ACTIVO');
-		// 	$(this).attr('estadoUsuario', 0);
-
-		// }
-
 	});
 
 });
@@ -1232,7 +1216,12 @@ $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 		processData: false,
 		dataType: "json",
 		success: function(respuesta) {
-			console.log("respuesta", respuesta);
+
+			$("#ampliarIdPersonaContrato").val(respuesta["id_persona_contrato"]);
+
+			$(".btnValidarDocumentoAmpliacion").attr("idPersonaContrato",respuesta["id_persona_contrato"]);
+			
+			// console.log("respuesta", respuesta["ampliacion"]);
 
 			$('#ampliarLugar').val(respuesta["nombre_lugar"]);
 			$("#ampliarIdLugar").val(respuesta["id_lugar"]);
@@ -1268,9 +1257,13 @@ $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 
 					$("#frmAmpliarPersonaContrato .btnGuardar").removeClass("d-none");
 
+					$(".btnValidarDocumentoAmpliacion").removeClass("d-none");
+
 				} else {
 
 					$("#frmAmpliarPersonaContrato .btnGuardar").addClass("d-none");
+
+					$(".btnValidarDocumentoAmpliacion").addClass("d-none");
 					
 				}
 
@@ -1282,6 +1275,8 @@ $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 				$('#documentoActual').val();
 
 				$("#frmAmpliarPersonaContrato .btnGuardar").addClass("d-none");
+
+				$(".btnValidarDocumentoAmpliacion").addClass("d-none");
 
 			}
 
@@ -1435,7 +1430,7 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 });
 
 /*=============================================
-SUBIENDO EL DOCUEMNTO DE AMPLIACION AL FORMULARIO 
+SUBIENDO EL DOCUMENTO DE AMPLIACION AL FORMULARIO 
 =============================================*/
 $(".documentoAmpliacion").change(function() {
  	
@@ -1491,5 +1486,96 @@ $(".documentoAmpliacion").change(function() {
 		});
 
 	}
+
+});
+
+/*=============================================
+VALIDAR DOCUMENTO DE AMPLIACION
+=============================================*/
+
+$(document).on("click", ".btnValidarDocumentoAmpliacion", function() {
+
+	swal.fire({
+
+		title: "¿Está seguro de validar el documento de ampliacion?",
+		text: "¡Si no lo está puede cancelar la acción!",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#3085d6",
+		cancelButtonColor: "#d33",
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "¡Si, validar!"
+
+	}).then((result)=> {
+
+		var id_persona_contrato = $(this).attr("idPersonaContrato");
+		console.log("id_persona_contrato", id_persona_contrato);
+
+		var datos = new FormData();
+
+		datos.append("validarDocumentoAmpliacion", "validarDocumentoAmpliacion");
+		datos.append("id_persona_contrato", id_persona_contrato);
+		datos.append("ampliacion", 1);
+
+		$.ajax({
+
+			url: "../ajax/persona_contratos.ajax.php",
+			method: "POST",
+			data: datos,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(respuesta) {
+				
+				if (window.matchMedia("(max-width:767px)").matches) {
+
+					swal.fire({
+						
+						title: "El documento de ampliación ha sido validado",
+						icon: "success",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					}).then(function(result) {
+
+						if (result.value) {
+
+							tablaPersonaContratos.ajax.reload( null, false );
+						}
+
+					});
+
+				} else {
+
+					swal.fire({
+						
+						title: "El ocumento de ampliación ha sido validado",
+						icon: "success",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					}).then(function(result) {
+
+						if (result.value) {
+
+							$('#modalAmpliarPersonaContrato').modal('toggle');
+							
+							tablaPersonaContratos.ajax.reload( null, false );
+						}
+
+					});
+
+				}
+
+			},
+			error: function(error) {
+
+	        console.log("No funciona");
+	        
+	    }
+
+		});
+
+	});
 
 });

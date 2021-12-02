@@ -4,13 +4,6 @@ class Conexion {
 	
 	// trabajo
 	static public function conectar() {
-		
-		// $link = new PDO("mysql:host=localhost;dbname=bdrrhhcnspt",
-		// 								"root","3000REIVAJinf1976");
-
-		// $link->exec("set names utf8");
-
-		// return $link;
 
 		try{
 
