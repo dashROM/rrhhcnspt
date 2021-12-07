@@ -65,9 +65,15 @@ $(document).on("change", "#nuevoTipoContrato", function() {
 		
 		$("#contratoSuplencia").removeClass("d-none");
 
+	} else if ($(this).val() == "3")  {
+
+		$("#contratoSuplencia").addClass("d-none");
+		$("#resolucionMinisterial").removeClass("d-none");
+
 	} else {
 
 		$("#contratoSuplencia").addClass("d-none");
+		$("#resolucionMinisterial").addClass("d-none");
 
 	}
 	
@@ -196,7 +202,8 @@ $("#frmNuevoPersonaContrato").validate({
  		nuevoFechaInicio : { required: true},
  		nuevoDiasContrato : {required: true},
  		nuevoFechaFin : { required: true},
- 		nuevoTipoContrato : { required: true},   		
+ 		nuevoTipoContrato : { required: true},   	
+ 		nuevoResolucionMinisterial : { required: true},      	
  		nuevoObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -493,9 +500,15 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 				$("#editarContratoSuplencia").removeClass("d-none");
 
+			} else if (respuesta["id_contrato"] == 3) {
+
+				$("#editarContratoSuplencia").addClass("d-none");
+				$("#cambiarResolucionMinisterial").removeClass("d-none");
+
 			} else {
 
 				$("#editarContratoSuplencia").addClass("d-none");
+				$("#cambiarResolucionMinisterial").addClass("d-none");
 
 			}
 
@@ -532,6 +545,8 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 			});
 
+			$('#editarResolucionMinisterial').val(respuesta["resolucion_ministerial"]);
+
 			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
 			$('#editarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
 
@@ -556,9 +571,15 @@ $(document).on("change", "#editarTipoContrato", function() {
 		
 		$("#editarContratoSuplencia").removeClass("d-none");
 
+	} else if ($(this).val() == "3")  {
+
+		$("#editarContratoSuplencia").addClass("d-none");
+		$("#cambiarResolucionMinisterial").removeClass("d-none");
+
 	} else {
 
 		$("#editarContratoSuplencia").addClass("d-none");
+		$("#cambiarResolucionMinisterial").addClass("d-none");
 
 	}
 	
@@ -577,7 +598,8 @@ $("#frmEditarPersonaContrato").validate({
  		editarFechaInicio : { required: true},
  		editarFechaFin : { required: true},
  		editarDiasContrato : { required: true}, 
- 		editarTipoContrato : { required: true},   		
+ 		editarTipoContrato : { required: true},   
+ 		editarResolucionMinisterial : { required: true}, 		
  		editarObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -641,6 +663,7 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#editarFechaFin").val("");
 							$("#editarDiasContrato").val("");
 							// $("#editarTipoContrato").remove();
+							$("#editarResolucionMinisterial").val("");
 							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");
 

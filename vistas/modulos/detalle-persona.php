@@ -534,7 +534,7 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
-              <!-- ENTRADA PARA TIPO CONTRATO SUPLENCIA -->
+              <!-- ENTRADA PARA TIPO CONTRATO SUPLENCIA (SOLO SE VE EN TIPO DE CONTRATO SUPLENCIA)-->
             
               <div class="form-group d-none" id="contratoSuplencia">
                 
@@ -556,6 +556,16 @@ MODAL AGREGAR PERSONA CONTRATO
 
                   ?>
                 </select>
+
+              </div>
+
+              <!-- ENTRADA PARA RESOLUCION MINISTERIAL (SOLO SE VE EN TIPO DE CONTRATO COVID) -->
+            
+              <div class="form-group d-none" id="resolucionMinisterial">
+                
+                <label class="font-weight-normal" for="nuevoResolucionMinisterial">RESOLUCIÓN MINISTERIAL</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="text" class="form-control" class="form-control" id="nuevoResolucionMinisterial" name="nuevoResolucionMinisterial">
 
               </div>
 
@@ -770,6 +780,16 @@ MODAL EDITAR PERSONA CONTRATO
                 <i class="fas fa-asterisk asterisk"></i>
                 <select class="custom-select select2" id="editarTipoSuplencia" name="editarTipoSuplencia" required data-dropdown-css-class="select2-info" style="width: 100%;">
                 </select>
+
+              </div>
+
+              <!-- ENTRADA PARA RESOLUCION MINISTERIAL (SOLO SE VE EN TIPO DE CONTRATO COVID) -->
+            
+              <div class="form-group d-none" id="cambiarResolucionMinisterial">
+                
+                <label class="font-weight-normal" for="editarResolucionMinisterial">RESOLUCIÓN MINISTERIAL</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="text" class="form-control" class="form-control" id="editarResolucionMinisterial" name="editarResolucionMinisterial">
 
               </div>
 
