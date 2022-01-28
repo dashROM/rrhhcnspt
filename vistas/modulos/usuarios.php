@@ -214,8 +214,7 @@ MODAL AGREGAR USUARIO
                 <div class="input-group mb-3">
 
                   <input type="text" class="form-control" id="nuevoCIUsuario" name="nuevoCIUsuario">
-                  <select class="custom-select" id="nuevoExtCIUsuario" name="nuevoExtCIUsuario">
-                    <option value="">ELEGIR...</option>
+                  <select class="form-control selectpicker show-tick" id="nuevoExtCIUsuario" name="nuevoExtCIUsuario" data-size="5" title="Elegir...">
                     <option value="PT">PT</option>
                     <option value="CH">CH</option>
                     <option value="OR">OR</option>
@@ -255,8 +254,7 @@ MODAL AGREGAR USUARIO
 
                 <label class="font-weight-normal" for="nuevoPerfilUsuario">TIPO USUARIO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select" id="nuevoPerfilUsuario" name="nuevoPerfilUsuario">
-                  <option value="">ELEGIR...</option>
+                <select class="form-control selectpicker show-tick" id="nuevoPerfilUsuario" name="nuevoPerfilUsuario" data-size="5" title="Elegir...">
                   <option value="ADMIN_SYSTEM">ADMIN_SYTEM</option>
                   <option value="SECRETARIO">SECRETARIO</option>
                   <option value="PLANILLERO">PLANILLERO</option>
@@ -447,28 +445,23 @@ MODAL EDITAR USUARIO
                 
                 <label class="font-weight-normal" for="editarCIUsuario">NRO. CI</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <input type="text" class="form-control" id="editarCIUsuario" name="editarCIUsuario">
 
-              </div>
+                <div class="input-group mb-3">
 
-              <!-- ENTRADA PARA LA EXT. CI -->
-              
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="editarExtCIUsuario">EXT. CI</label>
-                <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select" id="editarExtCIUsuario" name="editarExtCIUsuario">
-                  <option value="">ELEGIR...</option>
-                  <option value="PT">PT</option>
-                  <option value="CH">CH</option>
-                  <option value="OR">OR</option>
-                  <option value="LP">LP</option>
-                  <option value="SC">SC</option>
-                  <option value="CO">CO</option>
-                  <option value="TR">TR</option>
-                  <option value="PA">PA</option>
-                  <option value="BE">BE</option>
-                </select>
+                  <input type="text" class="form-control" id="editarCIUsuario" name="editarCIUsuario">                
+                  <select class="form-control selectpicker show-tick" id="editarExtCIUsuario" name="editarExtCIUsuario" data-size="5">
+                    <option value="PT">PT</option>
+                    <option value="CH">CH</option>
+                    <option value="OR">OR</option>
+                    <option value="LP">LP</option>
+                    <option value="SC">SC</option>
+                    <option value="CO">CO</option>
+                    <option value="TR">TR</option>
+                    <option value="PA">PA</option>
+                    <option value="BE">BE</option>
+                  </select>
+
+                </div>
 
               </div>
 
@@ -496,8 +489,7 @@ MODAL EDITAR USUARIO
 
                 <label class="font-weight-normal" for="editarPerfilUsuario">TIPO USUARIO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select" name="editarPerfilUsuario">
-                  <option value="" id="editarPerfilUsuario"></option>
+                <select class="form-control selectpicker show-tick" id="editarPerfilUsuario" name="editarPerfilUsuario" data-size="5">
                   <option value="ADMIN_SYSTEM">ADMIN_SYTEM</option>
                   <option value="SECRETARIO">SECRETARIO</option>
                   <option value="PLANILLERO">PLANILLERO</option>

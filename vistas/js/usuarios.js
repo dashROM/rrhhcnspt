@@ -216,7 +216,7 @@ $("#frmNuevoUsuario").on("click", ".btnGuardar", function() {
 });
 
 /*=============================================
-RESETEAR LA CARAGR FOTO POR DEFENCTO 
+RESETEAR LA CARGAR FOTO POR DEFENCTO 
 =============================================*/
 
 $(document).on("click", ".btnAgregarUsuario", function() {
@@ -261,12 +261,11 @@ $(document).on("click", ".btnEditarUsuario", function() {
 			$('#editarNombreUsuario').val(respuesta["nombre_usuario"]);
 			$('#editarNickUsuario').val(respuesta["nick_usuario"]);
 			$('#editarCIUsuario').val(respuesta["ci_usuario"]);
-			$('#editarExtCIUsuario').val(respuesta["ext_ci_usuario"]);
+			$('#editarExtCIUsuario').val(respuesta["ext_ci_usuario"]).selectpicker('refresh');
 			$('#editarTelefonoUsuario').val(respuesta["telefono_usuario"]);
 			$('#editarEmailUsuario').val(respuesta["email_usuario"]);
 
-			$("#editarPerfilUsuario").html(respuesta["perfil_usuario"]);
-			$("#editarPerfilUsuario").val(respuesta["perfil_usuario"]);
+			$("#editarPerfilUsuario").val(respuesta["perfil_usuario"]).selectpicker('refresh');
 
 			$("#fotoActualUsuario").val(respuesta["foto_usuario"]);
 			$("#passwordActual").val(respuesta["password_usuario"]);			

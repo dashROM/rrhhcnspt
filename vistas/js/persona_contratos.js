@@ -68,12 +68,12 @@ $(document).on("change", "#nuevoTipoContrato", function() {
 	} else if ($(this).val() == "3")  {
 
 		$("#contratoSuplencia").addClass("d-none");
-		$("#resolucionMinisterial").removeClass("d-none");
+		// $("#resolucionMinisterial").removeClass("d-none");
 
 	} else {
 
 		$("#contratoSuplencia").addClass("d-none");
-		$("#resolucionMinisterial").addClass("d-none");
+		// $("#resolucionMinisterial").addClass("d-none");
 
 	}
 	
@@ -117,7 +117,7 @@ $(document).on("change", "#nuevoFechaFin", function() {
 
 	days = difference/(1000 * 3600 * 24)
 
-	$("#nuevoDiasContrato").val(days+1);
+	$("#nuevoDiasContrato").val(days);
 
 });
 
@@ -202,8 +202,9 @@ $("#frmNuevoPersonaContrato").validate({
  		nuevoFechaInicio : { required: true},
  		nuevoDiasContrato : {required: true},
  		nuevoFechaFin : { required: true},
- 		nuevoTipoContrato : { required: true},   	
- 		nuevoResolucionMinisterial : { required: true},      	
+ 		nuevoTipoContrato : { required: true},  
+ 		nuevoTipoContratacion : { required: true}, 	
+ 		nuevoMemorandumInstructivo : { required: true},      	
  		nuevoObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -212,7 +213,9 @@ $("#frmNuevoPersonaContrato").validate({
 		nuevoEstablecimiento : "Elija un establecimiento",
 		nuevoBuscarPersona : "Elija una persona",
 		nuevoCargoEmpleado : "Elija un cargo",
+		nuevoMemorandumInstructivo : "Elija una opción",
 		nuevoTipoContrato : "Elija una tipo de contrato",
+		nuevoTipoContratacion : "Elija una tipo de contratacion",
 	},
 
 });
@@ -225,12 +228,15 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 	var idPersona = $("#nuevoIdPersona").val();
 
+	var recurrencia = $(this).attr("recurrencia");
+
     if ($("#frmNuevoPersonaContrato").valid()) {
 
     	// console.log("VALIDADO PERSONA CONTRATO");
 
     	var datos = new FormData($("#frmNuevoPersonaContrato")[0]);
 		datos.append("nuevoPersonaContratos", 'nuevoPersonaContratos');
+		datos.append("recurrencia", recurrencia);
 
 		$.ajax({
 
@@ -260,20 +266,13 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 	  						$('#modalAgregarPersonaContrato').modal('toggle');
 
-		  					// $("#nuevoEstablecimiento").remove();
-							// $("#nuevoCargoEmpleado").remove();
 							$("#nuevoFechaInicio").val("");
 							$("#nuevoFechaFin").val("");
 							$("#nuevoDiasContrato").val("");
-							// $("#nuevoTipoContrato").remove();
 							$("#nuevoObservacionesEmpleado").val("");
 
 	  						// Funcion que recarga y actuaiiza la tabla	
-
 							tablaPersonaContratos.ajax.reload( null, false );
-
-
-	  						// window.location = "https://localhost/rrhhcnspt/detalle-persona/"+idPersona;
 
 						}
 
@@ -283,23 +282,13 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 					swal.fire({
 							
-						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales1!",
+						title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
 						icon: "error",
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
 					});
 					
-				} else if (respuesta >= 2) {
-					
-					swal.fire({
-							
-						title: "¡La persona tiene dos o mas contratos!<br>Pedir autorización para otro contrato",
-						icon: "error",
-						allowOutsideClick: false,
-						confirmButtonText: "¡Cerrar!"
-
-					});
 				}
 
 			},
@@ -327,7 +316,7 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 });
 
 /*=============================================
-CARGANDO DATOS DE EMPLEADO AL FORMULARIO EDITAR PERSONA CONTRATO
+CARGANDO DATOS DE PERSONA CONTRATO AL FORMULARIO EDITAR PERSONA CONTRATO
 =============================================*/
 
 $(document).on("click", ".btnEditarPersonaContrato", function() {
@@ -353,7 +342,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			console.log("respuesta", respuesta);
 
 			// cargando datos de lugares
-			$("#editarLugar").empty().append('<option value="'+respuesta["id_lugar"]+'" select>'+respuesta["nombre_lugar"]+'</option>')
+			$("#editarLugar").append('<option value="'+respuesta["id_lugar"]+'">'+respuesta["codificacion"]+'-'+respuesta["nombre_lugar"]+'</option>').selectpicker('refresh')
 			
 			var datosLugar = new FormData();
 			datosLugar.append("buscadorLugares", 'buscadorLugares');
@@ -372,7 +361,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarLugar").append('<option value="'+val.id_lugar+'">'+val.nombre_lugar+'</option>')
+						$("#editarLugar").append('<option value="'+val.id_lugar+'">'+val.codificacion+'-'+val.nombre_lugar+'</option>').selectpicker('refresh')
 
 					});
 
@@ -386,7 +375,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			});
 
 			// cargando datos de establecimientos
-			$("#editarEstablecimiento").empty().append('<option value="'+respuesta["id_establecimiento"]+'" select>'+respuesta["nombre_establecimiento"]+'</option>')
+			$("#editarEstablecimiento").empty().append('<option value="'+respuesta["id_establecimiento"]+'">'+respuesta["nombre_establecimiento"]+'</option>').selectpicker('refresh')
 			
 			var datosEstablecimiento = new FormData();
 			datosEstablecimiento.append("buscadorEstablecimientos", 'buscadorEstablecimientos');
@@ -405,7 +394,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarEstablecimiento").append('<option value="'+val.id_establecimiento+'">'+val.nombre_establecimiento+'</option>')
+						$("#editarEstablecimiento").append('<option value="'+val.id_establecimiento+'">'+val.nombre_establecimiento+'</option>').selectpicker('refresh')
 
 					});
 
@@ -427,7 +416,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			
 			
 			// cargando datos de cargos
-			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+'</option>')
+			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+'</option>').selectpicker('refresh')
 
 			var datosCargo = new FormData();
 			datosCargo.append("buscadorCargos", 'buscadorCargos');
@@ -446,7 +435,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarCargoEmpleado").append('<option value="'+val.id_cargo+'">'+val.nombre_cargo+'</option>')
+						$("#editarCargoEmpleado").append('<option value="'+val.id_cargo+'">'+val.nombre_cargo+'</option>').selectpicker('refresh')
 
 					});
 
@@ -459,12 +448,25 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 			});
 
+			// cargando tipo_contratacion
+			$("#editarTipoContratacion").empty().append('<option value="'+respuesta["tipo_contratacion"]+'">'+respuesta["tipo_contratacion"]+'</option>').selectpicker('refresh')
+
+			if (respuesta["tipo_contratacion"] == "SALUD") {
+
+				$("#editarTipoContratacion").append('<option value="ADMINISTRATIVO">ADMINISTRATIVO</option>').selectpicker('refresh')
+
+			} else {
+
+				$("#editarTipoContratacion").append('<option value="SALUD">SALUD</option>').selectpicker('refresh')
+
+			}
+
 			$('#editarFechaInicio').val(respuesta["inicio_contrato"]);
 			$('#editarFechaFin').val(respuesta["fin_contrato"]);
 			$('#editarDiasContrato').val(respuesta["dias_contrato"]);
 
 			// cargando datos de contratos 
-			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+'</option>')
+			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+'</option>').selectpicker('refresh')
 
 			var datosContrato = new FormData();
 			datosContrato.append("buscadorContratos", 'buscadorContratos');
@@ -483,7 +485,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+'</option>')
+						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+'</option>').selectpicker('refresh')
 
 					});
 
@@ -513,7 +515,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			}
 
 			// cargando datos de suplencia 
-			$("#editarTipoSuplencia").empty().append('<option value="'+respuesta["id_suplencia"]+'">'+respuesta["tipo_suplencia"]+'</option>')
+			$("#editarTipoSuplencia").empty().append('<option value="'+respuesta["id_suplencia"]+'">'+respuesta["tipo_suplencia"]+'</option>').selectpicker('refresh')
 
 			var datosSuplencia = new FormData();
 			datosSuplencia.append("buscadorTipoSuplencias", 'buscadorTipoSuplencias');
@@ -532,20 +534,53 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarTipoSuplencia").append('<option value="'+val.id_suplencia+'">'+val.tipo_suplencia+'</option>')
+						$("#editarTipoSuplencia").append('<option value="'+val.id_suplencia+'">'+val.tipo_suplencia+'</option>').selectpicker('refresh')
 
 					});
 
 				},
 				error: function(error){
 
-		      console.log("No funciona");
+		      		console.log("No funciona");
 		        
-		    }
+		    	}
 
 			});
 
-			$('#editarResolucionMinisterial').val(respuesta["resolucion_ministerial"]);
+			// $('#editarResolucionMinisterial').val(respuesta["resolucion_ministerial"]);
+
+			// cargando datos de memorandum instructivo 
+			$("#editarMemorandumInstructivo").empty().append('<option data-subtext="de fecha '+respuesta["fecha_memorandum"]+'" value="'+respuesta["id_memorandum"]+'">'+respuesta["nro_memorandum"]+'</option>').selectpicker('refresh')
+			
+			var datosMemorandum = new FormData();
+			datosMemorandum.append("buscadorMemorandums", 'buscadorMemorandums');
+			datosMemorandum.append("id_memorandum", respuesta["id_memorandum"]);
+
+			$.ajax({
+
+				url: "../ajax/memorandums.ajax.php",
+				method: "POST",
+				data: datosMemorandum,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(respuesta) {
+
+					$.each(respuesta, function(index, val) {
+						
+						$("#editarMemorandumInstructivo").append('<option data-subtext="de fecha '+val.fecha_memorandum+'" value="'+val.id_memorandum+'">'+val.nro_memorandum+'</option>').selectpicker('refresh')
+
+					});
+
+				},
+				error: function(error){
+
+		      		console.log("No funciona");
+		        
+		    	}
+
+			});
 
 			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
 			$('#editarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
@@ -599,7 +634,7 @@ $("#frmEditarPersonaContrato").validate({
  		editarFechaFin : { required: true},
  		editarDiasContrato : { required: true}, 
  		editarTipoContrato : { required: true},   
- 		editarResolucionMinisterial : { required: true}, 		
+ 		editarTipoContratacion : { required: true},		
  		editarObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -608,6 +643,7 @@ $("#frmEditarPersonaContrato").validate({
 		editarEstablecimiento : "Elija un establecimiento",
 		editarCargoEmpleado : "Elija un cargo",
 		editarTipoContrato : "Elija una tipo de contrato",
+		editarTipoContratacion : "Elija una tipo de contratacion",
 	},
 
 });

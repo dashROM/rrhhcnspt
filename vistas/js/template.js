@@ -135,61 +135,65 @@ $(document).ready(function() {
 INICIALIZANDO LOS FORMULARIOS SELECT2
 ========================================*/
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
-	var placeholder = "<i class='fas fa-search'></i> Elegir...";
+// 	var placeholder = "<i class='fas fa-search'></i> Elegir...";
    
-  //Initialize Select2 Elements
-  $('.select2').select2({
+//   //Initialize Select2 Elements
+//   $('.select2').select2({
 
-  	language: {
+//   	language: {
 
-	    noResults: function() {
+// 	    noResults: function() {
 
-	      return "No hay resultado";
+// 	      return "No hay resultado";
 
-	    },
-	    searching: function() {
+// 	    },
+// 	    searching: function() {
 
-	      return "Buscando...";
+// 	      return "Buscando...";
 
-	    }
-		},
+// 	    }
+// 		},
 
-		placeholder: placeholder,
+// 		placeholder: placeholder,
 
-    width: null,
+//     width: null,
 
-    escapeMarkup: function(m) { 
+//     escapeMarkup: function(m) { 
 
-    	return m;
+//     	return m;
 
-    }
+//     }
     
-	});
+// 	});
 
- //Initialize Select2 Dinámico Elements
-  $('.select2_dinamic').select2({
-		tags: true,
-		language: "es"
-	});
+//  //Initialize Select2 Dinámico Elements
+//   $('.select2_dinamic').select2({
+// 		tags: true,
+// 		language: "es"
+// 	});
 
-    //Initialize Select2 Elements
-  $('.select2bs4').select2({
-		theme: 'bootstrap4',
-		language: "es"
-  });
+//     //Initialize Select2 Elements
+//   $('.select2bs4').select2({
+// 		theme: 'bootstrap4',
+// 		language: "es"
+//   });
 
-})
+// })
 
 /*======================================
 CONVIRTIENDO EN MAYUSCULA LO INGRESADO DINAMICAMENTE
 ========================================*/
-$(document).on("click", ".select2", function() {
+// $(document).on("click", ".select2", function() {
 
-	$('.select2-search__field').addClass('mayuscula');
+// 	$('.select2-search__field').addClass('mayuscula');
 
-})
+// })
+
+$(function () {
+    $('.my-select').selectpicker();
+});
 
 /*======================================
 CAMBIAR EL FORMATO DE FECHA

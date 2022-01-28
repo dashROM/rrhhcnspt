@@ -1024,23 +1024,42 @@ function init_TagsInput() {
 
 /* SELECT2 */
 
-function init_select2() {
+// function init_select2() {
 
-    if (typeof (select2) === 'undefined') { return; }
-    console.log('init_toolbox');
+//     if (typeof (select2) === 'undefined') { return; }
+//     console.log('init_toolbox');
 
-    $(".select2_single").select2({
-        placeholder: "Select a state",
-        allowClear: true
-    });
-    $(".select2_group").select2({});
-    $(".select2_multiple").select2({
-        maximumSelectionLength: 4,
-        placeholder: "With Max Selection limit 4",
-        allowClear: true
-    });
+//     var placeholder = "<i class='fas fa-search'></i> Elegir...";
 
-};
+//     $(".select2").select2({
+//         language: {
+
+//         noResults: function() {
+
+//           return "No hay resultado";  
+
+//         },
+//         searching: function() {
+
+//           return "Buscando..";
+          
+//         }
+//         },
+
+//         placeholder: placeholder,
+//         width: null,
+//         escapeMarkup: function(m) { 
+//             return m; 
+//         }
+//     });
+//     $(".select2_group").select2({});
+//     $(".select2_multiple").select2({
+//         maximumSelectionLength: 4,
+//         placeholder: "With Max Selection limit 4",
+//         allowClear: true
+//     });
+
+// };
 
 /* WYSIWYG EDITOR */
 
@@ -5023,7 +5042,7 @@ $(document).ready(function () {
     init_echarts();
     init_morris_charts();
     init_skycons();
-    init_select2();
+    // init_select2();
     init_validator();
     init_DataTables();
     init_chart_doughnut();
@@ -5037,3 +5056,44 @@ $(document).ready(function () {
     init_autocomplete();
 
 });	
+
+// $(function () {
+
+//     var placeholder = "<i class='fas fa-search'></i> Elegir...";
+   
+//     //Initialize Select2 Elements
+//     $('.select2').select2({
+//         language: {
+
+//             noResults: function() {
+
+//               return "No hay resultado";  
+
+//             },
+//             searching: function() {
+
+//               return "Buscando..";
+              
+//             }
+//         },
+
+//         placeholder: placeholder,
+//         width: null,
+//         escapeMarkup: function(m) { 
+//             return m; 
+//         }
+//     });
+
+//     //Initialize Select2 Dinámico Elements
+//   $('.select2_dinamic').select2({
+//         tags: true,
+//         language: "es"
+//     });
+
+//   //Initialize Select2 Elements
+//   $('.select2bs4').select2({
+//         theme: 'bootstrap4',
+//         language: "es"
+//   });
+
+// })

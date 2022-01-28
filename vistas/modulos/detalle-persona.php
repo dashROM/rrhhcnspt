@@ -6,6 +6,8 @@
 
   $persona = ControladorPersonas::ctrMostrarPersonas($item, $valor1, $valor2);
 
+  $cantidad_persona_contrato = ControladorPersonaContratos::ctrCantidadPersonaContratos($item, $valor1);
+
 ?>
 <!-- page content -->
 <div class="right_col" role="main">
@@ -50,7 +52,7 @@
             
             <div class="row">
 
-              <div class="col-md-5 col-sm-5 col-xs-12"> 
+              <div class="col-md-4 col-sm-4 col-xs-12"> 
 
                 <div class="form-group">
 
@@ -78,7 +80,7 @@
 
               </div>
 
-              <div class="col-md-7 col-sm-7 col-xs-12">
+              <div class="col-md-4 col-sm-4 col-xs-12">
 
                 <!-- ENTRADA PARA EL APELLIDO PATERNO -->
                 
@@ -120,7 +122,11 @@
 
                 </div>
 
-                 <!-- ENTRADA PARA SELECCIONAR SEXO -->
+              </div>
+
+              <div class="col-md-4 col-sm-4 col-xs-12">
+
+                <!-- ENTRADA PARA SELECCIONAR SEXO -->
               
                 <div class="form-group">
                   
@@ -152,7 +158,7 @@
 
                 </div>
 
-                 <!-- ENTRADA PARA LA MATRICULA -->
+                <!-- ENTRADA PARA LA MATRICULA -->
               
                 <div class="form-group">
                   
@@ -184,17 +190,19 @@
 
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
 
-              <a class="nav-item nav-link active font-weight-bold" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Contratos</a>
-              <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>-->
+              <a class="nav-item nav-link active font-weight-bold" id="nav-contratos-tab" data-toggle="tab" href="#nav-contratos" role="tab" aria-controls="nav-contratos" aria-selected="true">Contratos</a>
+              <a class="nav-item nav-link font-weight-bold" id="nav-herederos-tab" data-toggle="tab" href="#nav-herederos" role="tab" aria-controls="nav-herederos" aria-selected="false">Herederos</a>
+              <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>-->
 
             </div>
 
           </nav>
 
           <div class="tab-content mt-4" id="nav-tabContent">
+
+            <!-- PANEL PERSONA CONTRATOS -->
             
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade show active" id="nav-contratos" role="tabpanel" aria-labelledby="nav-contratos-tab">
 
               <?php
 
@@ -203,13 +211,26 @@
               ?>
                       
               <div class="x_title">
+
+                <?php if ($cantidad_persona_contrato["numero_filas"] < 2) { ?>
             
-                <button class="btn btn-round btn-outline-success btnAgregarPersonaContrato" data-toggle="modal" data-target="#modalAgregarPersonaContrato">
+                <button class="btn btn-round btn-outline-success btnAgregarPersonaContrato" recurrencia="0" data-toggle="modal" data-target="#modalAgregarPersonaContrato">
 
                   <i class="fas fa-plus"></i>
                   Agregar Contrato
 
                 </button>
+
+                <?php } else { ?>
+
+                <button class="btn btn-round btn-outline-success btnAgregarPersonaContrato" recurrencia="1" data-toggle="modal" data-target="#modalAgregarPersonaContrato">
+
+                  <i class="fas fa-plus"></i>
+                  Agregar Contrato Recurrente
+
+                </button>
+
+                <?php } ?>
 
                 <div class="clearfix"></div>
 
@@ -244,8 +265,8 @@
                             <th>COD CONTRATO</th>
                             <th>LUGAR</th>
                             <th>ESTABLECIMIENTO</th>
-                            <th>TIPO CONTRATO</th>
                             <th>CARGO</th>
+                            <th>TIPO CONTRATACION</th>
                             <th>INICIO CONTRATO</th>
                             <th>FIN CONTRATO</th>
                             <th>DIAS CONTRATO</th>
@@ -299,6 +320,66 @@
                     <div class="col-sm-6">
                       <button class='btn btn-secondary mt-2'></button>
                     </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- PANEL PERSONA HEREDEROS -->
+
+            <div class="tab-pane fade" id="nav-herederos" role="tabpanel" aria-labelledby="nav-herederos-tab">
+
+              <div class="x_title">
+            
+                <button class="btn btn-round btn-outline-success btnAgregarPersonaHeredero" data-toggle="modal" data-target="#modalAgregarPersonaHeredero">
+
+                  <i class="fas fa-plus"></i>
+                  Agregar Heredero
+
+                </button>
+
+                <div class="clearfix"></div>
+
+              </div>
+
+              <div class="x_content">
+
+                <div class="row">
+                    
+                  <div class="col-sm-12">
+
+                    <div class="tituloTabla">
+
+                      <h3>Listado de Herederos</h3>
+
+                    </div>
+                                
+                    <div class="card-box table-responsive">
+                
+                      <table class="table table-bordered table-striped table-hover" id="tablaPersonaHerederos" width="100%">
+                        
+                        <thead>
+                          
+                          <tr>
+                            <th>#</th>
+                            <th>NOMBRES Y APELLIDOS</th>
+                            <th>EDAD</th>
+                            <th>PARETEZCO</th>
+                            <th>ACCIONES</th>
+                          </tr>
+
+                        </thead>
+
+                      </table>
+
+                      <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
+                      <input type="hidden" value="<?php echo $parametros[1]; ?>" id="idPersona">
+
+                    </div>
+              
                   </div>
 
                 </div>
@@ -371,24 +452,21 @@ MODAL AGREGAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="nuevoLugar">LUGAR DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control form-control-sm select2" name="nuevoLugar" id="nuevoLugar" data-dropdown-css-class="select2-info" style="width: 100%;">
-                  
-                  <option value="">ELEGIR...</option>
-                  <?php 
+                <select class="form-control selectpicker show-tick" name="nuevoLugar" id="nuevoLugar" data-live-search="true" data-size="5" title="Elegir...">
+                <?php 
 
-                    $item = null;
-                    $valor = null;
+                  $item = null;
+                  $valor = null;
 
-                    $lugares = ControladorLugares::ctrMostrarLugares($item, $valor);
+                  $lugares = ControladorLugares::ctrMostrarLugares($item, $valor);
 
-                    foreach ($lugares as $key => $value) {
-                      
-                      echo '<option value="'.$value["id_lugar"].'">'.$value["codificacion"].'-'.$value["nombre_lugar"].'</option>';
+                  foreach ($lugares as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_lugar"].'">'.$value["codificacion"].'-'.$value["nombre_lugar"].'</option>';
 
-                    } 
+                  } 
 
-                  ?>
-
+                ?>
                 </select>
 
               </div>
@@ -399,24 +477,21 @@ MODAL AGREGAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="nuevoEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control form-control-sm select2" name="nuevoEstablecimiento" id="nuevoEstablecimiento" data-dropdown-css-class="select2-info" style="width: 100%;">
-                  
-                  <option value="">ELEGIR...</option>
-                  <?php 
+                <select class="form-control selectpicker show-tick" name="nuevoEstablecimiento" id="nuevoEstablecimiento" data-live-search="true" data-size="5" title="Elegir...">
+                <?php 
 
-                    $item = null;
-                    $valor = null;
+                  $item = null;
+                  $valor = null;
 
-                    $establecimientos = ControladorEstablecimientos::ctrMostrarEstablecimientos($item, $valor);
+                  $establecimientos = ControladorEstablecimientos::ctrMostrarEstablecimientos($item, $valor);
 
-                    foreach ($establecimientos as $key => $value) {
-                      
-                      echo '<option value="'.$value["id_establecimiento"].'">'.$value["nombre_establecimiento"].'</option>';
+                  foreach ($establecimientos as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_establecimiento"].'">'.$value["nombre_establecimiento"].'</option>';
 
-                    } 
+                  } 
 
-                  ?>
-
+                ?>
                 </select>
 
               </div>
@@ -450,27 +525,39 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
-               <!-- ENTRADA PARA SELECCIONAR CARGO -->
+              <!-- ENTRADA PARA SELECCIONAR CARGO -->
             
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoCargoEmpleado">CARGO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="nuevoCargoEmpleado" name="nuevoCargoEmpleado" data-dropdown-css-class="select2-info" style="width: 100%;">
-                  <option value="">ELEGIR...</option>
-                  <?php 
+                <select class="form-control selectpicker show-tick" id="nuevoCargoEmpleado" name="nuevoCargoEmpleado" data-live-search="true" data-size="5" title="Elegir...">
+                <?php 
 
-                    $item = null;
-                    $valor = null;
+                  $item = null;
+                  $valor = null;
 
-                    $cargos = ControladorCargos::ctrMostrarCargos($item, $valor);
+                  $cargos = ControladorCargos::ctrMostrarCargos($item, $valor);
 
-                    foreach ($cargos as $key => $value) {
-                      
-                      echo '<option value="'.$value["id_cargo"].'">'.$value["nombre_cargo"].'</option>';
-                    } 
+                  foreach ($cargos as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_cargo"].'">'.$value["nombre_cargo"].'</option>';
+                  } 
 
-                  ?>
+                ?>
+                </select>
+
+              </div>
+
+              <!-- ENTRADA PARA SELECCIONAR TIPO CONTRATACION -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoTipoContratacion">TIPO CONTRATACION</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoTipoContratacion" name="nuevoTipoContratacion" data-size="5" title="Elegir...">
+                  <option value="SALUD">SALUD</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
                 </select>
 
               </div>
@@ -515,21 +602,20 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoTipoContrato">TIPO DE CONTRATO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="nuevoTipoContrato" name="nuevoTipoContrato">
-                  <option value="">ELEGIR...</option>
-                  <?php 
+                <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir...">
+                <?php 
 
-                    $item = null;
-                    $valor = null;
+                  $item = null;
+                  $valor = null;
 
-                    $contratos = ControladorContratos::ctrMostrarContratos($item, $valor);
+                  $contratos = ControladorContratos::ctrMostrarContratos($item, $valor);
 
-                    foreach ($contratos as $key => $value) {
-                      
-                      echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].'</option>';
-                    } 
+                  foreach ($contratos as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].'</option>';
+                  } 
 
-                  ?>
+                ?>
                 </select>
 
               </div>
@@ -540,32 +626,56 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoTipoContratoSuplencia">TIPO DE SUPLENCIA</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" required>
-                  <option value="">ELEGIR...</option>
-                  <?php 
+                <select class="form-control selectpicker show-tick" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" data-live-search="true" data-size="5" title="Elegir..." required>
+                <?php 
 
-                    $item = null;
-                    $valor = null;
+                  $item = null;
+                  $valor = null;
 
-                    $suplencias = ControladorSuplencias::ctrMostrarSuplencias($item, $valor);
+                  $suplencias = ControladorSuplencias::ctrMostrarSuplencias($item, $valor);
 
-                    foreach ($suplencias as $key => $value) {
-                      
-                      echo '<option value="'.$value["id_suplencia"].'">'.$value["tipo_suplencia"].'</option>';
-                    } 
+                  foreach ($suplencias as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_suplencia"].'">'.$value["tipo_suplencia"].'</option>';
+                  } 
 
-                  ?>
+                ?>
                 </select>
 
               </div>
 
               <!-- ENTRADA PARA RESOLUCION MINISTERIAL (SOLO SE VE EN TIPO DE CONTRATO COVID) -->
             
-              <div class="form-group d-none" id="resolucionMinisterial">
+              <!-- <div class="form-group d-none" id="resolucionMinisterial">
                 
                 <label class="font-weight-normal" for="nuevoResolucionMinisterial">RESOLUCIÓN MINISTERIAL</label>
                 <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control" class="form-control" id="nuevoResolucionMinisterial" name="nuevoResolucionMinisterial">
+
+              </div> -->
+
+              <!-- ENTRADA PARA MEMORANDUM INSTRUCTIVO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoMemorandumInstructivo">MEMORANDUM INSTRUCTIVO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoMemorandumInstructivo" name="nuevoMemorandumInstructivo" data-live-search="true" data-size="5" title="Elegir...">
+                <!-- <select class="form-control form-control-sm select2" data-live-search="true" data-size="5"> -->
+                <?php 
+
+                  $item = null;
+                  $valor = null;
+
+                  $memorandums = ControladorMemorandums::ctrMostrarMemorandums($item, $valor);
+
+                  foreach ($memorandums as $key => $value) {
+                    
+                    echo '<option data-subtext="de fecha '.$value["fecha_memorandum"].'" value="'.$value["id_memorandum"].'">Nº '.$value["nro_memorandum"].'</option>';
+                  } 
+
+                ?>
+                </select>
 
               </div>
 
@@ -599,12 +709,25 @@ MODAL AGREGAR PERSONA CONTRATO
 
           </button>
 
-          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+          <?php if ($cantidad_persona_contrato["numero_filas"] < 2) { ?>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar" recurrencia=0>
 
             <i class="fas fa-save"></i>
             Guardar Datos
 
           </button>
+
+          <?php } else { ?>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar" recurrencia=1>
+
+            <i class="fas fa-save"></i>
+            Guardar Datos
+
+          </button>
+
+          <?php } ?>
 
         </div>
 
@@ -668,7 +791,7 @@ MODAL EDITAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="editarLugar">LUGAR DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="editarLugar" name="editarLugar" data-dropdown-css-class="select2-info" style="width: 100%;">
+                <select class="form-control selectpicker show-tick" id="editarLugar" name="editarLugar" data-live-search="true" data-size="5">
 
                 </select>
 
@@ -680,7 +803,8 @@ MODAL EDITAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="editarEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="editarEstablecimiento" name="editarEstablecimiento" data-dropdown-css-class="select2-info" style="width: 100%;">
+                <select class="form-control selectpicker show-tick" id="editarEstablecimiento" name="editarEstablecimiento" data-live-search="true" data-size="5">
+
                 </select>
 
               </div>
@@ -722,7 +846,19 @@ MODAL EDITAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="editarCargoEmpleado">CARGO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="editarCargoEmpleado" name="editarCargoEmpleado" data-dropdown-css-class="select2-info" style="width: 100%;">                  
+                <select class="form-control selectpicker show-tick" id="editarCargoEmpleado" name="editarCargoEmpleado" data-live-search="true" data-size="5">                  
+                </select>
+
+              </div>
+
+              <!-- ENTRADA PARA SELECCIONAR TIPO CONTRATACION -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarTipoContratacion">TIPO CONTRATACION</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarTipoContratacion" name="editarTipoContratacion" data-size="5">
+
                 </select>
 
               </div>
@@ -767,7 +903,8 @@ MODAL EDITAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="editarTipoContrato">TIPO DE CONTRATO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="editarTipoContrato" name="editarTipoContrato" data-dropdown-css-class="select2-info" style="width: 100%;">
+                <select class="form-control selectpicker show-tick" id="editarTipoContrato" name="editarTipoContrato" data-size="5">
+
                 </select>
 
               </div>
@@ -778,18 +915,31 @@ MODAL EDITAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="editarTipoSuplencia">TIPO DE SUPLENCIA</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select select2" id="editarTipoSuplencia" name="editarTipoSuplencia" required data-dropdown-css-class="select2-info" style="width: 100%;">
+                <select class="form-control selectpicker show-tick" id="editarTipoSuplencia" name="editarTipoSuplencia" required data-live-search="true" data-size="5">
+
                 </select>
 
               </div>
 
               <!-- ENTRADA PARA RESOLUCION MINISTERIAL (SOLO SE VE EN TIPO DE CONTRATO COVID) -->
             
-              <div class="form-group d-none" id="cambiarResolucionMinisterial">
+              <!-- <div class="form-group d-none" id="cambiarResolucionMinisterial">
                 
                 <label class="font-weight-normal" for="editarResolucionMinisterial">RESOLUCIÓN MINISTERIAL</label>
                 <i class="fas fa-asterisk asterisk"></i>
                 <input type="text" class="form-control" class="form-control" id="editarResolucionMinisterial" name="editarResolucionMinisterial">
+
+              </div> -->
+
+              <!-- ENTRADA PARA MEMORANDUM INSTRUCTIVO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarMemorandumInstructivo">MEMORANDUM INSTRUCTIVO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarMemorandumInstructivo" name="editarMemorandumInstructivo" data-size="5">
+               
+                </select>
 
               </div>
 
@@ -848,7 +998,7 @@ MODAL EDITAR DOCUMENTO CONTRATO
 
 <div id="modalEditarDocumentoContrato" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="editarDocumentoContrato" aria-hidden="true">
   
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
 
@@ -932,7 +1082,7 @@ VENTANA MODAL PARA MOSTRAR EL CONTRATO EN PDF
 
 <div id="ver-pdf" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="ContratoPDF" aria-hidden="true">
   
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
 
@@ -990,7 +1140,7 @@ VENTANA MODAL PARA CARGAR EL CONTRATO EN ARCHIVO PDF
 
 <div id="modalCargarArchivoContrato" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="cargarArchivoContrato" aria-hidden="true">
   
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
 
@@ -1334,6 +1484,282 @@ MODAL AMPLIAR PERSONA CONTRATO
             Validar Documento
 
           </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!--=====================================
+MODAL AGREGAR PERSONA HEREDERO
+======================================-->
+
+<div id="modalAgregarPersonaHeredero" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="agregarPersonaHeredero" aria-hidden="true">
+  
+  <div class="modal-dialog modal-sm">
+
+    <div class="modal-content">
+
+      <form id="frmNuevoPersonaHeredero">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header bg-modal">
+
+          <h5 class="modal-title" id="agregarPersonaHeredero">Agregar Heredero</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="btn btn-outline-danger m-0 py-0 px-2">&times;</span>
+          </button>
+
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+     
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              Campos Obligatorios<i class="fas fa-asterisk asterisk mt-2"></i>
+
+            </div>
+            
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              <!-- ENTRADA PARA EL APELLIDO PATERNO -->
+              
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoPaternoHeredero">APELLIDO PATERNO</label>
+                <input type="text" class="form-control mayuscula" id="nuevoPaternoHeredero" name="nuevoPaternoHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA EL APELLIDO MATERNO -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="nuevoMaternoHeredero">APELLIDO MATERNO</label>
+                <input type="text" class="form-control mayuscula" id="nuevoMaternoHeredero" name="nuevoMaternoHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA EL NOMBRE -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoNombreHeredero">NOMBRE(S)</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="text" class="form-control mayuscula" id="nuevoNombreHeredero" name="nuevoNombreHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA LA FECHA DE NACIMIENTO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoFechaNacimientoHeredero">FECHA NACIMIENTO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="date" class="form-control" id="nuevoFechaNacimientoHeredero" name="nuevoFechaNacimientoHeredero">
+
+              </div>
+      
+              <!-- ENTRADA PARA PARENTEZCO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoParentezco">PARENTEZCO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarEstablecimiento" id="nuevoParentezco" name="nuevoParentezco" data-live-search="true" data-size="5" title="Elegir...">                  
+                  <option value="PADRE">PADRE</option>
+                  <option value="MADRE">MADRE</option>
+                  <option value="HIJO">HIJO</option>
+                  <option value="HIJA">HIJA</option>
+                  <option value="NIETO">NIETO</option>
+                  <option value="NIETA">NIETA</option>
+                </select>
+
+              </div>
+
+            </div>  
+
+          </div>
+
+        </div>
+
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
+
+            <i class="fas fa-times"></i>
+            Cerrar
+
+          </button>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+
+            <i class="fas fa-save"></i>
+            Guardar Datos
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!--=====================================
+MODAL EDITAR PERSONA HEREDERO
+======================================-->
+
+<div id="modalEditarPersonaHeredero" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="editarPersonaHeredero" aria-hidden="true">
+  
+  <div class="modal-dialog modal-sm">
+
+    <div class="modal-content">
+
+      <form id="frmEditarPersonaHeredero">
+
+        <!--=====================================
+        CABEZA DEL MODAL
+        ======================================-->
+
+        <div class="modal-header bg-modal">
+
+          <h5 class="modal-title" id="editarPersonaHeredero">Editar Heredero</h5>
+        
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="btn btn-outline-danger m-0 py-0 px-2">&times;</span>
+          </button>
+
+        </div>
+
+        <!--=====================================
+        CUERPO DEL MODAL
+        ======================================-->
+
+        <div class="modal-body">
+     
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              Campos Obligatorios<i class="fas fa-asterisk asterisk mt-2"></i>
+
+            </div>
+            
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+              <!-- ENTRADA PARA EL APELLIDO PATERNO -->
+              
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarPaternoHeredero">APELLIDO PATERNO</label>
+                <input type="text" class="form-control mayuscula" id="editarPaternoHeredero" name="editarPaternoHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA EL APELLIDO MATERNO -->
+            
+              <div class="form-group">
+              
+                <label class="font-weight-normal" for="editarMaternoHeredero">APELLIDO MATERNO</label>
+                <input type="text" class="form-control mayuscula" id="editarMaternoHeredero" name="editarMaternoHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA EL NOMBRE -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarNombreHeredero">NOMBRE(S)</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="text" class="form-control mayuscula" id="editarNombreHeredero" name="editarNombreHeredero">
+
+              </div>
+
+              <!-- ENTRADA PARA LA FECHA DE NACIMIENTO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarFechaNacimientoHeredero">FECHA NACIMIENTO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <input type="date" class="form-control" id="editarFechaNacimientoHeredero" name="editarFechaNacimientoHeredero">
+
+              </div>
+      
+              <!-- ENTRADA PARA PARENTEZCO -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="editarParentezco">PARENTEZCO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarParentezco" name="editarParentezco">
+                  <option value="PADRE">PADRE</option>
+                  <option value="MADRE">MADRE</option>
+                  <option value="HIJO">HIJO</option>
+                  <option value="HIJA">HIJA</option>
+                  <option value="NIETO">NIETO</option>
+                  <option value="NIETA">NIETA</option>
+                </select>
+
+              </div>
+
+            </div>  
+
+          </div>
+
+        </div>
+
+        <!--=====================================
+        PIE DEL MODAL
+        ======================================-->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
+
+            <i class="fas fa-times"></i>
+            Cerrar
+
+          </button>
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+
+            <i class="fas fa-save"></i>
+            Guardar
+
+          </button>
+
+          <input type="hidden" id="idPersonaHeredero" name="idPersonaHeredero">
 
         </div>
 

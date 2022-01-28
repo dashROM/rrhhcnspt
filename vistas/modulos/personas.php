@@ -86,6 +86,7 @@
                         <th>NRO. CI</th>
                         <th>FECHA NACIM.</th>
                         <th>SEXO</th>
+                        <th>ESTADO CIVIL</th>
                         <th>DIRECCION</th>
                         <th>TELEFONO</th>
                         <th>EMAIL</th>
@@ -202,8 +203,7 @@ MODAL AGREGAR PERSONA
                 <div class="input-group mb-3">
 
                   <input type="text" class="form-control" id="nuevoCIPersona" name="nuevoCIPersona">                
-                  <select class="custom-select" id="nuevoExtCIPersona" name="nuevoExtCIPersona">
-                    <option value="">ELEGIR...</option>
+                  <select class="form-control selectpicker show-tick" id="nuevoExtCIPersona" name="nuevoExtCIPersona"  data-size="5" title="Elegir...">
                     <option value="PT">PT</option>
                     <option value="CH">CH</option>
                     <option value="OR">OR</option>
@@ -229,55 +229,70 @@ MODAL AGREGAR PERSONA
 
               </div>
 
-               <!-- ENTRADA PARA SELECCIONAR SEXO -->
+              <!-- ENTRADA PARA SELECCIONAR SEXO -->
             
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoSexoPersona">SEXO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select" id="nuevoSexoPersona" name="nuevoSexoPersona">
-                  <option value="">ELEGIR...</option>
+                <select class="form-control selectpicker show-tick" id="nuevoSexoPersona" name="nuevoSexoPersona" data-size="5" title="Elegir...">
                   <option value="FEMENINO">FEMENINO</option>
                   <option value="MASCULINO">MASCULINO</option>
                   
                 </select>
 
+              </div>
+
+              <!-- ENTRADA PARA SELECCIONAR ESTADO CIVIL -->
+            
+              <div class="form-group">
+                
+                <label class="font-weight-normal" for="nuevoEstadoCivilPersona">ESTADO CIVIL</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoEstadoCivilPersona" name="nuevoEstadoCivilPersona" data-size="5" title="Elegir...">
+                  <option value="SOLTERO(A)">SOLTERO(A)</option>
+                  <option value="CASADO(A)">CASADO(A)</option>
+                  <option value="DIVORCIADO(A)">DIVORCIADO(A)</option>
+                  <option value="VIUDO(A)">VIUDO(A)</option>
+                  
+                </select>
+
               </div>           
-
-              <!-- ENTRADA PARA LA DIRECCIÓN -->
-            
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="nuevoDireccionPersona">DIRECCIÓN</label>
-                <i class="fas fa-asterisk asterisk"></i>
-                <input type="text" class="form-control mayuscula" id="nuevoDireccionPersona" name="nuevoDireccionPersona">
-
-              </div>
-
-              <!-- ENTRADA PARA EL TELÉFONO -->
-            
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="nuevoTelefonoPersona">TELF / CELULAR</label>
-                <i class="fas fa-asterisk asterisk"></i>
-                <input type="text" class="form-control" id="nuevoTelefonoPersona" name="nuevoTelefonoPersona" data-inputmask="'mask': '9{7,8}'">
-
-              </div>
-
-              <!-- ENTRADA PARA EL EMAIL -->
-            
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="nuevoEmailPersona">EMAIL</label>
-                <input type="text" class="form-control" id="nuevoEmailPersona" name="nuevoEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
-
-              </div>
 
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12"> 
 
               <div class="form-group">
+
+                <!-- ENTRADA PARA LA DIRECCIÓN -->
+            
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="nuevoDireccionPersona">DIRECCIÓN</label>
+                  <i class="fas fa-asterisk asterisk"></i>
+                  <input type="text" class="form-control mayuscula" id="nuevoDireccionPersona" name="nuevoDireccionPersona">
+
+                </div>
+
+                <!-- ENTRADA PARA EL TELÉFONO -->
+              
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="nuevoTelefonoPersona">TELF / CELULAR</label>
+                  <i class="fas fa-asterisk asterisk"></i>
+                  <input type="text" class="form-control" id="nuevoTelefonoPersona" name="nuevoTelefonoPersona" data-inputmask="'mask': '9{7,8}'">
+
+                </div>
+
+                <!-- ENTRADA PARA EL EMAIL -->
+              
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="nuevoEmailPersona">EMAIL</label>
+                  <input type="text" class="form-control" id="nuevoEmailPersona" name="nuevoEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
+
+                </div>
 
                 <!-- ENTRADA PARA SUBIR FOTO -->
 
@@ -429,8 +444,7 @@ MODAL EDITAR PERSONA
                 <div class="input-group mb-3">
 
                   <input type="text" class="form-control" id="editarCIPersona" name="editarCIPersona">                
-                  <select class="custom-select" id="editarExtCIPersona" name="editarExtCIPersona">
-                    <option value="">ELEGIR...</option>
+                  <select class="form-control selectpicker show-tick" id="editarExtCIPersona" name="editarExtCIPersona" data-size="5">
                     <option value="PT">PT</option>
                     <option value="CH">CH</option>
                     <option value="OR">OR</option>
@@ -462,45 +476,61 @@ MODAL EDITAR PERSONA
                 
                 <label class="font-weight-normal" for="editarSexoPersona">SEXO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="custom-select" name="editarSexoPersona" id="editarSexoPersona">
+                <select class="form-control selectpicker show-tick" name="editarSexoPersona" id="editarSexoPersona" data-size="5">
                   <option value="FEMENINO">FEMENINO</option>
                   <option value="MASCULINO">MASCULINO</option>             
                 </select>
 
-              </div>   
+              </div>  
 
-              <!-- ENTRADA PARA LA DIRECCIÓN -->
+              <!-- ENTRADA PARA SELECCIONAR ESTADO CIVIL -->
             
               <div class="form-group">
                 
-                <label class="font-weight-normal" for="editarDireccionPersona">DIRECCIÓN</label>
-                <input type="text" class="form-control mayuscula" id="editarDireccionPersona" name="editarDireccionPersona">
+                <label class="font-weight-normal" for="editarEstadoCivilPersona">ESTADO CIVIL</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarEstadoCivilPersona" name="editarEstadoCivilPersona" data-size="5">
+                  <option value="SOLTERO(A)">SOLTERO(A)</option>
+                  <option value="CASADO(A)">CASADO(A)</option>
+                  <option value="DIVORCIADO(A)">DIVORCIADO(A)</option>
+                  <option value="VIUDO(A)">VIUDO(A)</option>
+                  
+                </select>
 
-              </div>
-
-              <!-- ENTRADA PARA EL TELÉFONO -->
-            
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="editarTelefonoPersona">TELF / CELULAR</label>
-                <input type="text" class="form-control" id="editarTelefonoPersona" name="editarTelefonoPersona" data-inputmask="'mask': '9{7,8}'">
-
-              </div>
-
-              <!-- ENTRADA PARA EL EMAIL -->
-            
-              <div class="form-group">
-                
-                <label class="font-weight-normal" for="editarEmailPersona">EMAIL</label>
-                <input type="text" class="form-control" id="editarEmailPersona" name="editarEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
-
-              </div>
+              </div>            
 
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12"> 
 
               <div class="form-group">
+
+                <!-- ENTRADA PARA LA DIRECCIÓN -->
+            
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="editarDireccionPersona">DIRECCIÓN</label>
+                  <input type="text" class="form-control mayuscula" id="editarDireccionPersona" name="editarDireccionPersona">
+
+                </div>
+
+                <!-- ENTRADA PARA EL TELÉFONO -->
+              
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="editarTelefonoPersona">TELF / CELULAR</label>
+                  <input type="text" class="form-control" id="editarTelefonoPersona" name="editarTelefonoPersona" data-inputmask="'mask': '9{7,8}'">
+
+                </div>
+
+                <!-- ENTRADA PARA EL EMAIL -->
+              
+                <div class="form-group">
+                  
+                  <label class="font-weight-normal" for="editarEmailPersona">EMAIL</label>
+                  <input type="text" class="form-control" id="editarEmailPersona" name="editarEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
+
+                </div>
 
                 <!-- ENTRADA PARA SUBIR FOTO -->
 

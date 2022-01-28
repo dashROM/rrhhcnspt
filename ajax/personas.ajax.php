@@ -46,9 +46,12 @@ class AjaxPersonas {
 	public $ci_persona;
 	public $ext_ci_persona;
 	public $fecha_nacimiento;
-	public $observaciones;
-	public $telefono_usuario;
-	public $email_usuario;
+	public $sexo_persona;
+	public $estado_civil;
+	public $direccion_persona;
+	public $telefono_persona;
+	public $email_persona;
+	public $matricula;
 
 	/*=============================================
 	NUEVO PERSONA
@@ -167,6 +170,7 @@ class AjaxPersonas {
 						       "ext_ci_persona"   	 => $this->ext_ci_persona,
 						       "fecha_nacimiento"    => $this->fecha_nacimiento,
 						       "sexo_persona"   	   => $this->sexo_persona,
+						       "estado_civil"   	   => $this->estado_civil,
 						       "direccion_persona"   => mb_strtoupper($this->direccion_persona,'utf-8'),
 						       "telefono_persona"    => $this->telefono_persona,
 						       "email_persona"   	   => $this->email_persona,
@@ -312,6 +316,7 @@ class AjaxPersonas {
 						       "ext_ci_persona"   	=> $this->ext_ci_persona,
 						       "fecha_nacimiento"   => $this->fecha_nacimiento,
 						       "sexo_persona"   	  => $this->sexo_persona,
+						       "estado_civil"   	  => $this->estado_civil,
 						       "direccion_persona"  => mb_strtoupper($this->direccion_persona,'utf-8'),
 						       "telefono_persona"   => $this->telefono_persona,
 						       "email_persona"   	  => $this->email_persona,
@@ -384,6 +389,7 @@ if (isset($_POST["nuevoPersona"])) {
 	$nuevoPersona -> ext_ci_persona = $_POST["nuevoExtCIPersona"];
 	$nuevoPersona -> fecha_nacimiento = $_POST["nuevoFechaNacimientoPersona"];
 	$nuevoPersona -> sexo_persona = $_POST["nuevoSexoPersona"];
+	$nuevoPersona -> estado_civil = $_POST["nuevoEstadoCivilPersona"];
 	$nuevoPersona -> direccion_persona = $_POST["nuevoDireccionPersona"];
 	$nuevoPersona -> telefono_persona = $_POST["nuevoTelefonoPersona"];
 	$nuevoPersona -> email_persona = $_POST["nuevoEmailPersona"];
@@ -408,6 +414,7 @@ if (isset($_POST["editarPersona"])) {
 	$editarPersona -> ext_ci_persona = $_POST["editarExtCIPersona"];
 	$editarPersona -> fecha_nacimiento = $_POST["editarFechaNacimientoPersona"];
 	$editarPersona -> sexo_persona = $_POST["editarSexoPersona"];
+	$editarPersona -> estado_civil = $_POST["editarEstadoCivilPersona"];
 	$editarPersona -> direccion_persona = $_POST["editarDireccionPersona"];
 	$editarPersona -> telefono_persona = $_POST["editarTelefonoPersona"];
 	$editarPersona -> email_persona = $_POST["editarEmailPersona"];

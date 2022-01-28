@@ -81,6 +81,7 @@ class TablaPersonas {
 						"'.$personas[$i]["ci_persona"].'",
 						"'.date("d/m/Y", strtotime($personas[$i]["fecha_nacimiento"])).'",
 						"'.$personas[$i]["sexo_persona"].'",
+						"'.$personas[$i]["estado_civil"].'",
 						"'.$personas[$i]["direccion_persona"].'",
 						"'.$personas[$i]["telefono_persona"].'",
 						"'.$personas[$i]["email_persona"].'",
@@ -174,6 +175,7 @@ class TablaPersonas {
 						"'.$personas[$i]["ci_persona"].'",
 						"'.date("d/m/Y", strtotime($personas[$i]["fecha_nacimiento"])).'",
 						"'.$personas[$i]["sexo_persona"].'",
+						"'.$personas[$i]["estado_civil"].'",
 						"'.$personas[$i]["direccion_persona"].'",
 						"'.$personas[$i]["telefono_persona"].'",
 						"'.$personas[$i]["email_persona"].'"

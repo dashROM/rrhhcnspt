@@ -247,9 +247,10 @@ $(document).on("click", ".btnEditarPersona", function() {
 			$('#editarMaternoPersona').val(respuesta["materno_persona"]);
 			$('#editarNombrePersona').val(respuesta["nombre_persona"]);
 			$('#editarCIPersona').val(respuesta["ci_persona"]);
-			$('#editarExtCIPersona').val(respuesta["ext_ci_persona"]);
+			$('#editarExtCIPersona').val(respuesta["ext_ci_persona"]).selectpicker('refresh');
 			$('#editarFechaNacimientoPersona').val(respuesta["fecha_nacimiento"]);
-			$('#editarSexoPersona').val(respuesta["sexo_persona"]);
+			$('#editarSexoPersona').val(respuesta["sexo_persona"]).selectpicker('refresh');
+			$('#editarEstadoCivilPersona').val(respuesta["estado_civil"]).selectpicker('refresh');
 			$('#editarDireccionPersona').val(respuesta["direccion_persona"]);
 			$('#editarTelefonoPersona').val(respuesta["telefono_persona"]);
 			$('#editarEmailPersona').val(respuesta["email_persona"]);
@@ -276,7 +277,7 @@ $(document).on("click", ".btnEditarPersona", function() {
 /*=============================================
 VALIDANDO DATOS DE EDITAR PERSONA
 =============================================*/
-$("#frmEditarUsuario").validate({
+$("#frmEditarPersona").validate({
 
   	rules: {
   		editarPaternoPersona : { patron_texto: true},
@@ -286,6 +287,7 @@ $("#frmEditarUsuario").validate({
    		editarExtCIPersona : { required: true},
    		editarFechaNacimientoPersona: { required: true},
    		editarSexoPersona : { required: true},
+   		editarEstadoCivilPersona : { required: true},
    		editarDireccionPersona : { required: true, patron_textoEspecial: true},
    		editarTelefonoPersona : { required: true, patron_numeros: true},
    		editarEmailPersona : { patron_textoEspecial: true},   		  
@@ -294,6 +296,7 @@ $("#frmEditarUsuario").validate({
   	messages: {
 		editarExtCIUsuario : "Elija una extensión",
 		editarSexoPersona : "Elija una opción",
+		editarEstadoCivilPersona : "Elija una opción",
 	},
 
 });
@@ -344,6 +347,7 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 							$("#editarExtCIPersona").val("");
 							$("#editarFechaNacimientoPersona").val("");
 							$("#editarSexoPersona").val("");
+							$("#editarEstadoCivilPersona").val("");
 							$("#editarDireccionPersona").val("");
 							$("#editarTelefonoPersona").val("");
 							$("#editarEmailPersona").val("");
