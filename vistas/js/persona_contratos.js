@@ -269,6 +269,7 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#nuevoFechaInicio").val("");
 							$("#nuevoFechaFin").val("");
 							$("#nuevoDiasContrato").val("");
+							$("#nuevoCertificacion").val("");
 							$("#nuevoObservacionesEmpleado").val("");
 
 	  						// Funcion que recarga y actuaiiza la tabla	
@@ -576,21 +577,23 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error){
 
-		      		console.log("No funciona");
+		      console.log("No funciona");
 		        
-		    	}
+		    }
 
 			});
+
+			$('#editarCertificacion').val(respuesta["certificacion_presupuestaria"]);
 
 			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
 			$('#editarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
 
 		},
-	    error: function(error){
+	  error: function(error){
 
-	      console.log("No funciona");
+	    console.log("No funciona");
 	        
-	    }
+	  }
 
 	});
 
@@ -686,11 +689,11 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-		  				if (result.value) {
+		  			if (result.value) {
 
-		  					$('#modalEditarPersonaContrato').modal('toggle');
+		  				$('#modalEditarPersonaContrato').modal('toggle');
 
-		  					// $("#editarEstablecimiento").remove();
+		  				// $("#editarEstablecimiento").remove();
 							$("#editarBuscarPersona").val("");		
 							$("#editarCIEmpleado").val("");
 							$("#editarFechaNacimientoEmpleado").val("");
@@ -700,14 +703,13 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#editarDiasContrato").val("");
 							// $("#editarTipoContrato").remove();
 							$("#editarResolucionMinisterial").val("");
+							$("#editarCertificacion").val("");
 							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
+	  					// Funcion que recarga y actuaiiza la tabla	
 
 							tablaPersonaContratos.ajax.reload( null, false );
-
-	  						// window.location = "empleados";
 
 						}
 

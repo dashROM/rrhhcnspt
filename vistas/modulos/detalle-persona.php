@@ -679,6 +679,15 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="nuevoCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
+                <input type="text" class="form-control" id="nuevoCertificacion" name="nuevoCertificacion">
+
+              </div>
+
               <!-- ENTRADA PARA LAS OBSERVACIONES -->
             
               <div class="form-group">
@@ -940,6 +949,15 @@ MODAL EDITAR PERSONA CONTRATO
                 <select class="form-control selectpicker show-tick" id="editarMemorandumInstructivo" name="editarMemorandumInstructivo" data-size="5">
                
                 </select>
+
+              </div>
+
+              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="editarCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
+                <input type="text" class="form-control" id="editarCertificacion" name="editarCertificacion">
 
               </div>
 
