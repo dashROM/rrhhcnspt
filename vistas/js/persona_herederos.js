@@ -68,7 +68,7 @@ $("#frmNuevoPersonaHeredero").validate({
 		nuevoPaternoHeredero : { patron_texto: true},
 		nuevoMaternoHeredero: { patron_texto: true},
 		nuevoNombreHeredero: { required: true, patron_texto: true},
-   		nuevoFechaNacimientoHeredero: { required: true},
+   		// nuevoFechaNacimientoHeredero: { required: true},
    		nuevoParentezco: { required: true},
 	},
 
@@ -236,7 +236,7 @@ $("#frmEditarPersonaHeredero").validate({
 		editarPaternoHeredero : { patron_texto: true},
 		editarMaternoHeredero: { patron_texto: true},
 		editarNombreHeredero: { required: true, patron_texto: true},
-   		editarFechaNacimientoHeredero: { required: true},
+   		// editarFechaNacimientoHeredero: { required: true},
    		editarParentezco: { required: true},
 	},
 
@@ -335,5 +335,96 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 		});
 		
 	} 
+
+});
+
+/*=============================================
+ELIMINAR PERSONA HEREDERO
+=============================================*/
+
+$(document).on("click", ".btnEliminarPersonaHeredero", function() {
+	
+	var id_persona_heredero = $(this).attr("idPersonaHeredero");
+
+	swal.fire({
+
+		title: '¿Está seguro de borrar el heredero?',
+		text: '¡Si no lo esta puede cancelar la acción!',
+		icon: 'warning',
+		showCancelButton: true,
+		allowOutsideClick: false,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Si, borrar heredero!'
+
+	}).then((result)=>{
+
+		if (result.value) {
+
+			var datos = new FormData();
+			datos.append("eliminarPersonaHeredero", 'eliminarPersonaHeredero');
+			datos.append("id_persona_heredero", id_persona_heredero);
+
+			$.ajax({
+
+				url:"../ajax/persona_herederos.ajax.php",
+				method: "POST",
+				data: datos,
+				cache: false,
+				contentType: false,
+				processData: false,
+				dataType: "html",
+				success: function(respuesta) {
+
+					console.log("respuesta", respuesta);
+				
+					if (respuesta == "ok") {
+
+						swal.fire({
+							
+							icon: "success",
+							title: "¡Los datos se eliminaron correctamente!",
+							showConfirmButton: true,
+							allowOutsideClick: false,
+							confirmButtonText: "Cerrar"
+
+						}).then((result) => {
+		  					
+			  				if (result.value) {
+
+		  						// Funcion que recarga y actuaiiza la tabla	
+
+								tablaPersonaHerederos.ajax.reload( null, false );
+
+							}
+
+						});
+
+					} else {
+
+						swal.fire({
+								
+							title: "¡Error, no se pudo completar el procedimiento!",
+							icon: "error",
+							allowOutsideClick: false,
+							confirmButtonText: "¡Cerrar!"
+
+						});
+						
+					}
+
+				},
+				error: function(error) {
+
+			        console.log("No funciona");
+			        
+			    }
+
+			});
+
+		}
+
+	});
 
 });

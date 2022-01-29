@@ -40,11 +40,11 @@ class AjaxPersonaHerederos {
 	public function ajaxNuevoPersonaHeredero()	{
 			
 		$datos = array(	"paterno_heredero" 	 => mb_strtoupper($this->paterno_heredero,'utf-8'),
-						"materno_heredero" 	 => mb_strtoupper($this->materno_heredero,'utf-8'),							
-				        "nombre_heredero"    => mb_strtoupper($this->nombre_heredero,'utf-8'),
-				        "fecha_nacimiento"   => $this->fecha_nacimiento,
-				        "parentezco"  		 => $this->parentezco,
-				        "id_persona"  		 => $this->id_persona
+						        "materno_heredero" 	 => mb_strtoupper($this->materno_heredero,'utf-8'),							
+				            "nombre_heredero"    => mb_strtoupper($this->nombre_heredero,'utf-8'),
+				            "fecha_nacimiento"   => $this->fecha_nacimiento,
+				            "parentezco"  		   => $this->parentezco,
+				            "id_persona"  		   => $this->id_persona
 		);	
 
 
@@ -60,17 +60,31 @@ class AjaxPersonaHerederos {
 
 	public function ajaxEditarPersonaHeredero() {
 
-		$datos = array( "paterno_heredero"		=> mb_strtoupper($this->paterno_heredero,'utf-8'),
-						"materno_heredero"  	=> mb_strtoupper($this->materno_heredero,'utf-8'),
-				        "nombre_heredero"   	=> mb_strtoupper($this->nombre_heredero,'utf-8'),
-				        "fecha_nacimiento"  	=> $this->fecha_nacimiento,
-				        "parentezco"        	=> $this->parentezco,
-				        "id_persona_heredero"  	=> $this->id_persona_heredero
+		$datos = array( "paterno_heredero"		  => mb_strtoupper($this->paterno_heredero,'utf-8'),
+						        "materno_heredero"  	  => mb_strtoupper($this->materno_heredero,'utf-8'),
+				            "nombre_heredero"   	  => mb_strtoupper($this->nombre_heredero,'utf-8'),
+				            "fecha_nacimiento"  	  => $this->fecha_nacimiento,
+				            "parentezco"        	  => $this->parentezco,
+				            "id_persona_heredero"  	=> $this->id_persona_heredero
 		);	
 
 		// var_dump($datos);
 
 		$respuesta = ControladorPersonaHerederos::ctrEditarPersonaHeredero($datos);
+
+		echo $respuesta;
+
+	}
+
+	/*=============================================
+	ELIMINAR  PERSONA HEREDERO
+	=============================================*/
+
+	public function ajaxEliminarPersonaHeredero()	{
+
+		$datos = array( "id_persona_heredero"  	=> $this->id_persona_heredero );	
+
+		$respuesta = ControladorPersonaHerederos::ctrEliminarPersonaHeredero($datos);
 
 		echo $respuesta;
 
@@ -103,7 +117,7 @@ if (isset($_POST["nuevoPersonaHeredero"])) {
 	$nuevoPersonaHeredero -> paterno_heredero = $_POST["nuevoPaternoHeredero"];
 	$nuevoPersonaHeredero -> materno_heredero = $_POST["nuevoMaternoHeredero"];
 	$nuevoPersonaHeredero -> nombre_heredero = $_POST["nuevoNombreHeredero"];
-	$nuevoPersonaHeredero -> fecha_nacimiento = $_POST["nuevoFechaNacimientoHeredero"];
+	// $nuevoPersonaHeredero -> fecha_nacimiento = $_POST["nuevoFechaNacimientoHeredero"];
 	$nuevoPersonaHeredero -> parentezco = $_POST["nuevoParentezco"];
 	$nuevoPersonaHeredero -> id_persona = $_POST["idPersona"];
 
@@ -122,10 +136,24 @@ if (isset($_POST["editarPersonaHeredero"])) {
 	$editarPersonaHeredero -> paterno_heredero = $_POST["editarPaternoHeredero"];
 	$editarPersonaHeredero -> materno_heredero = $_POST["editarMaternoHeredero"];
 	$editarPersonaHeredero -> nombre_heredero = $_POST["editarNombreHeredero"];
-	$editarPersonaHeredero -> fecha_nacimiento = $_POST["editarFechaNacimientoHeredero"];
+	// $editarPersonaHeredero -> fecha_nacimiento = $_POST["editarFechaNacimientoHeredero"];
 	$editarPersonaHeredero -> parentezco = $_POST["editarParentezco"];
 	$editarPersonaHeredero -> id_persona_heredero = $_POST["idPersonaHeredero"];
 
 	$editarPersonaHeredero -> ajaxEditarPersonaHeredero();
+
+}
+
+/*=============================================
+ELIMINAR PERSONA HEREDERO
+=============================================*/
+
+if (isset($_POST["eliminarPersonaHeredero"])) {
+	
+	$personaHeredero = new AjaxPersonaHerederos();
+
+	$personaHeredero -> id_persona_heredero = $_POST["id_persona_heredero"];
+
+	$personaHeredero -> ajaxEliminarPersonaHeredero();
 
 }

@@ -47,9 +47,14 @@ class ControladorPersonaHerederos {
 	ELIMINAR PERSONA HEREDERO
 	=============================================*/
 
-	static public function ctrEliminarPersonaHeredero()	{
+	static public function ctrEliminarPersonaHeredero($datos)	{
 
-		
+		$tabla = "persona_herederos";
+
+		$respuesta = ModeloPersonaHerederos::mdlEliminarPersonaHeredero($tabla, $datos);
+
+		return $respuesta;
+
 	}
 
 }

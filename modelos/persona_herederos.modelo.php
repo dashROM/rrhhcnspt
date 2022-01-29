@@ -113,37 +113,37 @@ class ModeloPersonaHerederos {
 	ACTUALIZAR PERSONA
 	=============================================*/
 
-	static public function mdlActualizarPersona($tabla, $item1, $valor1, $item2, $valor2) {
+	// static public function mdlActualizarPersona($tabla, $item1, $valor1, $item2, $valor2) {
 
-		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
+	// 	$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET $item1 = :$item1 WHERE $item2 = :$item2");
 
-		$stmt->bindParam(":".$item1, $valor1, PDO::PARAM_STR);
-		$stmt->bindParam(":".$item2, $valor2, PDO::PARAM_STR);
+	// 	$stmt->bindParam(":".$item1, $valor1, PDO::PARAM_STR);
+	// 	$stmt->bindParam(":".$item2, $valor2, PDO::PARAM_STR);
 
-		if ($stmt->execute()) {
+	// 	if ($stmt->execute()) {
 			
-			return "ok";
+	// 		return "ok";
 
-		} else {
+	// 	} else {
 			
-			return "error";
+	// 		return "error";
 
-		}
+	// 	}
 		
-		$stmt->close();
-		$stmt = null;
+	// 	$stmt->close();
+	// 	$stmt = null;
 
-	}	
+	// }	
 
 	/*=============================================
-	BORRAR PERSONA
+	ELIMINAR PERSONA HEREDERO
 	=============================================*/
 
-	static public function mdlBorrarPersona($tabla, $datos)	{
+	static public function mdlEliminarPersonaHeredero($tabla, $datos)	{
 		
-		$stmt = Conexion::conectarPG()->prepare("DELETE FROM $tabla WHERE id_persona = :id_persona");
+		$stmt = Conexion::conectarPG()->prepare("DELETE FROM $tabla WHERE id_persona_heredero = :id_persona_heredero");
 
-		$stmt->bindParam(":id_persona", $datos, PDO::PARAM_INT);
+		$stmt->bindParam(":id_persona_heredero", $datos["id_persona_heredero"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 			

@@ -32,9 +32,9 @@ class TablaPersonaHerederos {
 
 				for ($i = 0; $i < count($persona_herederos); $i++) { 
 
-					$btnEditarPersonaHeredero = "<button class='btn btn-warning btnEditarPersonaHeredero' idPersonaHeredero='".$persona_herederos[$i]["id_persona_heredero"]."' data-toggle='modal' data-target='#modalEditarPersonaHeredero' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button>";
+					$btnEditarPersonaHeredero = "<button class='btn btn-warning btnEditarPersonaHeredero' idPersonaHeredero='".$persona_herederos[$i]["id_persona_heredero"]."' data-toggle='modal' data-target='#modalEliminarPersonaHeredero' data-toggle='tooltip' title='Editar'><i class='fas fa-pencil-alt'></i></button>";
 
-					$btnEliminarPersonaHeredero = "<button class='btn btn-danger btnMasDetallesPersona' idPersona='".$persona_herederos[$i]["id_persona_heredero"]."' data-toggle='modal' data-target='#modalEliminarPersonaHeredero' data-toggle='tooltip' title='Eliminar'><i class='fas fa-trash-alt'></i></button>";
+					$btnEliminarPersonaHeredero = "<button class='btn btn-danger btnEliminarPersonaHeredero' idPersonaHeredero='".$persona_herederos[$i]["id_persona_heredero"]."' data-toggle='tooltip' title='Eliminar'><i class='fas fa-trash-alt'></i></button>";
 
 					/*=============================================
 					TRAEMOS LAS ACCIONES

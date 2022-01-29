@@ -1606,6 +1606,11 @@ MODAL AGREGAR PERSONA HEREDERO
                 <select class="form-control selectpicker show-tick" id="editarEstablecimiento" id="nuevoParentezco" name="nuevoParentezco" data-live-search="true" data-size="5" title="Elegir...">                  
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
+                  <option value="ESPOSO(A)">ESPOSO(A)</option>
+                  <option value="ABUELO">ABUELO</option>
+                  <option value="ABUELA">ABUELA</option>
+                  <option value="HERMANO">HERMANO</option>
+                  <option value="HERMANA">HERMANA</option>
                   <option value="HIJO">HIJO</option>
                   <option value="HIJA">HIJA</option>
                   <option value="NIETO">NIETO</option>
@@ -1743,6 +1748,11 @@ MODAL EDITAR PERSONA HEREDERO
                 <select class="form-control selectpicker show-tick" id="editarParentezco" name="editarParentezco">
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
+                  <option value="ESPOSO(A)">ESPOSO(A)</option>
+                  <option value="ABUELO">ABUELO</option>
+                  <option value="ABUELA">ABUELA</option>
+                  <option value="HERMANO">HERMANO</option>
+                  <option value="HERMANA">HERMANA</option>
                   <option value="HIJO">HIJO</option>
                   <option value="HIJA">HIJA</option>
                   <option value="NIETO">NIETO</option>

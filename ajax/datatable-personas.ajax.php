@@ -38,13 +38,13 @@ class TablaPersonas {
 
 					if ($personas[$i]["foto_persona"] != "") {
                               
-                    	$foto = "<img src='".$personas[$i]["foto_persona"]."' class='img-thumbnail' width='40px'>";
+          	$foto = "<img src='".$personas[$i]["foto_persona"]."' class='img-thumbnail' width='40px'>";
 
-                    } else {
+          } else {
 
-                    	$foto = "<img src='vistas/img/personas/default/anonymous.png' class='img-thumbnail' width='40px'>";
+          	$foto = "<img src='vistas/img/personas/default/anonymous.png' class='img-thumbnail' width='40px'>";
 
-                    }
+          }
 
 					/*=============================================
 					VERIFICAMOS EL ESTADO DE LA PERSONA

@@ -22,7 +22,7 @@ class ModeloPersonas {
 
 		} else {
 
-			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, estado_civil, direccion_persona, telefono_persona, email_persona, fecha_registro, matricula_persona FROM $tabla ORDER BY id_persona DESC");
+			$stmt = Conexion::conectarPG()->prepare("SELECT id_persona, concat_ws(' ', paterno_persona, materno_persona, nombre_persona) AS nombre_completo, foto_persona, concat_ws(' ', ci_persona, ext_ci_persona) AS ci_persona, fecha_nacimiento, sexo_persona, estado_civil, direccion_persona, telefono_persona, email_persona, fecha_registro, matricula_persona FROM $tabla ORDER BY id_persona ASC");
 
 			$stmt->execute();
 
