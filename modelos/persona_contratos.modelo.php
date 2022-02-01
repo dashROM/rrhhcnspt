@@ -23,7 +23,7 @@ class ModeloPersonaContratos {
 			} else {
 
 				//muestra varios datos de una persona que tiene un respectivo contrato
-				$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.tipo_contratacion, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato, pc.documento_ampliacion, pc.ampliacion, pc.resolucion_ministerial, pc.id_memorandum, m.nro_memorandum, m.fecha_memorandum, pc.certificacion_presupuestaria FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l, memorandums m WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND m.id_memorandum = pc.id_memorandum AND pc.$item = :$item";
+				$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, pc.tipo_contratacion, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato, pc.documento_ampliacion, pc.ampliacion, pc.resolucion_ministerial, pc.id_memorandum, m.nro_memorandum, m.fecha_memorandum, pc.certificacion_presupuestaria, pc.recurrencia FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l, memorandums m WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND m.id_memorandum = pc.id_memorandum AND pc.$item = :$item";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -127,7 +127,7 @@ class ModeloPersonaContratos {
 	
 	static public function mdlEditarPersonaContrato($tabla, $datos){
 
-		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, id_suplencia = :id_suplencia, id_memorandum = :id_memorandum, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato, nro_cod_contrato = :nro_cod_contrato, cod_contrato = :cod_contrato, certificacion_presupuestaria = :certificacion_presupuestaria WHERE id_persona_contrato = :id_persona_contrato");
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, id_suplencia = :id_suplencia, id_memorandum = :id_memorandum, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato, nro_cod_contrato = :nro_cod_contrato, cod_contrato = :cod_contrato, certificacion_presupuestaria = :certificacion_presupuestaria, recurrencia = :recurrencia WHERE id_persona_contrato = :id_persona_contrato");
 
 		$stmt->bindParam(":id_persona_contrato", $datos["id_persona_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_lugar", $datos["id_lugar"], PDO::PARAM_INT);
@@ -145,6 +145,7 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":nro_cod_contrato", $datos["nro_cod_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":cod_contrato", $datos["cod_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":certificacion_presupuestaria", $datos["certificacion_presupuestaria"], PDO::PARAM_STR);
+		$stmt->bindParam(":recurrencia", $datos["recurrencia"], PDO::PARAM_INT);
 
 		if($stmt->execute()){
 

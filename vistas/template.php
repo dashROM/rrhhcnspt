@@ -38,7 +38,7 @@ session_start();
   <link href="<?= SERVERURL; ?>/vistas/plugins/animate.css/animate.min.css" rel="stylesheet">
   
   <!-- iCheck -->
-<!--   <link href="<?= SERVERURL; ?>/vistas/plugins/iCheck/skins/flat/green.css" rel="stylesheet"> -->
+  <link href="<?= SERVERURL; ?>/vistas/plugins/iCheck/skins/flat/green.css" rel="stylesheet">
   
   <!-- bootstrap-progressbar -->
 <!--   <link href="<?= SERVERURL; ?>/vistas/plugins/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"> -->
@@ -179,7 +179,7 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
 <!--   <script src="<?= SERVERURL; ?>/vistas/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> -->
 
   <!-- iCheck -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/iCheck/icheck.min.js"></script> -->
+  <script src="<?= SERVERURL; ?>/vistas/plugins/iCheck/icheck.min.js"></script>
 
   <!-- Skycons -->
   <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/skycons/skycons.js"></script> -->

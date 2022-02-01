@@ -94,7 +94,7 @@ class AjaxPersonas {
 
 				// $ruta = "../vistas/img/personas/".$this->ci_persona."/".$aleatorio.".jpg";
 
-				$ruta = "../vistas/img/personas/".$aleatorio.".jpg";
+				$ruta = "../vistas/img/personas/".$this->ci_persona."-".$aleatorio.".jpg";
 
 				$origen = imagecreatefromjpeg($this->foto_persona["tmp_name"]);
 
@@ -120,7 +120,7 @@ class AjaxPersonas {
 
 				$aleatorio = mt_rand(100000,999999);
 
-				$ruta = "../vistas/img/personas/".$aleatorio.".png";
+				$ruta = "../vistas/img/personas/".$this->ci_persona."-".$aleatorio.".png";
 
 				$origen = imagecreatefrompng($this->foto_persona["tmp_name"]);
 
@@ -240,7 +240,7 @@ class AjaxPersonas {
 
 				$aleatorio = mt_rand(100000,999999);
 
-				$ruta = "../vistas/img/personas/".$aleatorio.".jpg";
+				$ruta = "../vistas/img/personas/".$this->ci_persona."-".$aleatorio.".jpg";
 
 				$origen = imagecreatefromjpeg($this->foto_persona["tmp_name"]);
 
@@ -266,7 +266,7 @@ class AjaxPersonas {
 
 				$aleatorio = mt_rand(100000,999999);
 
-				$ruta = "../vistas/img/personas/".$aleatorio.".png";
+				$ruta = "../vistas/img/personas/".$this->ci_persona."-".$aleatorio.".png";
 
 				$origen = imagecreatefrompng($this->foto_persona["tmp_name"]);
 

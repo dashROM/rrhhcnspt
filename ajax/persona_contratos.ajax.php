@@ -1484,6 +1484,7 @@ class AjaxPersonaContratos {
 					    "nro_cod_contrato"   	        => $codigo,
 					    "cod_contrato"   	            => $cod_contrato,
 					    "tipo_contratacion"  	        => $this->tipo_contratacion,
+					    "recurrencia"   	            => $this->recurrencia,
 					    "id_persona_contrato"           => $this->id_persona_contrato,
 		);	
 
@@ -1898,7 +1899,16 @@ if (isset($_POST["nuevoPersonaContratos"])) {
 	$nuevoPersonaContrato -> id_memorandum = $_POST["nuevoMemorandumInstructivo"];
 	$nuevoPersonaContrato -> certificacion_presupuestaria = $_POST["nuevoCertificacion"];
 	$nuevoPersonaContrato -> observaciones_contrato = $_POST["nuevoObservacionesContrato"];
-	$nuevoPersonaContrato -> recurrencia = $_POST["recurrencia"];
+
+	if (isset($_POST["nuevoRecurrencia"])) {
+		
+		$nuevoPersonaContrato -> recurrencia = 1;
+
+	} else {
+
+		$nuevoPersonaContrato -> recurrencia = 0;
+
+	}
 
 	$nuevoPersonaContrato -> ajaxNuevoPersonaContrato();
 
@@ -1924,6 +1934,19 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> id_memorandum = $_POST["editarMemorandumInstructivo"];
 	$editarPersonaContrato -> certificacion_presupuestaria = $_POST["editarCertificacion"];
 	$editarPersonaContrato -> observaciones_contrato = $_POST["editarObservacionesContrato"];
+
+	if (isset($_POST["editarRecurrencia"])) {
+		
+		$editarPersonaContrato -> recurrencia = 1;
+
+	} else {
+
+		$editarPersonaContrato -> recurrencia = 0;
+
+	}
+
+	// $editarPersonaContrato -> recurrencia = $_POST["editarRecurrencia"];
+
 	$editarPersonaContrato -> id_persona_contrato = $_POST["editarIdPersonaContrato"];
 
 	$editarPersonaContrato -> ajaxEditarPersonaContrato();

@@ -562,6 +562,14 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA SELECCIONAR RECURRENCIA-->
+            
+              <div class="form-group">
+                
+                <input type="checkbox" class="flat"  id="nuevoRecurrencia" name="nuevoRecurrencia"> RECURRENCIA
+
+              </div>
+
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -718,7 +726,7 @@ MODAL AGREGAR PERSONA CONTRATO
 
           </button>
 
-          <?php if ($cantidad_persona_contrato["numero_filas"] < 2) { ?>
+          <!-- <?php if ($cantidad_persona_contrato["numero_filas"] < 2) { ?>
 
           <button type="button" class="btn btn-round btn-outline-success btnGuardar" recurrencia=0>
 
@@ -736,7 +744,14 @@ MODAL AGREGAR PERSONA CONTRATO
 
           </button>
 
-          <?php } ?>
+          <?php } ?> -->
+
+          <button type="button" class="btn btn-round btn-outline-success btnGuardar">
+
+            <i class="fas fa-save"></i>
+            Guardar Datos
+
+          </button>
 
         </div>
 
@@ -869,6 +884,14 @@ MODAL EDITAR PERSONA CONTRATO
                 <select class="form-control selectpicker show-tick" id="editarTipoContratacion" name="editarTipoContratacion" data-size="5">
 
                 </select>
+
+              </div>
+
+              <!-- ENTRADA PARA SELECCIONAR RECURRENCIA-->
+            
+              <div class="form-group">
+                
+                <input type="checkbox" class="flat"  id="editarRecurrencia" name="editarRecurrencia"> RECURRENCIA
 
               </div>
 

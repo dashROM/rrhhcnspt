@@ -209,7 +209,7 @@ $("#frmNuevoPersonaContrato").validate({
 	},
 
   messages: {
-  		nuevoLugar : "Elija un lugar",
+  	nuevoLugar : "Elija un lugar",
 		nuevoEstablecimiento : "Elija un establecimiento",
 		nuevoBuscarPersona : "Elija una persona",
 		nuevoCargoEmpleado : "Elija un cargo",
@@ -228,15 +228,15 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 	var idPersona = $("#nuevoIdPersona").val();
 
-	var recurrencia = $(this).attr("recurrencia");
+	// var recurrencia = $(this).attr("recurrencia");
 
-    if ($("#frmNuevoPersonaContrato").valid()) {
+  if ($("#frmNuevoPersonaContrato").valid()) {
 
-    	// console.log("VALIDADO PERSONA CONTRATO");
+    // console.log("VALIDADO PERSONA CONTRATO");
 
-    	var datos = new FormData($("#frmNuevoPersonaContrato")[0]);
+    var datos = new FormData($("#frmNuevoPersonaContrato")[0]);
 		datos.append("nuevoPersonaContratos", 'nuevoPersonaContratos');
-		datos.append("recurrencia", recurrencia);
+		// datos.append("recurrencia", recurrencia);
 
 		$.ajax({
 
@@ -262,9 +262,9 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+  					if (result.value) {
 
-	  						$('#modalAgregarPersonaContrato').modal('toggle');
+  						$('#modalAgregarPersonaContrato').modal('toggle');
 
 							$("#nuevoFechaInicio").val("");
 							$("#nuevoFechaFin").val("");
@@ -272,7 +272,7 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#nuevoCertificacion").val("");
 							$("#nuevoObservacionesEmpleado").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonaContratos.ajax.reload( null, false );
 
 						}
@@ -461,6 +461,18 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				$("#editarTipoContratacion").append('<option value="SALUD">SALUD</option>').selectpicker('refresh')
 
 			}
+
+			if (respuesta["recurrencia"] == 1) {
+
+				// $('#editarRecurrencia').attr('checked', 'checked');
+				$('#editarRecurrencia').iCheck('check');
+
+			} else {
+
+				// $('#editarRecurrencia').removeAttr('checked');
+				$('#editarRecurrencia').iCheck('uncheck');
+
+			}			
 
 			$('#editarFechaInicio').val(respuesta["inicio_contrato"]);
 			$('#editarFechaFin').val(respuesta["fin_contrato"]);
