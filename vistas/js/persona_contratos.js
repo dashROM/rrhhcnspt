@@ -204,7 +204,8 @@ $("#frmNuevoPersonaContrato").validate({
  		nuevoFechaFin : { required: true},
  		nuevoTipoContrato : { required: true},  
  		nuevoTipoContratacion : { required: true}, 	
- 		nuevoMemorandumInstructivo : { required: true},      	
+ 		nuevoMemorandumInstructivo : { required: true}, 
+ 		nuevoGestionContrato : { required: true},      	
  		nuevoObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -213,9 +214,10 @@ $("#frmNuevoPersonaContrato").validate({
 		nuevoEstablecimiento : "Elija un establecimiento",
 		nuevoBuscarPersona : "Elija una persona",
 		nuevoCargoEmpleado : "Elija un cargo",
-		nuevoMemorandumInstructivo : "Elija una opción",
 		nuevoTipoContrato : "Elija una tipo de contrato",
 		nuevoTipoContratacion : "Elija una tipo de contratacion",
+		nuevoMemorandumInstructivo : "Elija una opción",
+		nuevoGestionContrato : "Elija una gestión",
 	},
 
 });
@@ -452,7 +454,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			// cargando tipo_contratacion
 			$("#editarTipoContratacion").empty().append('<option value="'+respuesta["tipo_contratacion"]+'">'+respuesta["tipo_contratacion"]+'</option>').selectpicker('refresh')
 
-			if (respuesta["tipo_contratacion"] == "SALUD") {
+			if (respuesta["tipo_contratacion"].split(" ").join("") == "SALUD") {
 
 				$("#editarTipoContratacion").append('<option value="ADMINISTRATIVO">ADMINISTRATIVO</option>').selectpicker('refresh')
 
@@ -479,7 +481,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			$('#editarDiasContrato').val(respuesta["dias_contrato"]);
 
 			// cargando datos de contratos 
-			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+'</option>').selectpicker('refresh')
+			$("#editarTipoContrato").empty().append('<option value="'+respuesta["id_contrato"]+'">'+respuesta["nombre_contrato"]+' - '+respuesta["proposito_contrato"]+'</option>').selectpicker('refresh')
 
 			var datosContrato = new FormData();
 			datosContrato.append("buscadorContratos", 'buscadorContratos');
@@ -498,7 +500,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+'</option>').selectpicker('refresh')
+						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+' - '+val.proposito_contrato+'</option>').selectpicker('refresh')
 
 					});
 
@@ -563,7 +565,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			// $('#editarResolucionMinisterial').val(respuesta["resolucion_ministerial"]);
 
 			// cargando datos de memorandum instructivo 
-			$("#editarMemorandumInstructivo").empty().append('<option data-subtext="de fecha '+respuesta["fecha_memorandum"]+'" value="'+respuesta["id_memorandum"]+'">'+respuesta["nro_memorandum"]+'</option>').selectpicker('refresh')
+			$("#editarMemorandumInstructivo").empty().append('<option data-subtext="de fecha '+respuesta["fecha_memorandum"]+'" value="'+respuesta["id_memorandum"]+'">Nº '+respuesta["nro_memorandum"]+'</option>').selectpicker('refresh')
 			
 			var datosMemorandum = new FormData();
 			datosMemorandum.append("buscadorMemorandums", 'buscadorMemorandums');
@@ -582,7 +584,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarMemorandumInstructivo").append('<option data-subtext="de fecha '+val.fecha_memorandum+'" value="'+val.id_memorandum+'">'+val.nro_memorandum+'</option>').selectpicker('refresh')
+						$("#editarMemorandumInstructivo").append('<option data-subtext="de fecha '+val.fecha_memorandum+'" value="'+val.id_memorandum+'">Nº '+val.nro_memorandum+'</option>').selectpicker('refresh')
 
 					});
 
@@ -596,6 +598,8 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			});
 
 			$('#editarCertificacion').val(respuesta["certificacion_presupuestaria"]);
+
+			$('#editarGestionContrato').val(respuesta["gestion_contrato"]).selectpicker('refresh');
 
 			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
 			$('#editarIdPersonaContrato').val(respuesta["id_persona_contrato"]);
@@ -649,7 +653,9 @@ $("#frmEditarPersonaContrato").validate({
  		editarFechaFin : { required: true},
  		editarDiasContrato : { required: true}, 
  		editarTipoContrato : { required: true},   
- 		editarTipoContratacion : { required: true},		
+ 		editarTipoContratacion : { required: true},	
+ 		editarMemorandumInstructivo : { required: true}, 
+ 		editarGestionContrato : { required: true},      		
  		editarObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
 
@@ -659,6 +665,8 @@ $("#frmEditarPersonaContrato").validate({
 		editarCargoEmpleado : "Elija un cargo",
 		editarTipoContrato : "Elija una tipo de contrato",
 		editarTipoContratacion : "Elija una tipo de contratacion",
+		editarMemorandumInstructivo : "Elija una opción",
+		editarGestionContrato : "Elija una gestión",
 	},
 
 });
@@ -715,7 +723,8 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#editarDiasContrato").val("");
 							// $("#editarTipoContrato").remove();
 							$("#editarResolucionMinisterial").val("");
-							$("#editarCertificacion").val("");
+							$("#editarMemorandumInstructivo").val("");
+							$("#editarGestionContrato").val("");
 							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");
 
@@ -1040,6 +1049,7 @@ $(".archivoContrato").change(function() {
  	var archivo = this.files[0];
 
 	console.log("archivo", archivo["type"]);
+	console.log("Peso archivo", archivo["size"]);
 
  	/*=============================================
 	SUBIENDO EL ARCHIVO DEL CONTRATO
@@ -1059,14 +1069,14 @@ $(".archivoContrato").change(function() {
 
 		});
 
-	} else if(archivo["size"] > 5000000) {
+	} else if(archivo["size"] > 15000000) {
 
 		$(".archivoContrato").val("");
 
 		swal.fire({
 
 			title: "Error al subir el archivo",
-			text: "El archivo no debe pesar mas de 5MB",
+			text: "El archivo no debe pesar mas de 1.5MB",
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
@@ -1075,7 +1085,7 @@ $(".archivoContrato").change(function() {
 
 	} else {
 
-		var datosArchivo = new FileReader;
+		var datosArchivo = new FileReader();
 		datosArchivo.readAsDataURL(archivo);
 
 		$(datosArchivo).on("load", function(event){
@@ -1083,6 +1093,7 @@ $(".archivoContrato").change(function() {
 			var rutaArchivo = event.target.result;
 			// $(".previsualizarContrato").attr("src", rutaArchivo);
 			PDFObject.embed(rutaArchivo, "#archivo_pdf");
+			console.log("rutaArchivo", rutaArchivo);
 
 			$("#frmCargarArchivoContrato .btnGuardar").removeClass("d-none");
 

@@ -620,7 +620,7 @@ MODAL AGREGAR PERSONA CONTRATO
 
                   foreach ($contratos as $key => $value) {
                     
-                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].'</option>';
+                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
                   } 
 
                 ?>
@@ -696,12 +696,32 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA GESTION CONTRATO -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="nuevoGestionContrato">GESTIÓN CONTRATO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir...">
+                <?php 
+
+                  for ($i = 2022; $i >= 2020 ; $i--) { 
+                    
+                    echo '<option value="'.$i.'">'.$i.'</option>';
+
+                  } 
+
+                ?>
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA LAS OBSERVACIONES -->
             
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoObservacionesContrato">OBSERVACIONES</label>
-                <textarea type="text" class="form-control mayuscula" rows="4" id="nuevoObservacionesContrato" name="nuevoObservacionesContrato">
+                <textarea type="text" class="form-control mayuscula" rows="3" id="nuevoObservacionesContrato" name="nuevoObservacionesContrato">
 
                 </textarea>
 
@@ -984,12 +1004,32 @@ MODAL EDITAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA GESTION CONTRATO -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="editarGestionContrato">GESTIÓN CONTRATO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarGestionContrato" name="editarGestionContrato" data-size="5">
+                <?php 
+
+                  for ($i = 2022; $i >= 2020 ; $i--) { 
+                    
+                    echo '<option value="'.$i.'">'.$i.'</option>';
+
+                  } 
+
+                ?>
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA LAS OBSERVACIONES -->
             
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="editarObservacionesContrato">OBSERVACIONES</label>
-                <textarea type="text" class="form-control mayuscula" rows="4" id="editarObservacionesContrato" name="editarObservacionesContrato">
+                <textarea type="text" class="form-control mayuscula" rows="3" id="editarObservacionesContrato" name="editarObservacionesContrato">
 
                 </textarea>
 

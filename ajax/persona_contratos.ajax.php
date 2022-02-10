@@ -35,7 +35,13 @@ require_once('../extensiones/tcpdf/tcpdf.php');
 
 class MYPDF extends TCPDF {
 
-	public $codContrato;
+	public $cod_contrato;
+	public $tipo_contrato;
+	public $nombre_persona;
+	public $ci_persona;
+	public $inicio_contrato;
+	public $dias_contrato;
+	public $fin_contrato;
 
 	public $headerContrato = false;
 
@@ -47,13 +53,39 @@ class MYPDF extends TCPDF {
     		// Set font
 	        $this->SetFont('helvetica', 'B', 14);
 	        // Titulo
-	        $this->Cell(0, 0, 'CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
+	        $this->Cell(0, 0, '               CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
 	        // Subtitulo
-	        $this->Cell(0, 0, 'CONTRATO DE TRABAJO A PLAZO FIJO N° '.$this->codContrato, 0, 1, 'C', 0, '', 1);
+	        $this->Cell(0, 0, '               CONTRATO DE TRABAJO A PLAZO FIJO', 0, 1, 'C', 0, '', 1);
+	        // Subtitulo
+	        $this->Cell(0, 0, '               '.$this->tipo_contrato, 0, 1, 'C', 0, '', 1);
 
 	        // Logo
-	        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
-	        $this->Image($image_file, 10, 6, 16, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+	        $image_file = K_PATH_IMAGES.'cns-logo-actual.jpg';
+	        $this->Image($image_file, 10, 6, 20, '', 'JPG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+
+	        // Titulo
+	        // $this->Cell(0, 40, 'Dirección: Av. El Maestro Nº', 0, 1, 'L', 0, '', 1);
+	        // $this->Cell(0, 10, 'Telefono: 62626262', 0, 1, 'L', 0, '', 1);	       
+
+	        $this->Cell(15, 250, '', 'R', 1, 'L', 0, '', 1);
+
+	        $this->SetFont('helvetica', 'B', 7);
+	        $this->MultiCell(35, 5, 'Dirección:', 0, 'L', 0, 0, 10, 40, true);
+	       	$this->SetFont('helvetica', '', 7);	       
+	        $this->MultiCell(35, 5, 'Av. El Maestro S/N', 0, 'L', 0, 0, 10, 45, true);
+	        $this->SetFont('helvetica', 'B', 7);
+	        $this->MultiCell(35, 5, 'TELEFONOS:', 0, 'L', 0, 0, 10, 55, true);
+	        $this->MultiCell(35, 5, 'Administración:', 0, 'L', 0, 0, 10, 60, true);
+	        $this->SetFont('helvetica', '', 7);
+	        $this->MultiCell(35, 5, '62-23840', 0, 'L', 0, 0, 10, 65, true);
+	        $this->SetFont('helvetica', 'B', 7);
+	        $this->MultiCell(35, 5, 'Asesoria Jurídica:', 0, 'L', 0, 0, 10, 70, true);
+	        $this->SetFont('helvetica', '', 7);
+	        $this->MultiCell(35, 5, '62-25993', 0, 'L', 0, 0, 10, 75, true);
+	        $this->SetFont('helvetica', 'B', 7);
+	        $this->MultiCell(35, 5, 'Página Web:', 0, 'L', 0, 0, 10, 85, true);
+	        $this->SetFont('helvetica', '', 7);
+			$this->MultiCell(35, 5, 'www.cnspotosi.gob.bo', 0, 'L', 0, 0, 10, 90, true);
 
 	        // Estilos necesarios para el Codigo QR
 			$style = array(
@@ -67,10 +99,10 @@ class MYPDF extends TCPDF {
 			);
 
 			// Datos a mostrar en el código QR
-			$codeContents = 'COD. CONTRATO: '.$this->codContrato."\n";
+			$codeContents = "COD. CONTRATO: ".$this->cod_contrato."\n"."APELLIDOS Y NOMBRES: ".$this->nombre_persona."\n"."NRO. CI: ".$this->ci_persona."\n"."TIPO. CONTRATO: ".$this->tipo_contrato."\n"."INICIO CONTRATO: ".$this->inicio_contrato."\n"."FIN CONTRATO: ".$this->fin_contrato;
 
 			// insertando el código QR
-			$this->write2DBarcode($codeContents, 'QRCODE,L', 190, 5, 30, 30, $style, 'N');	
+			$this->write2DBarcode($codeContents, 'QRCODE,L', 5, 220, 35, 35, $style, 'N');	
 
 			// set border width
 			// $this->SetLineWidth(0.1);
@@ -96,7 +128,7 @@ class MYPDF extends TCPDF {
 	        $this->Cell(0, 0, 'JEFATURA DE RECURSOS HUMANOS REGIONAL', 0, 1, 'C', 0, '', 1);
 
 	        // Logo
-	        $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
+	        $image_file = K_PATH_IMAGES.'cns-logo.png';
 	        $this->Image($image_file, 10, 6, 13, '', 'PNG', '', 'T', false, 100, '', false, false, 0, false, false, false);
 
 	        // Estilos necesarios para el Codigo QR
@@ -185,13 +217,11 @@ class AjaxPersonaContratos {
 	public $id_persona;
 	public $id_cargo;
 	public $tipo_contratacion;
-	public $inicio_contrato;
-	public $dias_contrato;
-	public $fin_contrato;
 	public $id_contrato;
 	public $id_suplencia;
 	public $id_memorandum;
 	public $certificacion_presupuestaria;
+	public $gestion_contrato;
 	public $observaciones_contrato;
 	public $recurrencia;
 
@@ -310,19 +340,19 @@ class AjaxPersonaContratos {
 
 			if ($this->recurrencia == 0) {
 
-				if ($this->tipo_contratacion == "SALUD") {
+				if (rtrim($this->tipo_contratacion) == "SALUD") {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$jefe_medico['nombre_autoridad'].' <strong>Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong><strong style="font-size:12pt"> '.$persona['ci_persona'].',</strong> estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad Extraordinaria de Servicios</strong><strong> de manera temporal, </span></strong>como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>ubicado en ................<strong>..</strong>, en cumplimiento a Memorandum Instructivo No. '.$memorandum['nro_memorandum'].' de fecha '.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).' de la Gerencia General.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad Extraordinaria de Servicios</strong><strong> de manera temporal, </span></strong>como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>, en cumplimiento a Memorandum Instructivo No. <strong style="font-size:12pt">'.$memorandum['nro_memorandum'].'</strong> de fecha <strong style="font-size:12pt">'.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).'</strong> de la Gerencia General.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Cumpliendo para este fin, lo se&ntilde;alado en la Resoluci&oacute;n Administrativa N&deg; 650/07 de fecha 27/04/2007 emitida por el Viceministerio de Trabajo, Desarrollo Laboral y Cooperativas &ndash; Ministerio de Trabajo, Empleo y Previsi&oacute;n Social, en su art&iacute;culo 1, Numeral 2 inc. b), que a la letra se&ntilde;ala: <em>&ldquo;Las tareas por cierto tiempo por necesidades de temporada (Art. 3&deg; del D.L. 16187) exigencias circunstanciales del mercado, demanda extraordinaria de productos o servicios, que requieran contrataci&oacute;n adicional de trabajadores.&rdquo;&nbsp;&nbsp;&nbsp; </em></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Por sus caracter&iacute;sticas de eventualidad, y a fin de prevenir la t&aacute;cita reconducci&oacute;n del presente Contrato, se deja claramente establecida la prohibici&oacute;n de que el <strong>CONTRATADO (A)</strong> contin&uacute;e prestando servicios una vez concluida la fecha de vigencia prevista en la presente cl&aacute;usula; exceptu&aacute;ndose los casos en los que el <strong>CONTRATADO (A)</strong> posea autorizaci&oacute;n expresa y escrita de autoridad competente, para el efecto.</span></p>
 
@@ -337,12 +367,12 @@ class AjaxPersonaContratos {
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -385,8 +415,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -397,7 +427,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$jefe_medico['nombre_autoridad'].'<strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -413,15 +443,15 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
 									<td style="text-align:center">
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+										<span><br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 									</td>
 								</tr>
 								<tr>
@@ -432,9 +462,9 @@ class AjaxPersonaContratos {
 
 									<p>&nbsp;</p>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
+									<span style="font-family:Arial,Helvetica,sans-serif"><br />
 									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
+									<strong>CAJA NACIONAL DE SALUD</strong></span>
 									</td>
 								</tr>
 							</tbody>
@@ -445,15 +475,15 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$supervisor_admin['nombre_autoridad'].' <strong>Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>. con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>, en cumplimiento a Memorandum Instructivo No. '.$memorandum['nro_memorandum'].' de fecha '.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).' emitido por la Gerencia General.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>, en cumplimiento a Memorandum Instructivo No. <strong style="font-size:12pt">'.$memorandum['nro_memorandum'].'</strong> de fecha <strong style="font-size:12pt">'.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).'</strong> emitido por la Gerencia General.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Cumpliendo para este fin, lo se&ntilde;alado en la Resoluci&oacute;n Administrativa N&deg; 650/07 de fecha 27/04/2007 emitida por el Viceministerio de Trabajo, Desarrollo Laboral y Cooperativas &ndash; Ministerio de Trabajo, Empleo y Previsi&oacute;n Social, en su art&iacute;culo 1, Numeral 2 inc. b), que a la letra se&ntilde;ala: <em>&ldquo;Las tareas por cierto tiempo por necesidades de temporada (Art. 3&deg; del D.L. 16187) exigencias circunstanciales del mercado, demanda extraordinaria de productos o servicios, que requieran contrataci&oacute;n adicional de trabajadores.&rdquo;&nbsp;&nbsp;&nbsp; </em></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Por sus caracter&iacute;sticas de eventualidad, y a fin de prevenir la t&aacute;cita reconducci&oacute;n del presente Contrato, se deja claramente establecida la prohibici&oacute;n de que el <strong>CONTRATADO (A)</strong> contin&uacute;e prestando servicios una vez concluida la fecha de vigencia prevista en la presente cl&aacute;usula; exceptu&aacute;ndose los casos en los que el <strong>CONTRATADO (A)</strong> posea autorizaci&oacute;n expresa y escrita de autoridad competente, para el efecto.</span></p>
 
@@ -468,12 +498,12 @@ class AjaxPersonaContratos {
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -528,7 +558,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$supervisor_admin['nombre_autoridad'].'<strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -544,7 +574,7 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
@@ -576,23 +606,23 @@ class AjaxPersonaContratos {
 
 			} else {
 
-				if ($this->tipo_contratacion == "SALUD") {
+				if (rtrim($this->tipo_contratacion) == "SALUD") {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$jefe_medico['nombre_autoridad'].' <strong>Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>ubicado en ................</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -635,8 +665,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td align="center">'.$edad->y.'</td>
+								<td align="center">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -647,7 +677,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$jefe_medico['nombre_autoridad'].'<strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -663,7 +693,7 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
@@ -695,19 +725,19 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$supervisor_admin['nombre_autoridad'].' <strong>Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].', estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la .................</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -750,8 +780,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -762,7 +792,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$supervisor_admin['nombre_autoridad'].'<strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -778,13 +808,13 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
 									<td style="text-align:center">
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+										<p>......................................<br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
 										<strong>CAJA NACIONAL DE SALUD</strong></p>
 									</td>
@@ -797,7 +827,7 @@ class AjaxPersonaContratos {
 
 									<p>&nbsp;</p>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
+									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
 									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
 									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
@@ -836,6 +866,7 @@ class AjaxPersonaContratos {
 				        "estado_contrato"		        => 0,
 				        "observaciones_contrato"        => rtrim(mb_strtoupper($this->observaciones_contrato,'utf-8')),
 				        "certificacion_presupuestaria"  => $this->certificacion_presupuestaria,
+				        "gestion_contrato"  		    => $this->gestion_contrato,
 				        "documento_contrato" 	        => $documento_contrato,
 				        "nro_cod_contrato"   	        => $codigo,
 				        "cod_contrato"   	            => $cod_contrato,
@@ -955,19 +986,19 @@ class AjaxPersonaContratos {
 
 			if ($this->recurrencia == 0) {
 
-				if ($this->tipo_contratacion == "SALUD") {
+				if (rtrim($this->tipo_contratacion) == "SALUD") {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$jefe_medico['nombre_autoridad'].' <strong>Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong><strong style="font-size:12pt"> '.$persona['ci_persona'].',</strong> estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad Extraordinaria de Servicios</strong><strong> de manera temporal, </span></strong>como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>ubicado en ................<strong>..</strong>, en cumplimiento a Memorandum Instructivo No. '.$memorandum['nro_memorandum'].' de fecha '.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).' de la Gerencia General.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad Extraordinaria de Servicios</strong><strong> de manera temporal, </span></strong>como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>, en cumplimiento a Memorandum Instructivo No. <strong style="font-size:12pt">'.$memorandum['nro_memorandum'].'</strong> de fecha <strong style="font-size:12pt">'.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).'</strong> de la Gerencia General.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Cumpliendo para este fin, lo se&ntilde;alado en la Resoluci&oacute;n Administrativa N&deg; 650/07 de fecha 27/04/2007 emitida por el Viceministerio de Trabajo, Desarrollo Laboral y Cooperativas &ndash; Ministerio de Trabajo, Empleo y Previsi&oacute;n Social, en su art&iacute;culo 1, Numeral 2 inc. b), que a la letra se&ntilde;ala: <em>&ldquo;Las tareas por cierto tiempo por necesidades de temporada (Art. 3&deg; del D.L. 16187) exigencias circunstanciales del mercado, demanda extraordinaria de productos o servicios, que requieran contrataci&oacute;n adicional de trabajadores.&rdquo;&nbsp;&nbsp;&nbsp; </em></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Por sus caracter&iacute;sticas de eventualidad, y a fin de prevenir la t&aacute;cita reconducci&oacute;n del presente Contrato, se deja claramente establecida la prohibici&oacute;n de que el <strong>CONTRATADO (A)</strong> contin&uacute;e prestando servicios una vez concluida la fecha de vigencia prevista en la presente cl&aacute;usula; exceptu&aacute;ndose los casos en los que el <strong>CONTRATADO (A)</strong> posea autorizaci&oacute;n expresa y escrita de autoridad competente, para el efecto.</span></p>
 
@@ -982,12 +1013,12 @@ class AjaxPersonaContratos {
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -1030,8 +1061,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -1042,7 +1073,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$jefe_medico['nombre_autoridad'].'<strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1058,13 +1089,13 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
 									<td style="text-align:center">
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+										<p>......................................<br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
 										<strong>CAJA NACIONAL DE SALUD</strong></p>
 									</td>
@@ -1077,7 +1108,7 @@ class AjaxPersonaContratos {
 
 									<p>&nbsp;</p>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
+									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
 									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
 									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
@@ -1090,15 +1121,15 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$supervisor_admin['nombre_autoridad'].' <strong>Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>. con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>, en cumplimiento a Memorandum Instructivo No. '.$memorandum['nro_memorandum'].' de fecha '.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).' emitido por la Gerencia General.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>, en cumplimiento a Memorandum Instructivo No. <strong style="font-size:12pt">'.$memorandum['nro_memorandum'].'</strong> de fecha <strong style="font-size:12pt">'.date("d/m/Y", strtotime($memorandum['fecha_memorandum'])).'</strong> emitido por la Gerencia General.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Cumpliendo para este fin, lo se&ntilde;alado en la Resoluci&oacute;n Administrativa N&deg; 650/07 de fecha 27/04/2007 emitida por el Viceministerio de Trabajo, Desarrollo Laboral y Cooperativas &ndash; Ministerio de Trabajo, Empleo y Previsi&oacute;n Social, en su art&iacute;culo 1, Numeral 2 inc. b), que a la letra se&ntilde;ala: <em>&ldquo;Las tareas por cierto tiempo por necesidades de temporada (Art. 3&deg; del D.L. 16187) exigencias circunstanciales del mercado, demanda extraordinaria de productos o servicios, que requieran contrataci&oacute;n adicional de trabajadores.&rdquo;&nbsp;&nbsp;&nbsp; </em></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Por sus caracter&iacute;sticas de eventualidad, y a fin de prevenir la t&aacute;cita reconducci&oacute;n del presente Contrato, se deja claramente establecida la prohibici&oacute;n de que el <strong>CONTRATADO (A)</strong> contin&uacute;e prestando servicios una vez concluida la fecha de vigencia prevista en la presente cl&aacute;usula; exceptu&aacute;ndose los casos en los que el <strong>CONTRATADO (A)</strong> posea autorizaci&oacute;n expresa y escrita de autoridad competente, para el efecto.</span></p>
 
@@ -1113,12 +1144,12 @@ class AjaxPersonaContratos {
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -1173,7 +1204,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$supervisor_admin['nombre_autoridad'].'<strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1189,7 +1220,7 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
@@ -1221,23 +1252,23 @@ class AjaxPersonaContratos {
 
 			} else {
 
-				if ($this->tipo_contratacion == "SALUD") {
+				if (rtrim($this->tipo_contratacion) == "SALUD") {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$jefe_medico['nombre_autoridad'].' <strong>Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la ................<strong>.. </strong>ubicado en ................</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -1280,8 +1311,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td align="center">'.$edad->y.'</td>
+								<td align="center">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -1292,7 +1323,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$jefe_medico['nombre_autoridad'].'<strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1308,7 +1339,7 @@ class AjaxPersonaContratos {
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
@@ -1340,19 +1371,19 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la '.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a .................. y el/la '.$supervisor_admin['nombre_autoridad'].' <strong>Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].' quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> '.$persona['ci_persona'].', estado civil '.$persona['estado_civil'].' domiciliado(a) en '.$persona['direccion_persona'].', que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como '.$cargo['nombre_cargo'].' Nivel <strong>(</strong>'.$cargo['nivel_salarial'].'<strong>) </strong>con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la .................</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong>'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong>'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong>Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.' 00/100 BOLIVIANOS),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de '.$cargo['hrs_semanales'].' horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
@@ -1374,12 +1405,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width: 550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -1395,8 +1426,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -1407,7 +1438,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la '.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la<strong>. </strong>'.$supervisor_admin['nombre_autoridad'].'<strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].', damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1418,18 +1449,18 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:500px">
 							<tbody>
 								<tr>
 									<td style="text-align:center; width:325px">
 										<p>&nbsp;</p>
-										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) ...................................<br />
+										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
 									</td>
 									
 									<td style="text-align:center">
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+										<p>......................................<br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
 										<strong>CAJA NACIONAL DE SALUD</strong></p>
 									</td>
@@ -1442,7 +1473,7 @@ class AjaxPersonaContratos {
 
 									<p>&nbsp;</p>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
+									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
 									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
 									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
@@ -1479,6 +1510,7 @@ class AjaxPersonaContratos {
 				        "id_suplencia"   	            => $suplencia,
 				        "id_memorandum"   		   		=> $this->id_memorandum,
 				        "certificacion_presupuestaria"  => $this->certificacion_presupuestaria,
+				        "gestion_contrato"  		    => $this->gestion_contrato,
 				        "observaciones_contrato"        => mb_strtoupper($this->observaciones_contrato,'utf-8'),
 					    "documento_contrato" 	        => $documento_contrato,
 					    "nro_cod_contrato"   	        => $codigo,
@@ -1561,8 +1593,14 @@ class AjaxPersonaContratos {
 		// ocultando pie de pagina
 		$pdf->SetPrintFooter(FALSE);
 
-		// Envio codigo de contrato al encabezado
-		$pdf->codContrato = $valor;
+		// Envio datos al encabezado
+		$pdf->cod_contrato = $valor;
+		$pdf->tipo_contrato = $respuesta['proposito_contrato'];
+		$pdf->nombre_persona = $respuesta['nombre_completo'];
+		$pdf->ci_persona = $respuesta['ci_persona'];
+		$pdf->inicio_contrato = $respuesta['inicio_contrato'];
+		$pdf->fin_contrato = $respuesta['fin_contrato'];
+
 
 		// seleccion que encabezado se elije
 		$pdf->headerContrato = true;
@@ -1593,11 +1631,31 @@ class AjaxPersonaContratos {
 		// // insertando el código QR
 		// $pdf->write2DBarcode($codeContents, 'QRCODE,L', 190, 5, 15, 15, $style, 'N');	
 
+		$left_column = '<b></b>';
+
+
 		$content = $respuesta['documento_contrato'];
+
+		// get current vertical position
+		$y = $pdf->getY();
+
+		// set color for background
+		$pdf->SetFillColor(255, 255, 255);
+
+		// set color for text
+		$pdf->SetTextColor(0, 0, 0);
 			
 		// Reconociendo la estructura HTML
-		//$pdf->writeHTML($content, true, 0, true, true);
-		$pdf->writeHTML($content, true, false, true, false, '');
+		$pdf->writeHTMLCell(40, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
+
+		// set color for background
+		$pdf->SetFillColor(255, 255, 255);
+
+		// set color for text
+		$pdf->SetTextColor(0, 0, 0);
+
+		$pdf->writeHTMLCell(160, '', '', '', $content, 0, 1, 0, true, 'J', true);
+		// $pdf->writeHTML($content, true, false, true, false, '');
 
 		// Insertando el Logo
 		// $image_file = K_PATH_IMAGES.'cns-logo-simple.png';
@@ -1898,6 +1956,7 @@ if (isset($_POST["nuevoPersonaContratos"])) {
 	$nuevoPersonaContrato -> id_suplencia = $_POST["nuevoTipoSuplencia"];
 	$nuevoPersonaContrato -> id_memorandum = $_POST["nuevoMemorandumInstructivo"];
 	$nuevoPersonaContrato -> certificacion_presupuestaria = $_POST["nuevoCertificacion"];
+	$nuevoPersonaContrato -> gestion_contrato = $_POST["nuevoGestionContrato"];
 	$nuevoPersonaContrato -> observaciones_contrato = $_POST["nuevoObservacionesContrato"];
 
 	if (isset($_POST["nuevoRecurrencia"])) {
@@ -1926,6 +1985,7 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> id_establecimiento = $_POST["editarEstablecimiento"];
 	$editarPersonaContrato -> id_persona = $_POST["editarIdPersona"];
 	$editarPersonaContrato -> id_cargo = $_POST["editarCargoEmpleado"];
+	$editarPersonaContrato -> tipo_contratacion = $_POST["editarTipoContratacion"];
 	$editarPersonaContrato -> inicio_contrato = $_POST["editarFechaInicio"];
 	$editarPersonaContrato -> dias_contrato = $_POST["editarDiasContrato"];
 	$editarPersonaContrato -> fin_contrato = $_POST["editarFechaFin"];
@@ -1933,6 +1993,7 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> id_suplencia = $_POST["editarTipoSuplencia"];
 	$editarPersonaContrato -> id_memorandum = $_POST["editarMemorandumInstructivo"];
 	$editarPersonaContrato -> certificacion_presupuestaria = $_POST["editarCertificacion"];
+	$editarPersonaContrato -> gestion_contrato = $_POST["editarGestionContrato"];
 	$editarPersonaContrato -> observaciones_contrato = $_POST["editarObservacionesContrato"];
 
 	if (isset($_POST["editarRecurrencia"])) {

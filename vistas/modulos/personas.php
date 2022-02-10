@@ -46,7 +46,7 @@
         
             <button class="btn btn-round btn-outline-success btnAgregarPersona" data-toggle="modal" data-target="#modalAgregarPersona">
 
-              <i class="fas fa-plus"></i>
+              <i class="fas fa-plus"></i>º
               Agregar Persona
 
             </button>
