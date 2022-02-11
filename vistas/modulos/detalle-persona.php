@@ -545,7 +545,7 @@ MODAL AGREGAR PERSONA CONTRATO
 
                   foreach ($cargos as $key => $value) {
                     
-                    echo '<option value="'.$value["id_cargo"].'">'.$value["nombre_cargo"].'</option>';
+                    echo '<option value="'.$value["id_cargo"].'">'.$value["nombre_cargo"].' - '.$value["haber_basico"].'</option>';
                   } 
 
                 ?>

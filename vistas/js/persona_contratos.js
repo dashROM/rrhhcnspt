@@ -113,9 +113,9 @@ $(document).on("change", "#nuevoFechaFin", function() {
 
 	var fechaInicio = new Date($("#nuevoFechaInicio").val());
 
-	var difference= Math.abs(fechaFin-fechaInicio);
+	var diferencia = Math.abs(fechaFin-fechaInicio);
 
-	days = difference/(1000 * 3600 * 24)
+	days = diferencia/(1000 * 3600 * 24)
 
 	$("#nuevoDiasContrato").val(days);
 
@@ -156,11 +156,11 @@ $(document).on("change", "#editarFechaFin", function() {
 
 	var fechaInicio = new Date($("#editarFechaInicio").val());
 
-	var difference= Math.abs(fechaFin-fechaInicio);
+	var diferencia= Math.abs(fechaFin-fechaInicio);
 
-	days = difference/(1000 * 3600 * 24)
+	days = diferencia/(1000 * 3600 * 24)
 
-	$("#editarDiasContrato").val(days+1);
+	$("#editarDiasContrato").val(days);
 
 });
 
@@ -169,6 +169,8 @@ FUNCION PARA SUMAR DIAS A UNA DETERMINADA FECHA
 =============================================*/
 
 function sumarDiasFecha(miFecha, days){
+
+	miFecha.setDate(miFecha.getDate() + 1);
 
 	// fecha = new Date();
 	day = miFecha.getDate();
@@ -419,7 +421,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			
 			
 			// cargando datos de cargos
-			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+'</option>').selectpicker('refresh')
+			$("#editarCargoEmpleado").empty().append('<option value="'+respuesta["id_cargo"]+'">'+respuesta["nombre_cargo"]+' - '+respuesta["haber_basico"]+'</option>').selectpicker('refresh')
 
 			var datosCargo = new FormData();
 			datosCargo.append("buscadorCargos", 'buscadorCargos');
@@ -438,7 +440,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 					$.each(respuesta, function(index, val) {
 						
-						$("#editarCargoEmpleado").append('<option value="'+val.id_cargo+'">'+val.nombre_cargo+'</option>').selectpicker('refresh')
+						$("#editarCargoEmpleado").append('<option value="'+val.id_cargo+'">'+val.nombre_cargo+' - '+val.haber_basico+'</option>').selectpicker('refresh')
 
 					});
 
