@@ -394,12 +394,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -414,7 +414,7 @@ class AjaxPersonaContratos {
 
 						$documento_contrato .= '
 							<tr>
-								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
+								<td>'.rtrim($persona_herederos[$i]["nombre_completo"]).'</td>
 								<td style="text-align:center;">'.$edad->y.'</td>
 								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
@@ -422,7 +422,7 @@ class AjaxPersonaContratos {
 					}
 
 					$documento_contrato .= '
-						</tbody>
+					</tbody>
 					</table>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
@@ -438,33 +438,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<span><br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
 										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<span style="font-family:Arial,Helvetica,sans-serif"><br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span>
 									</td>
 								</tr>
 							</tbody>
@@ -525,12 +531,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -569,33 +575,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -644,12 +656,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -688,33 +700,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -727,7 +745,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].', en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].', estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong></span></p>
 
@@ -759,12 +777,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width: 550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -792,7 +810,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -803,33 +821,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -1040,12 +1064,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -1060,7 +1084,7 @@ class AjaxPersonaContratos {
 
 						$documento_contrato .= '
 							<tr>
-								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
+								<td>'.rtrim($persona_herederos[$i]["nombre_completo"]).'</td>
 								<td style="text-align:center;">'.$edad->y.'</td>
 								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
@@ -1068,7 +1092,7 @@ class AjaxPersonaContratos {
 					}
 
 					$documento_contrato .= '
-						</tbody>
+					</tbody>
 					</table>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
@@ -1084,33 +1108,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -1171,12 +1201,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -1215,33 +1245,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -1290,12 +1326,12 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
-					<table border="1" cellpadding="1" cellspacing="1" style="width:680px">
+					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
 							<tr>
-								<th style="text-align:center; width:450px"><strong>NOMBRES Y APELLIDOS</strong></th>
-								<th style="text-align:center; width:80px"><strong>EDAD</strong></th>
-								<th style="text-align:center; width:150px"><strong>PARENTESCO</strong></th>
+								<th style="text-align:center; width:350px"><strong>NOMBRES Y APELLIDOS</strong></th>
+								<th style="text-align:center; width:70px"><strong>EDAD</strong></th>
+								<th style="text-align:center; width:130px"><strong>PARENTESCO</strong></th>
 							</tr>';
 
 					for ($i = 0; $i < count($persona_herederos); $i++) { 
@@ -1334,33 +1370,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:650px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>Dr. ......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">Dr. ...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>
@@ -1449,33 +1491,39 @@ class AjaxPersonaContratos {
 					<p style="text-align:right">&nbsp;</p>
 
 					<div>
-						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:500px">
+						<table border="0" cellpadding="1" cellspacing="1" style="margin:auto; width:550px">
 							<tbody>
 								<tr>
-									<td style="text-align:center; width:325px">
+									<td style="text-align:center; width:275px">
+
 										<p>&nbsp;</p>
+
 										<span style="font-family:Arial,Helvetica,sans-serif">Sr. (a) '.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'<br />
 										<strong>CONTRATADO(A)</strong></span>
+
 									</td>
 									
 									<td style="text-align:center">
+
 										<p>&nbsp;</p>
-										<p>......................................<br />
+
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
 										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></p>
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
+
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2" style="text-align:center">
-									<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
+										<p>&nbsp;</p>
 
-									<p>&nbsp;</p>
+										<span style="font-family:Arial,Helvetica,sans-serif"><br />
+										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
+										<strong>CAJA NACIONAL DE SALUD</strong></span>
 
-									<p><span style="font-family:Arial,Helvetica,sans-serif">...........................................<br />
-									<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-									<strong>CAJA NACIONAL DE SALUD</strong></span></p>
 									</td>
 								</tr>
 							</tbody>

@@ -72,17 +72,17 @@ class TablaPersonaContratos {
 
 					} elseif ($_GET["perfilOculto"] == "ABOGADO" || $_GET["perfilOculto"] == "SECRETARIO") {
 
-						if ($persona_contratos[$i]["estado_contrato"] == 1) {
+						if ($persona_contratos[$i]["estado_contrato"] == 0) {
 
-								if ($persona_contratos[$i]["ampliacion"] == 1) {
+							if ($persona_contratos[$i]["ampliacion"] == 0) {
 
-									$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
+								$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
 
-								} else {
+							} else {
 
-									$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
+								$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
 
-								}
+							}
 
 						} else {
 
@@ -102,7 +102,11 @@ class TablaPersonaContratos {
 						"'.$persona_contratos[$i]["codificacion"].'-'.$persona_contratos[$i]["nombre_lugar"].'",
 						"'.$persona_contratos[$i]["nombre_establecimiento"].'",				
 						"'.$persona_contratos[$i]["nombre_cargo"].'",
+						"'.$persona_contratos[$i]["haber_basico"].'",
+						"'.$persona_contratos[$i]["hrs_semanales"].'",
 						"'.$persona_contratos[$i]["tipo_contratacion"].'",
+						"'.$persona_contratos[$i]["datos_contrato"].'",
+						"'.$persona_contratos[$i]["gestion_contrato"].'",
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["inicio_contrato"])).'",
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["fin_contrato"])).'",
 						"'.$persona_contratos[$i]["dias_contrato"].'",

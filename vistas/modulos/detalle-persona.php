@@ -266,7 +266,11 @@
                             <th>LUGAR</th>
                             <th>ESTABLECIMIENTO</th>
                             <th>CARGO</th>
-                            <th>TIPO CONTRATACION</th>
+                            <th>HABER BASICO</th>
+                            <th>HRS: SEM.</th>
+                            <th>SECTOR CONTRATACION</th>
+                            <th>CONTRATO</th>
+                            <th>GESTIÓN CONTRATO</th>
                             <th>INICIO CONTRATO</th>
                             <th>FIN CONTRATO</th>
                             <th>DIAS CONTRATO</th>

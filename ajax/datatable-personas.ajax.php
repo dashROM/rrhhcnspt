@@ -64,9 +64,9 @@ class TablaPersonas {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
-					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
+					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "ABOGADO") {
 						
-						$botones = "<div class='btn-group'>".$btnEditarPersona."</div>";
+						$botones = "<div class='btn-group'>".$btnMasDetalles."</div>";
 
 					} else {
 
