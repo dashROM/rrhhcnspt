@@ -98,7 +98,7 @@ class TablaPersonaContratos {
 					
 					$datosJson .='[
 						"'.($i+1).'",	
-						"'.$persona_contratos[$i]["cod_contrato"].'",	
+						"'.$persona_contratos[$i]["certificacion_presupuestaria"].'",	
 						"'.$persona_contratos[$i]["codificacion"].'-'.$persona_contratos[$i]["nombre_lugar"].'",
 						"'.$persona_contratos[$i]["nombre_establecimiento"].'",				
 						"'.$persona_contratos[$i]["nombre_cargo"].'",

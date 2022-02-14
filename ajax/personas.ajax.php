@@ -70,7 +70,7 @@ class AjaxPersonas {
 			list($ancho, $alto) = getimagesize($this->foto_persona["tmp_name"]);
 			
 			$nuevoAncho = 500;
-			$nuevoAlto = 600;
+			$nuevoAlto = 650;
 
 			/*=============================================
 			CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
@@ -202,7 +202,7 @@ class AjaxPersonas {
 			list($ancho, $alto) = getimagesize($this->foto_persona["tmp_name"]);
 			
 			$nuevoAncho = 500;
-			$nuevoAlto = 600;
+			$nuevoAlto = 650;
 
 			/*=============================================
 			CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO

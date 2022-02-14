@@ -5077,3 +5077,9 @@ thead {
     text-decoration: none;
     background-color: #28a745;
 }
+
+body .container.body .right_col {
+
+  background-color: #d2f4c9 !important;
+
+}

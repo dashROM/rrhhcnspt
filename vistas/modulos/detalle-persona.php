@@ -262,7 +262,7 @@
                           
                           <tr>
                             <th>#</th>
-                            <th>COD CONTRATO</th>
+                            <th>CERTIFICACION PRESUPUESTARIA</th>
                             <th>LUGAR</th>
                             <th>ESTABLECIMIENTO</th>
                             <th>CARGO</th>
@@ -696,7 +696,7 @@ MODAL AGREGAR PERSONA CONTRATO
               <div class="form-group">
                   
                 <label class="font-weight-normal" for="nuevoCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
-                <input type="text" class="form-control" id="nuevoCertificacion" name="nuevoCertificacion">
+                <input type="text" class="form-control" id="nuevoCertificacion" name="nuevoCertificacion" data-inputmask="'mask': '999999-999999-9999'">
 
               </div>
 
@@ -1004,7 +1004,7 @@ MODAL EDITAR PERSONA CONTRATO
               <div class="form-group">
                   
                 <label class="font-weight-normal" for="editarCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
-                <input type="text" class="form-control" id="editarCertificacion" name="editarCertificacion">
+                <input type="text" class="form-control" id="editarCertificacion" name="editarCertificacion" data-inputmask="'mask': '999999-999999-9999'">
 
               </div>
 
