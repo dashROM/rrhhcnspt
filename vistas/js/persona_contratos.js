@@ -207,6 +207,7 @@ $("#frmNuevoPersonaContrato").validate({
  		nuevoTipoContrato : { required: true},  
  		nuevoTipoContratacion : { required: true}, 	
  		nuevoMemorandumInstructivo : { required: true}, 
+ 		nuevoNroContrato : { required: true},      	
  		nuevoGestionContrato : { required: true},      	
  		nuevoObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
@@ -601,6 +602,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 			$('#editarCertificacion').val(respuesta["certificacion_presupuestaria"]);
 
+			$('#editarNroContrato').val(respuesta["nro_contrato"]);
 			$('#editarGestionContrato').val(respuesta["gestion_contrato"]).selectpicker('refresh');
 
 			$('#editarObservacionesContrato').val(respuesta["observaciones_contrato"]);
@@ -657,6 +659,7 @@ $("#frmEditarPersonaContrato").validate({
  		editarTipoContrato : { required: true},   
  		editarTipoContratacion : { required: true},	
  		editarMemorandumInstructivo : { required: true}, 
+ 		editarNroContrato : { required: true},  
  		editarGestionContrato : { required: true},      		
  		editarObservacionesEmpleado : { patron_textoEspecial: true},   
 	},
@@ -726,6 +729,7 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							// $("#editarTipoContrato").remove();
 							$("#editarResolucionMinisterial").val("");
 							$("#editarMemorandumInstructivo").val("");
+							$("#editarNroContrato").val("");
 							$("#editarGestionContrato").val("");
 							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");

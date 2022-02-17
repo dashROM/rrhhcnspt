@@ -76,7 +76,7 @@ class TablaPersonaContratos {
 
 							if ($persona_contratos[$i]["ampliacion"] == 0) {
 
-								$botones = "<div class='btn-group'>".$btnCargarArchivoContrato.$btnAmpliarContrato."</div>";
+								$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnImprimirContrato."</div>";
 
 							} else {
 
@@ -86,7 +86,7 @@ class TablaPersonaContratos {
 
 						} else {
 
-							$botones = "<div class='btn-group'>".$btnEditarPersonaContrato.$btnDocumentoContrato.$btnImprimirContrato.$btnCargarArchivoContrato."</div>";
+							$botones = "<div class='btn-group'>".$btnCargarArchivoContrato."</div>";
 
 						}
 

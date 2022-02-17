@@ -700,25 +700,47 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
-              <!-- ENTRADA PARA GESTION CONTRATO -->
-            
-              <div class="form-group">
-                  
-                <label class="font-weight-normal" for="nuevoGestionContrato">GESTIÓN CONTRATO</label>
-                <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir...">
-                <?php 
+              <div class="row">
 
-                  for ($i = 2022; $i >= 2020 ; $i--) { 
-                    
-                    echo '<option value="'.$i.'">'.$i.'</option>';
+                <div class="col-6 col-xs-12">
 
-                  } 
+                  <!-- ENTRADA PARA NRO CONTRATO -->
 
-                ?>
-                </select>
+                  <div class="form-group">
+                        
+                      <label class="font-weight-normal" for="nuevoNroContrato">NRO. CONTRATO</label>
+                      <i class="fas fa-asterisk asterisk"></i>
+                      <input type="number" class="form-control" id="nuevoNroContrato" name="nuevoNroContrato" min=1>
 
-              </div>
+                  </div>
+
+                </div>
+
+                <div class="col-6 col-xs-12">
+
+                  <!-- ENTRADA PARA GESTION CONTRATO -->
+                
+                  <div class="form-group">
+                      
+                    <label class="font-weight-normal" for="nuevoGestionContrato">GESTIÓN CONTRATO</label>
+                    <i class="fas fa-asterisk asterisk"></i>
+                    <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir...">
+                    <?php 
+
+                      for ($i = 2022; $i >= 2020 ; $i--) { 
+                        
+                        echo '<option value="'.$i.'">'.$i.'</option>';
+
+                      } 
+
+                    ?>
+                    </select>
+
+                  </div>
+
+                </div> 
+
+              </div> 
 
               <!-- ENTRADA PARA LAS OBSERVACIONES -->
             
@@ -1008,26 +1030,48 @@ MODAL EDITAR PERSONA CONTRATO
 
               </div>
 
-              <!-- ENTRADA PARA GESTION CONTRATO -->
-            
-              <div class="form-group">
+              <div class="row">
+
+                <div class="col-6 col-xs-12">
+
+                  <!-- ENTRADA PARA NRO CONTRATO -->
+
+                  <div class="form-group">
+                        
+                      <label class="font-weight-normal" for="editarNroContrato">NRO. CONTRATO</label>
+                      <i class="fas fa-asterisk asterisk"></i>
+                      <input type="number" class="form-control" id="editarNroContrato" name="editarNroContrato" min=1>
+
+                  </div>
+
+                </div>
+
+                <div class="col-6 col-xs-12">
+
+                  <!-- ENTRADA PARA GESTION CONTRATO -->
+                
+                  <div class="form-group">
                   
-                <label class="font-weight-normal" for="editarGestionContrato">GESTIÓN CONTRATO</label>
-                <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="editarGestionContrato" name="editarGestionContrato" data-size="5">
-                <?php 
+                    <label class="font-weight-normal" for="editarGestionContrato">GESTIÓN CONTRATO</label>
+                    <i class="fas fa-asterisk asterisk"></i>
+                    <select class="form-control selectpicker show-tick" id="editarGestionContrato" name="editarGestionContrato" data-size="5">
+                    <?php 
 
-                  for ($i = 2022; $i >= 2020 ; $i--) { 
-                    
-                    echo '<option value="'.$i.'">'.$i.'</option>';
+                      for ($i = 2022; $i >= 2020 ; $i--) { 
+                        
+                        echo '<option value="'.$i.'">'.$i.'</option>';
 
-                  } 
+                      } 
 
-                ?>
-                </select>
+                    ?>
+                    </select>
 
-              </div>
+                  </div>
 
+                </div> 
+
+              </div>           
+          
               <!-- ENTRADA PARA LAS OBSERVACIONES -->
             
               <div class="form-group">

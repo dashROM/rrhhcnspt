@@ -154,8 +154,7 @@ MODAL AGREGAR NUEVA RELACION DE NOVEDADES
               <div class="form-group">
 
                 <label for="nuevoMes">MES<span class="text-danger"> *</span></label>
-	              <select class="custom-select" id="nuevoMes" name="nuevoMes">
-	                <option value="">ELEGIR...</option>
+	              <select class="form-control selectpicker show-tick" id="nuevoMes" name="nuevoMes" data-size="5" title="Elegir...">
 	                <option value="1">ENERO</option>
 	                <option value="2">FEBRERO</option>
 	                <option value="3">MARZO</option>
@@ -181,8 +180,7 @@ MODAL AGREGAR NUEVA RELACION DE NOVEDADES
               <div class="form-group">
 
                <label for="nuevoGestion">GESTIÓN<span class="text-danger"> *</span></label>
-	              <select class="custom-select" id="nuevoGestion" name="nuevoGestion">
-	                <option value="">ELEGIR...</option>
+	              <select class="form-control selectpicker show-tick" id="nuevoGestion" name="nuevoGestion" data-size="5" title="Elegir...">
 	                <option value="<?= date('Y') ?>"><?= date('Y') ?></option>
 	                <option value="<?= date('Y')-1 ?>"><?= date('Y')-1 ?></option>
 	              </select>
@@ -202,8 +200,7 @@ MODAL AGREGAR NUEVA RELACION DE NOVEDADES
               <div class="form-group">
 
                 <label for="nuevoTipoContrato">TIPO DE CONTRATO<span class="text-danger"> *</span></label>
-	              <select class="custom-select" id="nuevoTipoContrato" name="nuevoTipoContrato" required>
-	                <option value="">ELEGIR...</option>
+	              <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir..." required>
 	                <?php 
 
 	                  $item = null;
@@ -215,7 +212,7 @@ MODAL AGREGAR NUEVA RELACION DE NOVEDADES
 
 	                  foreach ($contratos as $key => $value) {
 	                    
-	                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].'</option>';
+	                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
 	                  } 
 
 	                ?>

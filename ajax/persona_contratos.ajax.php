@@ -37,6 +37,7 @@ class MYPDF extends TCPDF {
 
 	public $cod_contrato;
 	public $tipo_contrato;
+	public $tipo_contratacion;
 	public $nombre_persona;
 	public $ci_persona;
 	public $inicio_contrato;
@@ -55,9 +56,12 @@ class MYPDF extends TCPDF {
 	        // Titulo
 	        $this->Cell(0, 0, '               CAJA NACIONAL DE SALUD', 0, 1, 'C', 0, '', 1);
 	        // Subtitulo
-	        $this->Cell(0, 0, '               CONTRATO DE TRABAJO A PLAZO FIJO', 0, 1, 'C', 0, '', 1);
+	        $this->Cell(0, 0, '               CONTRATO DE TRABAJO A PLAZO FIJO Nº '.$this->nro_contrato.'/'.$this->gestion_contrato, 0, 1, 'C', 0, '', 1);
+
+	        // Set font
+	        $this->SetFont('helvetica', 'B', 12);
 	        // Subtitulo
-	        $this->Cell(0, 0, '               '.$this->tipo_contrato, 0, 1, 'C', 0, '', 1);
+	        $this->Cell(0, 0, '               '.$this->tipo_contrato.' - CONTRATACION '.$this->tipo_contratacion, 0, 1, 'C', 0, '', 1);
 
 	        // Logo
 	        $image_file = K_PATH_IMAGES.'cns-logo-actual.jpg';
@@ -99,7 +103,7 @@ class MYPDF extends TCPDF {
 			);
 
 			// Datos a mostrar en el código QR
-			$codeContents = "COD. CONTRATO: ".$this->cod_contrato."\n"."APELLIDOS Y NOMBRES: ".$this->nombre_persona."\n"."NRO. CI: ".$this->ci_persona."\n"."TIPO. CONTRATO: ".$this->tipo_contrato."\n"."INICIO CONTRATO: ".$this->inicio_contrato."\n"."FIN CONTRATO: ".$this->fin_contrato;
+			$codeContents = "COD. CONTRATO: ".$this->cod_contrato."\n"."APELLIDOS Y NOMBRES: ".$this->nombre_persona."\n"."NRO. CI: ".$this->ci_persona."\n"."TIPO. CONTRATO: ".$this->tipo_contrato."\n"."INICIO CONTRATO: ".date("d/m/Y", strtotime($this->inicio_contrato))."\n"."FIN CONTRATO: ".date("d/m/Y", strtotime($this->fin_contrato));
 
 			// insertando el código QR
 			$this->write2DBarcode($codeContents, 'QRCODE,L', 5, 220, 35, 35, $style, 'N');	
@@ -216,11 +220,11 @@ class AjaxPersonaContratos {
 	public $id_establecimiento;
 	public $id_persona;
 	public $id_cargo;
-	public $tipo_contratacion;
 	public $id_contrato;
 	public $id_suplencia;
 	public $id_memorandum;
 	public $certificacion_presupuestaria;
+	public $nro_contrato;
 	public $gestion_contrato;
 	public $observaciones_contrato;
 	public $recurrencia;
@@ -362,8 +366,11 @@ class AjaxPersonaContratos {
 
 					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LAS ACTIVIDADES PROPIAS Y NO PERMANENTES).- </strong>De acuerdo a la Resolución Administrativa N° 650/07 de 27/04/2007, son documentos integrantes del presente Contrato de Trabajo, los siguientes:</span></p>
 
+					<p><br/></p>
+
 					<ul>
 						<li style="text-align:justify"><span style="font-size:10pt">Requerimiento de Contrataci&oacute;n emitido por la Unidad Solicitante.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Certificación Presupuestaria emitida por el Departamento Nacional de Presupuestos/Repartición/Unidad, según corresponda; por el cual se establece la existencia de los recursos económicos necesarios para la presente contratacion.</span></li>
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
@@ -378,11 +385,26 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deberá proceder a la devolución de todos los activos que le fueron entregados, asì como de dejar en orden y al dìa el trabajo que le fuere entregado, hasta el Último día que figura en el Contrato. Asimismo deberá presentar un Informe Final de Actividades el Último dia de trabajo, cual fuere el motivo de la extinción del contrato y entregar toda la documentación que se encuentre a su cargo, así como toda aquella documentación emitida en el ejercicio del mismo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL). - </strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
@@ -393,6 +415,10 @@ class AjaxPersonaContratos {
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+
+					<p><br/></p><p><br/></p>
+					<p><br/></p>
+					<p><br/></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
@@ -425,9 +451,11 @@ class AjaxPersonaContratos {
 					</tbody>
 					</table>
 
+					<p><br/></p>
+
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -501,6 +529,7 @@ class AjaxPersonaContratos {
 
 					<ul>
 						<li style="text-align:justify"><span style="font-size:10pt">Requerimiento de Contrataci&oacute;n emitido por la Unidad Solicitante.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Certificación Presupuestaria emitida por el Departamento Nacional de Presupuestos/Repartición/Unidad, según corresponda; por el cual se establece la existencia de los recursos económicos necesarios para la presente contratacion.</span></li>
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
@@ -513,11 +542,24 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n. As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deberá proceder a la devolución de todos los activos que le fueron entregados, asì como de dejar en orden y al dìa el trabajo que le fuere entregado, hasta el Último día que figura en el Contrato. Asimismo deberá presentar un Informe Final de Actividades el Último dia de trabajo, cual fuere el motivo de la extinción del contrato y entregar toda la documentación que se encuentre a su cargo, así como toda aquella documentación emitida en el ejercicio del mismo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>					
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -552,8 +594,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -562,9 +604,11 @@ class AjaxPersonaContratos {
 						</tbody>
 					</table>
 
+					<p><br/></p>
+
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -626,7 +670,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
@@ -640,9 +684,24 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -686,6 +745,8 @@ class AjaxPersonaContratos {
 					$documento_contrato .= '
 						</tbody>
 					</table>
+
+					<p><br/></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
@@ -747,7 +808,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
@@ -761,9 +822,27 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país segùn lo establecido en el D.S. Nº 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
+
+					Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -807,6 +886,8 @@ class AjaxPersonaContratos {
 					$documento_contrato .= '
 						</tbody>
 					</table>
+
+					<p><br/></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
@@ -862,7 +943,7 @@ class AjaxPersonaContratos {
 				
 				} 
 
-			}		
+			}	
 
 		} else {
 
@@ -890,6 +971,7 @@ class AjaxPersonaContratos {
 				        "estado_contrato"		        => 0,
 				        "observaciones_contrato"        => rtrim(mb_strtoupper($this->observaciones_contrato,'utf-8')),
 				        "certificacion_presupuestaria"  => $this->certificacion_presupuestaria,
+				        "nro_contrato"  		    	=> $this->nro_contrato,
 				        "gestion_contrato"  		    => $this->gestion_contrato,
 				        "documento_contrato" 	        => $documento_contrato,
 				        "nro_cod_contrato"   	        => $codigo,
@@ -1032,8 +1114,11 @@ class AjaxPersonaContratos {
 
 					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LAS ACTIVIDADES PROPIAS Y NO PERMANENTES).- </strong>De acuerdo a la Resolución Administrativa N° 650/07 de 27/04/2007, son documentos integrantes del presente Contrato de Trabajo, los siguientes:</span></p>
 
+					<p><br/></p>
+
 					<ul>
 						<li style="text-align:justify"><span style="font-size:10pt">Requerimiento de Contrataci&oacute;n emitido por la Unidad Solicitante.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Certificación Presupuestaria emitida por el Departamento Nacional de Presupuestos/Repartición/Unidad, según corresponda; por el cual se establece la existencia de los recursos económicos necesarios para la presente contratacion.</span></li>
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
@@ -1048,11 +1133,26 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deberá proceder a la devolución de todos los activos que le fueron entregados, asì como de dejar en orden y al dìa el trabajo que le fuere entregado, hasta el Último día que figura en el Contrato. Asimismo deberá presentar un Informe Final de Actividades el Último dia de trabajo, cual fuere el motivo de la extinción del contrato y entregar toda la documentación que se encuentre a su cargo, así como toda aquella documentación emitida en el ejercicio del mismo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL). - </strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
@@ -1063,6 +1163,10 @@ class AjaxPersonaContratos {
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; S E G U N D A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+
+					<p><br/></p><p><br/></p>
+					<p><br/></p>
+					<p><br/></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
@@ -1095,9 +1199,11 @@ class AjaxPersonaContratos {
 					</tbody>
 					</table>
 
+					<p><br/></p>
+
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1171,6 +1277,7 @@ class AjaxPersonaContratos {
 
 					<ul>
 						<li style="text-align:justify"><span style="font-size:10pt">Requerimiento de Contrataci&oacute;n emitido por la Unidad Solicitante.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Certificación Presupuestaria emitida por el Departamento Nacional de Presupuestos/Repartición/Unidad, según corresponda; por el cual se establece la existencia de los recursos económicos necesarios para la presente contratacion.</span></li>
 						<li style="text-align:justify"><span style="font-size:10pt">Otra documentaci&oacute;n inherente a la naturaleza de la Contrataci&oacute;n.</span></li>
 					</ul>
 
@@ -1183,11 +1290,24 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n. As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deberá proceder a la devolución de todos los activos que le fueron entregados, asì como de dejar en orden y al dìa el trabajo que le fuere entregado, hasta el Último día que figura en el Contrato. Asimismo deberá presentar un Informe Final de Actividades el Último dia de trabajo, cual fuere el motivo de la extinción del contrato y entregar toda la documentación que se encuentre a su cargo, así como toda aquella documentación emitida en el ejercicio del mismo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>					
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -1222,8 +1342,8 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td>'.$edad->y.'</td>
-								<td>'.$persona_herederos[$i]["parentezco"].'</td>
+								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
 							</tr>';
 
 					}
@@ -1232,9 +1352,11 @@ class AjaxPersonaContratos {
 						</tbody>
 					</table>
 
+					<p><br/></p>
+
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1296,7 +1418,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong> ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
@@ -1310,9 +1432,24 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -1356,6 +1493,8 @@ class AjaxPersonaContratos {
 					$documento_contrato .= '
 						</tbody>
 					</table>
+
+					<p><br/></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
@@ -1417,7 +1556,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
@@ -1431,9 +1570,27 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong>Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+
+					<ul>
+
+						<li style="text-align:justify"><span style="font-size:10pt">Recibir el pago en contraprestaci&oacute;n a su servicio.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">Derecho al Seguro de Salud.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país segùn lo establecido en el D.S. Nº 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017.</span></li>
+						<li style="text-align:justify"><span style="font-size:10pt">El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestaci&oacute;n del servicio.</span></li>
+
+					</ul>
+
+					Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
@@ -1477,6 +1634,8 @@ class AjaxPersonaContratos {
 					$documento_contrato .= '
 						</tbody>
 					</table>
+
+					<p><br/></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
@@ -1558,6 +1717,7 @@ class AjaxPersonaContratos {
 				        "id_suplencia"   	            => $suplencia,
 				        "id_memorandum"   		   		=> $this->id_memorandum,
 				        "certificacion_presupuestaria"  => $this->certificacion_presupuestaria,
+				        "nro_contrato"  		    	=> $this->nro_contrato,
 				        "gestion_contrato"  		    => $this->gestion_contrato,
 				        "observaciones_contrato"        => mb_strtoupper($this->observaciones_contrato,'utf-8'),
 					    "documento_contrato" 	        => $documento_contrato,
@@ -1643,7 +1803,10 @@ class AjaxPersonaContratos {
 
 		// Envio datos al encabezado
 		$pdf->cod_contrato = $valor;
+		$pdf->nro_contrato = $respuesta['nro_contrato'];;
+		$pdf->gestion_contrato = $respuesta['gestion_contrato'];;
 		$pdf->tipo_contrato = $respuesta['proposito_contrato'];
+		$pdf->tipo_contratacion = $respuesta['tipo_contratacion'];
 		$pdf->nombre_persona = $respuesta['nombre_completo'];
 		$pdf->ci_persona = $respuesta['ci_persona'];
 		$pdf->inicio_contrato = $respuesta['inicio_contrato'];
@@ -2004,6 +2167,7 @@ if (isset($_POST["nuevoPersonaContratos"])) {
 	$nuevoPersonaContrato -> id_suplencia = $_POST["nuevoTipoSuplencia"];
 	$nuevoPersonaContrato -> id_memorandum = $_POST["nuevoMemorandumInstructivo"];
 	$nuevoPersonaContrato -> certificacion_presupuestaria = $_POST["nuevoCertificacion"];
+	$nuevoPersonaContrato -> nro_contrato = $_POST["nuevoNroContrato"];
 	$nuevoPersonaContrato -> gestion_contrato = $_POST["nuevoGestionContrato"];
 	$nuevoPersonaContrato -> observaciones_contrato = $_POST["nuevoObservacionesContrato"];
 
@@ -2041,6 +2205,7 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> id_suplencia = $_POST["editarTipoSuplencia"];
 	$editarPersonaContrato -> id_memorandum = $_POST["editarMemorandumInstructivo"];
 	$editarPersonaContrato -> certificacion_presupuestaria = $_POST["editarCertificacion"];
+	$editarPersonaContrato -> nro_contrato = $_POST["editarNroContrato"];
 	$editarPersonaContrato -> gestion_contrato = $_POST["editarGestionContrato"];
 	$editarPersonaContrato -> observaciones_contrato = $_POST["editarObservacionesContrato"];
 

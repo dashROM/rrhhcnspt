@@ -66,7 +66,7 @@ class TablaPersonas {
 
 					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "ABOGADO") {
 						
-						$botones = "<div class='btn-group'>".$btnMasDetalles."</div>";
+						$botones = "<div class='btn-group'>".$btnEditarPersona.$btnMasDetalles."</div>";
 
 					} else {
 
