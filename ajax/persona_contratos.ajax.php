@@ -333,6 +333,13 @@ class AjaxPersonaContratos {
 
 		}
 
+		// CONVERTIR A FORMATO LITERAL FECHA DE INICIO
+
+		setlocale(LC_TIME, "spanish");
+		$fecha = $this->inicio_contrato;
+		$newDate = date("d-m-Y", strtotime($fecha)); 
+		$dateLiteral = strftime("%d de %B de %Y", strtotime($newDate));
+
 		// echo $cod_contrato;
 
 		// SI TIPO DE CONTRATO ES SUPLENCIA SE GUARDA EL TIPO DE SUPLENCIA 
@@ -459,7 +466,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -612,7 +619,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -754,7 +761,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -895,7 +902,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -1083,6 +1090,14 @@ class AjaxPersonaContratos {
 
 		}
 
+		// CONVERTIR A FORMATO LITERAL FECHA DE INICIO
+
+		setlocale(LC_TIME, "spanish");
+		$fecha = $this->inicio_contrato;
+		$newDate = date("d-m-Y", strtotime($fecha)); 
+		$dateLiteral = strftime("%d de %B de %Y", strtotime($newDate));
+
+
 		// SI TIPO DE CONTRATO ES SUPLENCIA SE GUARDA EL TIPO DE SUPLENCIA 
 		if ($this->id_contrato != 1) {
 
@@ -1207,7 +1222,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -1360,7 +1375,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -1502,7 +1517,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
@@ -1643,7 +1658,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
-					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">........., 3 de enero de 2022</span></p>
+					<p style="margin-right:2px; text-align:right"><span style="font-size:10pt">Potosí, '.$dateLiteral.'</span></p>
 
 					<p style="text-align:right">&nbsp;</p>
 
