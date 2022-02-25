@@ -1718,6 +1718,7 @@ MODAL AGREGAR PERSONA HEREDERO
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
                   <option value="ESPOSO(A)">ESPOSO(A)</option>
+                  <option value="CONCUBINO(A)">CONCUBINO(A)</option>
                   <option value="ABUELO">ABUELO</option>
                   <option value="ABUELA">ABUELA</option>
                   <option value="HERMANO">HERMANO</option>
@@ -1726,6 +1727,16 @@ MODAL AGREGAR PERSONA HEREDERO
                   <option value="HIJA">HIJA</option>
                   <option value="NIETO">NIETO</option>
                   <option value="NIETA">NIETA</option>
+                  <option value="SUEGRO">SUEGRO</option>
+                  <option value="SUEGRA">SUEGRA</option>
+                  <option value="TIO">TIO</option>
+                  <option value="TIA">TIA</option>
+                  <option value="CUÑADO">CUÑADO</option>
+                  <option value="CUÑADA">CUÑADA</option>
+                  <option value="SOBRINO">SOBRINO</option>
+                  <option value="SOBRINA">SOBRINA</option>
+                  <option value="PRIMO">PRIMO</option>
+                  <option value="PRIMA">PRIMA</option>
                 </select>
 
               </div>
@@ -1860,6 +1871,7 @@ MODAL EDITAR PERSONA HEREDERO
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
                   <option value="ESPOSO(A)">ESPOSO(A)</option>
+                  <option value="CONCUBINO(A)">CONCUBINO(A)</option>
                   <option value="ABUELO">ABUELO</option>
                   <option value="ABUELA">ABUELA</option>
                   <option value="HERMANO">HERMANO</option>
@@ -1868,6 +1880,16 @@ MODAL EDITAR PERSONA HEREDERO
                   <option value="HIJA">HIJA</option>
                   <option value="NIETO">NIETO</option>
                   <option value="NIETA">NIETA</option>
+                  <option value="SUEGRO">SUEGRO</option>
+                  <option value="SUEGRA">SUEGRA</option>
+                  <option value="TIO">TIO</option>
+                  <option value="TIA">TIA</option>
+                  <option value="CUÑADO">CUÑADO</option>
+                  <option value="CUÑADA">CUÑADA</option>
+                  <option value="SOBRINO">SOBRINO</option>
+                  <option value="SOBRINA">SOBRINA</option>
+                  <option value="PRIMO">PRIMO</option>
+                  <option value="PRIMA">PRIMA</option>
                 </select>
 
               </div>

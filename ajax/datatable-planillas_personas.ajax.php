@@ -36,7 +36,7 @@ class TablaPlanillaPersonas {
 					TRAEMOS LAS ACCIONES
 					=============================================*/
 
-					if (isset($_GET["perfilOculto"]) && $_GET["perfilOculto"] == "Especial") {
+					if (isset($_POST["perfilOculto"]) && $_POST["perfilOculto"] == "Especial") {
 						
 						$botones = "";
 

@@ -678,8 +678,6 @@ AGREGANDO LOS DIAS TRABAJADOS PARA REFLEJARLOS EN RELACION DE NOVEDADES
 
 $("#frmAgregarDiasTrabajados").on("click", ".btnGuardar", function() {
 
-	$('#modalAgregarDiasTrabajados').modal('toggle');
-
 	if ($("#frmAgregarDiasTrabajados").valid()) {
 
 		var datos = new FormData($("#frmAgregarDiasTrabajados")[0]);
@@ -709,6 +707,8 @@ $("#frmAgregarDiasTrabajados").on("click", ".btnGuardar", function() {
 					}).then((result) => {
 	  					
 	  					if (result.value) {
+
+	  						$('#modalAgregarDiasTrabajados').modal('toggle');
 
 	  						tablaRelacionPersona.ajax.reload( null, false );
 	  						

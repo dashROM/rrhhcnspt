@@ -256,7 +256,7 @@ VENTANA MODAL PARA MOSTRAR RELACION DE NOVEDADES EN PDF
 
 <div id="ver-pdf" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="RelacionPDF" aria-hidden="true">
   
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
 
