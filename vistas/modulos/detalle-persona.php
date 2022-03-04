@@ -206,7 +206,7 @@
 
               <?php
 
-              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO") {
 
               ?>
                       
@@ -270,7 +270,7 @@
                             <th>HRS: SEM.</th>
                             <th>SECTOR CONTRATACION</th>
                             <th>CONTRATO</th>
-                            <th>GESTIÓN CONTRATO</th>
+                            <th>NRO. CONTRATO</th>
                             <th>INICIO CONTRATO</th>
                             <th>FIN CONTRATO</th>
                             <th>DIAS CONTRATO</th>
@@ -561,7 +561,7 @@ MODAL AGREGAR PERSONA CONTRATO
                 <i class="fas fa-asterisk asterisk"></i>
                 <select class="form-control selectpicker show-tick" id="nuevoTipoContratacion" name="nuevoTipoContratacion" data-size="5" title="Elegir...">
                   <option value="SALUD">SALUD</option>
-                  <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+                  <option value="ADMINISTRATIVO">ADMINISTRATIVA</option>
                 </select>
 
               </div>

@@ -57,6 +57,13 @@
 
             </button>
 
+            <button class="btn btn-round btn-outline-danger btnPDFBoletas" data-toggle="modal" data-target="#modalPDFBoleta" idPlanilla="<?= $parametros[1]; ?>">
+
+              <i class="fas fa-file-pdf"></i>
+              Exportar Boletas en PDF
+
+            </button>
+
             <div class="clearfix"></div>
 
           </div>
@@ -266,7 +273,7 @@ VENTANA MODAL PARA MOSTRAR PLANILLA EN PDF
 
 <div id="ver-pdf" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="PlanillaPDF" aria-hidden="true">
   
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
 
     <div class="modal-content">
 
@@ -303,7 +310,7 @@ VENTANA MODAL PARA MOSTRAR PLANILLA EN PDF
 
         <div class="modal-footer">
 
-          <button type="button" lass="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
+          <button type="button" class="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
 
             <i class="fas fa-times"></i>
             Cerrar

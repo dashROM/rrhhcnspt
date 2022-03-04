@@ -667,7 +667,7 @@ class AjaxPersonaContratos {
 										<p>&nbsp;</p>
 
 										<span style="font-family:Arial,Helvetica,sans-serif">'.$servicios_grales['nombre_autoridad'].'<br />
-										<strong>'.$servicios_grales['puesto'].'</strong><br />
+										<strong>'.$servicios_grales['puesto'].' a.i.</strong><br />
 										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
@@ -1446,7 +1446,7 @@ class AjaxPersonaContratos {
 										<p>&nbsp;</p>
 
 										<span style="font-family:Arial,Helvetica,sans-serif">'.$servicios_grales['nombre_autoridad'].'<br />
-										<strong>'.$servicios_grales['puesto'].'</strong><br />
+										<strong>'.$servicios_grales['puesto'].' a.i.</strong><br />
 										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>

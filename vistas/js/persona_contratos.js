@@ -459,7 +459,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 
 			if (respuesta["tipo_contratacion"].split(" ").join("") == "SALUD") {
 
-				$("#editarTipoContratacion").append('<option value="ADMINISTRATIVO">ADMINISTRATIVO</option>').selectpicker('refresh')
+				$("#editarTipoContratacion").append('<option value="ADMINISTRATIVA">ADMINISTRATIVA</option>').selectpicker('refresh')
 
 			} else {
 

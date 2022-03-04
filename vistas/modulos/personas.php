@@ -38,7 +38,7 @@
 
           <?php
 
-          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
+          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO") {
 
           ?>
                   

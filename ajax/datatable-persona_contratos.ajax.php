@@ -106,7 +106,7 @@ class TablaPersonaContratos {
 						"'.$persona_contratos[$i]["hrs_semanales"].'",
 						"'.$persona_contratos[$i]["tipo_contratacion"].'",
 						"'.$persona_contratos[$i]["datos_contrato"].'",
-						"'.$persona_contratos[$i]["gestion_contrato"].'",
+						"'.$persona_contratos[$i]["nro_contrato"].'/'.$persona_contratos[$i]["gestion_contrato"].'",
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["inicio_contrato"])).'",
 						"'.date("d/m/Y", strtotime($persona_contratos[$i]["fin_contrato"])).'",
 						"'.$persona_contratos[$i]["dias_contrato"].'",

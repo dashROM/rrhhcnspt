@@ -749,7 +749,7 @@ BOTÓN GENERERAR RELACION DE NOVEDADES PDF
 $(document).on("click", ".btnPDFRelacion", function() {
 	
 	var id_planilla = $(this).attr("idPlanilla");
-	console.log("id_planilla", id_planilla);
+	// console.log("id_planilla", id_planilla);
 
 	var datos = new FormData();
 
@@ -777,7 +777,7 @@ $(document).on("click", ".btnPDFRelacion", function() {
 		contentType: false,
 		processData: false,
 		success: function(respuesta) {
-			console.log("respuesta", respuesta);
+			// console.log("respuesta", respuesta);
 
 			//Para cerrar la alerta personalizada de loading
 			swal.close();
@@ -804,12 +804,66 @@ BOTÓN GENERERAR BOLETA PDF
 $(document).on("click", ".btnPDFBoletaPersona", function() {
 	
 	var id_planilla_persona_contrato = $(this).attr("idPlanillaPersona");
-	console.log("id_planilla_persona_contrato", id_planilla_persona_contrato);
+	// console.log("id_planilla_persona_contrato", id_planilla_persona_contrato);
 
 	var datos = new FormData();
 
 	datos.append("boletaPersonaPDF", "boletaPersonaPDF");
 	datos.append("id_planilla_persona_contrato", id_planilla_persona_contrato);
+
+	//Para mostrar alerta personalizada de loading
+	swal.fire({
+        text: 'Procesando...',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        onOpen: () => {
+            swal.showLoading()
+        }
+    });
+
+	$.ajax({
+
+		url: "../ajax/planillas_personas.ajax.php",
+		type: "POST",
+		data: datos,
+		cache: false,
+		contentType: false,
+		processData: false,
+		success: function(respuesta) {
+			// console.log("respuesta", respuesta);
+
+			//Para cerrar la alerta personalizada de loading
+			swal.close();
+			
+			$('#ver-pdf').modal({
+			
+				show:true,
+				backdrop:'static'
+			
+			});	
+			
+			PDFObject.embed("../temp/boleta-"+id_planilla_persona_contrato+".pdf", "#view_pdf");
+
+		}
+
+	});
+
+});
+
+/*=============================================
+BOTÓN GENERERAR BOLETAS PDF
+=============================================*/
+
+$(document).on("click", ".btnPDFBoletas", function() {
+	
+	var id_planilla = $(this).attr("idPlanilla");
+	console.log("id_planilla", id_planilla);
+
+	var datos = new FormData();
+
+	datos.append("boletasPDF", "boletasPDF");
+	datos.append("id_planilla", id_planilla);
 
 	//Para mostrar alerta personalizada de loading
 	swal.fire({
@@ -843,7 +897,7 @@ $(document).on("click", ".btnPDFBoletaPersona", function() {
 			
 			});	
 			
-			PDFObject.embed("../temp/boleta-"+id_planilla_persona_contrato+".pdf", "#view_pdf");
+			PDFObject.embed("../temp/boletas-"+id_planilla+".pdf", "#view_pdf");
 
 		}
 
@@ -858,7 +912,7 @@ BOTÓN GENERAR PLANILLA PDF
 $(document).on("click", ".btnPDFPlanilla", function() {
 	
 	var id_planilla = $(this).attr("idPlanilla");
-	console.log("id_planilla", id_planilla);
+	// console.log("id_planilla", id_planilla);
 
 	var datos = new FormData();
 
@@ -886,7 +940,7 @@ $(document).on("click", ".btnPDFPlanilla", function() {
 		contentType: false,
 		processData: false,
 		success: function(respuesta) {
-			console.log("respuesta", respuesta);
+			// console.log("respuesta", respuesta);
 
 			//Para cerrar la alerta personalizada de loading
 			swal.close();
