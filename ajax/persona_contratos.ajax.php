@@ -1885,25 +1885,7 @@ class AjaxPersonaContratos {
 		// add a page
 		$pdf->AddPage();
 
-		// // Estilos necesarios para el Codigo QR
-		// $style = array(
-		//     'border' => 0,
-		//     'vpadding' => 'auto',
-		//     'hpadding' => 'auto',
-		//     'fgcolor' => array(0,0,0),
-		//     'bgcolor' => false, //array(255,255,255)
-		//     'module_width' => 1, // width of a single module in points
-		//     'module_height' => 1 // height of a single module in points
-		// );
-
-		// // Datos a mostrar en el código QR
-		// $codeContents = 'COD. CONTRATO: '.$this->id_persona_contrato."\n";
-
-		// // insertando el código QR
-		// $pdf->write2DBarcode($codeContents, 'QRCODE,L', 190, 5, 15, 15, $style, 'N');	
-
 		$left_column = '<b></b>';
-
 
 		$content = $respuesta['documento_contrato'];
 
@@ -1980,7 +1962,7 @@ class AjaxPersonaContratos {
 
 				$aleatorio = mt_rand(100000,999999);
 
-				$ruta = "../vistas/pdf/contratos/".$aleatorio.".pdf";
+				$ruta = "../vistas/pdf/contratos/".$this->id_persona_contrato."-".$aleatorio.".pdf";
 
 				move_uploaded_file($this->archivo_contrato["tmp_name"], $ruta);
 

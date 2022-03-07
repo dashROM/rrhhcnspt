@@ -134,4 +134,18 @@ class ControladorPersonaContratos {
 
 	}
 
+	/*=============================================
+	REPORTE PERSONA CONTRATOS
+	=============================================*/
+	
+	static public function ctrMostrarReportePersonaContratos($item, $valor) {
+		
+		$tabla = "persona_contratos";
+
+		$respuesta = ModeloPersonaContratos::mdlMostrarReportePersonaContratos($tabla, $item, $valor);
+
+		return $respuesta;
+
+	}
+
 }

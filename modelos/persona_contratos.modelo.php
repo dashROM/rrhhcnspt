@@ -344,5 +344,30 @@ class ModeloPersonaContratos {
 		$stmt = null;
 
 	}
+
+	/*=============================================
+	MOSTRAR DATOS REPORTE CONTRATOS
+	=============================================*/
+	
+	static public function mdlMostrarReportePersonaContratos($tabla, $item, $valor) {
+
+		if ($item != null) {
+
+			//muestra el listado de las persona que tienen uno o mas contratos
+			$sql = "SELECT pc.id_persona_contrato, pc.nro_contrato, pc.gestion_contrato, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, pe.ci_persona, pe.fecha_nacimiento, pe.matricula_persona, e.nombre_establecimiento, e.abrev_establecimiento, co.nombre_contrato, co.proposito_contrato, pc.tipo_contratacion, pc.inicio_contrato, pc.fin_contrato, pc.dias_contrato FROM personas pe, contratos co, establecimientos e, persona_contratos pc WHERE pe.id_persona = pc.id_persona AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND pc.gestion_contrato = :$item ORDER BY pc.nro_contrato ASC";
+
+			$stmt = Conexion::conectarPG()->prepare($sql);
+
+			$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);
+
+			$stmt->execute();
+			return $stmt->fetchAll();
+
+		}
+
+		$stmt->close();
+		$stmt = null;
+
+	}
 	
 }

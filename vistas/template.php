@@ -113,6 +113,7 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
           $parametros[0] == "relacion-persona" ||
           $parametros[0] == "planillas" ||
           $parametros[0] == "planilla-personas" ||
+          $parametros[0] == "reporte-contratos" ||
           $parametros[0] == "salir") {
 
         include "modulos/".$parametros[0].".php";
@@ -211,9 +212,13 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="<?= SERVERURL; ?>/vistas/plugins/jszip/jszip.min.js"></script> 
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+  <script src="<?= SERVERURL; ?>/vistas/plugins/pdfmake/pdfmake.min.js"></script> 
+  <script src="<?= SERVERURL; ?>/vistas/plugins/pdfmake/vfs_fonts.js"></script> 
 
   <!-- SweetAlert 2 -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -249,6 +254,7 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
   <!-- <script src="<?= SERVERURL; ?>/vistas/js/empleados.js"></script> -->
   <script src="<?= SERVERURL; ?>/vistas/js/planillas.js"></script>
   <script src="<?= SERVERURL; ?>/vistas/js/persona_herederos.js"></script>
+  <script src="<?= SERVERURL; ?>/vistas/js/reportes.js"></script>
 
   <!-- Custom Theme Scripts -->
   <script src="<?= SERVERURL; ?>/vistas/js/custom.js"></script>
