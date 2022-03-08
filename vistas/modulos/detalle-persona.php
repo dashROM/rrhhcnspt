@@ -529,6 +529,15 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="nuevoCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
+                <input type="text" class="form-control" id="nuevoCertificacion" name="nuevoCertificacion" data-inputmask="'mask': '999999-999999-9999'">
+
+              </div>
+
               <!-- ENTRADA PARA SELECCIONAR CARGO -->
             
               <div class="form-group">
@@ -568,11 +577,11 @@ MODAL AGREGAR PERSONA CONTRATO
 
               <!-- ENTRADA PARA SELECCIONAR RECURRENCIA-->
             
-              <div class="form-group">
+              <!-- <div class="form-group">
                 
                 <input type="checkbox" class="flat"  id="nuevoRecurrencia" name="nuevoRecurrencia"> RECURRENCIA
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -610,8 +619,32 @@ MODAL AGREGAR PERSONA CONTRATO
       
               <!-- ENTRADA PARA TIPO CONTRATO -->
             
-              <div class="form-group">
+              <!-- <div class="form-group">
                 
+                <label class="font-weight-normal" for="nuevoTipoContrato">TIPO DE CONTRATO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir...">
+                <?php 
+
+                  $item = null;
+                  $valor = null;
+
+                  $contratos = ControladorContratos::ctrMostrarContratos($item, $valor);
+
+                  foreach ($contratos as $key => $value) {
+                    
+                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
+                  } 
+
+                ?>
+                </select>
+
+              </div> -->
+
+              <!-- ENTRADA PARA TIPO CONTRATO -->
+
+              <div class="form-group">
+                    
                 <label class="font-weight-normal" for="nuevoTipoContrato">TIPO DE CONTRATO</label>
                 <i class="fas fa-asterisk asterisk"></i>
                 <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir...">
@@ -632,13 +665,28 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA ASINACION PERSONA CONTRATO -->
+            
+              <div class="form-group d-none" id="asignacionPersonaContrato">
+                  
+                <label class="font-weight-normal" for="nuevoAsigPersonaContrato">ASIGNACION PERSONA CONTRATO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="nuevoAsigPersonaContrato" name="nuevoAsigPersonaContrato" data-size="5" title="Elegir...">
+                  
+                  <option value="1ER CONTRATO">1ER CONTRATO</option>
+                  <option value="2DO CONTRATO">2DO CONTRATO</option>
+
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA TIPO CONTRATO SUPLENCIA (SOLO SE VE EN TIPO DE CONTRATO SUPLENCIA)-->
             
               <div class="form-group d-none" id="contratoSuplencia">
                 
                 <label class="font-weight-normal" for="nuevoTipoContratoSuplencia">TIPO DE SUPLENCIA</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" data-live-search="true" data-size="5" title="Elegir..." required>
+                <select class="form-control selectpicker show-tick" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" data-live-search="true" data-size="5" title="Elegir...">
                 <?php 
 
                   $item = null;
@@ -691,15 +739,6 @@ MODAL AGREGAR PERSONA CONTRATO
 
               </div>
 
-              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
-            
-              <div class="form-group">
-                  
-                <label class="font-weight-normal" for="nuevoCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
-                <input type="text" class="form-control" id="nuevoCertificacion" name="nuevoCertificacion" data-inputmask="'mask': '999999-999999-9999'">
-
-              </div>
-
               <div class="row">
 
                 <div class="col-6 col-xs-12">
@@ -727,7 +766,7 @@ MODAL AGREGAR PERSONA CONTRATO
                     <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir...">
                     <?php 
 
-                      for ($i = 2022; $i >= 2020 ; $i--) { 
+                      for ($i = date("Y"); $i >= 2020 ; $i--) { 
                         
                         echo '<option value="'.$i.'">'.$i.'</option>';
 
@@ -910,6 +949,15 @@ MODAL EDITAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
+            
+              <div class="form-group">
+                  
+                <label class="font-weight-normal" for="editarCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
+                <input type="text" class="form-control" id="editarCertificacion" name="editarCertificacion" data-inputmask="'mask': '999999-999999-9999'">
+
+              </div>
+
                <!-- ENTRADA PARA SELECCIONAR CARGO -->
             
               <div class="form-group">
@@ -935,11 +983,11 @@ MODAL EDITAR PERSONA CONTRATO
 
               <!-- ENTRADA PARA SELECCIONAR RECURRENCIA-->
             
-              <div class="form-group">
+              <!-- <div class="form-group">
                 
                 <input type="checkbox" class="flat"  id="editarRecurrencia" name="editarRecurrencia"> RECURRENCIA
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -987,6 +1035,21 @@ MODAL EDITAR PERSONA CONTRATO
 
               </div>
 
+              <!-- ENTRADA PARA ASINACION PERSONA CONTRATO -->
+            
+              <div class="form-group d-none" id="editarAsignacionPersonaContrato">
+                  
+                <label class="font-weight-normal" for="editarAsigPersonaContrato">ASIGNACION PERSONA CONTRATO</label>
+                <i class="fas fa-asterisk asterisk"></i>
+                <select class="form-control selectpicker show-tick" id="editarAsigPersonaContrato" name="editarAsigPersonaContrato" data-size="5">
+                  
+                  <option value="1ER CONTRATO">1ER CONTRATO</option>
+                  <option value="2DO CONTRATO">2DO CONTRATO</option>
+
+                </select>
+
+              </div>
+
               <!-- ENTRADA PARA TIPO CONTRATO SUPLENCIA -->
             
               <div class="form-group d-none" id="editarContratoSuplencia">
@@ -1018,15 +1081,6 @@ MODAL EDITAR PERSONA CONTRATO
                 <select class="form-control selectpicker show-tick" id="editarMemorandumInstructivo" name="editarMemorandumInstructivo" data-size="5">
                
                 </select>
-
-              </div>
-
-              <!-- ENTRADA PARA CERTIFICACION PRESUPUESTARIA -->
-            
-              <div class="form-group">
-                  
-                <label class="font-weight-normal" for="editarCertificacion">CERTIFICACIÓN PRESUPUESTARIA</label>
-                <input type="text" class="form-control" id="editarCertificacion" name="editarCertificacion" data-inputmask="'mask': '999999-999999-9999'">
 
               </div>
 

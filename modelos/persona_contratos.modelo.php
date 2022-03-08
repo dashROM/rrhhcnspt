@@ -23,7 +23,7 @@ class ModeloPersonaContratos {
 			} else {
 
 				//muestra varios datos de una persona que tiene un respectivo contrato
-				$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, co.proposito_contrato, ca.id_cargo, ca.nombre_cargo, ca.haber_basico, pc.tipo_contratacion, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato, pc.documento_ampliacion, pc.ampliacion, pc.resolucion_ministerial, pc.id_memorandum, m.nro_memorandum, m.fecha_memorandum, pc.certificacion_presupuestaria, pc.nro_contrato, pc.gestion_contrato, pc.recurrencia FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l, memorandums m WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND m.id_memorandum = pc.id_memorandum AND pc.$item = :$item";
+				$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, concat_ws(' ', pe.paterno_persona, pe.materno_persona, pe.nombre_persona) AS nombre_completo, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, pe.fecha_nacimiento, co.id_contrato, co.nombre_contrato, co.proposito_contrato, ca.id_cargo, ca.nombre_cargo, ca.haber_basico, pc.tipo_contratacion, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, s.id_suplencia, s.tipo_suplencia, pc.archivo_contrato, pc.documento_ampliacion, pc.ampliacion, pc.resolucion_ministerial, pc.id_memorandum, m.nro_memorandum, m.fecha_memorandum, pc.certificacion_presupuestaria, pc.nro_contrato, pc.gestion_contrato, pc.recurrencia, pc.asignacion_persona_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, suplencias s, lugares l, memorandums m WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND s.id_suplencia = pc.id_suplencia AND l.id_lugar = pc.id_lugar AND m.id_memorandum = pc.id_memorandum AND pc.$item = :$item";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -37,7 +37,7 @@ class ModeloPersonaContratos {
 		} else {
 
 			//muestra el listado de las persona que tienen uno o mas contratos
-			$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, ca.haber_basico, ca.hrs_semanales, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato, pc.ampliacion, pc.tipo_contratacion, pc.certificacion_presupuestaria, pc.nro_contrato, pc.gestion_contrato, concat_ws(' - ', co.nombre_contrato, co.proposito_contrato) AS datos_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
+			$sql = "SELECT pc.id_persona_contrato, pc.cod_contrato, l.id_lugar, l.codificacion, l.nombre_lugar, e.id_establecimiento, e.nombre_establecimiento, co.id_contrato, co.nombre_contrato, ca.id_cargo, ca.nombre_cargo, ca.haber_basico, ca.hrs_semanales, ca.observacion_cargo, pc.inicio_contrato, pc.dias_contrato, pc.fin_contrato, pc.estado_contrato, pc.observaciones_contrato, pe.id_persona, pc.archivo_contrato, pc.ampliacion, pc.tipo_contratacion, pc.certificacion_presupuestaria, pc.nro_contrato, pc.gestion_contrato, concat_ws(' - ', co.nombre_contrato, co.proposito_contrato) AS datos_contrato, pc.asignacion_persona_contrato FROM personas pe, persona_contratos pc, cargos ca, contratos co, establecimientos e, lugares l WHERE pe.id_persona = pc.id_persona AND ca.id_cargo = pc.id_cargo AND co.id_contrato = pc.id_contrato AND e.id_establecimiento = pc.id_establecimiento AND l.id_lugar = pc.id_lugar AND pc.id_persona = :id_persona ORDER BY pc.id_persona_contrato DESC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -84,7 +84,7 @@ class ModeloPersonaContratos {
 	
 	static public function mdlNuevoPersonaContrato($tabla, $datos){
 
-		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(id_lugar, id_establecimiento, id_persona, id_cargo, inicio_contrato, dias_contrato, fin_contrato, id_contrato, id_suplencia, id_memorandum, estado_contrato, observaciones_contrato, documento_contrato, nro_cod_contrato, cod_contrato, tipo_contratacion, ampliacion, recurrencia, certificacion_presupuestaria, nro_contrato, gestion_contrato) VALUES (:id_lugar, :id_establecimiento, :id_persona, :id_cargo, :inicio_contrato, :dias_contrato, :fin_contrato, :id_contrato, :id_suplencia, :id_memorandum, :estado_contrato, :observaciones_contrato, :documento_contrato, :nro_cod_contrato, :cod_contrato, :tipo_contratacion, :ampliacion, :recurrencia, :certificacion_presupuestaria, :nro_contrato, :gestion_contrato)");
+		$stmt = Conexion::conectarPG()->prepare("INSERT INTO $tabla(id_lugar, id_establecimiento, id_persona, id_cargo, inicio_contrato, dias_contrato, fin_contrato, id_contrato, asignacion_persona_contrato, id_suplencia, id_memorandum, estado_contrato, observaciones_contrato, documento_contrato, nro_cod_contrato, cod_contrato, tipo_contratacion, ampliacion, recurrencia, certificacion_presupuestaria, nro_contrato, gestion_contrato) VALUES (:id_lugar, :id_establecimiento, :id_persona, :id_cargo, :inicio_contrato, :dias_contrato, :fin_contrato, :id_contrato, :asignacion_persona_contrato, :id_suplencia, :id_memorandum, :estado_contrato, :observaciones_contrato, :documento_contrato, :nro_cod_contrato, :cod_contrato, :tipo_contratacion, :ampliacion, :recurrencia, :certificacion_presupuestaria, :nro_contrato, :gestion_contrato)");
 
 		$stmt->bindParam(":id_lugar", $datos["id_lugar"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_establecimiento", $datos["id_establecimiento"], PDO::PARAM_INT);
@@ -94,6 +94,7 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":dias_contrato", $datos["dias_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":fin_contrato", $datos["fin_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_contrato", $datos["id_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":asignacion_persona_contrato", $datos["asignacion_persona_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_suplencia", $datos["id_suplencia"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_memorandum", $datos["id_memorandum"], PDO::PARAM_INT);
 		$stmt->bindParam(":estado_contrato", $datos["estado_contrato"], PDO::PARAM_INT);
@@ -129,7 +130,7 @@ class ModeloPersonaContratos {
 	
 	static public function mdlEditarPersonaContrato($tabla, $datos){
 
-		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, id_suplencia = :id_suplencia, id_memorandum = :id_memorandum, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato, nro_cod_contrato = :nro_cod_contrato, cod_contrato = :cod_contrato, tipo_contratacion = :tipo_contratacion, certificacion_presupuestaria = :certificacion_presupuestaria, nro_contrato = :nro_contrato, gestion_contrato = :gestion_contrato, recurrencia = :recurrencia WHERE id_persona_contrato = :id_persona_contrato");
+		$stmt = Conexion::conectarPG()->prepare("UPDATE $tabla SET id_lugar = :id_lugar, id_establecimiento = :id_establecimiento, id_persona = :id_persona, id_cargo = :id_cargo, inicio_contrato = :inicio_contrato, dias_contrato = :dias_contrato, fin_contrato = :fin_contrato, id_contrato = :id_contrato, asignacion_persona_contrato = :asignacion_persona_contrato, id_suplencia = :id_suplencia, id_memorandum = :id_memorandum, observaciones_contrato = :observaciones_contrato, documento_contrato = :documento_contrato, nro_cod_contrato = :nro_cod_contrato, cod_contrato = :cod_contrato, tipo_contratacion = :tipo_contratacion, certificacion_presupuestaria = :certificacion_presupuestaria, nro_contrato = :nro_contrato, gestion_contrato = :gestion_contrato, recurrencia = :recurrencia WHERE id_persona_contrato = :id_persona_contrato");
 
 		$stmt->bindParam(":id_persona_contrato", $datos["id_persona_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_lugar", $datos["id_lugar"], PDO::PARAM_INT);
@@ -140,6 +141,7 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":dias_contrato", $datos["dias_contrato"], PDO::PARAM_INT);
 		$stmt->bindParam(":fin_contrato", $datos["fin_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_contrato", $datos["id_contrato"], PDO::PARAM_INT);
+		$stmt->bindParam(":asignacion_persona_contrato", $datos["asignacion_persona_contrato"], PDO::PARAM_STR);
 		$stmt->bindParam(":id_suplencia", $datos["id_suplencia"], PDO::PARAM_INT);
 		$stmt->bindParam(":id_memorandum", $datos["id_memorandum"], PDO::PARAM_INT);
 		$stmt->bindParam(":observaciones_contrato", $datos["observaciones_contrato"], PDO::PARAM_STR);

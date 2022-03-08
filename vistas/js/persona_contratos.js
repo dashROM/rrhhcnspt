@@ -56,7 +56,7 @@ var tablaPersonaContratos = $('#tablaPersonaContratos').DataTable({
 }); 
 
 /*=============================================
-SI EL TIPO DE CONTRATO ES SUPLENCIA APARECE LA OPCION PARA ELEGIR TIPO DE SUPLENCIA
+DEPENDE AL TIPO DE CONTRATO SE HABILITAN OPCIONES
 =============================================*/
 
 $(document).on("change", "#nuevoTipoContrato", function() {
@@ -64,16 +64,26 @@ $(document).on("change", "#nuevoTipoContrato", function() {
 	if ($(this).val() == "1") {
 		
 		$("#contratoSuplencia").removeClass("d-none");
+		$("#nuevoTipoSuplencia").attr("required","required");
+		$("#asignacionPersonaContrato").addClass("d-none");
+		$("#nuevoAsigPersonaContrato").removeAttr("required");
+		$("#nuevoAsigPersonaContrato").val("");
 
-	} else if ($(this).val() == "3")  {
+	} else if ($(this).val() == "2")  {
 
 		$("#contratoSuplencia").addClass("d-none");
-		// $("#resolucionMinisterial").removeClass("d-none");
+		$("#nuevoTipoSuplencia").removeAttr("required");
+		$("#nuevoContratoSuplencia").val("");
+		$("#asignacionPersonaContrato").removeClass("d-none");
+		$("#nuevoAsigPersonaContrato").attr("required","required");
 
 	} else {
 
 		$("#contratoSuplencia").addClass("d-none");
-		// $("#resolucionMinisterial").addClass("d-none");
+		$("#nuevoTitoSuplencia").removeAttr("required");
+		$("#nuevoContratoSuplencia").val("");
+		$("#asignacionPersonaContrato").addClass("d-none");
+		$("#nuevoAsigPersonaContrato").removeAttr("required");
 
 	}
 	
@@ -204,7 +214,7 @@ $("#frmNuevoPersonaContrato").validate({
  		nuevoFechaInicio : { required: true},
  		nuevoDiasContrato : {required: true},
  		nuevoFechaFin : { required: true},
- 		nuevoTipoContrato : { required: true},  
+ 		nuevoTipoContrato : { required: true}, 
  		nuevoTipoContratacion : { required: true}, 	
  		nuevoMemorandumInstructivo : { required: true}, 
  		nuevoNroContrato : { required: true},      	
@@ -519,18 +529,31 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 			if (respuesta["id_contrato"] == 1) {
 
 				$("#editarContratoSuplencia").removeClass("d-none");
+				$("#editarTipoSuplencia").attr("required","required");
+				$("#editarAsignacionPersonaContrato").addClass("d-none");
+				$("#editarAsigPersonaContrato").removeAttr("required");
+				$("#editarAsigPersonaContrato").val("");
 
-			} else if (respuesta["id_contrato"] == 3) {
+			} else if (respuesta["id_contrato"] == 2) {
 
 				$("#editarContratoSuplencia").addClass("d-none");
-				$("#cambiarResolucionMinisterial").removeClass("d-none");
+				$("#editarTipoSuplencia").removeAttr("required");
+				$("#editarContratoSuplencia").val("");
+				$("#editarAsignacionPersonaContrato").removeClass("d-none");
+				$("#editarAsigPersonaContrato").attr("required","required");
 
 			} else {
 
 				$("#editarContratoSuplencia").addClass("d-none");
-				$("#cambiarResolucionMinisterial").addClass("d-none");
+				$("#editarTipoSuplencia").removeAttr("required");
+				$("#editarContratoSuplencia").val("");
+				$("#editarAsignacionPersonaContrato").addClass("d-none");
+				$("#editarAsigPersonaContrato").removeAttr("required");
+				$("#editarAsigPersonaContrato").val("");
 
 			}
+
+			$('#editarAsigPersonaContrato').val(respuesta["asignacion_persona_contrato"]).selectpicker('refresh');
 
 			// cargando datos de suplencia 
 			$("#editarTipoSuplencia").empty().append('<option value="'+respuesta["id_suplencia"]+'">'+respuesta["tipo_suplencia"]+'</option>').selectpicker('refresh')
@@ -628,16 +651,27 @@ $(document).on("change", "#editarTipoContrato", function() {
 	if ($(this).val() == "1") {
 		
 		$("#editarContratoSuplencia").removeClass("d-none");
+		$("#editarTipoSuplencia").attr("required","required");
+		$("#editarAsignacionPersonaContrato").addClass("d-none");
+		$("#editarAsigPersonaContrato").removeAttr("required");
+		$("#editarAsigPersonaContrato").val("");
 
-	} else if ($(this).val() == "3")  {
+	} else if ($(this).val() == "2")  {
 
 		$("#editarContratoSuplencia").addClass("d-none");
-		$("#cambiarResolucionMinisterial").removeClass("d-none");
+		$("#editarTipoSuplencia").removeAttr("required");
+		$("#editarContratoSuplencia").val("");
+		$("#editarAsignacionPersonaContrato").removeClass("d-none");
+		$("#editarAsigPersonaContrato").attr("required","required");
 
 	} else {
-
+		
 		$("#editarContratoSuplencia").addClass("d-none");
-		$("#cambiarResolucionMinisterial").addClass("d-none");
+		$("#editarTipoSuplencia").removeAttr("required");
+		$("#editarContratoSuplencia").val("");
+		$("#editarAsignacionPersonaContrato").addClass("d-none");
+		$("#editarAsigPersonaContrato").removeAttr("required");
+		$("#editarAsigPersonaContrato").val("");
 
 	}
 	
@@ -1446,14 +1480,14 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-		  				if (result.value) {
+	  				if (result.value) {
 
-		  					$('#modalAmpliarPersonaContrato').modal('toggle');
+	  					$('#modalAmpliarPersonaContrato').modal('toggle');
 
-		  					$("#ampliarLugar").val("");
-		  					$("#ampliarIdLugar").val("");
-		  					$("#ampliarEstablecimiento").val("");
-		  					$("#ampliarIdEstablecimiento").val("");
+	  					$("#ampliarLugar").val("");
+	  					$("#ampliarIdLugar").val("");
+	  					$("#ampliarEstablecimiento").val("");
+	  					$("#ampliarIdEstablecimiento").val("");
 							$("#ampliarBuscarPersona").val("");		
 							$("#ampliarCIEmpleado").val("");
 							$("#ampliarFechaNacimientoEmpleado").val("");

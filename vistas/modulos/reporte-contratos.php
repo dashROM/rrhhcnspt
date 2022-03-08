@@ -41,11 +41,11 @@
             <form>
 
               <div class="row form-inline justify-content-center">
-                <label class="mr-2" for="reporteGestionContrato">SELECCIONE UNA GESTION</label>
+                <label class="font-weight-bold mr-2" for="reporteGestionContrato">SELECCIONE UNA GESTION</label>
                 <select class="form-control selectpicker show-tick mr-2" id="reporteGestionContrato" name="reporteGestionContrato" data-size="5" title="Elegir...">
                   <?php 
 
-                    for ($i = 2022; $i >= 2020 ; $i--) { 
+                    for ($i = date("Y"); $i >= 2020 ; $i--) { 
                       
                       echo '<option value="'.$i.'">'.$i.'</option>';
 

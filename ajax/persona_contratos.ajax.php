@@ -219,6 +219,7 @@ class AjaxPersonaContratos {
 	public $id_persona;
 	public $id_cargo;
 	public $id_contrato;
+	public $asignacion_persona_contrato;
 	public $id_suplencia;
 	public $id_memorandum;
 	public $certificacion_presupuestaria;
@@ -694,31 +695,31 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato de Trabajo a Plazo Fijo, por una parte, el/la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:10pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:10pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:10pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:10pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:10pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). -</strong> El presente Contrato de Trabajo a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:10pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:10pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:10pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:10pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato de Trabajo a Plazo Fijo tendr&aacute; vigencia a partir del <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:10pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:10pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). -</strong> El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:10pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). -</strong> Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO). - El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
 
 					<ul>
 
@@ -731,17 +732,17 @@ class AjaxPersonaContratos {
 
 					</ul>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (DE LA NORMATIVA LEGAL). -</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente Contrato de Trabajo a Plazo Fijo, el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09/01/2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). - </strong>El presente contrato ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del contrato de trabajo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). -</strong> El presente Contrato de Trabajo a Plazo Fijo ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del Contrato de Trabajo a Plazo Fijo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta inmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de contrato al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). -</strong> El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
@@ -764,8 +765,19 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td align="center">'.$edad->y.'</td>
+								<td align="center">-</td>
 								<td align="center">'.$persona_herederos[$i]["parentezco"].'</td>
+							</tr>';
+
+					}
+
+					for ($i = 0; $i < 25; $i++) { 
+
+						$documento_contrato .= '
+							<tr>
+								<td></td>
+								<td align="center">-</td>
+								<td align="center"></td>
 							</tr>';
 
 					}
@@ -778,7 +790,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administradora Regional</strong>, <strong style="font-size:10pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Jefe Médico Regional</strong>, <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Supervisor Adm. I RR.HH.</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -805,22 +817,31 @@ class AjaxPersonaContratos {
 
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$supervisor_admin['nombre_autoridad'].'<br />
+										<strong>'.$supervisor_admin['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
+								<tr><td><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></td></tr>
 								<tr>
-									<td colspan="2" style="text-align:center">
+									<td style="text-align:center; width:275px">
 
 										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$jefe_medico['nombre_autoridad'].'<br />
+										<strong>'.$jefe_medico['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
+
+									</td>
+									
+									<td style="text-align:center">
+
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$admin_regional['nombre_autoridad'].'<br />
+										<strong>'.$admin_regional['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
@@ -832,31 +853,33 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato de Trabajo a Plazo Fijo, por una parte, el/la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:10pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:10pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:10pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:10pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). -</strong> El presente Contrato de Trabajo a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:10pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:10pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:10pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato de Trabajo a Plazo Fijo tendr&aacute; vigencia a partir del <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO). -</strong> De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:10pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:10pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). -</strong> El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:10pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). -</strong> Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p><br/></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente Contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO). - El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
 
 					<ul>
 
@@ -872,17 +895,17 @@ class AjaxPersonaContratos {
 
 					Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (DE LA NORMATIVA LEGAL). - </strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente Contrato de Trabajo a Plazo Fijo, el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09/01/2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). - </strong>El presente contrato ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del contrato de trabajo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). -</strong> El presente Contrato de Trabajo a Plazo Fijo ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del Contrato de Trabajo a Plazo Fijo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de contrato al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). -</strong> El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width: 550px">
 						<tbody>
@@ -905,8 +928,19 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">-</td>
 								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
+							</tr>';
+
+					}
+
+					for ($i = 0; $i < 25; $i++) { 
+
+						$documento_contrato .= '
+							<tr>
+								<td></td>
+								<td align="center">-</td>
+								<td align="center"></td>
 							</tr>';
 
 					}
@@ -919,7 +953,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administradora Regional</strong>, <strong style="font-size:10pt">'.$servicios_grales['nombre_autoridad'].'</strong><strong>.- Jefe Servicios Generales</strong>, <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Supervisor Adm. I RR.HH.</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -946,22 +980,31 @@ class AjaxPersonaContratos {
 
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$supervisor_admin['nombre_autoridad'].'<br />
+										<strong>'.$supervisor_admin['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
+								<tr><td><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></td></tr>
 								<tr>
-									<td colspan="2" style="text-align:center">
+									<td style="text-align:center; width:275px">
 
 										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$servicios_grales['nombre_autoridad'].'<br />
+										<strong>'.$servicios_grales['puesto'].' a.i.</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
+
+									</td>
+									
+									<td style="text-align:center">
+
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$admin_regional['nombre_autoridad'].'<br />
+										<strong>'.$admin_regional['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
@@ -994,6 +1037,7 @@ class AjaxPersonaContratos {
 				        "dias_contrato"			        => $this->dias_contrato,
 				        "fin_contrato"                  => $this->fin_contrato,
 				        "id_contrato"   	            => $this->id_contrato,
+				        "asignacion_persona_contrato"  	=> $this->asignacion_persona_contrato,
 				        "id_suplencia"   	            => $suplencia,
 				        "id_memorandum" 		        => $this->id_memorandum,
 				        "estado_contrato"		        => 0,
@@ -1467,7 +1511,6 @@ class AjaxPersonaContratos {
 				
 				} 
 
-
 			} else {
 
 				if (rtrim($this->tipo_contratacion) == "SALUD") {
@@ -1476,29 +1519,29 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato de Trabajo a Plazo Fijo, por una parte, el/la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:10pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong> Gerente Servicios de Salud</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:10pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:10pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:10pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:10pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:12pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). -</strong> El presente Contrato de Trabajo a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:10pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:10pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:10pt">'.$establecimiento['nombre_establecimiento'].'</strong>. ubicado en <strong style="font-size:10pt">'.$establecimiento['ubicacion_establecimiento'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato de Trabajo a Plazo Fijo tendr&aacute; vigencia a partir del <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>.</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:10pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:10pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). -</strong> El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:10pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). -</strong> Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO). - El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
 
 					<ul>
 
@@ -1511,17 +1554,17 @@ class AjaxPersonaContratos {
 
 					</ul>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (DE LA NORMATIVA LEGAL). -</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente Contrato de Trabajo a Plazo Fijo, el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09/01/2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). - </strong>El presente contrato ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del contrato de trabajo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). -</strong> El presente Contrato de Trabajo a Plazo Fijo ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del Contrato de Trabajo a Plazo Fijo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta inmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de contrato al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). -</strong> El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width:550px">
 						<tbody>
@@ -1544,8 +1587,19 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td align="center">'.$edad->y.'</td>
+								<td align="center">-</td>
 								<td align="center">'.$persona_herederos[$i]["parentezco"].'</td>
+							</tr>';
+
+					}
+
+					for ($i = 0; $i < 25; $i++) { 
+
+						$documento_contrato .= '
+							<tr>
+								<td></td>
+								<td align="center">-</td>
+								<td align="center"></td>
 							</tr>';
 
 					}
@@ -1558,7 +1612,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Gerente Servicios de Salud</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D &Eacute; C I M A&nbsp; T E R C E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administradora Regional</strong>, <strong style="font-size:10pt">'.$jefe_medico['nombre_autoridad'].'</strong><strong>.- Jefe Médico Regional</strong>, <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Supervisor Adm. I RR.HH.</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1585,22 +1639,31 @@ class AjaxPersonaContratos {
 
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>GERENTE SERVICIOS DE SALUD</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$supervisor_admin['nombre_autoridad'].'<br />
+										<strong>'.$supervisor_admin['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
+								<tr><td><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></td></tr>
 								<tr>
-									<td colspan="2" style="text-align:center">
+									<td style="text-align:center; width:275px">
 
 										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$jefe_medico['nombre_autoridad'].'<br />
+										<strong>'.$jefe_medico['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
+
+									</td>
+									
+									<td style="text-align:center">
+
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$admin_regional['nombre_autoridad'].'<br />
+										<strong>'.$admin_regional['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
@@ -1612,31 +1675,33 @@ class AjaxPersonaContratos {
 
 					$documento_contrato = '<p style="margin-left:47px; text-align:right"><span style="font-size:10pt"><strong><span style="font-size:8.0pt">MAT: '.$persona["matricula_persona"].'</span></strong></span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Conste por el presente Contrato de Trabajo a Plazo Fijo, suscrito entre la CAJA NACIONAL DE SALUD, y el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, sujet&aacute;ndose al tenor de las siguientes cl&aacute;usulas:</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato, por una parte, el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:12pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:12pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:12pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:12pt">'.$persona['telefono_persona'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>P R I M E R A</u>: (DE LAS PARTES). -</strong> Intervienen en la suscripci&oacute;n del presente Contrato de Trabajo a Plazo Fijo, por una parte, el/la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>, en su condici&oacute;n de <strong>Administrador Regional</strong> de la Caja Nacional de Salud, en m&eacute;rito a Poder especial testimonio Nro 284/2021 de 14/09/2021 y el/la <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong> Encargado de Recursos Humanos</strong>, quienes en adelante se denominan <strong>&quot;LA CAJA&quot;</strong>; y por la otra, el/la Sr.(a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong> quien es mayor de edad, h&aacute;bil por derecho, con <strong>C.I. N&ordm;</strong> <strong style="font-size:10pt">'.$persona['ci_persona'].'</strong>, estado civil <strong style="font-size:10pt">'.$persona['estado_civil'].'</strong> domiciliado(a) en <strong style="font-size:10pt">'.$persona['direccion_persona'].'</strong>, que en adelante se denominar&aacute; el <strong>&quot;CONTRATADO(A)&quot;</strong> con nro de celular <strong style="font-size:10pt">'.$persona['telefono_persona'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). - </strong>El presente Contrato a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:12pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:12pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:12pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E G U N D A</u>: (DEL OBJETO). -</strong> El presente Contrato de Trabajo a Plazo Fijo, tiene por objeto la prestaci&oacute;n de servicios del <strong>CONTRATADO (A) </strong>por <strong>Necesidad de Servicio</strong>, como <strong style="font-size:10pt">'.$cargo['nombre_cargo'].'</strong> Nivel <strong style="font-size:10pt">('.$cargo['nivel_salarial'].')</strong> con cargo a la Partida N&deg; 12100 (Personal eventual) del Programa 72 (Bienes y Servicios) en el/la <strong style="font-size:10pt">'.$establecimiento['nombre_establecimiento'].'</strong>.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato tendr&aacute; vigencia a partir del <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:12pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>T E R C E R A</u>: (DE LA VIGENCIA). -</strong> El presente Contrato de Trabajo a Plazo Fijo tendr&aacute; vigencia a partir del <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->inicio_contrato)).' </strong>hasta el <strong style="font-size:10pt">'.date("d/m/Y", strtotime($this->fin_contrato)).'</strong>, indefectiblemente</span></p>
 
-					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO).- </strong>De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:12pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:12pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
+					<p style="text-align:justify"><span style="font-size:10pt"><strong><u>C U A R T A</u>: (DEL SALARIO). -</strong> De acuerdoa Resoluci&oacute;n de Directorio No. 095/2019 de fecha 04/07/2019 en la cual aprueba la nueva Escala Salarial del Personal Eventual de la C.N.S., expresada en el cuadro de equivalencia considerando la Escala Salarial Gesti&oacute;n 2019, aprobada con Resoluci&oacute;n Ministerial N&deg; 443 de fecha 22/05/2019 del Ministerio de Econom&iacute;a y Finanzas Publicas, Par. I Art. 46 y Par. II Art. 48 de la Constituci&oacute;n Pol&iacute;tica del Estado, el salario que percibir&aacute; el <strong>CONTRATADO (A) </strong>est&aacute; sujeto a la previsi&oacute;n presupuestaria establecida; correspondiendo a <strong style="font-size:10pt">Bs. '.number_format($cargo['haber_basico'], 2, ",", ".").'</strong><strong style="font-size:10pt"> ('.$haber_literal.'),</strong> mensuales conforme al nivel y cargo para el que fue contratado, seg&uacute;n presupuesto.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Mensualmente,<strong> LA CAJA</strong> actuar&aacute; como agente de retenci&oacute;n de los descuentos establecidos por ley sobre el total ganado.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). - </strong>El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:12pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>Q U I N T A</u>: (DE LA JORNADA DE TRABAJO). -</strong> El <strong>CONTRATADO (A)</strong> desempe&ntilde;ar&aacute; funciones en una Jornada Laboral de <strong style="font-size:10pt">'.$cargo['hrs_semanales'].'</strong> horas semanales <strong>,</strong> pudiendo <strong>LA CAJA</strong> durante ese tiempo efectivo de trabajo disponer que el <strong>CONTRATADO (A)</strong> preste sus servicios en el lugar que se requiera.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). - </strong>Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E X T A</u>: (OBLIGACI&Oacute;N DEL CONTRATADO). -</strong> Se obliga a prestar sus servicios con eficiencia, eficacia, excelencia y responsabilidad en beneficio de la Instituci&oacute;n, respetando instancias superiores, conducto regular y organizaci&oacute;n Institucional.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> declara expresamente que conoce la labor a desempe&ntilde;ar y que es apto para ello, oblig&aacute;ndose a comunicar a su jefe inmediato superior, cualquier situaci&oacute;n especial, irregular o anormal que se presente en el desarrollo de sus actividades y que perjudique o pueda ir en desmedro a la Instituci&oacute;n.</span></p>
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">As&iacute; mismo el <strong>CONTRATADO (A)</strong> debe presentar la Declaración Jurada por Grado de Parentesco con huella digital, debidamente firmada, Formulario que serà proporcionado por las áreas de Recursos Humanos, según corresponda.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato.</span></p>
+					<p><br/></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente contrato de Trabajo a Plazo Fijo.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> a momento del cese de funciones deber&aacute; proceder a la devoluci&oacute;n de todos los activos que le fueron entregados, as&iacute; como de dejar en orden y al d&iacute;a el trabajo que le fuere entregado, hasta el &uacute;ltimo d&iacute;a que figura en el Contrato de Trabajo a Plazo Fijo.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO) El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">El <strong>CONTRATADO (A)</strong> no debe transferir o subrogar parcial o totalmente el presente Contrato de Trabajo a Plazo Fijo.</span></p>
+
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>S E P T I M A</u>: (DERECHOS DEL CONTRATADO). - El Contratado tendr&aacute; los siguientes Derechos:</strong></span></p>
 
 					<ul>
 
@@ -1652,17 +1717,17 @@ class AjaxPersonaContratos {
 
 					Recibir el pago en contraprestaci&oacute;n a su servicio, Derecho al Seguro de Salud, A que le proporcionen los recursos necesarios para el cumplimiento de sus funciones, A recibir pago de pasajes y viáticos por realizar viajes oficiales al interior del país según lo establecido en el D.S. N° 1788 de 07/11/2013 y Normativa Institucional Vigente, previa Autorización de Autoridades Ejecutivas de la C.N.S., La contratada tendr&aacute; derecho a medio d&iacute;a de tolerancia laboral para la realizaci&oacute;n del examen f&iacute;sico de mama y papanicolau u otros ex&aacute;menes an&aacute;logos y en caso de requerirse el examen de mamograf&iacute;a tendr&aacute;n adicionalmente otro medio d&iacute;a laboral para la realizaci&oacute;n del mismo, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado var&oacute;n, mayor a cuarenta (40) a&ntilde;os de edad, tendr&aacute; derecho a medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de examen f&iacute;sico de pr&oacute;stata y, en caso de requerirse el examen de laboratorio (PSA), tendr&aacute; adicionalmente otro medio d&iacute;a laboral de tolerancia para la realizaci&oacute;n de los mismos, quien deber&aacute; presentar su formulario de consulta m&eacute;dica de constancia, conforme lo establecido en el Decreto Supremo N&deg; 3164 de 03/05/2017, El contratado tendr&aacute; derecho a solicitar a la Jefatura Nacional de Recursos Humanos certificado de trabajo que acredite la prestación del servicio.
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</span></u>: (DE LA NORMATIVA LEGAL).-</strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>O C T A V A</u>: (DE LA NORMATIVA LEGAL). - </strong> Tanto <strong>LA CAJA</strong>, como el <strong>CONTRATADO (A)</strong> se sujetar&aacute;n a disposiciones vigentes establecidas en Ley General del Trabajo, C&oacute;digo de Seguridad Social, Ley 1178 Reglamento de la Responsabilidad por la Funci&oacute;n P&uacute;blica aprobado mediante Decreto Supremo N&ordm; 23318-A y Decreto Supremo N&ordm; 26237, Estatuto Org&aacute;nico de la Caja Nacional de Salud, Reglamento Interno de Trabajo de la Caja Nacional de Salud, Normas B&aacute;sicas del Sistema de Administraci&oacute;n de Personal Resoluci&oacute;n Administrativa 650/07, normativa institucional y Normas Legales Aplicables.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente contrato el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09-01-2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Asimismo, forma parte integrante del presente Contrato de Trabajo a Plazo Fijo, el Acta Notarial de Declaraci&oacute;n de Compatibilidad Funcionaria, Formulario Descriptivo de Parentesco aprobado mediante Resoluci&oacute;n de Directorio N&deg; 011/2019 de 09/01/2019 suscrito por el <strong>CONTRATADO (A)</strong>.&nbsp; </span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). - </strong>El presente contrato ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del contrato de trabajo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>N O V E N A</u>: (DE LA RESCISI&Oacute;N DEL CONTRATO). -</strong> El presente Contrato de Trabajo a Plazo Fijo ser&aacute; rescindido por las causales se&ntilde;aladas en el Art. 16 de la Ley General del Trabajo, Incs. a) perjuicio material causado con intenci&oacute;n en los instrumentos de trabajo; b) Revelaci&oacute;n de secretos industriales; c) Omisiones o imprudencias que afecten a la seguridad o higiene industrial; e) Incumplimiento total o parcial del convenio; g) Robo o hurto por el trabajador, Art. 9 de su Decreto Reglamentario de la Ley General del Trabajo Incs. a) Perjuicio material causado con intenci&oacute;n en las maquinas, productos o mercader&iacute;as, b) Revelaci&oacute;n de secretos industriales; c) Omisiones e imprudencias que afecten la higiene y seguridad industriales; e) Incumplimiento total o parcial del Contrato de Trabajo a Plazo Fijo <u>o del reglamento interno de la empresa</u>; g) Abuso de confianza, robo, hurto por el trabajador; h) v&iacute;as de hecho, injurias o conducta ºinmoral del trabajador, i) Abandono en masa del trabajo, siempre que los trabajadores no obedecieran a la intimidaci&oacute;n de la autoridad competente, Ley N&ordm; 1178 y sus Decretos Reglamentarios, Ley No. 004, y de acuerdo al Art. 81 y 86 del Reglamento Interno de Trabajo de la Caja Nacional de Salud.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de contrato al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Tambi&eacute;n se considerar&aacute; causal de rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, al cumplimiento de la vigencia establecida en la cl&aacute;usula tercera, as&iacute; como la renuncia previa aceptaci&oacute;n de la M&aacute;xima Autoridad Ejecutiva, para cuyo efecto el <strong>CONTRATADO (A)</strong> deber&aacute; comunicar su intenci&oacute;n a <strong>LA CAJA</strong> con (15) d&iacute;as de anticipaci&oacute;n de acuerdo a determinaciones institucionales.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de contrato, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">A la rescisi&oacute;n de Contrato de Trabajo a Plazo Fijo, el <strong>CONTRATADO (A)</strong> tiene la obligaci&oacute;n de entregar el trabajo pendiente a satisfacci&oacute;n y los activos fijos asignados, de conformidad al Art. 32 del D.S.26115 de 16 de mayo de 2001.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). &ndash; </strong>El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A</u>: (INSCRIPCI&Oacute;N DE HEREDEROS). -</strong> El Contratado en cumplimiento del inc. h) del art. 7 del Reglamento de la Ley General del Trabajo, registra como herederos (as) a:</span></p>
 
 					<table border="1" cellpadding="1" cellspacing="1" style="width: 550px">
 						<tbody>
@@ -1685,8 +1750,19 @@ class AjaxPersonaContratos {
 						$documento_contrato .= '
 							<tr>
 								<td>'.$persona_herederos[$i]["nombre_completo"].'</td>
-								<td style="text-align:center;">'.$edad->y.'</td>
+								<td style="text-align:center;">-</td>
 								<td style="text-align:center;">'.$persona_herederos[$i]["parentezco"].'</td>
+							</tr>';
+
+					}
+
+					for ($i = 0; $i < 25; $i++) { 
+
+						$documento_contrato .= '
+							<tr>
+								<td></td>
+								<td align="center">-</td>
+								<td align="center"></td>
 							</tr>';
 
 					}
@@ -1699,7 +1775,7 @@ class AjaxPersonaContratos {
 
 					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt">Los herederos mencionados en cuadro precedente, son descendientes en l&iacute;nea consangu&iacute;nea y por afinidad de acuerdo al C&oacute;digo Civil Boliviano.</span></p>
 
-					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por el/la <strong style="font-size:12pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administrador Regional</strong> y el/la. <strong style="font-size:12pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Encargado de Recursos Humanos</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:12pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].'</strong>, damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
+					<p style="margin-right:2px; text-align:justify"><span style="font-size:10pt"><strong><u>D É C I M A&nbsp; P R I M E R A</u>: (DE LA CONFORMIDAD). - La Caja Nacional de Salud </strong>representada por la <strong style="font-size:10pt">'.$admin_regional['nombre_autoridad'].'</strong>.- <strong>Administradora Regional</strong>, <strong style="font-size:10pt">'.$servicios_grales['nombre_autoridad'].'</strong><strong>.- Jefe Servicios Generales</strong>, <strong style="font-size:10pt">'.$supervisor_admin['nombre_autoridad'].'</strong><strong>.- Supervisor Adm. I RR.HH.</strong>, as&iacute; como el/la Sr. (a). <strong style="font-size:10pt">'.$persona['nombre_persona'].' '.$persona['paterno_persona'].' '.$persona['materno_persona'].',</strong> damos nuestra conformidad con todas y cada una de las cl&aacute;usulas que anteceden en el presente contrato, oblig&aacute;ndonos a su fiel cumplimiento, firmando en se&ntilde;al de conformidad en cinco ejemplares del mismo tenor.</span></p>
 
 					<p style="margin-right:2px; text-align:right">&nbsp;</p>
 
@@ -1726,22 +1802,31 @@ class AjaxPersonaContratos {
 
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ENCARGADO DE RECURSOS HUMANOS</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$supervisor_admin['nombre_autoridad'].'<br />
+										<strong>'.$supervisor_admin['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
+								<tr><td><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></td></tr>
 								<tr>
-									<td colspan="2" style="text-align:center">
+									<td style="text-align:center; width:275px">
 
 										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$servicios_grales['nombre_autoridad'].'<br />
+										<strong>'.$servicios_grales['puesto'].' a.i.</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
+
+									</td>
+									
+									<td style="text-align:center">
+
 										<p>&nbsp;</p>
 
-										<span style="font-family:Arial,Helvetica,sans-serif"><br />
-										<strong>ADMINISTRADOR(A) REGIONAL</strong><br />
-										<strong>CAJA NACIONAL DE SALUD</strong></span>
+										<span style="font-family:Arial,Helvetica,sans-serif">'.$admin_regional['nombre_autoridad'].'<br />
+										<strong>'.$admin_regional['puesto'].'</strong><br />
+										<strong>CAJA NACIONAL DE SALUD - POTOSI</strong></span>
 
 									</td>
 								</tr>
@@ -1774,6 +1859,7 @@ class AjaxPersonaContratos {
 				        "dias_contrato"			        => $this->dias_contrato,
 				        "fin_contrato"   	            => $this->fin_contrato,
 				        "id_contrato"   	            => $this->id_contrato,
+				        "asignacion_persona_contrato"  	=> $this->asignacion_persona_contrato,
 				        "id_suplencia"   	            => $suplencia,
 				        "id_memorandum"   		   		=> $this->id_memorandum,
 				        "certificacion_presupuestaria"  => $this->certificacion_presupuestaria,
@@ -2206,6 +2292,17 @@ if (isset($_POST["nuevoPersonaContratos"])) {
 	$nuevoPersonaContrato -> dias_contrato = $_POST["nuevoDiasContrato"];
 	$nuevoPersonaContrato -> fin_contrato = $_POST["nuevoFechaFin"];
 	$nuevoPersonaContrato -> id_contrato = $_POST["nuevoTipoContrato"];
+
+	if (isset($_POST["nuevoAsigPersonaContrato"])) {
+
+		$nuevoPersonaContrato -> asignacion_persona_contrato = $_POST["nuevoAsigPersonaContrato"];
+
+	} else {
+
+		$nuevoPersonaContrato -> asignacion_persona_contrato = null;
+
+	}
+
 	$nuevoPersonaContrato -> id_suplencia = $_POST["nuevoTipoSuplencia"];
 	$nuevoPersonaContrato -> id_memorandum = $_POST["nuevoMemorandumInstructivo"];
 	$nuevoPersonaContrato -> certificacion_presupuestaria = $_POST["nuevoCertificacion"];
@@ -2213,7 +2310,7 @@ if (isset($_POST["nuevoPersonaContratos"])) {
 	$nuevoPersonaContrato -> gestion_contrato = $_POST["nuevoGestionContrato"];
 	$nuevoPersonaContrato -> observaciones_contrato = $_POST["nuevoObservacionesContrato"];
 
-	if (isset($_POST["nuevoRecurrencia"])) {
+	if ($_POST["nuevoTipoContrato"] == "5") {
 		
 		$nuevoPersonaContrato -> recurrencia = 1;
 
@@ -2244,6 +2341,17 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> dias_contrato = $_POST["editarDiasContrato"];
 	$editarPersonaContrato -> fin_contrato = $_POST["editarFechaFin"];
 	$editarPersonaContrato -> id_contrato = $_POST["editarTipoContrato"];
+
+	if (isset($_POST["editarAsigPersonaContrato"])) {
+
+		$editarPersonaContrato -> asignacion_persona_contrato = $_POST["editarAsigPersonaContrato"];
+
+	} else {
+
+		$editarPersonaContrato -> asignacion_persona_contrato = null;
+
+	}
+
 	$editarPersonaContrato -> id_suplencia = $_POST["editarTipoSuplencia"];
 	$editarPersonaContrato -> id_memorandum = $_POST["editarMemorandumInstructivo"];
 	$editarPersonaContrato -> certificacion_presupuestaria = $_POST["editarCertificacion"];
@@ -2251,7 +2359,7 @@ if (isset($_POST["editarPersonaContrato"])) {
 	$editarPersonaContrato -> gestion_contrato = $_POST["editarGestionContrato"];
 	$editarPersonaContrato -> observaciones_contrato = $_POST["editarObservacionesContrato"];
 
-	if (isset($_POST["editarRecurrencia"])) {
+	if ($_POST["editarTipoContrato"] == "5") {
 		
 		$editarPersonaContrato -> recurrencia = 1;
 
