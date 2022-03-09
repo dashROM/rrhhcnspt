@@ -38,34 +38,61 @@
 
           <div class="x_title">
 
-            <form>
+            <form id="frmReportePersonaContrato">
 
-              <div class="row form-inline justify-content-center">
-                <label class="font-weight-bold mr-2" for="reporteGestionContrato">SELECCIONE UNA GESTION</label>
-                <select class="form-control selectpicker show-tick mr-2" id="reporteGestionContrato" name="reporteGestionContrato" data-size="5" title="Elegir...">
+              <div class="row">
+                <label class="font-weight-bold col-md-3 offset-md-2 col-form-label" for="reporteTipoContrato">SELECCIONE UN GRUPO DE CONTRATO</label>
+                <div class="col-md-4">
+                  <select class="form-control selectpicker show-tick" id="reporteTipoContrato" name="reporteTipoContrato" data-size="5" title="Elegir...">
                   <?php 
 
-                    for ($i = date("Y"); $i >= 2020 ; $i--) { 
-                      
-                      echo '<option value="'.$i.'">'.$i.'</option>';
+                    $item = null;
+                    $valor = null;
 
+                    $contratos = ControladorContratos::ctrMostrarContratos($item, $valor);
+
+                    foreach ($contratos as $key => $value) {
+                      
+                      echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
                     } 
 
                   ?>
-                </select>
+                  </select>
+                </div>
+              </div>
 
-                <!-- <button type="button" class="btn btn-primary px-2 btnReporteGestionContarto">
+              <div class="row">
+                <label class="font-weight-bold col-md-3 offset-md-2 col-form-label" for="reporteGestionContrato">SELECCIONE UNA GESTION</label>
+                <div class="col-md-2">
+                  <select class="form-control selectpicker show-tick mr-2" id="reporteGestionContrato" name="reporteGestionContrato" data-size="5" title="Elegir...">
+                    <?php 
+
+                      for ($i = date("Y"); $i >= 2020 ; $i--) { 
+                        
+                        echo '<option value="'.$i.'">'.$i.'</option>';
+
+                      } 
+
+                    ?>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row form-inline justify-content-center">
+
+                <button type="button" class="btn btn-primary px-2 btnReporteContarto">
               
                   <i class="fas fa-search"></i> Buscar
                 
                 </button>  
 
-                <button type="button" class="btn btn-danger px-2 btnReporteGestionContartoPDF">
+                <!-- <button type="button" class="btn btn-danger px-2 btnReporteGestionContartoPDF">
               
                   <i class="fas fa-file-pdf"></i></i> Exportar PDF
                 
-                </button>   -->
+                </button> -->  
               </div>
+
             </form>
 
             <div class="clearfix"></div>
@@ -92,14 +119,14 @@
                       
                       <tr>
                         <th>NRO. CONTR.</th>
-                        <th>GESTION CONTRATO</th>
                         <th>APELLIDOS Y NOMBRES</th>
                         <th>NRO. CI</th>
                         <th>FECHA NACIM.</th>
                         <th>MATRICULA</th>
                         <th>ESTABL. CONTRATO</th>
-                        <th>CONTRATO</th>
                         <th>TIPO CONTRATACION</th>
+                        <th>CARGO</th>
+                        <th>HABER BASICO</th>
                         <th>INICIO CONTRATO</th>
                         <th>FIN CONTRATO</th>
                         <th>DIAS CONTRATO</th>

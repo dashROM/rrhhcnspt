@@ -141,7 +141,7 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 
     if ($("#frmNuevoPersona").valid()) {
 
-    	console.log("VALIDADO PERSONA");
+    	// console.log("VALIDADO PERSONA");
 
 		var datos = new FormData($("#frmNuevoPersona")[0]);
 		datos.append("nuevoPersona", 'nuevoPersona');
@@ -156,7 +156,7 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 			processData: false,
 			dataType: "html",
 			success: function(respuesta) {
-				console.log("respuesta", respuesta);
+				// console.log("respuesta", respuesta);
 			
 				if (respuesta == "ok") {
 

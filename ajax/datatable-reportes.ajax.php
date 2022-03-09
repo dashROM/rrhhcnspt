@@ -5,6 +5,7 @@ require_once "../modelos/persona_contratos.modelo.php";
 
 class TablaReportes {
 
+	public $id_contrato;
 	public $gestion_contrato;
 
 	/*=============================================
@@ -13,10 +14,12 @@ class TablaReportes {
 		
 	public function mostrarTablaReportePersonaContratos() {
 
-		$item = 'gestion_contrato';
-		$valor = $this->gestion_contrato;
+		$item1 = 'id_contrato';
+		$valor1 = $this->id_contrato;
+		$item2 = 'gestion_contrato';
+		$valor2 = $this->gestion_contrato;
 
-		$datos_reporte = ControladorPersonaContratos::ctrMostrarReportePersonaContratos($item, $valor);
+		$datos_reporte = ControladorPersonaContratos::ctrMostrarReportePersonaContratos($item1, $item2, $valor1, $valor2);
 
 		if ($datos_reporte == null) {
 			
@@ -50,15 +53,15 @@ class TablaReportes {
 					// }
 					
 					$datosJson .='[
-						"'.$datos_reporte[$i]["nro_contrato"].'",	
-						"'.$datos_reporte[$i]["gestion_contrato"].'",				
+						"'.$datos_reporte[$i]["nro_contrato"].'/'.$datos_reporte[$i]["gestion_contrato"].'",				
 						"'.$datos_reporte[$i]["nombre_completo"].'",
 						"'.$datos_reporte[$i]["ci_persona"].'",
 						"'.date("d/m/Y", strtotime($datos_reporte[$i]["fecha_nacimiento"])).'",
 						"'.$datos_reporte[$i]["matricula_persona"].'",
 						"'.$datos_reporte[$i]["abrev_establecimiento"].'",
-						"'.$datos_reporte[$i]["nombre_contrato"].'-'.$datos_reporte[$i]["proposito_contrato"].'",
 						"'.$datos_reporte[$i]["tipo_contratacion"].'",
+						"'.$datos_reporte[$i]["nombre_cargo"].'",
+						"'.$datos_reporte[$i]["haber_basico"].'",
 						"'.date("d/m/Y", strtotime($datos_reporte[$i]["inicio_contrato"])).'",
 						"'.date("d/m/Y", strtotime($datos_reporte[$i]["fin_contrato"])).'",
 						"'.$datos_reporte[$i]["dias_contrato"].'"
@@ -94,6 +97,7 @@ ACTIVAR TABLA DE REPORTES
 if (isset($_POST["reportePersonaContratos"])) { 
 
 	$activarReportes = new TablaReportes();
+	$activarReportes -> id_contrato = $_POST["idContrato"];
 	$activarReportes -> gestion_contrato = $_POST["gestionContrato"];
 	$activarReportes -> mostrarTablaReportePersonaContratos();
 

@@ -138,11 +138,11 @@ class ControladorPersonaContratos {
 	REPORTE PERSONA CONTRATOS
 	=============================================*/
 	
-	static public function ctrMostrarReportePersonaContratos($item, $valor) {
+	static public function ctrMostrarReportePersonaContratos($item1, $item2, $valor1, $valor2) {
 		
 		$tabla = "persona_contratos";
 
-		$respuesta = ModeloPersonaContratos::mdlMostrarReportePersonaContratos($tabla, $item, $valor);
+		$respuesta = ModeloPersonaContratos::mdlMostrarReportePersonaContratos($tabla, $item1, $item2, $valor1, $valor2);
 
 		return $respuesta;
 
