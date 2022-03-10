@@ -1087,9 +1087,15 @@ class AjaxPlanillasPersonas {
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
+		// CONVERTIR NUMERO DE MES A SU VALOR LITERAL
+		setlocale(LC_TIME, 'spanish');
+		$numero = $planilla["mes_planilla"];
+		$dateObj   = DateTime::createFromFormat('!m', $numero);
+		$mes = strftime('%B', $dateObj->getTimestamp());
+
 		// Envio datos al encabezado
 		$pdf->id_planilla = $this->id_planilla;;
-		$pdf->mes_planilla = $planilla["mes_planilla"];
+		$pdf->mes_planilla = $mes;
 		$pdf->gestion_planilla = $planilla["gestion_planilla"];
 
 		// seleccion que encabezado se elije
@@ -1267,15 +1273,7 @@ class AjaxPlanillasPersonas {
 
 			    <div class="footer_planilla">
 			    	
-			    	<table>
-			    		<tr>
-			    			<td align="center">'.$enc_planillas['nombre_autoridad'].'<br><label class="font-weight-bold">'.$enc_planillas['puesto'].'</label></td>
-			    			<td align="center">'.$supervisor_admin['nombre_autoridad'].'<br><label class="font-weight-bold">'.$supervisor_admin['puesto'].'</label></td>
-			    			<td align="center">'.$jefe_contabilidad['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_contabilidad['puesto'].'</label></td>
-			    			<td align="center">'.$jefe_servicios['nombre_autoridad'].'<br><label class="font-weight-bold">'.$jefe_servicios['puesto'].'</label></td>
-			    			<td align="center">'.$admin_regional['nombre_autoridad'].'<br><label class="font-weight-bold">'.$admin_regional['puesto'].'</label></td>
-			    		</tr>
-			    	</table>
+			    	
 
 			    </div>
 
