@@ -14,6 +14,8 @@ require_once('../extensiones/tcpdf/tcpdf.php');
 class MYPDF extends TCPDF {
 
 	public $id_planilla;
+	public $mes_planilla;
+	public $gestion_planilla;
 	public $id_planilla_persona_contrato;
 
 	public $headerPlanilla = false;
@@ -62,7 +64,7 @@ class MYPDF extends TCPDF {
 			);
 
 			//	Datos a mostrar en el código QR
-			$codeContents = 'COD. PLANILLA: '.$this->id_planilla."\n";
+			$codeContents = 'COD. PLANILLA: '.$this->id_planilla."\n"."MES PLANILLA: ".$this->mes_planilla."\n"."GESTION PLANILLA: ".$this->gestion_planilla;
 
 			// insertando el código QR
 			$this->write2DBarcode($codeContents, 'QRCODE,L', 250, 3, 18, 18, $style, 'N');
@@ -1084,6 +1086,11 @@ class AjaxPlanillasPersonas {
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+		// Envio datos al encabezado
+		$pdf->id_planilla = $this->id_planilla;;
+		$pdf->mes_planilla = $planilla["mes_planilla"];
+		$pdf->gestion_planilla = $planilla["gestion_planilla"];
 
 		// seleccion que encabezado se elije
 		$pdf->headerPlanilla = true;

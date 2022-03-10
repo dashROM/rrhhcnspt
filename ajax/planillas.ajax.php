@@ -54,7 +54,7 @@ class AjaxPlanillas {
 
 				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
-				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATO A PLAZO FIJO CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
 
 			} else {
 
