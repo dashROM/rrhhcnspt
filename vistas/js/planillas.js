@@ -119,6 +119,7 @@ var tablaPlanilla = $('#tablaPlanillas').DataTable({
 
 	"lengthChange": false,
 
+	"info": true,
 
 }); 
 
@@ -560,6 +561,36 @@ var tablaPlanillaPersona = $('#tablaPlanillaPersona').DataTable({
 	},
 
 	"lengthChange": false,
+
+	//para usar los botones   
+    "responsive": true,
+
+	"dom": 'Bfrtilp',       
+        
+    "buttons":[ 
+		{
+			extend:    'excelHtml5',
+			title: 	   'PLANILLA '+idPlanilla,
+			text:      '<i class="fas fa-file-excel"></i> Generar EXCEL',
+			titleAttr: 'Exportar a Excel',
+			className: 'btn btn-round btn-success'
+		},
+		// {
+		// 	extend:    		'pdfHtml5',
+		//      download: 		'open',
+		// 	orientation: 	'landscape',
+		// 	text:      		'<i class="fas fa-file-pdf"></i> Generar PDF',
+		// 	title: 				'CONTRATOS CNS REGIONAL POTOSI GESTION '+$gestionContrato,
+		// 	titleAttr: 		'Exportar a PDF',
+		// 	className: 		'btn btn-round btn-danger'
+		// },
+		// {
+		// 	extend:    'print',
+		// 	text:      '<i class="fa fa-print"></i> Imprimir',
+		// 	titleAttr: 'Imprimir',
+		// 	className: 'btn btn-info'
+		// },
+	]
 
 });
 
