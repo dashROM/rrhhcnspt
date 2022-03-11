@@ -17,7 +17,10 @@ class MYPDF extends TCPDF {
 	public $mes_planilla;
 	public $gestion_planilla;
 	public $id_planilla_persona_contrato;
-
+	public $paterno_persona;
+	public $materno_persona;
+	public $nombre_persona;
+	public $dias_trabajados;
 	public $headerPlanilla = false;
 
 	//Page header
@@ -74,7 +77,7 @@ class MYPDF extends TCPDF {
             
 	        // Logo
 	        $image_file = K_PATH_IMAGES.'cns-logo-actual.jpg';
-	        $this->Image($image_file, 12, 12, 12, '', 'JPG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+	        $this->Image($image_file, 2, 6, 20, '', 'JPG', '', 'T', false, 100, '', false, false, 0, false, false, false);
 
 	        // Estilos necesarios para el Codigo QR
 			$style = array(
@@ -88,10 +91,14 @@ class MYPDF extends TCPDF {
 			);
 
 			//	Datos a mostrar en el código QR
-			$codeContents = 'COD. BOLETA: '.$this->id_planilla_persona_contrato."\n";
+			$codeContents = 'COD. BOLETA: '.$this->id_planilla_persona_contrato."\n"."MES PLANILLA: ".$this->mes_planilla."\n"."GESTION PLANILLA: ".$this->gestion_planilla."\n"."NOMBRE: ".$this->nombre_persona."\n"."A. PATERNO: ".$this->paterno_persona."\n"."A. MATERNO: ".$this->materno_persona."\n"."DIAS TRAB.: ".$this->dias_trabajados;
 
 			// insertando el código QR
-			$this->write2DBarcode($codeContents, 'QRCODE,L', 180, 10, 18, 18, $style, 'N');
+			$this->write2DBarcode($codeContents, 'QRCODE,L', 175, 5, 30, 30, $style, 'N');
+
+	        // Imagen Marca de Agua
+	        $image_file2 = K_PATH_IMAGES.'cns-marca-agua.jpg';
+	        $this->Image($image_file2, 70, 10, 80, '', 'JPG', '', '', false, 300, '', false, false, 0);
 
         } else {
 
@@ -539,13 +546,13 @@ class AjaxPlanillasPersonas {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(5, 5, 5, 0);
+		$pdf->SetMargins(0, 0, 0, 0);
 
 		$pdf->SetHeaderMargin(0);
 		$pdf->SetFooterMargin(0);
 
 		// set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, 5);
+		$pdf->SetAutoPageBreak(TRUE, 0);
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -564,14 +571,14 @@ class AjaxPlanillasPersonas {
 				<style>
 					
 					body {
-						font-size: 28px;
-						margin: 4px;
-						padding: 4px;
+						font-size: 40px;
+						margin: 2px;
+						padding: 2px;
 					}
 
 					.content div{
 
-						line-height: 6px;
+						line-height: 4.5px;
 
 					}
 
@@ -583,8 +590,9 @@ class AjaxPlanillasPersonas {
 
 					.titulo {
 
+						font-size: 50px;
 						text-align: center;
-						line-height: 2px;
+						line-height: 1px;
 
 					}
 
@@ -594,14 +602,30 @@ class AjaxPlanillasPersonas {
 						border-bottom: 1px solid #000;
 					}
 
+					.texto-resaltado {
+
+						font-weight: bold;
+						font-size: 45px;
+
+					}
+
 					.firma {
 
-						width: 200px; 
 						border-top: 1px dashed #000; 
 						margin-left: auto; 
 						margin-right: auto;
 
 					}
+
+					.footer_boleta {
+ 
+						text-align: center;
+						margin: 0px;
+						padding: 0px;
+						line-height: 2px;
+
+					}
+					
 
 				</style>
 
@@ -611,9 +635,9 @@ class AjaxPlanillasPersonas {
 
 			$content .= '
 
-			<div class="content" border="1">
+			<div class="content" border="0">
 
-				<div style="line-height: 0px;">
+				<div style="line-height: 0px; padding: 0px">
 
 					<table cellpadding="5px" cellspacing="0px">
 			    		<tr>
@@ -622,7 +646,7 @@ class AjaxPlanillasPersonas {
 
 			    				<h3 class="titulo" style="line-height: 2px;">BOLETAS DE PAGO</h3>
 
-								<h4 class="titulo" style="line-height: 2px;">'.$planilla["nombre_contrato"].'</h4>
+								<h4 class="titulo" style="line-height: 2px;">'.$planilla["nombre_contrato"].' - '.$planilla["proposito_contrato"].'</h4>
 
 							</td>
 
@@ -636,15 +660,15 @@ class AjaxPlanillasPersonas {
 			    	<table>
 			    		<tr>
 			    			<td width="75px"></td>
-			    			<td colspan="2">Detalle de pago por el Mes de: <b>'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</b></td>
+			    			<td colspan="2">Detalle de pago por el Mes de: <label class="texto-resaltado">'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</label></td>
+			    			<td align="right">Dias Trabajados: <label class="texto-resaltado">'.$planilla_persona_contrato["dias_trabajados"].'</label></td>
 			    			<td></td>
-			    			<td>Dias Trabajados:'.$planilla_persona_contrato["dias_trabajados"].'</td>
 			    		</tr>
 			    		<tr>
 			    			<td></td>
-			    			<td width="115px">'.$planilla_persona_contrato["paterno_persona"].'</td>
-			    			<td width="115px">'.$planilla_persona_contrato["materno_persona"].'</td>
-			    			<td width="120px">'.$planilla_persona_contrato["nombre_persona"].'</td>
+			    			<td width="115px"><b>'.$planilla_persona_contrato["paterno_persona"].'</b></td>
+			    			<td width="115px"><b>'.$planilla_persona_contrato["materno_persona"].'</b></td>
+			    			<td width="120px"><b>'.$planilla_persona_contrato["nombre_persona"].'</b></td>
 			    			<td width="115px"></td>
 			    		</tr>
 
@@ -654,11 +678,6 @@ class AjaxPlanillasPersonas {
 			    			<th width="115px" class="datos-personales">AP. MATERNO</th>
 			    			<th width="120px" class="datos-personales">NOMBRE(S)</th>
 			    			<th width="115px" class="datos-personales"></th>
-			    		</tr>
-			    		<tr>
-			    			<td></td>
-			    			<td colspan="3"><u>Haberes</u>:</td>
-			    			<td>Detalle General</td>
 			    		</tr>
 			    		<tr>
 			    			<td></td>
@@ -697,16 +716,31 @@ class AjaxPlanillasPersonas {
 			    			<td></td>
 			    			<td colspan="2" align="right">LIQUIDO PAGABLE Bs.</td>
 			    			<td></td>
-			    			<td align="right" style="border-bottom: 3px double #000">'.number_format($planilla_persona_contrato["liquido_pagable"], 2, ",", ".").'</td>
+			    			<td align="right" style="border-bottom: 3px double #000"><label class="texto-resaltado">'.number_format($planilla_persona_contrato["liquido_pagable"], 2, ",", ".").'</label></td>
 			    		</tr>
 
 			    	</table>
 
 			    </div>
 
-			    <div style="text-align: center;" height="5px">
-				
-					<h4 class="firma">RECIBIDO CONFORME</h4>
+			    <div class="footer_boleta">
+
+			    	<table cellpadding="5px" cellspacing="0px">
+			    		<tr>
+
+			    			<td></td>
+
+							<td>
+
+			    				<h4 class="firma">RECIBIDO CONFORME</h4>
+
+							</td>
+
+							<td></td>
+
+						</tr>
+
+					</table>
 
 				</div>
 
@@ -722,6 +756,18 @@ class AjaxPlanillasPersonas {
 			$pdf->headerBoleta = true;
 
 		    $pdf->id_planilla_persona_contrato = $this->id_planilla_persona_contrato;
+
+		    $pdf->mes_planilla = strtoupper($mes);
+
+		    $pdf->gestion_planilla = $planilla["gestion_planilla"];
+
+		    $pdf->paterno_persona = $planilla_persona_contrato["paterno_persona"];
+
+		    $pdf->materno_persona = $planilla_persona_contrato["materno_persona"];
+
+		    $pdf->nombre_persona = $planilla_persona_contrato["nombre_persona"];
+
+			$pdf->dias_trabajados = $planilla_persona_contrato["dias_trabajados"];		    
 
 		    // add a page
 			$pdf->AddPage();
@@ -786,13 +832,13 @@ class AjaxPlanillasPersonas {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(5, 5, 5, 0);
+		$pdf->SetMargins(0, 0, 0, 0);
 
 		$pdf->SetHeaderMargin(0);
 		$pdf->SetFooterMargin(0);
 
 		// set auto page breaks
-		$pdf->SetAutoPageBreak(TRUE, 5);
+		$pdf->SetAutoPageBreak(TRUE, 0);
 
 		// set image scale factor
 		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
@@ -811,14 +857,14 @@ class AjaxPlanillasPersonas {
 				<style>
 					
 					body {
-						font-size: 28px;
-						margin: 4px;
-						padding: 4px;
+						font-size: 40px;
+						margin: 2px;
+						padding: 2px;
 					}
 
 					.content div{
 
-						line-height: 6px;
+						line-height: 4.5px;
 
 					}
 
@@ -830,8 +876,9 @@ class AjaxPlanillasPersonas {
 
 					.titulo {
 
+						font-size: 50px;
 						text-align: center;
-						line-height: 2px;
+						line-height: 1px;
 
 					}
 
@@ -841,14 +888,30 @@ class AjaxPlanillasPersonas {
 						border-bottom: 1px solid #000;
 					}
 
+					.texto-resaltado {
+
+						font-weight: bold;
+						font-size: 45px;
+
+					}
+
 					.firma {
 
-						width: 200px; 
 						border-top: 1px dashed #000; 
 						margin-left: auto; 
 						margin-right: auto;
 
 					}
+
+					.footer_boleta {
+ 
+						text-align: center;
+						margin: 0px;
+						padding: 0px;
+						line-height: 2px;
+
+					}
+					
 
 				</style>
 
@@ -858,9 +921,9 @@ class AjaxPlanillasPersonas {
 
 			$content .= '
 
-			<div class="content" border="1">
+			<div class="content" border="0">
 
-				<div style="line-height: 0px;">
+				<div style="line-height: 0px; padding: 0px">
 
 					<table cellpadding="5px" cellspacing="0px">
 			    		<tr>
@@ -869,7 +932,7 @@ class AjaxPlanillasPersonas {
 
 			    				<h3 class="titulo" style="line-height: 2px;">BOLETAS DE PAGO</h3>
 
-								<h4 class="titulo" style="line-height: 2px;">'.$planilla["nombre_contrato"].'</h4>
+								<h4 class="titulo" style="line-height: 2px;">'.$planilla["nombre_contrato"].' - '.$planilla["proposito_contrato"].'</h4>
 
 							</td>
 
@@ -883,15 +946,15 @@ class AjaxPlanillasPersonas {
 			    	<table>
 			    		<tr>
 			    			<td width="75px"></td>
-			    			<td colspan="2">Detalle de pago por el Mes de: <b>'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</b></td>
+			    			<td colspan="2">Detalle de pago por el Mes de: <label class="texto-resaltado">'.strtoupper($mes).' '.$planilla["gestion_planilla"].'</label></td>
+			    			<td align="right">Dias Trabajados: <label class="texto-resaltado">'.$datos_planilla[$i]["dias_trabajados"].'</label></td>
 			    			<td></td>
-			    			<td>Dias Trabajados:'.$datos_planilla[$i]["dias_trabajados"].'</td>
 			    		</tr>
 			    		<tr>
 			    			<td></td>
-			    			<td width="115px">'.$datos_planilla[$i]["paterno_persona"].'</td>
-			    			<td width="115px">'.$datos_planilla[$i]["materno_persona"].'</td>
-			    			<td width="120px">'.$datos_planilla[$i]["nombre_persona"].'</td>
+			    			<td width="115px"><b>'.$datos_planilla[$i]["paterno_persona"].'</b></td>
+			    			<td width="115px"><b>'.$datos_planilla[$i]["materno_persona"].'</b></td>
+			    			<td width="120px"><b>'.$datos_planilla[$i]["nombre_persona"].'</b></td>
 			    			<td width="115px"></td>
 			    		</tr>
 
@@ -901,11 +964,6 @@ class AjaxPlanillasPersonas {
 			    			<th width="115px" class="datos-personales">AP. MATERNO</th>
 			    			<th width="120px" class="datos-personales">NOMBRE(S)</th>
 			    			<th width="115px" class="datos-personales"></th>
-			    		</tr>
-			    		<tr>
-			    			<td></td>
-			    			<td colspan="3"><u>Haberes</u>:</td>
-			    			<td>Detalle General</td>
 			    		</tr>
 			    		<tr>
 			    			<td></td>
@@ -944,16 +1002,31 @@ class AjaxPlanillasPersonas {
 			    			<td></td>
 			    			<td colspan="2" align="right">LIQUIDO PAGABLE Bs.</td>
 			    			<td></td>
-			    			<td align="right" style="border-bottom: 3px double #000">'.number_format($datos_planilla[$i]["liquido_pagable"], 2, ",", ".").'</td>
+			    			<td align="right" style="border-bottom: 3px double #000"><label class="texto-resaltado">'.number_format($datos_planilla[$i]["liquido_pagable"], 2, ",", ".").'</label></td>
 			    		</tr>
 
 			    	</table>
 
 			    </div>
 
-			    <div style="text-align: center;" height="5px">
-				
-					<h4 class="firma">RECIBIDO CONFORME</h4>
+			    <div class="footer_boleta">
+
+			    	<table cellpadding="5px" cellspacing="0px">
+			    		<tr>
+
+			    			<td></td>
+
+							<td>
+
+			    				<h4 class="firma">RECIBIDO CONFORME</h4>
+
+							</td>
+
+							<td></td>
+
+						</tr>
+
+					</table>
 
 				</div>
 
@@ -969,6 +1042,18 @@ class AjaxPlanillasPersonas {
 			$pdf->headerBoleta = true;
 
 		    $pdf->id_planilla_persona_contrato = $datos_planilla[$i]["id_planilla_persona_contrato"];
+
+		    $pdf->mes_planilla = strtoupper($mes);
+
+		    $pdf->gestion_planilla = $planilla["gestion_planilla"];
+
+		    $pdf->paterno_persona = $datos_planilla[$i]["paterno_persona"];
+
+		    $pdf->materno_persona = $datos_planilla[$i]["materno_persona"];
+
+		    $pdf->nombre_persona = $datos_planilla[$i]["nombre_persona"];
+
+			$pdf->dias_trabajados = $datos_planilla[$i]["dias_trabajados"];	
 
 		    // add a page
 			$pdf->AddPage();
@@ -1095,7 +1180,7 @@ class AjaxPlanillasPersonas {
 
 		// Envio datos al encabezado
 		$pdf->id_planilla = $this->id_planilla;;
-		$pdf->mes_planilla = $mes;
+		$pdf->mes_planilla = strtoupper($mes);
 		$pdf->gestion_planilla = $planilla["gestion_planilla"];
 
 		// seleccion que encabezado se elije

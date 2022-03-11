@@ -21,7 +21,7 @@ class ModeloPlanillas {
 
 			} else {
 
-				$sql = "SELECT p.id_planilla, p.titulo_relacion, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato AND $item = :$item";
+				$sql = "SELECT p.id_planilla, p.titulo_relacion, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato, c.proposito_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato AND $item = :$item";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -35,7 +35,7 @@ class ModeloPlanillas {
 
 		} else {
 
-			$sql = "SELECT p.id_planilla, p.titulo_relacion, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato ORDER BY p.id_planilla DESC";
+			$sql = "SELECT p.id_planilla, p.titulo_relacion, p.titulo_planilla, p.mes_planilla, p.gestion_planilla, c.nombre_contrato, c.proposito_contrato FROM planillas p, contratos c WHERE p.id_contrato = c.id_contrato ORDER BY p.id_planilla DESC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
