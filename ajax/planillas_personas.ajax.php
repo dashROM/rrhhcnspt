@@ -100,6 +100,14 @@ class MYPDF extends TCPDF {
 	        $image_file2 = K_PATH_IMAGES.'cns-marca-agua.jpg';
 	        $this->Image($image_file2, 70, 10, 80, '', 'JPG', '', '', false, 300, '', false, false, 0);
 
+	        // Set font
+	        $this->SetFont('helvetica', '', 7);
+
+	        $this->MultiCell(155, 5, 'Boleta Generada Por el Sistema de Recursos Humanos CNS Regional Potosí', 0, 'L', 0, 0, 3, 122, true);
+
+	        // Set font
+	        $this->SetFont('helvetica', 'B', 12);
+
         } else {
 
         	// Set font
@@ -635,7 +643,7 @@ class AjaxPlanillasPersonas {
 
 			$content .= '
 
-			<div class="content" border="0">
+			<div class="content" border="1">
 
 				<div style="line-height: 0px; padding: 0px">
 
