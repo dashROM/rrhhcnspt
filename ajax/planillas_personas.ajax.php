@@ -228,14 +228,39 @@ class AjaxPlanillasPersonas {
 	public function ajaxAgregarDiasTrabajados()	{
 
 		/*=============================================
+		OPTENEMOS DATOS DE PERSONA SEGUN PLANILLA PERSONA CONTRATO
+		=============================================*/
+
+		$item = "id_planilla_persona_contrato";
+		$valor = $this->id_planilla_persona_contrato;
+
+		$respuesta = ControladorPlanillasPersonas::ctrMostrarRelacionNovedadesPersona($item, $valor);
+
+		/*=============================================
+		CALCULAMOS LA EDAD DE LA PERSONA
+		=============================================*/
+
+		$fecha_nacimiento = new DateTime($respuesta["fecha_nacimiento"]);
+		$hoy = new DateTime();
+		$edad = $hoy->diff($fecha_nacimiento);
+
+		// var_dump ($edad->y);
+
+		/*=============================================
 		CALCULOS PARA PLANILLAS
 		=============================================*/
 
-		$total_ganado = ($this->haber_basico * $this->dias_trabajados)/30;
+		$total_ganado = round(($this->haber_basico * $this->dias_trabajados)/30,2);
 
-		$desc_afp = $total_ganado * 0.1271;
+		if ($edad->y < 65) {
 
-		// var_dump($desc_afp);
+			$desc_afp = $total_ganado * 0.1271;
+
+		} else {
+
+			$desc_afp = $total_ganado * 0.11;
+
+		}
 
 		$total_desc = $desc_afp;
 
@@ -554,7 +579,7 @@ class AjaxPlanillasPersonas {
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 		// set margins
-		$pdf->SetMargins(0, 0, 0, 0);
+		$pdf->SetMargins(1, 0, 1, 0);
 
 		$pdf->SetHeaderMargin(0);
 		$pdf->SetFooterMargin(0);
@@ -929,7 +954,7 @@ class AjaxPlanillasPersonas {
 
 			$content .= '
 
-			<div class="content" border="0">
+			<div class="content" border="1">
 
 				<div style="line-height: 0px; padding: 0px">
 
@@ -1279,14 +1304,15 @@ class AjaxPlanillasPersonas {
 		                    
 	                    <tr>
 							<td width="25px" align="center" class="linea_simple">#</td>
-							<td width="55px" align="center" class="linea_simple">LUGAR</td>
+							<td width="60px" align="center" class="linea_simple">LUGAR</td>
 							<td width="80px" class="linea_simple">PATERNO</td>
 							<td width="80px" class="linea_simple">MATERNO</td>
 							<td width="100px" class="linea_simple">NOMBRE(S)</td>
-							<td width="80px" align="center" class="linea_simple">CARNET</td>
+							<td width="55px" align="center" class="linea_simple">CI</td>
+							<td width="30px" align="center" class="linea_simple">EXT CI</td>
 							<td width="120px" align="center" class="linea_simple">CARGO</td>
 							<td width="70px" align="center" class="linea_simple">HABER BÁSICO</td>
-							<td width="50px" align="center" class="linea_simple">DIAS TRAB.</td>
+							<td width="40px" align="center" class="linea_simple">DIAS TRAB.</td>
 							<td width="70px" align="center" class="linea_simple">TOTAL GANADO</td>
 							<td width="65px" align="center" class="linea_simple">PREVISION AFP</td>
 							<td width="70px" align="center" class="linea_simple">TOTAL DESC.</td>
@@ -1298,14 +1324,15 @@ class AjaxPlanillasPersonas {
 	                	$content .= '
 	                	<tr>
 	                		<td width="25px" align="center" class="linea_punteada">'.($i+1).'</td>
-	                		<td width="55px" class="linea_punteada">'.$datos_planilla[$i]["abrev_establecimiento"].'</td>
+	                		<td width="60px" class="linea_punteada">'.$datos_planilla[$i]["abrev_establecimiento"].'</td>
 	                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["paterno_persona"].'</td>
 	                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["materno_persona"].'</td>
 	                		<td width="100px" class="linea_punteada">'.$datos_planilla[$i]["nombre_persona"].'</td>
-	                		<td width="80px" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
+	                		<td width="55px" align="right" class="linea_punteada">'.$datos_planilla[$i]["ci_persona"].'</td>
+	                		<td width="30px" align="center" class="linea_punteada">'.$datos_planilla[$i]["ext_ci_persona"].'</td>
 	                		<td width="120px" class="linea_punteada">'.$datos_planilla[$i]["nombre_cargo"].'</td>
 	                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["haber_basico"], 2, ",", ".").'</td>
-	                		<td width="50px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
+	                		<td width="40px" align="center" class="linea_punteada">'.$datos_planilla[$i]["dias_trabajados"].'</td>
 	                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_ganado"], 2, ",", ".").'</td>
 	                		<td width="65px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["desc_afp"], 2, ",", ".").'</td>
 	                		<td width="70px" align="right" class="linea_punteada">'.number_format($datos_planilla[$i]["total_desc"], 2, ",", ".").'</td>
@@ -1322,7 +1349,7 @@ class AjaxPlanillasPersonas {
 					$content .= '
 		              
 		                <tr>
-		                    <td align="center" class="linea_simple font-weight-bold" colspan="9">TOTAL GENERAL</td>
+		                    <td align="center" class="linea_simple font-weight-bold" colspan="10">TOTAL GENERAL</td>
 		                    <td align="right" class="linea_simple font-weight-bold">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 		                    <td align="right" class="linea_simple font-weight-bold">'.number_format($totales_planilla["desc_afp"], 2, ",", ".").'</td>
 		                    <td align="right" class="linea_simple font-weight-bold">'.number_format($totales_planilla["total_desc"], 2, ",", ".").'</td>
@@ -1330,26 +1357,26 @@ class AjaxPlanillasPersonas {
 		                </tr>
 				    	<br><br>
 				    	<tr>
-		                    <td class="font-weight-bold" colspan="13"><u>RESUMEN GENERAL</u></td>
+		                    <td class="font-weight-bold" colspan="14"><u>RESUMEN GENERAL</u></td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="12">MES GANADO</td>
+		                    <td class="font-weight-bold" colspan="13">MES GANADO</td>
 		                    <td align="right" colspan="1">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="8">PREVISION A.F.P.</td>
+		                    <td class="font-weight-bold" colspan="9">PREVISION A.F.P.</td>
 		                    <td align="right">'.number_format($totales_planilla["desc_afp"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="9">TOTAL DESCUENTO</td>
+		                    <td class="font-weight-bold" colspan="10">TOTAL DESCUENTO</td>
 		                    <td align="right">'.number_format($totales_planilla["total_desc"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="9">LIQUIDO PAGABLE</td>
+		                    <td class="font-weight-bold" colspan="10">LIQUIDO PAGABLE</td>
 		                    <td align="right">'.number_format($totales_planilla["liquido_pagable"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="9"></td>
+		                    <td class="font-weight-bold" colspan="10"></td>
 		                    <td align="right" style="border-top: 1px solid #000; border-bottom: 3px double #000">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 		                    <td align="right" style="border-top: 1px solid #000; border-bottom: 3px double #000" colspan="3">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 		                </tr>';

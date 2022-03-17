@@ -92,7 +92,8 @@
                         <th>PATERNO</th>
                         <th>MATERNO</th>
                         <th>NOMBRE(S)</th>
-                        <th>CARNET</th>
+                        <th>CI</th>
+                        <th>EXT. CI</th>
                         <th>CARGO</th>
                         <th>HABER BÁSICO</th>
                         <th>DIAS TRAB.</th>
@@ -116,7 +117,7 @@
                     ?>
 
                     <tfoot>
-                      <th colspan="9">TOTAL GENERAL</th>
+                      <th colspan="10">TOTAL GENERAL</th>
                       <th class="totalGanadoT"><?= number_format($totalesPlanilla["total_ganado"], 2, ",", ".") ?></th>
                       <th class="descAFPT"><?= number_format($totalesPlanilla["desc_afp"], 2, ",", ".") ?></th>
                       <!-- <th class="descSolidarioT"><?= number_format($totalesPlanilla["desc_solidario"], 2, ",", ".") ?></th> -->

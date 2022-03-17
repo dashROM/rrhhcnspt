@@ -12,7 +12,7 @@ class ModeloPlanillasPersonas {
 
 		if ($item != null) {
 
-			$sql = "SELECT ppc.id_planilla_persona_contrato, concat_ws(' ', p.paterno_persona, p.materno_persona, p.nombre_persona) AS nombre_persona, concat_ws(' ', p.ci_persona, p.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, pc.inicio_contrato, pc.fin_contrato, ppc.dias_trabajados, p.matricula_persona FROM planilla_persona_contratos ppc, persona_contratos pc,  personas p,cargos c WHERE pc.id_cargo = c.id_cargo AND pc.id_persona = p.id_persona AND ppc.id_persona_contrato = pc.id_persona_contrato AND ppc.$item = :$item";
+			$sql = "SELECT ppc.id_planilla_persona_contrato, concat_ws(' ', p.paterno_persona, p.materno_persona, p.nombre_persona) AS nombre_persona, concat_ws(' ', p.ci_persona, p.ext_ci_persona) AS ci_persona, p.fecha_nacimiento, c.nombre_cargo, c.haber_basico, pc.inicio_contrato, pc.fin_contrato, ppc.dias_trabajados, p.matricula_persona FROM planilla_persona_contratos ppc, persona_contratos pc, personas p, cargos c WHERE pc.id_cargo = c.id_cargo AND pc.id_persona = p.id_persona AND ppc.id_persona_contrato = pc.id_persona_contrato AND ppc.$item = :$item";
 			
 			$stmt = Conexion::conectarPG()->prepare($sql);
 

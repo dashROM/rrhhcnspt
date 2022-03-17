@@ -53,6 +53,7 @@ class TablaPlanillaPersonas {
 						"'.$datos_planilla[$i]["materno_persona"].'",
 						"'.$datos_planilla[$i]["nombre_persona"].'",
 						"'.$datos_planilla[$i]["ci_persona"].'",
+						"'.$datos_planilla[$i]["ext_ci_persona"].'",
 						"'.$datos_planilla[$i]["nombre_cargo"].'",
 						"'.date("d/m/Y", strtotime($datos_planilla[$i]["inicio_contrato"])).'",
 						"'.date("d/m/Y", strtotime($datos_planilla[$i]["fin_contrato"])).'",
@@ -123,13 +124,14 @@ class TablaPlanillaPersonas {
 						"'.$datos_planilla[$i]["materno_persona"].'",
 						"'.$datos_planilla[$i]["nombre_persona"].'",
 						"'.$datos_planilla[$i]["ci_persona"].'",
+						"'.$datos_planilla[$i]["ext_ci_persona"].'",
 						"'.$datos_planilla[$i]["nombre_cargo"].'",
 						"'.$datos_planilla[$i]["haber_basico"].'",
 						"'.$datos_planilla[$i]["dias_trabajados"].'",
-						"'.$datos_planilla[$i]["total_ganado"].'",
-						"'.$datos_planilla[$i]["desc_afp"].'",
-						"'.$datos_planilla[$i]["total_desc"].'",
-						"'.$datos_planilla[$i]["liquido_pagable"].'",
+						"'.round($datos_planilla[$i]["total_ganado"], 2).'",
+						"'.round($datos_planilla[$i]["desc_afp"], 2).'",
+						"'.round($datos_planilla[$i]["total_desc"], 2).'",
+						"'.round($datos_planilla[$i]["liquido_pagable"], 2).'",
 						"'.$botones.'"
 					],';
 				}

@@ -59,6 +59,8 @@ var tablaRelacion = $('#tablaRelacion').DataTable({
 
 	"lengthChange": false,
 
+	"info": true,
+
 
 }); 
 
@@ -462,6 +464,7 @@ var tablaRelacionPersona = $('#tablaRelacionPersona').DataTable({
 
 	"lengthChange": false,
 
+	"info": true,
 
 }); 
 
@@ -562,8 +565,7 @@ var tablaPlanillaPersona = $('#tablaPlanillaPersona').DataTable({
 
 	"lengthChange": false,
 
-	//para usar los botones   
-    "responsive": true,
+	//para usar los botones  
 
 	"dom": 'Bfrtilp',       
         

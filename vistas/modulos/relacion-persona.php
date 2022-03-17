@@ -83,7 +83,8 @@
                         <th>PATERNO</th>
                         <th>MATERNO</th>
                         <th>NOMBRE(S)</th>
-                        <th>CARNET</th>
+                        <th>CI</th>
+                        <th>EXT. CI</th>
                         <th>CARGO</th>
                         <th>INICIO CONTRATO</th>
                         <th>FIN CONTRATO</th>

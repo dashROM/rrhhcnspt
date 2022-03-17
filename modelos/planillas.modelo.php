@@ -189,7 +189,7 @@ class ModeloPlanillas {
 
 			} else {
 
-				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato, pe.matricula_persona FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC, ppc.id_planilla_persona_contrato ASC";
+				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, pe.ci_persona, pe.ext_ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato, pe.matricula_persona FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC, ppc.id_planilla_persona_contrato ASC";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -203,7 +203,7 @@ class ModeloPlanillas {
 
 		} else {
 
-			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato, pe.matricula_persona FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC";
+			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, pe.ci_persona, pe.ext_ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, pc.inicio_contrato, pc.fin_contrato, pe.matricula_persona FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -235,7 +235,7 @@ class ModeloPlanillas {
 
 			} else {
 
-				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC, ppc.id_planilla_persona_contrato ASC";
+				$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, pe.ci_persona, pe.ext_ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato AND ppc.$item = :$item ORDER BY est.abrev_establecimiento ASC, c.nombre_cargo ASC, ppc.id_planilla_persona_contrato ASC";
 
 				$stmt = Conexion::conectarPG()->prepare($sql);
 
@@ -249,7 +249,7 @@ class ModeloPlanillas {
 
 		} else {
 
-			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, concat_ws(' ', pe.ci_persona, pe.ext_ci_persona) AS ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato";
+			$sql = "SELECT ppc.id_planilla_persona_contrato, pe.id_persona, est.abrev_establecimiento, pe.paterno_persona, pe.materno_persona, pe.nombre_persona, pe.ci_persona, pe.ext_ci_persona, c.nombre_cargo, c.haber_basico, ppc.dias_trabajados, ppc.total_ganado, ppc.desc_afp, ppc.desc_solidario, ppc.total_desc, ppc.liquido_pagable FROM personas pe, establecimientos est, cargos c, persona_contratos pc, planilla_persona_contratos ppc WHERE pc.id_establecimiento = est.id_establecimiento AND pc.id_cargo = c.id_cargo AND pc.id_persona = pe.id_persona AND pc.id_persona_contrato = ppc.id_persona_contrato";
 
 			$stmt = Conexion::conectarPG()->prepare($sql);
 
