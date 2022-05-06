@@ -80,7 +80,7 @@
 
               <div class="row form-inline justify-content-center">
 
-                <button type="button" class="btn btn-primary px-2 btnReporteContarto">
+                <button type="button" class="btn btn-round btn-primary px-2 btnReporteContarto">
               
                   <i class="fas fa-search"></i> Buscar
                 

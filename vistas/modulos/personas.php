@@ -209,7 +209,7 @@ MODAL AGREGAR PERSONA
                     <option value="OR">OR</option>
                     <option value="LP">LP</option>
                     <option value="SC">SC</option>
-                    <option value="CO">CO</option>
+                    <option value="CB">CB</option>
                     <option value="TR">TR</option>
                     <option value="PA">PA</option>
                     <option value="BE">BE</option>
@@ -450,7 +450,7 @@ MODAL EDITAR PERSONA
                     <option value="OR">OR</option>
                     <option value="LP">LP</option>
                     <option value="SC">SC</option>
-                    <option value="CO">CO</option>
+                    <option value="CB">CB</option>
                     <option value="TR">TR</option>
                     <option value="PA">PA</option>
                     <option value="BE">BE</option>

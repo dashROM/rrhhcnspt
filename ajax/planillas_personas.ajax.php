@@ -254,17 +254,17 @@ class AjaxPlanillasPersonas {
 
 		if ($edad->y < 65) {
 
-			$desc_afp = $total_ganado * 0.1271;
+			$desc_afp = round($total_ganado * 0.1271,2);
 
 		} else {
 
-			$desc_afp = $total_ganado * 0.11;
+			$desc_afp = round($total_ganado * 0.11,2);
 
 		}
 
 		$total_desc = $desc_afp;
 
-		$liquido_pagable = $total_ganado - $total_desc;
+		$liquido_pagable = round($total_ganado - $total_desc,2);
 
 
 		/*=============================================
@@ -1357,15 +1357,15 @@ class AjaxPlanillasPersonas {
 		                </tr>
 				    	<br><br>
 				    	<tr>
-		                    <td class="font-weight-bold" colspan="14"><u>RESUMEN GENERAL</u></td>
+		                    <td class="font-weight-bold" colspan="14" style="font-size: 36px"><u>RESUMEN GENERAL</u></td>
 		                </tr>
 		                <tr>
 		                    <td class="font-weight-bold" colspan="13">MES GANADO</td>
 		                    <td align="right" colspan="1">'.number_format($totales_planilla["total_ganado"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
-		                    <td class="font-weight-bold" colspan="9">PREVISION A.F.P.</td>
-		                    <td align="right">'.number_format($totales_planilla["desc_afp"], 2, ",", ".").'</td>
+		                    <td class="font-weight-bold" colspan="8">PREVISION A.F.P.</td>
+		                    <td align="right" colspan="2">'.number_format($totales_planilla["desc_afp"], 2, ",", ".").'</td>
 		                </tr>
 		                <tr>
 		                    <td class="font-weight-bold" colspan="10">TOTAL DESCUENTO</td>

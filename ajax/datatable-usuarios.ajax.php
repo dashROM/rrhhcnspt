@@ -34,13 +34,13 @@ class TablaUsuarios {
 
 					if ($usuarios[$i]["foto_usuario"] != "") {
                               
-                    	$foto = "<img src='".$usuarios[$i]["foto_usuario"]."' class='img-thumbnail' width='40px'>";
+          	$foto = "<img src='".$usuarios[$i]["foto_usuario"]."' class='img-thumbnail' width='40px'>";
 
-                    } else {
+          } else {
 
-                    	$foto = "<img src='vistas/img/usuarios/default/anonymous.png' class='img-thumbnail' width='40px'>";
+          	$foto = "<img src='vistas/img/usuarios/default/anonymous.png' class='img-thumbnail' width='40px'>";
 
-                    }
+          }
 
 					/*=============================================
 					VERIFICAMOS EL ESTADO DEL USUARIO
@@ -48,13 +48,13 @@ class TablaUsuarios {
 
 					if ($usuarios[$i]["estado_usuario"] != 0) {
 
-                    	$estado = "<button class='btn btn-success btn-sm btnActivar' idUsuario='".$usuarios[$i]["id_usuario"]."' estadoUsuario='0'>ACTIVO</button>";
+          	$estado = "<button class='btn btn-success btn-sm btnActivar' idUsuario='".$usuarios[$i]["id_usuario"]."' estadoUsuario='0'>ACTIVO</button>";
 
-                    } else {
+          } else {
 
-                    	$estado = "<button class='btn btn-danger btn-sm btnActivar' idUsuario='".$usuarios[$i]["id_usuario"]."' estadoUsuario='1'>INACTIVO</button>";
+          	$estado = "<button class='btn btn-danger btn-sm btnActivar' idUsuario='".$usuarios[$i]["id_usuario"]."' estadoUsuario='1'>INACTIVO</button>";
 
-                    }
+          }
 
 					/*=============================================
 					TRAEMOS LAS ACCIONES

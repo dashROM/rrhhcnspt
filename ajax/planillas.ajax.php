@@ -50,17 +50,23 @@ class AjaxPlanillas {
 		if ($this->id_contrato != 1) {
 
 			// SI TIPO DE CONTRATO ES PLAZO FIJO O COVID-19
-			if ($this->id_contrato == 2 || $this->id_contrato == 5) {
+			if ($this->id_contrato == 2) {
 
-				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (POR NECESIDAD DE SERVICIO) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
-				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATO A PLAZO FIJO CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATO A PLAZO FIJO (POR NECESIDAD DE SERVICIO) CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+
+			} elseif($this->id_contrato == 5) {
+
+				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (RECURRENTE) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
+
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATO A PLAZO FIJO (RECURRENTE) CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
 
 			} else {
 
 				$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (COVID-19) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
-				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR COVID-19 PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+				$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR COVID-19 CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
 
 			}
 
@@ -68,7 +74,7 @@ class AjaxPlanillas {
 
 			$titulo_relacion = '<h3 style="text-align:CENTER"><strong>RELACION DE NOVEDADES DEL PERSONAL A CONTRATO TEMPORAL (SUPLENCIA) PARA EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' RECONOCIENDOSE EL 100% DE ACUERDO AL PUNTO TERCERO DEL CIRCULAR NRO 13/34 DE LA PRESIDENCIA EJECUTIVA DE LA C.N.S.</strong></h3>';
 
-			$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR SUPLENCIAS POR EL PAGO DE HABERES CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
+			$titulo_planilla = '<h3 style="text-align:CENTER"><strong>PLANILLA DE PAGO DE HABERES DEL PERSONAL A CONTRATADO PARA CUBRIR SUPLENCIAS CORRESPONDIENTE AL MES DE '.strtoupper($mes).' DE '.$this->gestion.' </strong></h3>';
 
 		}
 

@@ -6,7 +6,7 @@
 
       <a href="index.html" class="site_title">
 
-        <img onmouseout="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png';" onmouseover="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-color.png';" src="<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png" alt="SISVECOM Logo" class="brand-image elevation-3" style="opacity: .8; width: 30px"> 
+        <img onmouseout="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png';" onmouseover="this.src='<?= SERVERURL; ?>/vistas/img/template/icono-color.png';" src="<?= SERVERURL; ?>/vistas/img/template/icono-blanco.png" alt="Logo" class="brand-image elevation-3" style="opacity: .8; width: 30px"> 
         <span class="brand-text font-weight-bold text-success">CNS</span>
         <span class="brand-text font-weight-bold ml-0" style="color: #01ff70;">RRHH</span>
 
