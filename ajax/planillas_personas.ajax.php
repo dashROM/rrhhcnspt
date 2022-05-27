@@ -122,6 +122,7 @@ class MYPDF extends TCPDF {
 			$this->SetLineWidth(0.05);
 
 			// set color for cell border
+
 			$this->SetDrawColor(0,0,0);
 
 			// set filling color

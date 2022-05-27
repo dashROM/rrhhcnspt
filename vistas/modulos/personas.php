@@ -38,7 +38,7 @@
 
           <?php
 
-          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO") {
+          if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO" || $_SESSION["perfil_rrhh"] == "SECRETARIO") {
 
           ?>
                   
@@ -290,7 +290,7 @@ MODAL AGREGAR PERSONA
                 <div class="form-group">
                   
                   <label class="font-weight-normal" for="nuevoEmailPersona">EMAIL</label>
-                  <input type="text" class="form-control" id="nuevoEmailPersona" name="nuevoEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
+                  <input type="text" class="form-control inputMaskEmail" id="nuevoEmailPersona" name="nuevoEmailPersona">
 
                 </div>
 
@@ -528,7 +528,7 @@ MODAL EDITAR PERSONA
                 <div class="form-group">
                   
                   <label class="font-weight-normal" for="editarEmailPersona">EMAIL</label>
-                  <input type="text" class="form-control" id="editarEmailPersona" name="editarEmailPersona" data-inputmask="'alias': 'email'" inputmode="email">
+                  <input type="text" class="form-control inputMaskEmail" id="editarEmailPersona" name="editarEmailPersona">
 
                 </div>
 

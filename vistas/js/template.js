@@ -25,6 +25,10 @@ $(document).ready(function() {
 
 	$(":input").inputmask();
 
+	$(".inputMaskEmail").inputmask("email", { onUnMask: function(maskedValue, unmaskedValue) {
+		return unmaskedValue;
+	}});
+
 
 	/*=============================================
 	//Ubicador del menu de usuario

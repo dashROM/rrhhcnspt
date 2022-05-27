@@ -58,7 +58,7 @@ $(".nuevaFotoPersona").change(function() {
  	
  	var imagen = this.files[0];
 
- 	console.log("PRESIONADO");
+ 	// console.log("PRESIONADO");
 
  	/*=============================================
 	SUBIENDO LA FOTO DE LA PERSONA
@@ -224,7 +224,7 @@ $(document).on("click", ".btnEditarPersona", function() {
 	// console.log("CARGAR PERSONA");
 
 	var id_persona = $(this).attr("idPersona");
-	console.log("id_persona", id_persona);
+	// console.log("id_persona", id_persona);
 
 
 	var datos = new FormData();
@@ -460,7 +460,7 @@ ABRIR VENTANA MAS DETALLE PERSONA
 $(document).on("click", ".btnMasDetallesPersona", function() {
 
 	var id_persona = $(this).attr("idPersona");
-	console.log("id_persona", id_persona);
+	// console.log("id_persona", id_persona);
 
 	// window.location = "index.php?ruta=detalle-persona&idPersona="+id_persona;	
 	window.location = "detalle-persona/"+id_persona;	

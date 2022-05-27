@@ -53,6 +53,8 @@ var tablaPersonaContratos = $('#tablaPersonaContratos').DataTable({
 
 	"lengthChange": false,
 
+	"filter": false,
+
 }); 
 
 /*=============================================

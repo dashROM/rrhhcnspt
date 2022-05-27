@@ -186,29 +186,86 @@
        
         <div class="x_panel">
 
-          <nav>
+          <ul class="nav nav-tabs bar_tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="herederos-tab" data-toggle="tab" href="#herederos" role="tab" aria-controls="herederos" aria-selected="true">Herederos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="contratos-tab" data-toggle="tab" href="#contratos" role="tab" aria-controls="contratos" aria-selected="false">Contratos</a>
+            </li>
+          </ul>
 
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <div class="tab-content" id="myTabContent">
 
-              <a class="nav-item nav-link active font-weight-bold" id="nav-contratos-tab" data-toggle="tab" href="#nav-contratos" role="tab" aria-controls="nav-contratos" aria-selected="true">Contratos</a>
-              <a class="nav-item nav-link font-weight-bold" id="nav-herederos-tab" data-toggle="tab" href="#nav-herederos" role="tab" aria-controls="nav-herederos" aria-selected="false">Herederos</a>
-              <!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>-->
+            <!-- PANEL PERSONA HEREDEROS -->
+
+            <div class="tab-pane fade show active" id="herederos" role="tabpanel" aria-labelledby="herederos-tab">
+
+              <?php if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO" || $_SESSION["perfil_rrhh"] == "SECRETARIO") { ?>
+
+              <div class="x_title">
+            
+                <button class="btn btn-round btn-outline-success btnAgregarPersonaHeredero" data-toggle="modal" data-target="#modalAgregarPersonaHeredero">
+
+                  <i class="fas fa-plus"></i>
+                  Agregar Heredero
+
+                </button>
+
+                <div class="clearfix"></div>
+
+              </div>
+
+              <?php } ?>
+
+              <div class="x_content">
+
+                <div class="row">
+                    
+                  <div class="col-sm-12">
+
+                    <div class="tituloTabla">
+
+                      <h3>Listado de Herederos</h3>
+
+                    </div>
+                                
+                    <div class="card-box table-responsive">
+                
+                      <table class="table table-bordered table-striped table-hover" id="tablaPersonaHerederos" width="100%">
+                        
+                        <thead>
+                          
+                          <tr>
+                            <th>#</th>
+                            <th>NOMBRES Y APELLIDOS</th>
+                            <th>EDAD</th>
+                            <th>PARETEZCO</th>
+                            <th>ACCIONES</th>
+                          </tr>
+
+                        </thead>
+
+                      </table>
+
+                      <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
+                      <input type="hidden" value="<?php echo $parametros[1]; ?>" id="idPersona">
+
+                    </div>
+              
+                  </div>
+
+                </div>
+
+              </div>
 
             </div>
 
-          </nav>
-
-          <div class="tab-content mt-4" id="nav-tabContent">
-
             <!-- PANEL PERSONA CONTRATOS -->
             
-            <div class="tab-pane fade show active" id="nav-contratos" role="tabpanel" aria-labelledby="nav-contratos-tab">
+            <div class="tab-pane fade" id="contratos" role="tabpanel" aria-labelledby="contratos-tab">
 
-              <?php
-
-              if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO") {
-
-              ?>
+              <?php if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "ABOGADO" || $_SESSION["perfil_rrhh"] == "SECRETARIO") { ?>
                       
               <div class="x_title">
 
@@ -236,11 +293,7 @@
 
               </div>
 
-              <?php
-              
-              }
-
-              ?>
+              <?php } ?>
             
               <div class="x_content">
 
@@ -324,66 +377,6 @@
                     <div class="col-sm-6">
                       <button class='btn btn-secondary mt-2'></button>
                     </div>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <!-- PANEL PERSONA HEREDEROS -->
-
-            <div class="tab-pane fade" id="nav-herederos" role="tabpanel" aria-labelledby="nav-herederos-tab">
-
-              <div class="x_title">
-            
-                <button class="btn btn-round btn-outline-success btnAgregarPersonaHeredero" data-toggle="modal" data-target="#modalAgregarPersonaHeredero">
-
-                  <i class="fas fa-plus"></i>
-                  Agregar Heredero
-
-                </button>
-
-                <div class="clearfix"></div>
-
-              </div>
-
-              <div class="x_content">
-
-                <div class="row">
-                    
-                  <div class="col-sm-12">
-
-                    <div class="tituloTabla">
-
-                      <h3>Listado de Herederos</h3>
-
-                    </div>
-                                
-                    <div class="card-box table-responsive">
-                
-                      <table class="table table-bordered table-striped table-hover" id="tablaPersonaHerederos" width="100%">
-                        
-                        <thead>
-                          
-                          <tr>
-                            <th>#</th>
-                            <th>NOMBRES Y APELLIDOS</th>
-                            <th>EDAD</th>
-                            <th>PARETEZCO</th>
-                            <th>ACCIONES</th>
-                          </tr>
-
-                        </thead>
-
-                      </table>
-
-                      <input type="hidden" value="<?php echo $_SESSION['perfil_rrhh']; ?>" id="perfilOculto">
-                      <input type="hidden" value="<?php echo $parametros[1]; ?>" id="idPersona">
-
-                    </div>
-              
                   </div>
 
                 </div>
