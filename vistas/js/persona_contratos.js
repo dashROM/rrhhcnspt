@@ -71,7 +71,7 @@ $(document).on("change", "#nuevoTipoContrato", function() {
 		$("#nuevoAsigPersonaContrato").removeAttr("required");
 		$("#nuevoAsigPersonaContrato").val("");
 
-	} else if ($(this).val() == "2")  {
+	} else if ($(this).val() == "2" || $(this).val() == "3")  {
 
 		$("#contratoSuplencia").addClass("d-none");
 		$("#nuevoTipoSuplencia").removeAttr("required");
@@ -536,7 +536,7 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				$("#editarAsigPersonaContrato").removeAttr("required");
 				$("#editarAsigPersonaContrato").val("");
 
-			} else if (respuesta["id_contrato"] == 2) {
+			} else if (respuesta["id_contrato"] == 2 || respuesta["id_contrato"] == 3) {
 
 				$("#editarContratoSuplencia").addClass("d-none");
 				$("#editarTipoSuplencia").removeAttr("required");
@@ -658,7 +658,7 @@ $(document).on("change", "#editarTipoContrato", function() {
 		$("#editarAsigPersonaContrato").removeAttr("required");
 		$("#editarAsigPersonaContrato").val("");
 
-	} else if ($(this).val() == "2")  {
+	} else if ($(this).val() == "2" || $(this).val() == "3")  {
 
 		$("#editarContratoSuplencia").addClass("d-none");
 		$("#editarTipoSuplencia").removeAttr("required");
