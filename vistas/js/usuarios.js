@@ -156,7 +156,6 @@ $("#frmNuevoUsuario").on("click", ".btnGuardar", function() {
 			processData: false,
 			dataType: "html",
 			success: function(respuesta) {
-				console.log("respuesta", respuesta);
 			
 				if (respuesta == "ok") {
 
@@ -224,8 +223,6 @@ $(document).on("click", ".btnAgregarUsuario", function() {
 	$(".previsualizar").attr("src", "vistas/img/usuarios/default/anonymous.png");
 
 });
-
-
 
 /*=============================================
 CARGANDO DATOS DE USUARIO AL FORMULARIO EDITAR USUARIO

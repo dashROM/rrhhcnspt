@@ -105,11 +105,11 @@
 
               <li><a href="<?= SERVERURL; ?>/personas" id="personas">Personas</a></li>
 
-              <?php } if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM") { ?>
+              <?php } if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO") { ?>
 
               <li><a href="<?= SERVERURL; ?>/relacion-novedades" id="relacion">Relación de Novedades</a></li>
 
-              <?php } if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "PLANILLERO") { ?>
+              <?php } if ($_SESSION["perfil_rrhh"] == "ADMIN_SYSTEM" || $_SESSION["perfil_rrhh"] == "SECRETARIO" || $_SESSION["perfil_rrhh"] == "PLANILLERO") { ?>
 
               <li><a href="<?= SERVERURL; ?>/planillas" id="planillas">Planillas</a></li>
 

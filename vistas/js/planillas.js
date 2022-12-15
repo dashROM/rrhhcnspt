@@ -729,25 +729,25 @@ $("#frmAgregarDiasTrabajados").on("click", ".btnGuardar", function() {
 			
 				if (respuesta == "ok") {
 
-					swal.fire({
+					// swal.fire({
 						
-						icon: "success",
-						title: "¡Los dias trabajados se generaron correctamente!",
-						showConfirmButton: true,
-						allowOutsideClick: false,
-						confirmButtonText: "Cerrar"
+					// 	icon: "success",
+					// 	title: "¡Los dias trabajados se generaron correctamente!",
+					// 	showConfirmButton: true,
+					// 	allowOutsideClick: false,
+					// 	confirmButtonText: "Cerrar"
 
-					}).then((result) => {
+					// }).then((result) => {
 	  					
-	  					if (result.value) {
+	  		// 			if (result.value) {
 
 	  						$('#modalAgregarDiasTrabajados').modal('toggle');
 
 	  						tablaRelacionPersona.ajax.reload( null, false );
 	  						
-						}
+					// 	}
 
-					});
+					// });
 
 				} else {
 

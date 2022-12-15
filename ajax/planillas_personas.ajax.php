@@ -8,7 +8,6 @@ require_once "../modelos/planillas.modelo.php";
 require_once "../modelos/planillas_personas.modelo.php";
 require_once "../modelos/autoridades.modelo.php";
 
-
 require_once('../extensiones/tcpdf/tcpdf.php');
 
 class MYPDF extends TCPDF {
@@ -1213,7 +1212,7 @@ class AjaxPlanillasPersonas {
 		$mes = strftime('%B', $dateObj->getTimestamp());
 
 		// Envio datos al encabezado
-		$pdf->id_planilla = $this->id_planilla;;
+		$pdf->id_planilla = $this->id_planilla;
 		$pdf->mes_planilla = strtoupper($mes);
 		$pdf->gestion_planilla = $planilla["gestion_planilla"];
 

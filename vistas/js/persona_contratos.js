@@ -514,17 +514,21 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				success: function(respuesta) {
 
 					$.each(respuesta, function(index, val) {
-						
-						$("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+' - '+val.proposito_contrato+'</option>').selectpicker('refresh')
+
+						if(val.id_contrato != 1) {
+
+              $("#editarTipoContrato").append('<option value="'+val.id_contrato+'">'+val.nombre_contrato+' - '+val.proposito_contrato+'</option>').selectpicker('refresh');
+
+            } 						
 
 					});
 
 				},
 				error: function(error){
 
-		      		console.log("No funciona");
+		      console.log("No funciona");
 		        
-		    	}
+		    }
 
 			});
 

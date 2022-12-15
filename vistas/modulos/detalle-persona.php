@@ -649,8 +649,13 @@ MODAL AGREGAR PERSONA CONTRATO
                   $contratos = ControladorContratos::ctrMostrarContratos($item, $valor);
 
                   foreach ($contratos as $key => $value) {
-                    
-                    echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
+
+                    if($value["id_contrato"] != 1) {
+
+                      echo '<option value="'.$value["id_contrato"].'">'.$value["nombre_contrato"].' - '.$value["proposito_contrato"].'</option>';
+
+                    } 
+
                   } 
 
                 ?>

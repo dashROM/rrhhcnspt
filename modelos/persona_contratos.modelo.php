@@ -308,6 +308,7 @@ class ModeloPersonaContratos {
 		$stmt->bindParam(":".$item, $valor, PDO::PARAM_INT);		
 
 		$stmt->execute();
+		
 		return $stmt->fetch();
 
 		$stmt->close();
