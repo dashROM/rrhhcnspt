@@ -167,43 +167,8 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
   <!-- FastClick -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/fastclick/lib/fastclick.js"></script>
 
-  <!-- NProgress -->
-<!--   <script src="<?= SERVERURL; ?>/vistas/plugins/nprogress/nprogress.js"></script> -->
-
-  <!-- Chart.js -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/Chart.js/dist/Chart.min.js"></script> -->
-
-  <!-- gauge.js -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/gauge.js/dist/gauge.min.js"></script> -->
-
-  <!-- bootstrap-progressbar -->
-<!--   <script src="<?= SERVERURL; ?>/vistas/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js"></script> -->
-
   <!-- iCheck -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/iCheck/icheck.min.js"></script>
-
-  <!-- Skycons -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/skycons/skycons.js"></script> -->
-
-  <!-- Flot -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/Flot/jquery.flot.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/Flot/jquery.flot.pie.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/Flot/jquery.flot.time.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/Flot/jquery.flot.stack.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/Flot/jquery.flot.resize.js"></script> -->
-
-  <!-- Flot plugins -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/flot-spline/js/jquery.flot.spline.min.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/flot.curvedlines/curvedLines.js"></script> -->
-
-  <!-- DateJS -->
-  <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/DateJS/build/date.js"></script> -->
-
-  <!-- JQVMap -->
- <!--  <script src="<?= SERVERURL; ?>/vistas/plugins/jqvmap/dist/jquery.vmap.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-  <script src="<?= SERVERURL; ?>/vistas/plugins/jqvmap/examples/js/jquery.vmap.sampledata.js"></script> -->
 
   <!-- DataTables -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -230,7 +195,7 @@ if (isset($_SESSION["iniciarSesion_rrhh"]) && $_SESSION["iniciarSesion_rrhh"] ==
   <!-- <script src="<?= SERVERURL; ?>/vistas/plugins/select2/dist/js/select2.full.min.js"></script> -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 
-    <!-- jQuery autocomplete -->
+  <!-- jQuery autocomplete -->
   <script src="<?= SERVERURL; ?>/vistas/plugins/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 
   <!-- Switchery -->

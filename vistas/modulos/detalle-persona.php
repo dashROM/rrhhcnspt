@@ -449,7 +449,7 @@ MODAL AGREGAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="nuevoLugar">LUGAR DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" name="nuevoLugar" id="nuevoLugar" data-live-search="true" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" name="nuevoLugar" id="nuevoLugar" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm1">
                 <?php 
 
                   $item = null;
@@ -466,6 +466,8 @@ MODAL AGREGAR PERSONA CONTRATO
                 ?>
                 </select>
 
+                <span id="errNm1"></span>
+
               </div>
 
               <!-- ENTRADA PARA ESTABLECIMIENTO -->
@@ -474,7 +476,7 @@ MODAL AGREGAR PERSONA CONTRATO
               
                 <label class="font-weight-normal" for="nuevoEstablecimiento">ESTABLECIMIENTO DE TRABAJO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" name="nuevoEstablecimiento" id="nuevoEstablecimiento" data-live-search="true" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" name="nuevoEstablecimiento" id="nuevoEstablecimiento" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm2">
                 <?php 
 
                   $item = null;
@@ -490,6 +492,8 @@ MODAL AGREGAR PERSONA CONTRATO
 
                 ?>
                 </select>
+
+                <span id="errNm2"></span>
 
               </div>
 
@@ -537,7 +541,7 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoCargoEmpleado">CARGO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoCargoEmpleado" name="nuevoCargoEmpleado" data-live-search="true" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoCargoEmpleado" name="nuevoCargoEmpleado" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm3">
                 <?php 
 
                   $item = null;
@@ -553,6 +557,8 @@ MODAL AGREGAR PERSONA CONTRATO
                 ?>
                 </select>
 
+                <span id="errNm3"></span>
+
               </div>
 
               <!-- ENTRADA PARA SELECCIONAR TIPO CONTRATACION -->
@@ -561,10 +567,12 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoTipoContratacion">TIPO CONTRATACION</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoTipoContratacion" name="nuevoTipoContratacion" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoTipoContratacion" name="nuevoTipoContratacion" data-size="5" title="Elegir..." data-error="#errNm4">
                   <option value="SALUD">SALUD</option>
                   <option value="ADMINISTRATIVO">ADMINISTRATIVA</option>
                 </select>
+
+                <span id="errNm4"></span>
 
               </div>
 
@@ -640,7 +648,7 @@ MODAL AGREGAR PERSONA CONTRATO
                     
                 <label class="font-weight-normal" for="nuevoTipoContrato">TIPO DE CONTRATO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoTipoContrato" name="nuevoTipoContrato" data-size="5" title="Elegir..." data-error="#errNm5">
                 <?php 
 
                   $item = null;
@@ -661,6 +669,8 @@ MODAL AGREGAR PERSONA CONTRATO
                 ?>
                 </select>
 
+                <span id="errNm5"></span>
+
               </div>
 
               <!-- ENTRADA PARA ASINACION PERSONA CONTRATO -->
@@ -669,12 +679,14 @@ MODAL AGREGAR PERSONA CONTRATO
                   
                 <label class="font-weight-normal" for="nuevoAsigPersonaContrato">ASIGNACION PERSONA CONTRATO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoAsigPersonaContrato" name="nuevoAsigPersonaContrato" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoAsigPersonaContrato" name="nuevoAsigPersonaContrato" data-size="5" title="Elegir..." data-error="#errNm6">
                   
                   <option value="1ER CONTRATO">1ER CONTRATO</option>
                   <option value="2DO CONTRATO">2DO CONTRATO</option>
 
                 </select>
+
+                <span id="errNm6"></span>
 
               </div>
 
@@ -684,7 +696,7 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoTipoContratoSuplencia">TIPO DE SUPLENCIA</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" data-live-search="true" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoTipoSuplencia" name="nuevoTipoSuplencia" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm7">
                 <?php 
 
                   $item = null;
@@ -699,6 +711,8 @@ MODAL AGREGAR PERSONA CONTRATO
 
                 ?>
                 </select>
+
+                <span id="errNm7"></span>
 
               </div>
 
@@ -718,7 +732,7 @@ MODAL AGREGAR PERSONA CONTRATO
                 
                 <label class="font-weight-normal" for="nuevoMemorandumInstructivo">MEMORANDUM INSTRUCTIVO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoMemorandumInstructivo" name="nuevoMemorandumInstructivo" data-live-search="true" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoMemorandumInstructivo" name="nuevoMemorandumInstructivo" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm8">
                 <!-- <select class="form-control form-control-sm select2" data-live-search="true" data-size="5"> -->
                 <?php 
 
@@ -734,6 +748,8 @@ MODAL AGREGAR PERSONA CONTRATO
 
                 ?>
                 </select>
+
+                <span id="errNm8"></span>
 
               </div>
 
@@ -761,7 +777,7 @@ MODAL AGREGAR PERSONA CONTRATO
                       
                     <label class="font-weight-normal" for="nuevoGestionContrato">GESTIÓN CONTRATO</label>
                     <i class="fas fa-asterisk asterisk"></i>
-                    <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir...">
+                    <select class="form-control selectpicker show-tick" id="nuevoGestionContrato" name="nuevoGestionContrato" data-size="5" title="Elegir..." data-error="#errNm9">
                     <?php 
 
                       for ($i = date("Y"); $i >= 2020 ; $i--) { 
@@ -772,6 +788,8 @@ MODAL AGREGAR PERSONA CONTRATO
 
                     ?>
                     </select>
+
+                    <span id="errNm9"></span>
 
                   </div>
 
@@ -1109,7 +1127,7 @@ MODAL EDITAR PERSONA CONTRATO
                     <select class="form-control selectpicker show-tick" id="editarGestionContrato" name="editarGestionContrato" data-size="5">
                     <?php 
 
-                      for ($i = 2022; $i >= 2020 ; $i--) { 
+                      for ($i = date("Y"); $i >= 2020 ; $i--) { 
                         
                         echo '<option value="'.$i.'">'.$i.'</option>';
 
@@ -1755,7 +1773,7 @@ MODAL AGREGAR PERSONA HEREDERO
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="nuevoFechaNacimientoHeredero">FECHA NACIMIENTO</label>
-                <i class="fas fa-asterisk asterisk"></i>
+                <!-- <i class="fas fa-asterisk asterisk"></i> -->
                 <input type="date" class="form-control" id="nuevoFechaNacimientoHeredero" name="nuevoFechaNacimientoHeredero">
 
               </div>
@@ -1766,7 +1784,7 @@ MODAL AGREGAR PERSONA HEREDERO
                 
                 <label class="font-weight-normal" for="nuevoParentezco">PARENTEZCO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="editarEstablecimiento" id="nuevoParentezco" name="nuevoParentezco" data-live-search="true" data-size="5" title="Elegir...">                  
+                <select class="form-control selectpicker show-tick" id="nuevoParentezco" name="nuevoParentezco" data-live-search="true" data-size="5" title="Elegir..." data-error="#errNm10">                  
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
                   <option value="ESPOSO(A)">ESPOSO(A)</option>
@@ -1790,6 +1808,8 @@ MODAL AGREGAR PERSONA HEREDERO
                   <option value="PRIMO">PRIMO</option>
                   <option value="PRIMA">PRIMA</option>
                 </select>
+
+                <span id="errNm10"></span>
 
               </div>
 
@@ -1908,7 +1928,7 @@ MODAL EDITAR PERSONA HEREDERO
               <div class="form-group">
                 
                 <label class="font-weight-normal" for="editarFechaNacimientoHeredero">FECHA NACIMIENTO</label>
-                <i class="fas fa-asterisk asterisk"></i>
+                <!-- <i class="fas fa-asterisk asterisk"></i> -->
                 <input type="date" class="form-control" id="editarFechaNacimientoHeredero" name="editarFechaNacimientoHeredero">
 
               </div>
@@ -1919,7 +1939,7 @@ MODAL EDITAR PERSONA HEREDERO
                 
                 <label class="font-weight-normal" for="editarParentezco">PARENTEZCO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="editarParentezco" name="editarParentezco">
+                <select class="form-control selectpicker show-tick" id="editarParentezco" name="editarParentezco" data-error="#errNm11">
                   <option value="PADRE">PADRE</option>
                   <option value="MADRE">MADRE</option>
                   <option value="ESPOSO(A)">ESPOSO(A)</option>
@@ -1943,6 +1963,8 @@ MODAL EDITAR PERSONA HEREDERO
                   <option value="PRIMO">PRIMO</option>
                   <option value="PRIMA">PRIMA</option>
                 </select>
+
+                <span id="errNm11"></span>
 
               </div>
 

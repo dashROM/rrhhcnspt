@@ -44,8 +44,8 @@ var tablaPersonaContratos = $('#tablaPersonaContratos').DataTable({
 		},
 		"buttons": {
 			"copy": "Copiar",
-    		"colvis": "Visibilidad de columnas"
-    	}
+    	"colvis": "Visibilidad de columnas"
+    }
 		
 	},
 
@@ -230,10 +230,19 @@ $("#frmNuevoPersonaContrato").validate({
 		nuevoBuscarPersona : "Elija una persona",
 		nuevoCargoEmpleado : "Elija un cargo",
 		nuevoTipoContrato : "Elija una tipo de contrato",
-		nuevoTipoContratacion : "Elija una tipo de contratacion",
+		nuevoTipoContratacion : "Elija un tipo de contratación",
 		nuevoMemorandumInstructivo : "Elija una opción",
 		nuevoGestionContrato : "Elija una gestión",
 	},
+
+	errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
 
 });
 
@@ -242,6 +251,8 @@ GUARDANDO DATOS DE NUEVO PERSONA CONTRATO
 =============================================*/
 
 $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
+
+	$(".btnGuardar").prop("disabled", true);
 
 	var idPersona = $("#nuevoIdPersona").val();
 
@@ -289,6 +300,8 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#nuevoCertificacion").val("");
 							$("#nuevoObservacionesEmpleado").val("");
 
+							$(".btnGuardar").prop("disabled", false);
+
 	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonaContratos.ajax.reload( null, false );
 
@@ -305,6 +318,12 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				}
@@ -312,9 +331,22 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-	      		console.log("No funciona");
+	      swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 	        
-	    	}
+	    }
 
 		});
 
@@ -326,6 +358,12 @@ $("#frmNuevoPersonaContrato").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -386,9 +424,16 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error) {
 
-			    	console.log("No funciona");
+			    swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 			        
-			    }
+			  }
 
 			});
 
@@ -419,9 +464,16 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error) {
 
-			    	console.log("No funciona");
+			    swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 			        
-			    }
+			  }
 
 			});
 
@@ -460,9 +512,16 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error){
 
-		      		console.log("No funciona");
+		      swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 		        
-		    	}
+		    }
 
 			});
 
@@ -526,7 +585,14 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error){
 
-		      console.log("No funciona");
+		      swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 		        
 		    }
 
@@ -588,9 +654,16 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error){
 
-		      		console.log("No funciona");
+		      swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 		        
-		    	}
+		    }
 
 			});
 
@@ -623,7 +696,14 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 				},
 				error: function(error){
 
-		      console.log("No funciona");
+		      swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 		        
 		    }
 
@@ -640,7 +720,14 @@ $(document).on("click", ".btnEditarPersonaContrato", function() {
 		},
 	  error: function(error){
 
-	    console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
 	  }
 
@@ -714,6 +801,15 @@ $("#frmEditarPersonaContrato").validate({
 		editarGestionContrato : "Elija una gestión",
 	},
 
+	errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
+
 });
 
 /*=============================================
@@ -722,7 +818,9 @@ GUARDANDO DATOS DE EDITAR PERSONA CONTRATO
 
 $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 
-    if ($("#frmEditarPersonaContrato").valid()) {
+  $(".btnGuardar").prop("disabled", true);
+
+  if ($("#frmEditarPersonaContrato").valid()) {
 
 		var datos = new FormData($("#frmEditarPersonaContrato")[0]);
 		datos.append("editarPersonaContrato", 'editarPersonaContrato');
@@ -774,8 +872,9 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 							$("#editarObservacionesContrato").val("");
 							// $("#editarIdEmpleado").val("");
 
-	  					// Funcion que recarga y actuaiiza la tabla	
+							$(".btnGuardar").prop("disabled", false);
 
+	  					// Funcion que recarga y actuaiiza la tabla
 							tablaPersonaContratos.ajax.reload( null, false );
 
 						}
@@ -791,6 +890,12 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				}
@@ -798,9 +903,22 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 		        
-		    }
+		  }
 
 		});
 
@@ -812,6 +930,12 @@ $("#frmEditarPersonaContrato").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -850,11 +974,18 @@ $(document).on("click", ".btnDocumentoContrato", function() {
 			$('#editarIdDocumentoContrato').val(respuesta["id_persona_contrato"]);
 			
 		},
-	    error: function(error){
+	  error: function(error){
 
-	      console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -921,9 +1052,16 @@ $("#frmEditarDocumentoContrato").on("click", ".btnGuardar", function() {
 		},
 		error: function(error) {
 
-	        console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -945,14 +1083,14 @@ $(document).on("click", "button.btnImprimirContrato", function() {
 
 	//Para mostrar alerta personalizada de loading
 	swal.fire({
-        text: 'Procesando...',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        onOpen: () => {
-            swal.showLoading()
-        }
-    });
+    text: 'Procesando...',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    onOpen: () => {
+      swal.showLoading()
+    }
+  });
 
 	$.ajax({
 
@@ -1077,11 +1215,18 @@ $(document).on("click", ".btnCargarContrato", function() {
 			}
 			
 		},
-	    error: function(error){
+	  error: function(error){
 
-	      console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -1185,9 +1330,9 @@ $("#frmCargarArchivoContrato").on("click", ".btnGuardar", function() {
 
 				}).then((result) => {
   					
-  					if (result.value) {
+  				if (result.value) {
 
-	  					$('#modalCargarArchivoContrato').modal('toggle');
+	  				$('#modalCargarArchivoContrato').modal('toggle');
 
 					}
 
@@ -1209,9 +1354,16 @@ $("#frmCargarArchivoContrato").on("click", ".btnGuardar", function() {
 		},
 		error: function(error) {
 
-	        console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -1312,7 +1464,14 @@ $(document).on("click", ".btnValidarArchivo", function() {
 			},
 			error: function(error) {
 
-	        console.log("No funciona");
+	      swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
 	        
 	    }
 
@@ -1328,7 +1487,7 @@ CARGANDO DATOS DE EMPLEADO AL FORMULARIO AMPLIAR PERSONA CONTRATO
 
 $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 
-	console.log("AMPLIAR CONTRATO");
+	// console.log("AMPLIAR CONTRATO");
 
 	var id_persona_contrato = $(this).attr("idPersonaContrato");
 
@@ -1411,11 +1570,18 @@ $(document).on("click", ".btnAmpliarPersonaContrato", function() {
 			}
 
 		},
-	    error: function(error) {
+	  error: function(error) {
 
-	      console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -1456,7 +1622,7 @@ GUARDANDO DATOS DE AMPLIAR PERSONA CONTRATO
 
 $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 
-    if ($("#frmAmpliarPersonaContrato").valid()) {
+  if ($("#frmAmpliarPersonaContrato").valid()) {
 
 		var datos = new FormData($("#frmAmpliarPersonaContrato")[0]);
 		datos.append("ampliarPersonaContrato", 'ampliarPersonaContrato');
@@ -1472,7 +1638,7 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 			dataType: "html",
 			success: function(respuesta) {
 
-				console.log("respuesta", respuesta);
+				// console.log("respuesta", respuesta);
 			
 				if (respuesta == "ok") {
 
@@ -1512,11 +1678,10 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 
 							PDFObject.embed("", "#doc_ampliacion_pdf");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
-
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonaContratos.ajax.reload( null, false );
 
-	  						// window.location = "empleados";
+	  					// window.location = "empleados";
 
 						}
 
@@ -1538,13 +1703,20 @@ $("#frmAmpliarPersonaContrato").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
 		        
-		    }
+		  }
 
 		});
 
-    } else {
+  } else {
 
 		swal.fire({
 				
@@ -1566,7 +1738,7 @@ $(".documentoAmpliacion").change(function() {
  	
  	var archivo = this.files[0];
 
-	console.log("archivo", archivo["type"]);
+	// console.log("archivo", archivo["type"]);
 
  	/*=============================================
 	SUBIENDO EL ARCHIVO DEL CONTRATO
@@ -1700,7 +1872,14 @@ $(document).on("click", ".btnValidarDocumentoAmpliacion", function() {
 			},
 			error: function(error) {
 
-	        console.log("No funciona");
+	      swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
 	        
 	    }
 

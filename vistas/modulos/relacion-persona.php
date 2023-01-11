@@ -294,7 +294,7 @@ VENTANA MODAL PARA MOSTRAR RELACION DE NOVEDADES EN PDF
 
         <div class="modal-footer">
 
-          <button type="button" lass="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
+          <button type="button" class="btn btn-round btn-outline-danger btnCerrar float-left" data-dismiss="modal">
 
             <i class="fas fa-times"></i>
             Cerrar

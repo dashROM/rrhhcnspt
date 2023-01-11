@@ -68,13 +68,22 @@ $("#frmNuevoPersonaHeredero").validate({
 		nuevoPaternoHeredero : { patron_texto: true},
 		nuevoMaternoHeredero: { patron_texto: true},
 		nuevoNombreHeredero: { required: true, patron_texto: true},
-   		// nuevoFechaNacimientoHeredero: { required: true},
-   		nuevoParentezco: { required: true},
+   	// nuevoFechaNacimientoHeredero: { required: true},
+   	nuevoParentezco: { required: true},
 	},
 
 	messages: {
   		nuevoParentezco : "Elija un parentezco",
 	},
+
+	errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
 
 });
 
@@ -84,14 +93,16 @@ GUARDANDO DATOS DE NUEVO PERSONA HEREDERO
 
 $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 
+	$(".btnGuardar").prop("disabled", true);
+
 	var idPersona = $("#nuevoIdPersona").val();
 	// console.log("idPersona", idPersona);
 
-    if ($("#frmNuevoPersonaHeredero").valid()) {
+  if ($("#frmNuevoPersonaHeredero").valid()) {
 
-    	// console.log("VALIDADO PERSONA HEREDERO");
+    // console.log("VALIDADO PERSONA HEREDERO");
 
-    	var datos = new FormData($("#frmNuevoPersonaHeredero")[0]);
+    var datos = new FormData($("#frmNuevoPersonaHeredero")[0]);
 		datos.append("idPersona", idPersona);
 		datos.append("nuevoPersonaHeredero", 'nuevoPersonaHeredero');
 
@@ -119,9 +130,9 @@ $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+	  				if (result.value) {
 
-	  						$('#modalAgregarPersonaHeredero').modal('toggle');
+	  					$('#modalAgregarPersonaHeredero').modal('toggle');
 
 							$("#nuevoPaternoHeredero").val("");
 							$("#nuevoMaternoHeredero").val("");
@@ -129,8 +140,9 @@ $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 							$("#nuevoFechaNacimientoHeredero").val("");
 							$("#nuevoParentezco").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
+							$(".btnGuardar").prop("disabled", false); 
 
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonaHerederos.ajax.reload( null, false );
 
 						}
@@ -146,6 +158,12 @@ $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				} else if (respuesta >= 2) {
@@ -157,15 +175,35 @@ $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
+
 				}
 
 			},
 			error: function(error) {
 
-	      		console.log("No funciona");
+	      swal.fire({
+
+					title: "¡Los campos obligatorios no puede ir vacio o llevar caracteres especiales!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 	        
-	    	}
+	    }
 
 		});
 
@@ -177,6 +215,12 @@ $("#frmNuevoPersonaHeredero").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -210,18 +254,27 @@ $(document).on("click", ".btnEditarPersonaHeredero", function() {
 		dataType: "json",
 		success: function(respuesta) {
 			console.log("respuesta", respuesta);
+
 			$('#editarPaternoHeredero').val(respuesta["paterno_heredero"]);
 			$('#editarMaternoHeredero').val(respuesta["materno_heredero"]);
 			$('#editarNombreHeredero').val(respuesta["nombre_heredero"]);
 			$('#editarFechaNacimientoHeredero').val(respuesta["fecha_nacimiento"]);
 			$('#editarParentezco').val(respuesta["parentezco"]).selectpicker('refresh');
 			$('#idPersonaHeredero').val(respuesta["id_persona_heredero"]);
-		},
-	    error: function(error){
 
-	      console.log("No funciona");
+		},
+	  error: function(error){
+
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -252,7 +305,7 @@ GUARDANDO DATOS DE EDITAR PERSONA HEREDERO
 
 $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 
-    if ($("#frmEditarPersonaHeredero").valid()) {
+  if ($("#frmEditarPersonaHeredero").valid()) {
 
 		var datos = new FormData($("#frmEditarPersonaHeredero")[0]);
 		datos.append("editarPersonaHeredero", 'editarPersonaHeredero');
@@ -282,9 +335,9 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-		  				if (result.value) {
+		  			if (result.value) {
 
-		  					$('#modalEditarPersonaHeredero').modal('toggle');
+		  				$('#modalEditarPersonaHeredero').modal('toggle');
 
 							$("#editarPaternoHeredero").val("");
 							$("#editarMaternoHeredero").val("");
@@ -293,8 +346,9 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 							$("#editarParentezco").val("");
 							$("#idPersonaHeredero").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
+							$(".btnGuardar").prop("disabled", false);  
 
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonaHerederos.ajax.reload( null, false );
 
 						}
@@ -310,6 +364,12 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				}
@@ -317,9 +377,22 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 		        
-		    }
+		  }
 
 		});
 
@@ -331,6 +404,12 @@ $("#frmEditarPersonaHeredero").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -391,9 +470,9 @@ $(document).on("click", ".btnEliminarPersonaHeredero", function() {
 
 						}).then((result) => {
 		  					
-			  				if (result.value) {
+			  			if (result.value) {
 
-		  						// Funcion que recarga y actuaiiza la tabla	
+		  					// Funcion que recarga y actuaiiza la tabla	
 
 								tablaPersonaHerederos.ajax.reload( null, false );
 
@@ -417,9 +496,16 @@ $(document).on("click", ".btnEliminarPersonaHeredero", function() {
 				},
 				error: function(error) {
 
-			        console.log("No funciona");
+			    swal.fire({
+
+						title: "¡Error de conexión a la Base de Datos!",
+						icon: "error",
+						allowOutsideClick: false,
+						confirmButtonText: "¡Cerrar!"
+
+					});
 			        
-			    }
+			  }
 
 			});
 

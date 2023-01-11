@@ -183,9 +183,9 @@ $("#frmNuevoRelacion").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+	  				if (result.value) {
 
-	  						window.location = "relacion-novedades";
+	  					window.location = "relacion-novedades";
 
 						}
 
@@ -207,9 +207,9 @@ $("#frmNuevoRelacion").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    console.log("No funciona");
 		        
-		    }
+		  }
 
 		});
 
@@ -263,11 +263,11 @@ $(document).on("click", ".btnEditarRelacion", function() {
 			$('#editarIdPlanilla').val(respuesta["id_planilla"]);
 
 		},
-	    error: function(error){
+	  error: function(error){
 
-	      console.log("No funciona");
+	    console.log("No funciona");
 	        
-	    }
+	  }
 
 	});
 
@@ -337,18 +337,17 @@ $("#frmEditarRelacion").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+	  				if (result.value) {
 
-	  						$('#modalEditarRelacion').modal('toggle');
+	  					$('#modalEditarRelacion').modal('toggle');
 
 							// $("#editarTituloPlanilla").val("");
 							$("#editarIdPlanilla").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
-
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaRelacion.ajax.reload( null, false );
 
-	  						// window.location = "empleados";
+	  					// window.location = "empleados";
 
 						}
 
@@ -370,9 +369,9 @@ $("#frmEditarRelacion").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    console.log("No funciona");
 		        
-		    }
+		  }
 
 		});
 
@@ -622,7 +621,7 @@ $(document).on("click", ".btnAgregarDiasTrabajados", function() {
 		processData: false,
 		dataType: "json",
 		success: function(respuesta) {
-			console.log("respuesta", respuesta);
+			// console.log("respuesta", respuesta);
 
 			$('#nombre').text(respuesta["nombre_persona"]);
 			$('#ci').text(respuesta["ci_persona"]);
@@ -740,6 +739,8 @@ $("#frmAgregarDiasTrabajados").on("click", ".btnGuardar", function() {
 					// }).then((result) => {
 	  					
 	  		// 			if (result.value) {
+
+							toastr.success('El Dato se guardó correctamente.')
 
 	  						$('#modalAgregarDiasTrabajados').modal('toggle');
 

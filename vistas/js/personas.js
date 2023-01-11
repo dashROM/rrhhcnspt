@@ -14,6 +14,8 @@ var tablaPersonas = $('#tablaPersonas').DataTable({
 
 	"processing" : true,
 
+	"stateSave": true,
+
 	"language": {
 
 		"sProcessing":     "Procesando...",
@@ -113,23 +115,34 @@ VALIDANDO DATOS DE NUEVA PERSONA
 =============================================*/
 $("#frmNuevoPersona").validate({
 
-  	rules: {
-  		nuevoPaternoPersona : { patron_texto: true},
+  rules: {
+  	nuevoPaternoPersona: { patron_texto: true},
 		nuevoMaternoPersona: { patron_texto: true},
 		nuevoNombrePersona: { required: true, patron_texto: true},
-   		nuevoCIPersona: { required: true},
-   		nuevoExtCIPersona : { required: true},
-   		nuevoFechaNacimientoPersona: { required: true},
-   		nuevoSexoPersona: { required: true},
-   		nuevoDireccionPersona : { required: true, patron_textoEspecial: true},
-   		nuevoTelefonoPersona : { required: true, patron_numeros: true},
-   		nuevoEmailPersona : { patron_textoEspecial: true},   		  
-  	},
+   	nuevoCIPersona: { required: true},
+   	nuevoExtCIPersona: { required: true},
+   	nuevoFechaNacimientoPersona: { required: true},
+   	nuevoSexoPersona: { required: true},
+   	nuevoEstadoCivilPersona: { required: true},
+   	nuevoDireccionPersona : { required: true, patron_textoEspecial: true},
+   	nuevoTelefonoPersona : { required: true, patron_numeros: true},
+   	nuevoEmailPersona : { patron_textoEspecial: true},   		  
+  },
 
-  	messages: {
-		nuevoExtCIUsuario : "Elija una extensión",
-		nuevoSexoPersona : "Elija una opción",
+  messages: {
+		nuevoExtCIPersona: "Elija una extensión",
+		nuevoSexoPersona: "Elija una opción",
+		nuevoEstadoCivilPersona: "Elija una opción"
 	},
+
+	errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
 
 });
 
@@ -139,9 +152,9 @@ GUARDANDO DATOS DE NUEVA PERSONA
 
 $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 
-    if ($("#frmNuevoPersona").valid()) {
+	$(".btnGuardar").prop("disabled", true);
 
-    	// console.log("VALIDADO PERSONA");
+  if ($("#frmNuevoPersona").valid()) {
 
 		var datos = new FormData($("#frmNuevoPersona")[0]);
 		datos.append("nuevoPersona", 'nuevoPersona');
@@ -170,9 +183,9 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+	  				if (result.value) {
 
-	  						window.location = "personas";
+	  					window.location = "personas";
 
 						}
 
@@ -187,6 +200,12 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				}
@@ -194,9 +213,22 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 		        
-		    }
+		  }
 
 		});
 
@@ -208,6 +240,12 @@ $("#frmNuevoPersona").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -264,11 +302,18 @@ $(document).on("click", ".btnEditarPersona", function() {
 			}
 
 		},
-	    error: function(error){
+	  error: function(error){
 
-	      console.log("No funciona");
+	    swal.fire({
+
+				title: "¡Error de conexión a la Base de Datos!",
+				icon: "error",
+				allowOutsideClick: false,
+				confirmButtonText: "¡Cerrar!"
+
+			});
 	        
-	    }
+	  }
 
 	});
 
@@ -279,25 +324,34 @@ VALIDANDO DATOS DE EDITAR PERSONA
 =============================================*/
 $("#frmEditarPersona").validate({
 
-  	rules: {
-  		editarPaternoPersona : { patron_texto: true},
+  rules: {
+  	editarPaternoPersona : { patron_texto: true},
 		editarMaternoPersona : { patron_texto: true},
 		editarNombrePersona : { required: true, patron_texto: true},
-   		editarCIPersona : { required: true},
-   		editarExtCIPersona : { required: true},
-   		editarFechaNacimientoPersona: { required: true},
-   		editarSexoPersona : { required: true},
-   		editarEstadoCivilPersona : { required: true},
-   		editarDireccionPersona : { required: true, patron_textoEspecial: true},
-   		editarTelefonoPersona : { required: true, patron_numeros: true},
-   		editarEmailPersona : { patron_textoEspecial: true},   		  
-  	},
+   	editarCIPersona : { required: true},
+ 		editarExtCIPersona : { required: true},
+ 		editarFechaNacimientoPersona: { required: true},
+ 		editarSexoPersona : { required: true},
+ 		editarEstadoCivilPersona : { required: true},
+ 		editarDireccionPersona : { required: true, patron_textoEspecial: true},
+ 		editarTelefonoPersona : { required: true, patron_numeros: true},
+ 		editarEmailPersona : { patron_textoEspecial: true},   		  
+  },
 
-  	messages: {
-		editarExtCIUsuario : "Elija una extensión",
+  messages: {
+		editarExtCIPersona : "Elija una extensión",
 		editarSexoPersona : "Elija una opción",
-		editarEstadoCivilPersona : "Elija una opción",
+		editarEstadoCivilPersona: "Elija una opción"
 	},
+
+	errorPlacement: function(error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $(placement).append(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
 
 });
 
@@ -307,9 +361,11 @@ GUARDANDO DATOS DE EDITAR PERSONA
 
 $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 
-    if ($("#frmEditarPersona").valid()) {
+	$(".btnGuardar").prop("disabled", true);
 
-    	var datos = new FormData($("#frmEditarPersona")[0]);
+  if ($("#frmEditarPersona").valid()) {
+
+    var datos = new FormData($("#frmEditarPersona")[0]);
 		datos.append("editarPersona", 'editarPersona');
 
 		$.ajax({
@@ -336,9 +392,9 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 
 					}).then((result) => {
 	  					
-	  					if (result.value) {
+	  				if (result.value) {
 
-	  						$('#modalEditarPersona').modal('toggle');
+	  					$('#modalEditarPersona').modal('toggle');
 
 							$("#editarPaternoPersona").val("");	
 							$("#editarMaternoPersona").val("");
@@ -354,8 +410,9 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 							$("#editarFotoPersona").val("");
 							$("#editarIdPersona").val("");
 
-	  						// Funcion que recarga y actuaiiza la tabla	
+							$(".btnGuardar").prop("disabled", false);
 
+	  					// Funcion que recarga y actuaiiza la tabla	
 							tablaPersonas.ajax.reload( null, false );
 
 						}
@@ -371,6 +428,12 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 						allowOutsideClick: false,
 						confirmButtonText: "¡Cerrar!"
 
+					}).then((result) => {
+
+						if (result.value) {
+							$(".btnGuardar").prop("disabled", false);
+						}
+
 					});
 					
 				}
@@ -378,9 +441,22 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 			},
 			error: function(error) {
 
-		        console.log("No funciona");
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				}).then((result) => {
+
+					if (result.value) {
+						$(".btnGuardar").prop("disabled", false);
+					}
+
+				});
 		        
-		    }
+		   }
 
 		});
 
@@ -392,6 +468,12 @@ $("#frmEditarPersona").on("click", ".btnGuardar", function() {
 			icon: "error",
 			allowOutsideClick: false,
 			confirmButtonText: "¡Cerrar!"
+
+		}).then((result) => {
+
+			if (result.value) {
+				$(".btnGuardar").prop("disabled", false);
+			}
 
 		});
 		
@@ -445,7 +527,19 @@ $("#nuevoCIPersona").change(function() {
 
 				} 
 
-			}
+			},
+			error: function(error){
+
+		    swal.fire({
+
+					title: "¡Error de conexión a la Base de Datos!",
+					icon: "error",
+					allowOutsideClick: false,
+					confirmButtonText: "¡Cerrar!"
+
+				});
+		        
+		  }
 
 		});
 

@@ -195,15 +195,15 @@ MODAL AGREGAR PERSONA
 
               <!-- ENTRADA PARA EL CI -->
               
-              <div class="form-group">
+              <div class="form-group mb-3">
                 
                 <label class="font-weight-normal" for="nuevoCIPersona">NRO. CI</label>
                 <i class="fas fa-asterisk asterisk"></i>
 
-                <div class="input-group mb-3">
+                <div class="input-group mb-0">
 
-                  <input type="text" class="form-control" id="nuevoCIPersona" name="nuevoCIPersona">                
-                  <select class="form-control selectpicker show-tick" id="nuevoExtCIPersona" name="nuevoExtCIPersona"  data-size="5" title="Elegir...">
+                  <input type="text" class="form-control" id="nuevoCIPersona" name="nuevoCIPersona" data-error="#errNm1">                
+                  <select class="form-control selectpicker show-tick" id="nuevoExtCIPersona" name="nuevoExtCIPersona"  data-size="5" title="Elegir..." data-error="#errNm2">
                     <option value="PT">PT</option>
                     <option value="CH">CH</option>
                     <option value="OR">OR</option>
@@ -216,6 +216,8 @@ MODAL AGREGAR PERSONA
                   </select>
 
                 </div>
+
+                <span id="errNm1"></span><span id="errNm2"></span>
 
               </div>
 
@@ -235,11 +237,15 @@ MODAL AGREGAR PERSONA
                 
                 <label class="font-weight-normal" for="nuevoSexoPersona">SEXO</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoSexoPersona" name="nuevoSexoPersona" data-size="5" title="Elegir...">
+
+                <select class="form-control selectpicker show-tick" id="nuevoSexoPersona" name="nuevoSexoPersona" data-size="5" title="Elegir..." data-error="#errNm3">
+                  
                   <option value="FEMENINO">FEMENINO</option>
                   <option value="MASCULINO">MASCULINO</option>
-                  
+
                 </select>
+
+                <span id="errNm3"></span>
 
               </div>
 
@@ -249,13 +255,15 @@ MODAL AGREGAR PERSONA
                 
                 <label class="font-weight-normal" for="nuevoEstadoCivilPersona">ESTADO CIVIL</label>
                 <i class="fas fa-asterisk asterisk"></i>
-                <select class="form-control selectpicker show-tick" id="nuevoEstadoCivilPersona" name="nuevoEstadoCivilPersona" data-size="5" title="Elegir...">
+                <select class="form-control selectpicker show-tick" id="nuevoEstadoCivilPersona" name="nuevoEstadoCivilPersona" data-size="5" title="Elegir..." data-error="#errNm4">
                   <option value="SOLTERO(A)">SOLTERO(A)</option>
                   <option value="CASADO(A)">CASADO(A)</option>
                   <option value="DIVORCIADO(A)">DIVORCIADO(A)</option>
                   <option value="VIUDO(A)">VIUDO(A)</option>
                   
                 </select>
+
+                <span id="errNm4"></span>
 
               </div>           
 
@@ -441,10 +449,10 @@ MODAL EDITAR PERSONA
                 <label class="font-weight-normal" for="editarCIPersona">NRO. CI</label>
                 <i class="fas fa-asterisk asterisk"></i>
 
-                <div class="input-group mb-3">
+                <div class="input-group mb-0">
 
-                  <input type="text" class="form-control" id="editarCIPersona" name="editarCIPersona">                
-                  <select class="form-control selectpicker show-tick" id="editarExtCIPersona" name="editarExtCIPersona" data-size="5">
+                  <input type="text" class="form-control" id="editarCIPersona" name="editarCIPersona" data-error="#errNm5">                
+                  <select class="form-control selectpicker show-tick" id="editarExtCIPersona" name="editarExtCIPersona" data-size="5" data-error="#errNm6">
                     <option value="PT">PT</option>
                     <option value="CH">CH</option>
                     <option value="OR">OR</option>
@@ -457,6 +465,8 @@ MODAL EDITAR PERSONA
                   </select>
 
                 </div>
+
+                <span id="errNm5"></span><span id="errNm6"></span>
 
               </div>
 

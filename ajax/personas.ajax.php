@@ -160,7 +160,19 @@ class AjaxPersonas {
 		$materno = $this->materno_persona;
 		$nombre = $this->nombre_persona;
 
-		$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+		if ($paterno == "") {
+
+			$matricula = $anio.$mes.$dia.substr($materno, 0, 2).substr($nombre, 0, 1);
+
+		} elseif ($materno == "") {
+
+			$matricula = $anio.$mes.$dia.substr($paterno, 0, 2).substr($nombre, 0, 1);
+
+		} else {
+
+			$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+
+		}
 
 		$datos = array("paterno_persona"     => mb_strtoupper($this->paterno_persona,'utf-8'), 
 						       "materno_persona"	   => mb_strtoupper($this->materno_persona,'utf-8'),
@@ -306,7 +318,19 @@ class AjaxPersonas {
 		$materno = $this->materno_persona;
 		$nombre = $this->nombre_persona;
 
-		$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+		if ($paterno == "") {
+
+			$matricula = $anio.$mes.$dia.substr($materno, 0, 2).substr($nombre, 0, 1);
+
+		} elseif ($materno == "") {
+
+			$matricula = $anio.$mes.$dia.substr($paterno, 0, 2).substr($nombre, 0, 1);
+
+		} else {
+
+			$matricula = $anio.$mes.$dia.substr($paterno, 0, 1).substr($materno, 0, 1).substr($nombre, 0, 1);
+
+		}
 
 		$datos = array("paterno_persona"    => mb_strtoupper($this->paterno_persona,'utf-8'), 
 						       "materno_persona"	  => mb_strtoupper($this->materno_persona,'utf-8'),
