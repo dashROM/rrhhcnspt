@@ -29,7 +29,8 @@ require_once "../modelos/persona_herederos.modelo.php";
 
 require_once "../scripts/funciones_auxiliares.script.php";
 
-require_once('../extensiones/tcpdf/tcpdf.php');
+// require_once('../extensiones/tcpdf/tcpdf.php');
+require_once "../extensiones/TCPDF-main/tcpdf.php";
 
 class MYPDF extends TCPDF {
 
@@ -63,31 +64,36 @@ class MYPDF extends TCPDF {
 
 	        // Logo
 	        $image_file = K_PATH_IMAGES.'cns-logo-actual.jpg';
-	        $this->Image($image_file, 10, 6, 20, '', 'JPG', '', 'T', false, 100, '', false, false, 0, false, false, false);
+	        $this->Image($image_file, 5, 6, 20, '', 'JPG', '', 'T', false, 100, '', false, false, 0, false, false, false);
 
 	        // Titulo
 	        // $this->Cell(0, 40, 'Dirección: Av. El Maestro Nº', 0, 1, 'L', 0, '', 1);
 	        // $this->Cell(0, 10, 'Telefono: 62626262', 0, 1, 'L', 0, '', 1);	       
 
-	        $this->Cell(15, 250, '', 'R', 1, 'L', 0, '', 1);
+	        // $this->Cell(25, 250, '', 'R', 1, 'L', 0, '', 1);
+
+	        // set border width
+			$this->SetLineWidth(0.1);
+			$this->line(35,5,35,275);
+
 
 	        $this->SetFont('helvetica', 'B', 7);
-	        $this->MultiCell(35, 5, 'Dirección:', 0, 'L', 0, 0, 10, 40, true);
+	        $this->MultiCell(30, 5, 'Dirección:', 0, 'L', 0, 0, 5, 40, true);
 	       	$this->SetFont('helvetica', '', 7);	       
-	        $this->MultiCell(35, 5, 'Av. El Maestro S/N', 0, 'L', 0, 0, 10, 45, true);
+	        $this->MultiCell(30, 5, 'Av. El Maestro S/N', 0, 'L', 0, 0, 5, 45, true);
 	        $this->SetFont('helvetica', 'B', 7);
-	        $this->MultiCell(35, 5, 'TELEFONOS:', 0, 'L', 0, 0, 10, 55, true);
-	        $this->MultiCell(35, 5, 'Administración:', 0, 'L', 0, 0, 10, 60, true);
+	        $this->MultiCell(30, 5, 'TELEFONOS:', 0, 'L', 0, 0, 5, 55, true);
+	        $this->MultiCell(30, 5, 'Administración:', 0, 'L', 0, 0, 5, 60, true);
 	        $this->SetFont('helvetica', '', 7);
-	        $this->MultiCell(35, 5, '62-23840', 0, 'L', 0, 0, 10, 65, true);
+	        $this->MultiCell(30, 5, '62-23840', 0, 'L', 0, 0, 5, 65, true);
 	        $this->SetFont('helvetica', 'B', 7);
-	        $this->MultiCell(35, 5, 'Asesoria Jurídica:', 0, 'L', 0, 0, 10, 70, true);
+	        $this->MultiCell(30, 5, 'Asesoria Jurídica:', 0, 'L', 0, 0, 5, 70, true);
 	        $this->SetFont('helvetica', '', 7);
-	        $this->MultiCell(35, 5, '62-25993', 0, 'L', 0, 0, 10, 75, true);
+	        $this->MultiCell(30, 5, '62-25993', 0, 'L', 0, 0, 5, 75, true);
 	        $this->SetFont('helvetica', 'B', 7);
-	        $this->MultiCell(35, 5, 'Página Web:', 0, 'L', 0, 0, 10, 85, true);
+	        $this->MultiCell(30, 5, 'Página Web:', 0, 'L', 0, 0, 5, 85, true);
 	        $this->SetFont('helvetica', '', 7);
-			$this->MultiCell(35, 5, 'www.cnspotosi.gob.bo', 0, 'L', 0, 0, 10, 90, true);
+			$this->MultiCell(30, 5, 'www.cnspotosi.gob.bo', 0, 'L', 0, 0, 5, 90, true);
 
 	        // Estilos necesarios para el Codigo QR
 			$style = array(
@@ -104,7 +110,7 @@ class MYPDF extends TCPDF {
 			$codeContents = "COD. CONTRATO: ".$this->cod_contrato."\n"."APELLIDOS Y NOMBRES: ".$this->nombre_persona."\n"."NRO. CI: ".$this->ci_persona."\n"."TIPO. CONTRATO: ".$this->tipo_contrato."\n"."INICIO CONTRATO: ".date("d/m/Y", strtotime($this->inicio_contrato))."\n"."FIN CONTRATO: ".date("d/m/Y", strtotime($this->fin_contrato));
 
 			// insertando el código QR
-			$this->write2DBarcode($codeContents, 'QRCODE,L', 5, 220, 35, 35, $style, 'N');	
+			$this->write2DBarcode($codeContents, 'QRCODE,L', 3, 220, 30, 30, $style, 'N');	
 
 			// set border width
 			// $this->SetLineWidth(0.1);
@@ -2047,7 +2053,7 @@ class AjaxPersonaContratos {
 		$pdf->SetTextColor(0, 0, 0);
 			
 		// Reconociendo la estructura HTML
-		$pdf->writeHTMLCell(40, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
+		$pdf->writeHTMLCell(30, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
 
 		// set color for background
 		$pdf->SetFillColor(255, 255, 255);
@@ -2055,7 +2061,7 @@ class AjaxPersonaContratos {
 		// set color for text
 		$pdf->SetTextColor(0, 0, 0);
 
-		$pdf->writeHTMLCell(160, '', '', '', $content, 0, 1, 0, true, 'J', true);
+		$pdf->writeHTMLCell(165, '', '', '', $content, 0, 1, 0, true, 'J', true);
 		// $pdf->writeHTML($content, true, false, true, false, '');
 
 		// Insertando el Logo
@@ -2065,7 +2071,7 @@ class AjaxPersonaContratos {
 
 		$pdf->lastPage();
 
-		$pdf->output('../temp/contrato-'.$valor.'.pdf', 'F');
+		$pdf->output(__DIR__ .'/temp/contrato-'.$valor.'.pdf', 'F');
 
 	}
 

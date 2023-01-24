@@ -2,7 +2,7 @@
 
 class FuncionesAuxiliares {
 
-	public function unidad($numuero) {
+	static public function unidad($numuero) {
 
 		switch ($numuero)
 		{
@@ -60,7 +60,7 @@ class FuncionesAuxiliares {
 		return $numu;
 	}
  
-	public function decena($numdero) {
+	static public function decena($numdero) {
  
 		if ($numdero >= 90 && $numdero <= 99)
 		{
@@ -172,7 +172,7 @@ class FuncionesAuxiliares {
 		return $numd;
 	}
  
-	public function centena($numc) {
+	static public function centena($numc) {
 
 		if ($numc >= 100)
 		{
@@ -238,7 +238,7 @@ class FuncionesAuxiliares {
 		return $numce;
 	}
  
-	public function miles($nummero) {
+	static public function miles($nummero) {
 
 		if ($nummero >= 1000 && $nummero < 2000){
 			$numm = "MIL ".(self::centena($nummero%1000));
@@ -252,7 +252,7 @@ class FuncionesAuxiliares {
 		return $numm;
 	}
  
-	public function decmiles($numdmero) {
+	static public function decmiles($numdmero) {
 
 		if ($numdmero == 10000)
 			$numde = "DIEZ MIL";
@@ -269,7 +269,7 @@ class FuncionesAuxiliares {
 
 	}
  
-	public function cienmiles($numcmero) {
+	static public function cienmiles($numcmero) {
 
 		if ($numcmero == 100000)
 			$num_letracm = "CIEN MIL";
@@ -282,7 +282,7 @@ class FuncionesAuxiliares {
 
 	}
  
-	public function millon($nummiero) {
+	static public function millon($nummiero) {
 
 		if ($nummiero >= 1000000 && $nummiero <2000000){
 			$num_letramm = "UN MILLON ".(self::cienmiles($nummiero%1000000));
@@ -297,7 +297,7 @@ class FuncionesAuxiliares {
 
 	}
  
-	public function decmillon($numerodm) {
+	static public function decmillon($numerodm) {
 
 		if ($numerodm == 10000000)
 			$num_letradmm = "DIEZ MILLONES";
@@ -314,7 +314,7 @@ class FuncionesAuxiliares {
 
 	}
  
-	public function cienmillon($numcmeros) {
+	static public function cienmillon($numcmeros) {
 
 		if ($numcmeros == 100000000)
 			$num_letracms = "CIEN MILLONES";
@@ -327,7 +327,7 @@ class FuncionesAuxiliares {
 
 	}
  
-	public function milmillon($nummierod) {
+	static public function milmillon($nummierod) {
 
 		if ($nummierod >= 1000000000 && $nummierod <2000000000){
 			$num_letrammd = "MIL ".(self::cienmillon($nummierod%1000000000));
@@ -342,7 +342,7 @@ class FuncionesAuxiliares {
 
 	} 
  
-	public function convertir($numero) {
+	static public function convertir($numero) {
 
  	  $num = str_replace(",","",$numero);
     $num = number_format($num,2,'.','');

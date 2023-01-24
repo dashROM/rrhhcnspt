@@ -1112,7 +1112,7 @@ $(document).on("click", "button.btnImprimirContrato", function() {
 
 			});	
 
-			PDFObject.embed("../temp/contrato-"+id_persona_contrato+".pdf", "#view_pdf");
+			PDFObject.embed("../ajax/temp/contrato-"+id_persona_contrato+".pdf", "#view_pdf");
 
 		}
 
