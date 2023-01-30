@@ -823,7 +823,7 @@ $(document).on("click", ".btnPDFRelacion", function() {
 			
 			});	
 			
-			PDFObject.embed("../temp/relacion-"+id_planilla+".pdf", "#view_pdf");
+			PDFObject.embed("../ajax/temp/relacion-"+id_planilla+".pdf", "#view_pdf");
 
 		}
 
@@ -877,7 +877,7 @@ $(document).on("click", ".btnPDFBoletaPersona", function() {
 			
 			});	
 			
-			PDFObject.embed("../temp/boleta-"+id_planilla_persona_contrato+".pdf", "#view_pdf");
+			PDFObject.embed("../ajax/temp/boleta-"+id_planilla_persona_contrato+".pdf", "#view_pdf");
 
 		}
 
@@ -931,7 +931,7 @@ $(document).on("click", ".btnPDFBoletas", function() {
 			
 			});	
 			
-			PDFObject.embed("../temp/boletas-"+id_planilla+".pdf", "#view_pdf");
+			PDFObject.embed("../ajax/temp/boletas-"+id_planilla+".pdf", "#view_pdf");
 
 		}
 
@@ -986,7 +986,7 @@ $(document).on("click", ".btnPDFPlanilla", function() {
 			
 			});	
 			
-			PDFObject.embed("../temp/planilla-"+id_planilla+".pdf", "#view_pdf");
+			PDFObject.embed("../ajax/temp/planilla-"+id_planilla+".pdf", "#view_pdf");
 
 		}
 
